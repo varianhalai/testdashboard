@@ -99,6 +99,7 @@ class App extends React.Component {
             <a target="_blank" rel="noopener noreferrer" href="https://silagepete.github.io/add-fcrvrenwbtc/">fcrvRenWBTC</a>&nbsp;&#x2014;&nbsp;
             <a target="_blank" rel="noopener noreferrer" href="https://farm.chainwiki.dev">Harvest Wiki</a>
           </p>
+          <p>Please consider donating: 0x84BB14595Fd30a53cbE18e68085D42645901D8B6</p>
         </header>
       </div>
     );
@@ -107,7 +108,7 @@ class App extends React.Component {
   renderConnectStatus() {
     if (!this.state.provider) {
       return <div>
-        Please connect your wallet <button onClick={this.connectMetamask.bind(this)}>Connect Wallet</button>
+        Start here: <button onClick={this.connectMetamask.bind(this)}>Connect Wallet</button>
       </div>;
     }
     return <p>Your wallet address is: <span id="address">{this.state.address || "not connected"}</span></p>;
@@ -125,10 +126,14 @@ class App extends React.Component {
   }
 
   renderRefreshButton() {
-    return <button
-      disabled={!this.state.provider}
-      onClick={this.refreshButtonAction.bind(this)}
-    >Refresh Table</button>
+    const buttonText = (this.state.summaries.length === 0) ? 'Click here to start!' : 'Refresh Table';  
+
+    return <div>
+      <button
+        disabled={!this.state.provider}
+        onClick={this.refreshButtonAction.bind(this)}
+      >{buttonText}</button>
+    </div>;
   }
 
   renderHarvestButton() {
