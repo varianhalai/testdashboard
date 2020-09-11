@@ -1,6 +1,7 @@
+CURRENT_COMMIT=$(git rev-parse HEAD)
 git checkout -b tmp-gh-pages && \
 git add -f ./build && \
-git commit -m "I hate this" && \
+git commit -m "$CURRENT_COMMIT" && \
 git subtree split --prefix build -b gh-pages && \
 git push -f origin gh-pages:gh-pages && \
 git checkout master
