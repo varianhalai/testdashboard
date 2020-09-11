@@ -5,7 +5,7 @@ const gecko = require('./gecko.js');
 const utils = require('./utils.js');
 const ethers = require('ethers');
 
-module.exports = {
+export default {
   ethers,
   gecko,
   manager,

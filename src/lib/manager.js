@@ -1,11 +1,11 @@
-const data = require('./data/deploys.js');
-const ethers = require('ethers');
-const {HarvestRewardsPool} = require('./pool.js');
+import data from './data/deploys.js';
+import ethers from 'ethers';
+import {HarvestRewardsPool} from './pool.js';
 
 /**
  * Reward pool wrapper
  */
-class PoolManager {
+export class PoolManager {
   /**
    *  Instantiate from the hardcoded pools
    *
@@ -232,7 +232,7 @@ class PoolManager {
   }
 }
 
-module.exports = {
+export default {
   data,
   ethers,
   HarvestRewardsPool,

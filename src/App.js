@@ -1,9 +1,11 @@
 import detectEthereumProvider from '@metamask/detect-provider';
-import harvest, {ethers} from './lib/index.js';
+import harvest from './lib/index.js';
 
 import React from 'react';
 import './App.css';
 import MainTable from './components/MainTable.js';
+
+const ethers = harvest.ethers;
 
 class App extends React.Component {
 

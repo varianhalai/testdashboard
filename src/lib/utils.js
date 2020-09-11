@@ -1,11 +1,11 @@
-const ethers = require('ethers');
+import ethers from 'ethers';
 
 /**
  * Prettifies a positions for console.table
  * @param {Object} sum position summary
  * @return {Object} pretty
  */
-function prettyPosition(sum) {
+export function prettyPosition(sum) {
   const {
     name,
     summary: {
@@ -31,7 +31,7 @@ function prettyPosition(sum) {
  * @param {Object} u
  * @return {Object} pretty
  */
-function prettyUnderlying(u) {
+export function prettyUnderlying(u) {
   if (u.underlyingBalances[0].balance.isZero()) {
     return;
   }
@@ -54,7 +54,7 @@ function prettyUnderlying(u) {
   };
 }
 
-module.exports = {
+export default {
   prettyUnderlying,
   prettyPosition,
 };

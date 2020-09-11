@@ -1,11 +1,11 @@
-const data = require('./data/deploys.js');
-const abis = require('./data/ABIs.js');
-const ethers = require('ethers');
+import data from './data/deploys.js';
+import {ERC20_ABI, UNISWAP_PAIR_ABI, BALANCER_ABI, REWARDS_ABI} from './data/ABIs.js';
+import ethers from 'ethers';
 
 /**
  * Extra functions for erc20
  */
-class EnhancedERC20 extends ethers.Contract {
+export class EnhancedERC20 extends ethers.Contract {
   /**
    *
    * @param {Object} address the address of the erc20
@@ -44,7 +44,7 @@ class EnhancedERC20 extends ethers.Contract {
 /**
  * LP Token wrapper
  */
-class LPToken extends ethers.Contract {
+export class LPToken extends ethers.Contract {
   /**
    *
    * @param {Object} pool object from data/deploy.js
@@ -70,7 +70,7 @@ class LPToken extends ethers.Contract {
       case 'uniswap':
         return new UniswapLPToken(pool, provider);
       default:
-        return new LPToken(pool, abis.ERC20_ABI, provider);
+        return new LPToken(pool, ERC20_ABI, provider);
     }
   }
 }
@@ -78,14 +78,14 @@ class LPToken extends ethers.Contract {
 /**
  * LP Token wrapper
  */
-class UniswapLPToken extends LPToken {
+export class UniswapLPToken extends LPToken {
   /**
    *
    * @param {Object} pool object from data/deploy.js
    * @param {Object} provider web3 provider
    */
   constructor(pool, provider) {
-    super(pool, abis.UNISWAP_PAIR_ABI, provider);
+    super(pool, UNISWAP_PAIR_ABI, provider);
 
     this.reserve0 = async () => (
       await this.getReserves()[0]
@@ -104,7 +104,7 @@ class UniswapLPToken extends LPToken {
     }
     const address = await this.token0();
     this._token0 = new EnhancedERC20(
-        address, 18, abis.ERC20_ABI, this.provider,
+        address, 18, ERC20_ABI, this.provider,
     );
     return this._token0;
   }
@@ -118,7 +118,7 @@ class UniswapLPToken extends LPToken {
     }
     const address = await this.token1();
     this._token1 = new EnhancedERC20(
-        address, 18, abis.ERC20_ABI, this.provider,
+        address, 18, ERC20_ABI, this.provider,
     );
     return this._token1;
   }
@@ -161,14 +161,14 @@ class UniswapLPToken extends LPToken {
 /**
  * LP Token wrapper
  */
-class BalancerLPToken extends LPToken {
+export class BalancerLPToken extends LPToken {
   /**
    *
    * @param {Object} pool object from data/deploy.js
    * @param {Object} provider web3 provider
    */
   constructor(pool, provider) {
-    super(pool, abis.BALANCER_ABI, provider);
+    super(pool, BALANCER_ABI, provider);
   }
 
   /**
@@ -181,7 +181,7 @@ class BalancerLPToken extends LPToken {
     const tokens = [];
     (await this.getCurrentTokens()).forEach((token) => {
       tokens.push(
-          new EnhancedERC20(token, 18, abis.ERC20_ABI, this.provider),
+          new EnhancedERC20(token, 18, ERC20_ABI, this.provider),
       );
     });
     this._getCurrentTokens = tokens;
@@ -246,14 +246,14 @@ class BalancerLPToken extends LPToken {
 /**
  * Reward pool wrapper
  */
-class HarvestRewardsPool extends ethers.Contract {
+export class HarvestRewardsPool extends ethers.Contract {
   /**
    *
    * @param {Object} pool object from data/deploy.js
    * @param {Object} provider web3 provider
    */
   constructor(pool, provider) {
-    super(pool.address, abis.REWARDS_ABI, provider);
+    super(pool.address, REWARDS_ABI, provider);
     this.name = pool.asset.name;
     this._pool = pool;
 
@@ -397,7 +397,3 @@ class HarvestRewardsPool extends ethers.Contract {
     return output;
   }
 }
-
-module.exports = {
-  HarvestRewardsPool,
-};

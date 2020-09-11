@@ -529,7 +529,7 @@ periods.forEach((week) => {
 });
 Object.freeze(allPastPools);
 
-module.exports = {
+export default {
   activePools: Object.freeze([...activePools]),
   allPastPools: [...allPastPools],
   assets,

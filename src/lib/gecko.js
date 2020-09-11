@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'axios';
 
 /**
  * Memoizing coin gecko api
@@ -80,6 +80,6 @@ class Gecko {
   }
 }
 
-module.exports = {
+export default {
   Gecko,
 };
