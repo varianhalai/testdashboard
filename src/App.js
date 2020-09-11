@@ -133,7 +133,7 @@ class App extends React.Component {
   }
 
   renderExitInactiveButton() {
-    let inactivePools = this.state.summaries.filter((sum) => !sum.stakedBalance.isZero() && !sum.isActive);
+    let inactivePools = this.state.summaries.filter((sum) => sum.stakedBalance && !sum.isActive);
     if (inactivePools.length !== 0) {
       return <div><button
         disabled={!this.state.provider}
