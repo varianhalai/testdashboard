@@ -67,6 +67,7 @@ class App extends React.Component {
     const connectBtn = this.renderConnectStatus();
     const refreshBtn = this.renderRefreshButton();
     const harvestAll = this.renderHarvestAll();
+    const exitInactive = this.renderExitInactiveButton();
     const table = <MainTable data={this.state.summaries}></MainTable>;
     return (
       <div className="App">
@@ -76,6 +77,7 @@ class App extends React.Component {
           {refreshBtn}
           {table}
           {harvestAll}
+          {exitInactive}
           <p>Add assets to wallet: &nbsp;
             <a target="_blank" rel="noopener noreferrer" href="https://silagepete.github.io/add-farm/">FARM</a>&nbsp;
             <a target="_blank" rel="noopener noreferrer" href="https://silagepete.github.io/add-fusdc/">fUSDC</a>&nbsp;
@@ -123,6 +125,22 @@ class App extends React.Component {
       disabled={!this.state.provider}
       onClick={this.harvestButtonAction.bind(this)}
     >Harvest All</button>
+  }
+
+  exitInactiveButtonAction() {
+    console.log('exiting inactive');
+    this.state.manager.exitInactive();
+  }
+
+  renderExitInactiveButton() {
+    let inactivePools = this.state.summaries.filter((sum) => !sum.stakedBalance.isZero() && !sum.isActive);
+    if (inactivePools.length !== 0) {
+      return <div><button
+        disabled={!this.state.provider}
+        onClick={this.exitInactiveButtonAction.bind(this)}
+      >Exit inactive pools</button></div>;
+    }
+    return <div></div>;
   }
 }
 

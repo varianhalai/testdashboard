@@ -192,16 +192,11 @@ class PoolManager {
         .then((vals) => vals.filter((val) => !!val));
   }
 
-  /**
-   * @param {Object} overrides ethers overrides
-   * @return {Array} array of txns
-   */
-  exitAll(overrides) {
+  _exitPools(pools, overrides) {
     if (!ethers.Signer.isSigner(this.provider)) {
       throw new Error('No signer');
     };
-
-    const promises = this.pools.map(async (pool) => {
+    const promises = pools.map(async (pool) => {
       const staked = await pool.staked(this.provider.getAddress());
       if (staked.gt(0)) {
         return {
@@ -214,6 +209,26 @@ class PoolManager {
     return Promise
         .all(promises)
         .then((vals) => vals.filter((val) => typeof val !== 'undefined'));
+  }
+
+  /**
+   * @param {Object} overrides ethers overrides
+   * @return {Array} array of txns
+   */
+  exitAll(overrides) {
+    return this._exitPools(this.pools, overrides);
+  }
+
+  /**
+   * exit pools that are not returning rewards
+   * @param {Object} overrides ethers overrides
+   * @return {Array} array of txns
+   */
+  exitInactive(overrides) {
+    return this._exitPools(
+      this.pools.filter((pool) => !pool.isActive()),
+      overrides
+    );
   }
 }
 
