@@ -31,6 +31,8 @@ class App extends React.Component {
 
     this.setState({provider, signer, manager});
 
+    console.log({provider, signer, manager})
+
     // get the user address
     signer.getAddress()
       .then((address) => this.setState({address}));
@@ -38,8 +40,10 @@ class App extends React.Component {
 
   connectMetamask() {
     detectEthereumProvider()
-      .then(window.ethereum.enable())
-      .then((provider) => this.setProvider(provider));
+      .then((provider) => {
+        window.ethereum.enable()
+          .then(() => this.setProvider(provider))
+      });
   }
 
   refreshButtonAction() {
@@ -63,6 +67,11 @@ class App extends React.Component {
     const minHarvestInput = document.getElementById("minHarvest").value;
     const minHarvest = minHarvestInput ? ethers.utils.parseUnits(minHarvestInput, 18) : ethers.constants.WeiPerEther.div(10);
     this.state.manager.getRewards(minHarvest);
+  }
+
+  exitInactiveButtonAction() {
+    console.log('exiting inactive');
+    this.state.manager.exitInactive();
   }
 
   render() {
@@ -127,11 +136,6 @@ class App extends React.Component {
       disabled={!this.state.provider}
       onClick={this.harvestButtonAction.bind(this)}
     >Harvest All</button>
-  }
-
-  exitInactiveButtonAction() {
-    console.log('exiting inactive');
-    this.state.manager.exitInactive();
   }
 
   renderExitInactiveButton() {
