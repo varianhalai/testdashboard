@@ -2,6 +2,7 @@
   "name": "harvest",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "homepage": "https://byron-mckeeby.github.io/harvest/",
   "dependencies": {
     "@metamask/detect-provider": "^1.1.0",

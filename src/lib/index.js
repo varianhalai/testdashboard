@@ -1,9 +1,9 @@
-const deploys = require('./data/deploys.js');
-const manager = require('./manager.js');
-const pool = require('./pool.js');
-const gecko = require('./gecko.js');
-const utils = require('./utils.js');
-const ethers = require('ethers');
+import deploys from './data/deploys.js';
+import manager from './manager.js';
+import * as pool from './pool.js';
+import gecko from './gecko.js';
+import utils from './utils.js';
+import ethers from 'ethers';
 
 export default {
   ethers,

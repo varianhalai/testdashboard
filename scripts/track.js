@@ -1,11 +1,12 @@
-const fs = require('fs');
-
-const harvest = require('../src/lib/manager.js');
-const {prettyPosition, prettyUnderlying} = require('../src/lib/utils.js');
-
-const INTERVAL = 5 * 60 * 1000; // 5 minutes
+import fs from 'fs';
+import harvest from '../src/lib/index.js';
+import {PoolManager} from '../src/lib/manager.js';
+import * as utils from '../src/lib/utils.js';
 
 const {ethers} = harvest;
+const {prettyPosition, prettyUnderlying} = utils;
+
+const INTERVAL = 5 * 60 * 1000; // 5 minutes
 
 const me = process.argv[2];
 const infuraId = process.argv[3];
@@ -25,7 +26,7 @@ async function logBalances(address, infuraId) {
       'homestead',
       infuraId,
   );
-  const man = harvest.PoolManager.allPastPools(provider);
+  const man = PoolManager.allPastPools(provider);
   const summaries = await man.summary(address);
   const underlyings = await man.underlying(address);
 
