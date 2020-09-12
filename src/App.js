@@ -90,13 +90,13 @@ class App extends React.Component {
           {harvestAll}
           {exitInactive}
           <p>Add assets to wallet: &nbsp;
-            <a target="_blank" rel="noopener noreferrer" href="https://silagepete.github.io/add-farm/">FARM</a>&nbsp;
-            <a target="_blank" rel="noopener noreferrer" href="https://silagepete.github.io/add-fusdc/">fUSDC</a>&nbsp;
-            <a target="_blank" rel="noopener noreferrer" href="https://silagepete.github.io/add-fusdt/">fUSDT</a>&nbsp;
-            <a target="_blank" rel="noopener noreferrer" href="https://silagepete.github.io/add-fdai/">fDAI</a>&nbsp;
-            <a target="_blank" rel="noopener noreferrer" href="https://silagepete.github.io/add-fwbtc/">fwBTC</a>&nbsp;
-            <a target="_blank" rel="noopener noreferrer" href="https://silagepete.github.io/add-frenbtc/">frenBTC</a>&nbsp;
-            <a target="_blank" rel="noopener noreferrer" href="https://silagepete.github.io/add-fcrvrenwbtc/">fcrvRenWBTC</a>&nbsp;&#x2014;&nbsp;
+            <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-farm/">FARM</a>&nbsp;
+            <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fusdc/">fUSDC</a>&nbsp;
+            <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fusdt/">fUSDT</a>&nbsp;
+            <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fdai/">fDAI</a>&nbsp;
+            <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fwbtc/">fwBTC</a>&nbsp;
+            <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-frenbtc/">frenBTC</a>&nbsp;
+            <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fcrvrenwbtc/">fcrvRenWBTC</a>&nbsp;&#x2014;&nbsp;
             <a target="_blank" rel="noopener noreferrer" href="https://farm.chainwiki.dev">Harvest Wiki</a>
           </p>
           <p>Please consider donating: 0x84BB14595Fd30a53cbE18e68085D42645901D8B6</p>
@@ -111,7 +111,7 @@ class App extends React.Component {
         Start here: <button onClick={this.connectMetamask.bind(this)}>Connect Wallet</button>
       </div>;
     }
-    return <p>Your wallet address is: <span id="address">{this.state.address || "not connected"}</span></p>;
+    return <p>Your wallet address is: <span id="address"><a target="_blank" rel="noopener noreferrer" href={this.state.address ? "https://etherscan.io/address/" + this.state.address : "#"}>{this.state.address || "not connected"}</a></span></p>;
   }
 
   renderHarvestAll() {
