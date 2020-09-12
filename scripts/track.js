@@ -68,5 +68,11 @@ async function logBalances(address, infuraId) {
   fs.writeFileSync(FILE, JSON.stringify(history));
 }
 
-logBalances(me, infuraId);
-setInterval(() => logBalances(me, infuraId), INTERVAL);
+async function tryIt() {
+  try {
+    await logBalances(me, infuraId);
+  } catch (e) { console.log(e) };
+}
+
+tryIt()
+setInterval(tryIt, INTERVAL);

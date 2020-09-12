@@ -1,7 +1,7 @@
 const assets = [
   {
     name: 'FDAI',
-    decimals: 6,
+    decimals: 18,
     address: '0xe85c8581e60d7cd32bbfd86303d2a4fa6a951dac',
   },
   {
@@ -184,7 +184,7 @@ const assets = [
     name: 'FDAI_DAI_LP',
     type: 'uniswap',
     decimals: 18,
-    address: '0x713f62ccf8545Ff1Df19E5d7Ab94887cFaf95677',
+    address: '0x007e383bf3c3ffa12a5de06a53bab103335eff28',
   },
   {
     name: 'AMPL_ETH_LP',
@@ -233,17 +233,27 @@ const assets = [
     address: '0xfBe122D0ba3c75e1F7C80bd27613c9f35B81FEeC',
   },
   {
-    name: 'CRVRENWBTC',
-    decimals: 18,
-    type: 'curve',
-    address: '0x49849C98ae39Fff122806C06791Fa73784FB3675',
-  },
-  {
     name: 'FCRVRENWBTC',
     decimals: 18,
     address: '0x192E9d29D43db385063799BC239E772c3b6888F3',
   },
 ];
+
+// TODO: refactor and improve
+// RATIONALE: want to use assetByName, so need to initialize it first
+assets.push({
+  name: 'CRVRENWBTC',
+  decimals: 18,
+  type: 'curve',
+  curveInfo: {
+    poolAddress: '0x93054188d876f558f4a66b2ef1d97d16edf0895b',
+    assets: [
+      assetByName('WBTC'),
+      assetByName('RENBTC'),
+    ],
+  },
+  address: '0x49849C98ae39Fff122806C06791Fa73784FB3675',
+});
 
 /**
  * @param {String} name the name of the asset to find
@@ -433,17 +443,17 @@ const weekTwoPools = [
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('WBTC'),
+    asset: assetByName('FWBTC'),
     address: '0x6291eCe696CB6682a9bb1d42fca4160771b1D7CC',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('RENBTC'),
+    asset: assetByName('FRENBTC'),
     address: '0xCFE1103863F9e7Cf3452Ca8932Eef44d314bf9C5',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('CRVRENWBTC'),
+    asset: assetByName('FCRVRENWBTC'),
     address: '0x5365A2C47b90EE8C9317faC20edC3ce7037384FB',
     rewardAsset: assetByName('FARM'),
   },
