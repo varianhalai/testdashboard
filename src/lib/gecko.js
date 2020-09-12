@@ -3,12 +3,12 @@ import axios from 'axios';
 /**
  * Memoizing coin gecko api
  */
-class Gecko {
+class GeckoApi {
   /**
    * @param {String} url the api url
    */
   constructor(url) {
-    this.url = url ? url : 'https://api.coingecko.com/api/v3/simple/token_price/ethereum';
+    this.url = url;
     this._memos = {};
   }
 
@@ -18,8 +18,8 @@ class Gecko {
    * @return {Number} price
    */
   checkMemo(address, time) {
-    if (this.memo[address] && this.memo[address].validUntil >= time) {
-      return this.memo[address].price;
+    if (this._memos[address] && this._memos[address].validUntil >= time) {
+      return this._memos[address].price;
     }
   }
 
@@ -55,7 +55,7 @@ class Gecko {
 
     const response = await axios.get(url);
 
-    Object.entries(response).forEach(([address, {usd}]) => {
+    Object.entries(response.data).forEach(([address, {usd}]) => {
       result[address] = usd;
       this.memoize(address, usd, time + 5 * 60 * 1000);
     });
@@ -68,7 +68,7 @@ class Gecko {
    * @return {Promise} axios output
    */
   getPrice(address) {
-    return this._getPrices(address);
+    return this._getPrices([address]);
   }
 
   /**
@@ -80,6 +80,30 @@ class Gecko {
   }
 }
 
-export default {
-  Gecko,
-};
+const Gecko = (function () {
+    const instances = {};
+
+    function createInstance(url) {
+        var object = new GeckoApi(url);
+        return object;
+    }
+
+    function fromUrl(url) {
+      url = url ? url : 'https://api.coingecko.com/api/v3/simple/token_price/ethereum';
+      if (!instances[url]) {
+          instances[url] = createInstance(url);
+      }
+      return instances[url];
+    }
+
+    function coingecko() {
+      return fromUrl();
+    }
+
+    return {
+        coingecko,
+        fromUrl
+    };
+})();
+
+export default Gecko;
