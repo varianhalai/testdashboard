@@ -7,11 +7,11 @@ export default class MainTable extends Component {
     super(props);
     this.keys = [
       'Pool',
-      'Is Active',
+      'Earning',
       'Staked Balance',
       'Unstaked Balance',
       'Earned Rewards',
-      'PercentOfPool',
+      'Pool%',
     ];
   }
 
