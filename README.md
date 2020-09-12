@@ -1,5 +1,17 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Setup
+
+`$ yarn install`
+
+## Tests
+
+None
+
+## Tracking an address and logging to disk
+
+`$ node --experimental-modules scripts/track.js $ADDRESS $INFURA_PROJECT_ID`
+
 ## Available Scripts
 
 In the project directory, you can run:
