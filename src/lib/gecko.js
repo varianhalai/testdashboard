@@ -1,4 +1,5 @@
 import axios from 'axios';
+import ethers from 'ethers';
 
 /**
  * Memoizing coin gecko api
@@ -27,12 +28,15 @@ class GeckoApi {
    * @param {String} address token address
    * @param {Number} price price in USD
    * @param {Number} validUntil validity of memoization
+   * @return {BigNumber} price in pennies
    */
   memoize(address, price, validUntil) {
+    const bnPrice = ethers.BigNumber.from(parseInt(price * 100));
     this._memos[address] = {
       validUntil,
       price,
     };
+    return bnPrice;
   }
 
   /**
@@ -56,8 +60,7 @@ class GeckoApi {
     const response = await axios.get(url);
 
     Object.entries(response.data).forEach(([address, {usd}]) => {
-      result[address] = usd;
-      this.memoize(address, usd, time + 5 * 60 * 1000);
+      result[address] = this.memoize(address, usd, time + 5 * 60 * 1000);
     });
 
     return result;

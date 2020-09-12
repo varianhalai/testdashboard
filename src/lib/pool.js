@@ -1,7 +1,7 @@
 import data from './data/deploys.js';
 import ethers from 'ethers';
 import {REWARDS_ABI} from './data/ABIs.js';
-import {LPToken} from './tokens.js';
+import {Token} from './tokens.js';
 
 /**
  * Reward pool wrapper
@@ -17,7 +17,7 @@ export class HarvestRewardsPool extends ethers.Contract {
     this.name = pool.asset.name;
     this._pool = pool;
 
-    this.lptoken = LPToken.fromPool(pool, provider);
+    this.lptoken = Token.fromAsset(pool.asset, provider);
 
     // function aliases
     this.unstakedBalance = this.lptoken.balanceOf;

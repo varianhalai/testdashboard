@@ -1,19 +1,6 @@
+// This file is a mess
+
 const assets = [
-  {
-    name: 'FDAI',
-    decimals: 18,
-    address: '0xe85c8581e60d7cd32bbfd86303d2a4fa6a951dac',
-  },
-  {
-    name: 'FUSDC',
-    decimals: 6,
-    address: '0xc3f7ffb5d5869b3ade9448d094d81b0521e8326f',
-  },
-  {
-    name: 'FUSDT',
-    decimals: 6,
-    address: '0xc7ee21406bb581e741fbb8b21f213188433d9f2f',
-  },
   {
     name: 'BAL_95_USDC_5_FARM',
     type: 'balancer',
@@ -218,42 +205,11 @@ const assets = [
     address: '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599',
   },
   {
-    name: 'FWBTC',
-    decimals: 8,
-    address: '0xc07EB91961662D275E2D285BdC21885A4Db136B0',
-  },
-  {
     name: 'RENBTC',
     decimals: 8,
     address: '0xEB4C2781e4ebA804CE9a9803C67d0893436bB27D',
   },
-  {
-    name: 'FRENBTC',
-    decimals: 18,
-    address: '0xfBe122D0ba3c75e1F7C80bd27613c9f35B81FEeC',
-  },
-  {
-    name: 'FCRVRENWBTC',
-    decimals: 18,
-    address: '0x192E9d29D43db385063799BC239E772c3b6888F3',
-  },
 ];
-
-// TODO: refactor and improve
-// RATIONALE: want to use assetByName, so need to initialize it first
-assets.push({
-  name: 'CRVRENWBTC',
-  decimals: 18,
-  type: 'curve',
-  curveInfo: {
-    poolAddress: '0x93054188d876f558f4a66b2ef1d97d16edf0895b',
-    assets: [
-      assetByName('WBTC'),
-      assetByName('RENBTC'),
-    ],
-  },
-  address: '0x49849C98ae39Fff122806C06791Fa73784FB3675',
-});
 
 /**
  * @param {String} name the name of the asset to find
@@ -272,6 +228,65 @@ function assetByAddress(address) {
       (asset) => asset.address.toLowerCase() === address.toLowerCase(),
   );
 }
+
+// TODO: refactor and improve
+// RATIONALE: want to use assetByName, so need to initialize it first
+assets.push({
+  name: 'CRVRENWBTC',
+  decimals: 18,
+  type: 'curve',
+  curveInfo: {
+    poolAddress: '0x93054188d876f558f4a66b2ef1d97d16edf0895b',
+    assets: [
+      assetByName('WBTC'),
+      assetByName('RENBTC'),
+    ],
+  },
+  address: '0x49849C98ae39Fff122806C06791Fa73784FB3675',
+});
+assets.push({
+  name: 'FDAI',
+  type: 'ftoken',
+  underlyingAsset: assetByName('DAI'),
+  decimals: 18,
+  address: '0xe85c8581e60d7cd32bbfd86303d2a4fa6a951dac',
+});
+assets.push({
+  name: 'FUSDC',
+  type: 'ftoken',
+  underlyingAsset: assetByName('USDC'),
+  decimals: 6,
+  address: '0xc3f7ffb5d5869b3ade9448d094d81b0521e8326f',
+});
+assets.push({
+  name: 'FUSDT',
+  type: 'ftoken',
+  underlyingAsset: assetByName('USDT'),
+  decimals: 6,
+  address: '0xc7ee21406bb581e741fbb8b21f213188433d9f2f',
+});
+assets.push({
+  name: 'FWBTC',
+  type: 'ftoken',
+  underlyingAsset: assetByName('WBTC'),
+  decimals: 8,
+  address: '0xc07EB91961662D275E2D285BdC21885A4Db136B0',
+});
+assets.push({
+  name: 'FRENBTC',
+  type: 'ftoken',
+  underlyingAsset: assetByName('RENBTC'),
+  decimals: 18,
+  address: '0xfBe122D0ba3c75e1F7C80bd27613c9f35B81FEeC',
+});
+assets.push({
+  name: 'FCRVRENWBTC',
+  type: 'ftoken',
+  underlyingAsset: assetByName('CRVRENWBTC'),
+  decimals: 18,
+  address: '0x192E9d29D43db385063799BC239E772c3b6888F3',
+});
+
 
 const weekOnePools = [
   {

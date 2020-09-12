@@ -1,11 +1,11 @@
-import {ERC20_ABI, UNISWAP_PAIR_ABI, BALANCER_ABI, CURVE_ABI} from './data/ABIs.js';
+import {ERC20_ABI, UNISWAP_PAIR_ABI, BALANCER_ABI, CURVE_ABI, FTOKEN_ABI} from './data/ABIs.js';
 import ethers from 'ethers';
 import data from './data/deploys.js';
 
 /**
  * Extra functions for erc20
  */
-export class EnhancedERC20 extends ethers.Contract {
+export class ERC20Extended extends ethers.Contract {
   /**
    *
    * @param {Object} address the address of the erc20
@@ -14,9 +14,10 @@ export class EnhancedERC20 extends ethers.Contract {
    * @param {Object} provider web3 provider
    */
   constructor(address, decimals, abi, provider) {
+    if (!provider) {throw new Error('Must give a provider')}
     super(address, abi, provider);
     this.asset = data.assetByAddress(address);
-    this.decimals = this.asset.decimals;
+    this.tokenDecimals = this.asset.decimals;
     this.name = this.asset.name;
   }
 
@@ -39,55 +40,109 @@ export class EnhancedERC20 extends ethers.Contract {
   async percentageOwnership(address) {
     return this.percentageOfTotal(await this.balanceOf(address));
   }
-}
 
+}
 /**
- * LP Token wrapper
+ * Token wrapper
  */
-export class LPToken extends ethers.Contract {
+export class Token extends ERC20Extended {
   /**
    *
-   * @param {Object} pool object from data/deploy.js
+   * @param {Object} asset object from data/deploy.js
    * @param {Object} abi abi
    * @param {Object} provider web3 provider
    */
-  constructor(pool, abi, provider) {
-    super(pool.asset.address, abi, provider);
-    this.type = pool.asset.type;
-    this.tokenDecimals = pool.asset.decimals;
+  constructor(asset, abi, provider) {
+    super(asset.address, asset.decimals, abi, provider);
+    this.type = asset.type;
+    this.tokenDecimals = asset.decimals;
   }
 
   /**
    *
-   * @param {Object} pool object from data/deploy.js
+   * @param {Object} asset object from data/deploy.js
    * @param {Object} provider web3 provider
-   * @return {LPToken} an LPToken subclass instances
+   * @return {Token} an Token subclass instances
    */
-  static fromPool(pool, provider) {
-    switch (pool.asset.type) {
+  static fromAsset(asset, provider) {
+    switch (asset.type) {
       case 'balancer':
-        return new BalancerLPToken(pool, provider);
+        return new BalancerToken(asset, provider);
       case 'uniswap':
-        return new UniswapLPToken(pool, provider);
+        return new UniswapToken(asset, provider);
       case 'curve':
-        return new CurveLPToken(pool, provider);
+        return new CurveToken(asset, provider);
+      case 'ftoken':
+        return new FToken(asset, provider);
       default:
-        return new LPToken(pool, ERC20_ABI, provider);
+        return new Token(asset, ERC20_ABI, provider);
     }
   }
+
 }
 
 /**
- * LP Token wrapper
+ * FToken wrapper
  */
-export class UniswapLPToken extends LPToken {
+export class FToken extends Token {
+  constructor(asset, provider) {
+    super(asset, FTOKEN_ABI, provider);
+    this.underlyingAsset = asset.underlyingAsset;
+  }
+
+  /**
+   * Get the underlying balance of token0 and token1 given N LP shares
+   * @param {BigNumberish} tokens the number of LP tokens
+   */
+  async calcShare(tokens) {
+    const [total, underlyingBalanceWithInvestment] = await Promise.all(
+        [
+          this.totalSupply(),
+          this.underlyingBalanceWithInvestment(),
+        ],
+    );
+
+    const balance = underlyingBalanceWithInvestment.mul(tokens).div(total);
+
+    // if this wraps a lower asset, call it
+    if (this.underlyingAsset.type) {
+      return await Token.fromAsset(this.underlyingAsset, this.provider).calcShare(balance);
+    }
+
+    return [
+      {
+        asset: data.assetByAddress(this.underlyingAsset.address),
+        balance,
+      },
+    ];
+  }
+
+  /**
+   * Get the underlying balance of tokens
+   * @param {String} address the address
+   */
+  async underlyingBalanceOf(address) {
+    if (this.underlyingAsset.type) {
+      return await Token.fromAsset(this.underlyingAsset).underlyingBalanceOf(address);
+    }
+
+    const balance = await this.balanceOf(address);
+    return this.calcShare(balance);
+  }
+
+}
+
+/**
+ * UniswapToken wrapper
+ */
+export class UniswapToken extends Token {
   /**
    *
-   * @param {Object} pool object from data/deploy.js
+   * @param {Object} asset object from data/deploy.js
    * @param {Object} provider web3 provider
    */
-  constructor(pool, provider) {
-    super(pool, UNISWAP_PAIR_ABI, provider);
+  constructor(asset, provider) {
+    super(asset, UNISWAP_PAIR_ABI, provider);
 
     this.reserve0 = async () => (
       await this.getReserves()[0]
@@ -105,7 +160,7 @@ export class UniswapLPToken extends LPToken {
       return this._token0;
     }
     const address = await this.token0();
-    this._token0 = new EnhancedERC20(
+    this._token0 = new ERC20Extended(
         address, 18, ERC20_ABI, this.provider,
     );
     return this._token0;
@@ -119,7 +174,7 @@ export class UniswapLPToken extends LPToken {
       return this._token1;
     }
     const address = await this.token1();
-    this._token1 = new EnhancedERC20(
+    this._token1 = new ERC20Extended(
         address, 18, ERC20_ABI, this.provider,
     );
     return this._token1;
@@ -161,17 +216,17 @@ export class UniswapLPToken extends LPToken {
 }
 
 /**
- * LP Token wrapper
+ * CurveToken wrapper
  */
-export class CurveLPToken extends LPToken {
+export class CurveToken extends Token {
   /**
    *
-   * @param {Object} pool object from data/deploy.js
+   * @param {Object} asset object from data/deploy.js
    * @param {Object} provider web3 provider
    */
-  constructor(pool, provider) {
-    super(pool, CURVE_ABI, provider);
-    this.curveInfo = pool.asset.curveInfo;
+  constructor(asset, provider) {
+    super(asset, CURVE_ABI, provider);
+    this.curveInfo = asset.curveInfo;
   }
 
   /**
@@ -183,7 +238,7 @@ export class CurveLPToken extends LPToken {
     }
 
     this._getCurrentTokens = this.curveInfo.assets.map((asset) => {
-      return new EnhancedERC20(asset.address, asset.decimals, ERC20_ABI, this.provider);
+      return new ERC20Extended(asset.address, asset.decimals, ERC20_ABI, this.provider);
     });
     return this._getCurrentTokens;
   }
@@ -194,6 +249,7 @@ export class CurveLPToken extends LPToken {
    * Returns balances keyed by token address.
    */
   async getReserves() {
+    // console.log(ent)
     const tokens = await this.currentTokens();
 
     const balances = await Promise.all(tokens.map((entry) => {
@@ -218,6 +274,8 @@ export class CurveLPToken extends LPToken {
     const [total, reserves] = await Promise.all(
         [
           this.totalSupply(),
+          // async () => ethers.BigNumber.from('10000000'),
+          // async () => ethers.BigNumber.from('10000000'),
           this.getReserves(),
         ],
     );
@@ -245,16 +303,16 @@ export class CurveLPToken extends LPToken {
 }
 
 /**
- * LP Token wrapper
+ * BalancerToken wrapper
  */
-export class BalancerLPToken extends LPToken {
+export class BalancerToken extends Token {
   /**
    *
-   * @param {Object} pool object from data/deploy.js
+   * @param {Object} asset object from data/deploy.js
    * @param {Object} provider web3 provider
    */
-  constructor(pool, provider) {
-    super(pool, BALANCER_ABI, provider);
+  constructor(asset, provider) {
+    super(asset, BALANCER_ABI, provider);
   }
 
   /**
@@ -267,7 +325,7 @@ export class BalancerLPToken extends LPToken {
     const tokens = [];
     (await this.getCurrentTokens()).forEach((token) => {
       tokens.push(
-          new EnhancedERC20(token, 18, ERC20_ABI, this.provider),
+          new ERC20Extended(token, 18, ERC20_ABI, this.provider),
       );
     });
     this._getCurrentTokens = tokens;
