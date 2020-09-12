@@ -126,7 +126,7 @@ class App extends React.Component {
   }
 
   renderRefreshButton() {
-    const buttonText = (this.state.summaries.length === 0) ? 'Click here to start!' : 'Refresh Table';  
+    const buttonText = (this.state.summaries.length === 0) ? 'Click to load the table!' : 'Refresh Table';
 
     return <div>
       <button
