@@ -1,18 +1,13 @@
 import React, {Component} from 'react';
 
 import harvest from '../lib/index.js';
+const ethers = harvest.ethers;
 
-export default class MainTable extends Component {
-  constructor(props) {
-    super(props);
-    this.keys = [
-      'Pool',
-      'Earning',
-      'Staked Balance',
-      'Unstaked Balance',
-      'Earned Rewards',
-      'Pool%',
-    ];
+
+class Table extends Component {
+  constructor(props, keys) {
+    super(props)
+    this.keys = keys;
   }
 
   render() {
@@ -33,6 +28,19 @@ export default class MainTable extends Component {
       return <th key={index}>{key}</th>
     });
   }
+}
+
+export class MainTable extends Table {
+  constructor(props) {
+    super(props, [
+      'Pool',
+      'Earning',
+      'Staked Balance',
+      'Unstaked Balance',
+      'Earned Rewards',
+      'Pool%',
+    ]);
+  }
 
   renderTableData() {
     return this.props.data
@@ -46,6 +54,28 @@ export default class MainTable extends Component {
             <td>{summary.unstakedBalance}</td>
             <td>{summary.earnedRewards}</td>
             <td>{summary.percentOfPool}</td>
+          </tr>
+        );
+      });
+  }
+}
+
+export class UnderlyingTable extends Table {
+  constructor(props) {
+    super(props, [
+      'Asset',
+      'Underlying Balance',
+    ]);
+  }
+
+  renderTableData() {
+    return this.props.data
+      .filter((u) => !u.balance.isZero())
+      .map((u, index) => {
+        return (
+          <tr key={u.asset.address}>
+            <td>{u.asset.name}</td>
+            <td>{ethers.utils.formatUnits(u.balance, u.asset.decimals)}</td>
           </tr>
         );
       });

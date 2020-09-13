@@ -1,6 +1,7 @@
 import data from './data/deploys.js';
 import ethers from 'ethers';
 import {HarvestRewardsPool} from './pool.js';
+import {UnderlyingBalances} from './tokens.js';
 
 /**
  * Reward pool wrapper
@@ -149,6 +150,22 @@ export class PoolManager {
         [address, passthrough],
         'underlyingBalances',
     ).then((vs) => vs.filter((v) => !!v));
+  }
+
+  /**
+   * Return aggregate underlying positions across all pools
+   * @param {string} address user address
+   * @param {bool} passthrough unwrap interior tokens
+   * @return {Array} lp token balances
+   */
+  aggregateUnderlyings(address) {
+    return this.underlying(address, true).then((underlyings) => {
+      let aggregateUnderlyings = new UnderlyingBalances();
+      underlyings.reduce((acc, next) => {
+        return acc.combine(next.underlyingBalances);
+      }, aggregateUnderlyings);
+      return aggregateUnderlyings;
+    })
   }
 
   /**

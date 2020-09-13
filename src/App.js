@@ -3,7 +3,7 @@ import harvest from './lib/index.js';
 
 import React from 'react';
 import './App.css';
-import MainTable from './components/MainTable.js';
+import {MainTable, UnderlyingTable} from './components/MainTable.js';
 
 const ethers = harvest.ethers;
 
@@ -17,6 +17,7 @@ class App extends React.Component {
       address: '',
       manager: undefined,
       summaries: [],
+      underlyings: [],
     };
   }
 
@@ -48,6 +49,14 @@ class App extends React.Component {
 
   refreshButtonAction() {
     console.log('refreshing')
+    this.state.manager.aggregateUnderlyings(this.state.address)
+      .then((underlying) => underlying.toList().filter((u) => !u.balance.isZero()))
+      .then((underlyings) => {
+        this.setState({underlyings});
+        return underlyings
+      })
+      .then(console.table);
+
     this.state.manager.summary(this.state.address)
       .then(summaries => summaries
         .filter((p) => !p.summary.earnedRewards.isZero()
@@ -79,7 +88,8 @@ class App extends React.Component {
     const refreshBtn = this.renderRefreshButton();
     const harvestAll = this.renderHarvestAll();
     const exitInactive = this.renderExitInactiveButton();
-    const table = <MainTable data={this.state.summaries}></MainTable>;
+    const table = this.renderMainTable();
+    const underlyingTable = this.renderUnderlyingTable();
     return (
       <div className="App">
         <header className="App-header">
@@ -89,6 +99,7 @@ class App extends React.Component {
           {table}
           {harvestAll}
           {exitInactive}
+          {underlyingTable}
           <p>Add assets to wallet: &nbsp;
             <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-farm/">FARM</a>&nbsp;
             <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fusdc/">fUSDC</a>&nbsp;
@@ -105,6 +116,29 @@ class App extends React.Component {
     );
   }
 
+  renderMainTable() {
+    if (this.state.summaries.length !== 0) {
+      return <MainTable data={this.state.summaries}></MainTable>;
+    }
+    return <div></div>;
+  }
+
+  renderUnderlyingTable() {
+    if (this.state.underlyings.length !== 0) {
+      return (
+      <div>
+        <p>
+          Your position includes LP tokens that can be redeemed for the following:
+        </p>
+        <p>
+          <UnderlyingTable data={this.state.underlyings}></UnderlyingTable>
+        </p>
+      </div>
+      );
+    }
+    return <div></div>
+  }
+
   renderConnectStatus() {
     if (!this.state.provider) {
       return <div>
@@ -118,9 +152,9 @@ class App extends React.Component {
     if (this.state.summaries.length !== 0){
       const harvestBtn = this.renderHarvestButton();
       return (
-        <div>
+        <p>
           Harvest all farms with at least <input type="text" id="minHarvest" placeholder="min"></input> FARM rewards {harvestBtn}
-        </div>);
+        </p>);
     }
     return <div></div>;
   }
