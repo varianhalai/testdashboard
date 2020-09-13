@@ -2,10 +2,8 @@ import fs from 'fs';
 import harvest from '../src/lib/index.js';
 import {PoolManager} from '../src/lib/manager.js';
 import {UnderlyingBalances} from '../src/lib/tokens.js';
-import * as utils from '../src/lib/utils.js';
 
-const {ethers} = harvest;
-const {prettyPosition} = utils;
+const {ethers, utils: {prettyPosition}} = harvest;
 
 const INTERVAL = 5 * 60 * 1000; // 5 minutes
 
