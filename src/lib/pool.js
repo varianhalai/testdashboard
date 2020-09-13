@@ -25,11 +25,9 @@ export class HarvestRewardsPool extends ethers.Contract {
     this.earnedRewards = this.earned;
 
     if (this.lptoken.underlyingBalanceOf) {
-      this.underlyingBalanceOf = async (address) => {
-        try {
-          const balance = await this.balanceOf(address);
-          return this.lptoken.calcShare(balance);
-        } catch (e) {console.log(e)}
+      this.underlyingBalanceOf = async (address, passthrough) => {
+        const balance = await this.balanceOf(address);
+        return this.lptoken.calcShare(balance, passthrough);
       };
     }
   }

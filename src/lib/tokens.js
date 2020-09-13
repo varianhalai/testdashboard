@@ -2,6 +2,46 @@ import {ERC20_ABI, UNISWAP_PAIR_ABI, BALANCER_ABI, CURVE_ABI, FTOKEN_ABI} from '
 import ethers from 'ethers';
 import data from './data/deploys.js';
 
+
+/**
+ * UnderlyingBalances
+ */
+export class UnderlyingBalances {
+  constructor() {
+    this.balances = {};
+  }
+
+  _ingest(name, balance) {
+    if (balance.isZero()) return;
+    if (!this.balances[name]) {
+      this.balances[name] = balance;
+    } else {
+      this.balances[name] = this.balances[name].add(balance);
+    }
+  }
+
+  ingest(entries) {
+    entries.forEach((entry) => this._ingest(entry.asset.name, entry.balance));
+    return this;
+  }
+
+  combine(other) {
+    Object.entries(other.balances)
+      .forEach(([name, balance]) => this._ingest(name, balance));
+    return this;
+  }
+
+  toList() {
+    return Object.entries(this.balances).map(([name, balance]) => {
+        return {
+          asset: data.assetByName(name),
+          balance
+        };
+      });
+  }
+}
+
+
 /**
  * Extra functions for erc20
  */
@@ -56,6 +96,7 @@ export class Token extends ERC20Extended {
     super(asset.address, asset.decimals, abi, provider);
     this.type = asset.type;
     this.tokenDecimals = asset.decimals;
+    this.asset = asset;
   }
 
   /**
@@ -79,63 +120,125 @@ export class Token extends ERC20Extended {
     }
   }
 
+  /**
+   *
+   * @param {Object} address
+   * @param {Object} provider web3 provider
+   * @return {Token} an Token subclass instances
+   */
+  static fromAddress(address, provider) {
+    return Token.fromAsset(data.assetByAddress(address), provider);
+  }
+}
+
+
+class HasUnderlying extends Token {
+    async currentTokens() {
+      throw Error('currentTokens is abstract, and must be implemented on a subclass');
+    }
+
+    /**
+     * Returns balances keyed by token address.
+     */
+    async getReserves() {
+      let tokens = await this.currentTokens();
+
+      const balances = await Promise.all(
+        tokens.map((tok) => tok.balanceOf(this.address))
+      );
+
+      const output = balances.map((balance, idx) => {
+        return {
+          asset: tokens[idx].asset,
+          balance,
+        };
+      });
+
+      return output;
+    }
+
+    /**
+     * Get the underlying balance of tokens given N LP shares
+     * @param {BigNumberish} tokens the number of LP tokens
+     * @param {bool} passthrough pass through to the lowest assets.
+     */
+    async calcShare(tokens, passthrough) {
+      const [total, reserves] = await Promise.all(
+          [
+            this.totalSupply(),
+            this.getReserves(),
+          ],
+      );
+
+      const shares = new UnderlyingBalances();
+
+      for (const reserve of reserves) {
+        const balance = reserve.balance.mul(tokens).div(total);
+        if (reserve.asset.type && passthrough) {
+          const token = Token.fromAsset(reserve.asset, this.provider);
+          shares.combine(await token.calcShare(balance, passthrough));
+        } else {
+          shares.ingest([{
+            asset: reserve.asset,
+            balance,
+          }]);
+        }
+      }
+
+      return shares;
+    }
+
+    /**
+     * Get the underlying balance of tokens
+     * @param {String} address the address
+     * @param {bool} passthrough pass through to the lowest assets.
+     */
+    async underlyingBalanceOf(address, passthrough) {
+      const balance = await this.balanceOf(address);
+      return this.calcShare(balance, passthrough);
+    }
 }
 
 /**
  * FToken wrapper
  */
-export class FToken extends Token {
+export class FToken extends HasUnderlying {
   constructor(asset, provider) {
     super(asset, FTOKEN_ABI, provider);
     this.underlyingAsset = asset.underlyingAsset;
-  }
-
-  /**
-   * Get the underlying balance of token0 and token1 given N LP shares
-   * @param {BigNumberish} tokens the number of LP tokens
-   */
-  async calcShare(tokens) {
-    const [total, underlyingBalanceWithInvestment] = await Promise.all(
-        [
-          this.totalSupply(),
-          this.underlyingBalanceWithInvestment(),
-        ],
-    );
-
-    const balance = underlyingBalanceWithInvestment.mul(tokens).div(total);
-
-    // if this wraps a lower asset, call it
-    if (this.underlyingAsset.type) {
-      return await Token.fromAsset(this.underlyingAsset, this.provider).calcShare(balance);
-    }
-
-    return [
-      {
-        asset: data.assetByAddress(this.underlyingAsset.address),
-        balance,
-      },
+    this._currentTokens = [
+      Token.fromAddress(this.underlyingAsset.address, this.provider)
     ];
   }
 
-  /**
-   * Get the underlying balance of tokens
-   * @param {String} address the address
-   */
-  async underlyingBalanceOf(address) {
-    if (this.underlyingAsset.type) {
-      return await Token.fromAsset(this.underlyingAsset).underlyingBalanceOf(address);
-    }
-
-    const balance = await this.balanceOf(address);
-    return this.calcShare(balance);
+  async currentTokens() {
+    return this._currentTokens;
   }
 
+  async getReserves() {
+    return [{
+      asset: this.underlyingAsset,
+      balance: await this.underlyingBalanceWithInvestment(),
+    }];
+  }
+
+  async calcShare(tokens) {
+    const balance = tokens
+      .mul(await this.getPricePerFullShare())
+      .div(ethers.BigNumber.from(10).pow(this.underlyingAsset.decimals));
+    return new UnderlyingBalances().ingest([
+      {
+        asset: this.underlyingAsset,
+        balance,
+      }
+    ]);
+  }
 }
 
 /**
  * UniswapToken wrapper
  */
-export class UniswapToken extends Token {
+export class UniswapToken extends HasUnderlying {
   /**
    *
    * @param {Object} asset object from data/deploy.js
@@ -160,9 +263,7 @@ export class UniswapToken extends Token {
       return this._token0;
     }
     const address = await this.token0();
-    this._token0 = new ERC20Extended(
-        address, 18, ERC20_ABI, this.provider,
-    );
+    this._token0 = Token.fromAddress(address, this.provider);
     return this._token0;
   }
 
@@ -174,51 +275,22 @@ export class UniswapToken extends Token {
       return this._token1;
     }
     const address = await this.token1();
-    this._token1 = new ERC20Extended(
-        address, 18, ERC20_ABI, this.provider,
-    );
+    this._token1 = Token.fromAddress(address, this.provider);
     return this._token1;
   }
 
   /**
-   * Get the underlying balance of token0 and token1 given N LP shares
-   * @param {BigNumberish} tokens the number of LP tokens
+   * @return {Array[Token]}
    */
-  async calcShare(tokens) {
-    const [total, [reserve0, reserve1], token0, token1] = await Promise.all(
-        [
-          this.totalSupply(),
-          this.getReserves(),
-          this.getToken0(),
-          this.getToken1(),
-        ],
-    );
-
-    return [
-      {
-        asset: data.assetByAddress(token0.address),
-        balance: reserve0.mul(tokens).div(total),
-      },
-      {
-        asset: data.assetByAddress(token1.address),
-        balance: reserve1.mul(tokens).div(total),
-      },
-    ];
-  }
-
-  /**
-   * Get the underlying balance of token0 and token1
-   * @param {String} address the address
-   */
-  async underlyingBalanceOf(address) {
-    return this.calcShare(await this.balanceOf(address));
+  async currentTokens() {
+    return Promise.all([this.getToken0(), this.getToken1()]);
   }
 }
 
 /**
  * CurveToken wrapper
  */
-export class CurveToken extends Token {
+export class CurveToken extends HasUnderlying {
   /**
    *
    * @param {Object} asset object from data/deploy.js
@@ -231,81 +303,42 @@ export class CurveToken extends Token {
 
   /**
    * Get current tokens and memoize
+   * @return {Array[Token]}
    */
   async currentTokens() {
     if (this._getCurrentTokens) {
       return this._getCurrentTokens;
     }
-
     this._getCurrentTokens = this.curveInfo.assets.map((asset) => {
-      return new ERC20Extended(asset.address, asset.decimals, ERC20_ABI, this.provider);
+      return Token.fromAddress(asset.address, this.provider);
     });
     return this._getCurrentTokens;
   }
 
+    /**
+     * Returns balances keyed by token address.
+     */
+    async getReserves() {
+      let tokens = await this.currentTokens();
 
-  /**
-   * Get current tokens and memoize
-   * Returns balances keyed by token address.
-   */
-  async getReserves() {
-    // console.log(ent)
-    const tokens = await this.currentTokens();
+      const balances = await Promise.all(
+        tokens.map((tok) => tok.balanceOf(this.curveInfo.poolAddress))
+      );
 
-    const balances = await Promise.all(tokens.map((entry) => {
-      return entry.balanceOf(this.curveInfo.poolAddress);
-    }));
-
-    const output = tokens.map((tok, idx) => {
-      return {
-        asset: tok.asset,
-        balance: balances[idx],
-      };
-    });
-
-    return output;
-  }
-
-  /**
-   * Get the underlying balance of tokens given N LP shares
-   * @param {BigNumberish} tokens the number of LP tokens
-   */
-  async calcShare(tokens) {
-    const [total, reserves] = await Promise.all(
-        [
-          this.totalSupply(),
-          // async () => ethers.BigNumber.from('10000000'),
-          // async () => ethers.BigNumber.from('10000000'),
-          this.getReserves(),
-        ],
-    );
-
-    const f = (reserve) => {
-      return {
-        asset: reserve.asset,
-        balance: reserve.balance.mul(tokens).div(total),
-      };
-    };
-
-    const shares = reserves.map(f);
-
-    return shares;
-  }
-
-  /**
-   * Get the underlying balance of tokens
-   * @param {String} address the address
-   */
-  async underlyingBalanceOf(address) {
-    const balance = await this.balanceOf(address);
-    return this.calcShare(balance);
-  }
+      const output = balances.map((balance, idx) => {
+        return {
+          asset: tokens[idx].asset,
+          balance,
+        };
+      });
+      return output;
+    }
 }
 
 /**
  * BalancerToken wrapper
  */
-export class BalancerToken extends Token {
+export class BalancerToken extends HasUnderlying {
   /**
    *
    * @param {Object} asset object from data/deploy.js
@@ -317,6 +350,7 @@ export class BalancerToken extends Token {
 
   /**
    * Get current tokens and memoize
+   * @return {Array[Token]}
    */
   async currentTokens() {
     if (this._getCurrentTokens) {
@@ -325,7 +359,7 @@ export class BalancerToken extends Token {
     const tokens = [];
     (await this.getCurrentTokens()).forEach((token) => {
       tokens.push(
-          new ERC20Extended(token, 18, ERC20_ABI, this.provider),
+          Token.fromAddress(token, this.provider),
       );
     });
     this._getCurrentTokens = tokens;
@@ -340,6 +374,7 @@ export class BalancerToken extends Token {
     const tokens = await this.currentTokens();
 
     const balances = await Promise.all(tokens.map((entry) => {
+
       return entry.balanceOf(this.address);
     }));
 
@@ -351,38 +386,5 @@ export class BalancerToken extends Token {
     });
 
     return output;
-  }
-
-  /**
-   * Get the underlying balance of tokens given N LP shares
-   * @param {BigNumberish} tokens the number of LP tokens
-   */
-  async calcShare(tokens) {
-    const [total, reserves] = await Promise.all(
-        [
-          this.totalSupply(),
-          this.getReserves(),
-        ],
-    );
-
-    const f = (reserve) => {
-      return {
-        asset: reserve.asset,
-        balance: reserve.balance.mul(tokens).div(total),
-      };
-    };
-
-    const shares = reserves.map(f);
-
-    return shares;
-  }
-
-  /**
-   * Get the underlying balance of tokens
-   * @param {String} address the address
-   */
-  async underlyingBalanceOf(address) {
-    const balance = await this.balanceOf(address);
-    return this.calcShare(balance);
   }
 }

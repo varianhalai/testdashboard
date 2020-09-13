@@ -1,10 +1,11 @@
 import fs from 'fs';
 import harvest from '../src/lib/index.js';
 import {PoolManager} from '../src/lib/manager.js';
+import {UnderlyingBalances} from '../src/lib/tokens.js';
 import * as utils from '../src/lib/utils.js';
 
 const {ethers} = harvest;
-const {prettyPosition, prettyUnderlying} = utils;
+const {prettyPosition} = utils;
 
 const INTERVAL = 5 * 60 * 1000; // 5 minutes
 
@@ -28,7 +29,7 @@ async function logBalances(address, infuraId) {
   );
   const man = PoolManager.allPastPools(provider);
   const summaries = await man.summary(address);
-  const underlyings = await man.underlying(address);
+  const underlyings = await man.underlying(address, true);
 
   let totalRewards = ethers.BigNumber.from(0);
 
@@ -40,13 +41,33 @@ async function logBalances(address, infuraId) {
     totalRewards = totalRewards.add(pos.summary.earnedRewards);
   });
 
+
+  // combine all underlying positions
+  let aggregateUnderlyings = new UnderlyingBalances();
+
+  underlyings.reduce((acc, next) => {
+    return acc.combine(next.underlyingBalances);
+  }, aggregateUnderlyings);
+
+  aggregateUnderlyings = aggregateUnderlyings
+    .toList()
+    .filter((underlying) => !underlying.balance.isZero())
+    .map((u) => {
+      return {
+        name: u.asset.name,
+        balance: ethers.utils.formatUnits(u.balance, u.asset.decimals)
+      };
+    });
+
   const output = {
     positions,
-    underlyings: underlyings.map(prettyUnderlying).filter((u) => !!u)};
+    underlyings: aggregateUnderlyings,
+  };
 
 
-  console.log('------LOGGING OUTPUT-----');
   const timestamp = Date.now();
+  
+  console.log('------LOGGING OUTPUT-----');
   console.log(`The time is ${timestamp}`);
   console.table('REWARDS');
   console.table(output.positions);
@@ -55,12 +76,8 @@ async function logBalances(address, infuraId) {
   );
   console.log('');
 
-  output.underlyings.forEach((u) => {
-    console.log(u.asset);
-    console.table(u.underlyingBalances);
-    console.log('');
-  });
-
+  console.log('Underlying Positions');
+  console.table(output.underlyings);
   console.log('------DUMPING TO FILE-----');
 
   const history = JSON.parse(fs.readFileSync(FILE, 'utf8'));

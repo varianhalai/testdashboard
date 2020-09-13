@@ -139,13 +139,14 @@ export class PoolManager {
 
   /**
    * @param {string} address user address
+   * @param {bool} passthrough unwrap interior tokens
    * @return {Array} lp token balances
    */
-  underlying(address) {
+  underlying(address, passthrough) {
     return PoolManager._mapToPools(
         this.pools,
         ['underlyingBalanceOf'],
-        [address],
+        [address, passthrough],
         'underlyingBalances',
     ).then((vs) => vs.filter((v) => !!v));
   }

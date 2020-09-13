@@ -32,7 +32,9 @@ export function prettyPosition(sum) {
  * @return {Object} pretty
  */
 export function prettyUnderlying(u) {
-  if (u.underlyingBalances[0].balance.isZero()) {
+  const underlyingBalancesList = u.underlyingBalances.toList();
+
+  if (underlyingBalancesList[0].balance.isZero()) {
     return;
   }
 
@@ -50,7 +52,7 @@ export function prettyUnderlying(u) {
 
   return {
     asset: u.name,
-    underlyingBalances: u.underlyingBalances.map(transformUnderlying),
+    underlyingBalances: underlyingBalancesList.map(transformUnderlying),
   };
 }
 
