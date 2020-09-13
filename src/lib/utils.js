@@ -1,6 +1,17 @@
 import ethers from 'ethers';
 
 /**
+ * Prettifies money
+ * @param {Number} pennies value in cents
+ * @return {String} pretty
+ */
+export function prettyMoney(pennies) {
+  return Intl
+    .NumberFormat('en-US', {style: 'currency', currency: 'USD'})
+    .format(pennies / 100);
+}
+
+/**
  * Prettifies a positions for console.table
  * @param {Object} sum position summary
  * @return {Object} pretty
@@ -9,20 +20,24 @@ export function prettyPosition(sum) {
   const {
     name,
     summary: {
-      pool: {address, asset: {decimals}},
+      pool: {asset: {decimals}},
       isActive, stakedBalance, unstakedBalance, earnedRewards,
-      percentageOwnership,
+      percentageOwnership, usdValueOf,
     },
   } = sum;
 
+  // const bnValueOf = ethers.BigNumber.from(usdValueOf);
+  // const prettyUsdValue = `$${ethers.utils.formatUnits(bnValueOf, 2)}`;
+  const prettyUsdValue = prettyMoney(usdValueOf);
+
   return {
     name,
-    address,
     isActive,
     stakedBalance: ethers.utils.formatUnits(stakedBalance, decimals),
     unstakedBalance: ethers.utils.formatUnits(unstakedBalance, decimals),
     earnedRewards: ethers.utils.formatUnits(earnedRewards, 18),
     percentOfPool: percentageOwnership,
+    usdValueOf: prettyUsdValue,
   };
 }
 
@@ -59,4 +74,5 @@ export function prettyUnderlying(u) {
 export default {
   prettyUnderlying,
   prettyPosition,
+  prettyMoney,
 };

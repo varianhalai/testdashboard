@@ -5,7 +5,7 @@ import React from 'react';
 import './App.css';
 import {MainTable, UnderlyingTable} from './components/MainTable.js';
 
-const ethers = harvest.ethers;
+const {ethers, utils} = harvest;
 
 class App extends React.Component {
 
@@ -18,6 +18,7 @@ class App extends React.Component {
       manager: undefined,
       summaries: [],
       underlyings: [],
+      usdValue: 0,
     };
   }
 
@@ -65,7 +66,12 @@ class App extends React.Component {
                         )
       )
       .then(summaries => {
-        this.setState({summaries});
+        let total = ethers.BigNumber.from(0);
+        summaries.forEach((pos) => {
+          console.log(pos)
+          total = total.add(pos.summary.usdValueOf)
+        });
+        this.setState({summaries, usdValue: total});
         return summaries;
       })
       .then(console.table);
@@ -87,6 +93,7 @@ class App extends React.Component {
     const connectBtn = this.renderConnectStatus();
     const refreshBtn = this.renderRefreshButton();
     const harvestAll = this.renderHarvestAll();
+    const navMessage = this.renderNAV();
     const exitInactive = this.renderExitInactiveButton();
     const table = this.renderMainTable();
     const underlyingTable = this.renderUnderlyingTable();
@@ -97,8 +104,11 @@ class App extends React.Component {
           {connectBtn}
           {refreshBtn}
           {table}
-          {harvestAll}
-          {exitInactive}
+          <div>
+            {navMessage}
+            {harvestAll}
+            {exitInactive}
+          </div>
           {underlyingTable}
           <p>Add assets to wallet: &nbsp;
             <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-farm/">FARM</a>&nbsp;
@@ -114,6 +124,14 @@ class App extends React.Component {
         </header>
       </div>
     );
+  }
+
+  renderNAV() {
+    if (this.state.summaries.length !== 0) {
+      const formatted = utils.prettyMoney(this.state.usdValue);
+      return <p>Your staked assets and earned rewards are worth about <strong>{formatted}</strong></p>;
+    }
+    return <div></div>;
   }
 
   renderMainTable() {

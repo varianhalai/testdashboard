@@ -36,9 +36,10 @@ export class MainTable extends Table {
       'Pool',
       'Earning',
       'Staked Balance',
-      'Unstaked Balance',
       'Earned Rewards',
-      'Pool%',
+      '% of Pool',
+      'USD Value',
+      'Unstaked Balance',
     ]);
   }
 
@@ -51,9 +52,10 @@ export class MainTable extends Table {
             <td>{summary.name}</td>
             <td>{String(summary.isActive)}</td>
             <td>{summary.stakedBalance}</td>
-            <td>{summary.unstakedBalance}</td>
             <td>{summary.earnedRewards}</td>
             <td>{summary.percentOfPool}</td>
+            <td>{summary.usdValueOf}</td>            
+            <td>{summary.unstakedBalance}</td>
           </tr>
         );
       });

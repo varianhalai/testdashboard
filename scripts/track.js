@@ -32,15 +32,15 @@ async function logBalances(address, infuraId) {
   const underlyings = await man.underlying(address, true);
 
   let totalRewards = ethers.BigNumber.from(0);
-
+  let totalValue = ethers.BigNumber.from(0);
   const positions = summaries
       .map(prettyPosition)
       .filter((p) => p.earnedRewards !== '0.0' || p.stakedBalance !== '0.0');
 
   summaries.forEach((pos) => {
     totalRewards = totalRewards.add(pos.summary.earnedRewards);
+    totalValue = totalValue.add(pos.summary.usdValueOf);
   });
-
 
   // combine all underlying positions
   let aggregateUnderlyings = new UnderlyingBalances();
@@ -61,18 +61,29 @@ async function logBalances(address, infuraId) {
 
   const output = {
     positions,
+    totalRewards: totalRewards.toString(),
+    totalValue: totalValue.toString(),
     underlyings: aggregateUnderlyings,
   };
 
-
   const timestamp = Date.now();
-  
   console.log('------LOGGING OUTPUT-----');
   console.log(`The time is ${timestamp}`);
   console.table('REWARDS');
-  console.table(output.positions);
+  console.table(output.positions, [
+    'name',
+    'isActive',
+    'stakedBalance',
+    'earnedRewards',
+    'percentOfPool',
+    'usdValueOf',
+    'unstakedBalance',
+  ]);
   console.log(
       `Total claimable rewards: ${ethers.utils.formatEther(totalRewards)}`,
+  );
+  console.log(
+      `NAV of staked assets and rewards: ${ethers.utils.formatUnits(totalValue, 2)}`,
   );
   console.log('');
 

@@ -140,6 +140,33 @@ export class PoolManager {
 
   /**
    * @param {string} address user address
+   * @return {Array} rewards
+   */
+  usdValues(address) {
+    return PoolManager._mapToPools(
+        this.pools,
+        ['usdValueOf'],
+        [address],
+        'usdValue',
+    );
+  }
+
+  /**
+   * @param {string} address user address
+   * @return {BigNumber} total rewards
+   */
+  usdValueOf(address) {
+    return this.usdValues(address).then((rewards) => {
+        let total = ethers.BigNumber.from(0);
+        rewards.forEach((reward) => {
+          total = total.add(reward);
+        });
+        return total;
+    });
+  }
+
+  /**
+   * @param {string} address user address
    * @param {bool} passthrough unwrap interior tokens
    * @return {Array} lp token balances
    */

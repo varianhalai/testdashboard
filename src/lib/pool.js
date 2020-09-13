@@ -18,6 +18,7 @@ export class HarvestRewardsPool extends ethers.Contract {
     this._pool = pool;
 
     this.lptoken = Token.fromAsset(pool.asset, provider);
+    this.reward = Token.fromAsset(pool.rewardAsset, provider);
 
     // function aliases
     this.unstakedBalance = this.lptoken.balanceOf;
@@ -30,6 +31,28 @@ export class HarvestRewardsPool extends ethers.Contract {
         return this.lptoken.calcShare(balance, passthrough);
       };
     }
+  }
+
+  /**
+   * Get the USD value of the staked and unstaked tokens
+   * @param {String} address the address
+   * @return {String} the percentage, string formatted
+   */
+  async usdValueOf(address) {
+    const [
+      stakedBalance,
+      rewardBalance
+    ] = await Promise.all([
+      this.stakedBalance(address),
+      this.earnedRewards(address),
+    ]);
+
+    const [stakedValue, rewardValue] = await Promise.all([
+      this.lptoken.usdValueOf(stakedBalance),
+      this.reward.usdValueOf(rewardBalance),
+    ]);
+
+    return stakedValue.add(rewardValue);
   }
 
   /**
@@ -135,12 +158,14 @@ export class HarvestRewardsPool extends ethers.Contract {
       earnedRewards,
       underlyingBalanceOf,
       percentageOwnership,
+      usdValueOf,
     ] = await Promise.all([
       this.stakedBalance(address),
       this.unstakedBalance(address),
       this.earnedRewards(address),
       underlying(address),
       this.percentageOwnership(address),
+      this.usdValueOf(address),
     ]);
 
 
@@ -152,6 +177,7 @@ export class HarvestRewardsPool extends ethers.Contract {
       unstakedBalance,
       earnedRewards,
       percentageOwnership,
+      usdValueOf,
     };
     if (underlyingBalanceOf) output.underlyingBalanceOf = underlyingBalanceOf;
     return output;

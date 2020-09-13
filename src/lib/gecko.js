@@ -19,8 +19,9 @@ class GeckoApi {
    * @return {Number} price
    */
   checkMemo(address, time) {
-    if (this._memos[address] && this._memos[address].validUntil >= time) {
-      return this._memos[address].price;
+    const key = address.toLowerCase();
+    if (this._memos[key] && this._memos[key].validUntil >= time) {
+      return this._memos[key].bnPrice;
     }
   }
 
@@ -31,10 +32,12 @@ class GeckoApi {
    * @return {BigNumber} price in pennies
    */
   memoize(address, price, validUntil) {
+    if (!price) return;
+    const key = address.toLowerCase();
     const bnPrice = ethers.BigNumber.from(parseInt(price * 100));
-    this._memos[address] = {
+    this._memos[key] = {
       validUntil,
-      price,
+      bnPrice,
     };
     return bnPrice;
   }
@@ -48,19 +51,22 @@ class GeckoApi {
     const time = Date.now();
 
     addresses.forEach((address) => {
-      const memo = this.checkMemo(address, time);
+      const memo = this.checkMemo(address.toLowerCase(), time);
       if (memo) {
-        result[address] = memo;
+        result[address.toLowerCase()] = memo;
       }
     });
 
-    const s = addresses.filter((address) => !(result[address])).join(',');
+    const s = addresses
+      .filter((address) => !(result[address.toLowerCase()]))
+      .map((address) => address.toLowerCase())
+      .join(',');
     const url = `${this.url}?contract_addresses=${s}&vs_currencies=USD`;
 
     const response = await axios.get(url);
 
     Object.entries(response.data).forEach(([address, {usd}]) => {
-      result[address] = this.memoize(address, usd, time + 5 * 60 * 1000);
+      result[address.toLowerCase()] = this.memoize(address, usd, time + 5 * 60 * 1000);
     });
 
     return result;
@@ -68,15 +74,17 @@ class GeckoApi {
 
   /**
    * @param {String} address token address
-   * @return {Promise} axios output
+   * @return {Promise} price in pennies
    */
   getPrice(address) {
-    return this._getPrices([address]);
+    return this._getPrices([address]).then((res) => {
+      return res[address.toLowerCase()];
+    });
   }
 
   /**
    * @param {Array} addresses token addresses
-   * @return {Promise} axios output
+   * @return {Promise} price in pennies
    */
   getPrices(addresses) {
     return this._getPrices(addresses);

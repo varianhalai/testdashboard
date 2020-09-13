@@ -1,7 +1,7 @@
 import {ERC20_ABI, UNISWAP_PAIR_ABI, BALANCER_ABI, CURVE_ABI, FTOKEN_ABI} from './data/ABIs.js';
 import ethers from 'ethers';
 import data from './data/deploys.js';
-
+import Gecko from './gecko.js';
 
 /**
  * UnderlyingBalances
@@ -18,6 +18,18 @@ export class UnderlyingBalances {
     } else {
       this.balances[name] = this.balances[name].add(balance);
     }
+  }
+
+  usdValueOf(provider) {
+    const promises = Object.entries(this.balances).map(([name, balance]) => {
+      const asset = Token.fromName(name, provider);
+      return asset.usdValueOf(balance);
+    });
+    return Promise.all(promises).then((vals) => {
+      let total = ethers.BigNumber.from(0);
+      vals.forEach((val) => total = total.add(val));
+      return total;
+    })
   }
 
   ingest(entries) {
@@ -80,7 +92,6 @@ export class ERC20Extended extends ethers.Contract {
   async percentageOwnership(address) {
     return this.percentageOfTotal(await this.balanceOf(address));
   }
-
 }
 /**
  * Token wrapper
@@ -97,6 +108,19 @@ export class Token extends ERC20Extended {
     this.type = asset.type;
     this.tokenDecimals = asset.decimals;
     this.asset = asset;
+  }
+
+  /**
+   * Calculate USD value of an amount of tokens
+   * @param {BigNumber} amount the amount of tokens to value
+   * @return {BigNumber} the value in pennies
+   */
+  async usdValueOf(amount) {
+    if (amount.isZero()) return ethers.BigNumber.from(0);
+    const gecko = Gecko.coingecko();
+    const value = await gecko.getPrice(this.address);
+    const unit = ethers.BigNumber.from(10).pow(this.tokenDecimals);
+    return amount.mul(value).div(unit);
   }
 
   /**
@@ -128,6 +152,16 @@ export class Token extends ERC20Extended {
    */
   static fromAddress(address, provider) {
     return Token.fromAsset(data.assetByAddress(address), provider);
+  }
+
+  /**
+   *
+   * @param {Object} name
+   * @param {Object} provider web3 provider
+   * @return {Token} an Token subclass instances
+   */
+  static fromName(name, provider) {
+    return Token.fromAsset(data.assetByName(name), provider);
   }
 }
 
@@ -197,6 +231,18 @@ class HasUnderlying extends Token {
       const balance = await this.balanceOf(address);
       return this.calcShare(balance, passthrough);
     }
+
+
+      /**
+       * Calculate USD value of an amount of tokens
+       * @param {BigNumber} amount the amount of tokens to value
+       * @return {BigNumber} the value in pennies
+       */
+    async usdValueOf(amount) {
+      if (amount.isZero()) return ethers.BigNumber.from(0);
+      let shares = await this.calcShare(amount, true);
+      return await shares.usdValueOf(this.provider);
+    }
 }
 
 /**
@@ -223,9 +269,10 @@ export class FToken extends HasUnderlying {
   }
 
   async calcShare(tokens) {
+    const unit = ethers.BigNumber.from(10).pow(this.underlyingAsset.decimals);
     const balance = tokens
       .mul(await this.getPricePerFullShare())
-      .div(ethers.BigNumber.from(10).pow(this.underlyingAsset.decimals));
+      .div(unit);
     return new UnderlyingBalances().ingest([
       {
         asset: this.underlyingAsset,
