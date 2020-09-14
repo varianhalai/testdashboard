@@ -296,6 +296,7 @@ export class PoolManager {
       if (unstaked.lt(adjusted)) return;  // respect minimum
 
       const stakeUnstaked = await pool.approveAndStake(unstaked, approveForever);
+      if (!stakeUnstaked) return;
       return {
         name: pool.name,
         stakeUnstaked,
