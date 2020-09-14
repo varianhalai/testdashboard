@@ -71,6 +71,7 @@ export class ERC20Extended extends ethers.Contract {
     this.asset = data.assetByAddress(address);
     this.tokenDecimals = this.asset.decimals;
     this.name = this.asset.name;
+    this.baseUnit = new ethers.BigNumber.from(10).pow(this.tokenDecimals);
   }
 
   /**
@@ -273,6 +274,8 @@ export class FToken extends HasUnderlying {
   }
 
   async calcShare(tokens) {
+    if (tokens.isZero()) return new UnderlyingBalances();
+
     const unit = ethers.BigNumber.from(10).pow(this.underlyingAsset.decimals);
     const balance = tokens
       .mul(await this.getPricePerFullShare())

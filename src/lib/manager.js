@@ -275,6 +275,35 @@ export class PoolManager {
       overrides
     );
   }
+
+  /**
+   * Minimum here is 10**18 = 1 whole coin. So it will be adjusted to `10 ** 18
+   * / 10 ** (18 - token.decimals)`.
+   * @param minimum the minimum number as 10 ** 18
+   * @return {array} array of txns
+   */
+  stakeUnstaked(minimum, approveForever) {
+    if (!ethers.Signer.isSigner(this.provider)) {
+      throw new Error('No signer');
+    };
+
+    const me = this.provider.getAddress();
+
+    const f = async (pool) => {
+      // 1 extra API call
+      const unstaked = await pool.unstakedBalance(me);
+      const adjusted = ethers.constants.WeiPerEther.div(pool.lptoken.baseUnit);
+      if (unstaked.lt(adjusted)) return;  // respect minimum
+
+      const stakeUnstaked = await pool.approveAndStake(unstaked, approveForever);
+      return {
+        name: pool.name,
+        stakeUnstaked,
+      };
+    }
+
+    return this.pools.map(f).filter((res) => !!res);
+  }
 }
 
 export default {
