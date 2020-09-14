@@ -79,7 +79,9 @@ export class ERC20Extended extends ethers.Contract {
    * @return {String} the percentage, string formatted
    */
   async percentageOfTotal(tokens) {
+    if (tokens.isZero()) return '0%';
     const total = await this.totalSupply();
+    if (total.isZero()) return '0%';
 
     return ethers.utils.formatUnits(tokens.mul(100).div(total), 2) + '%';
   }
@@ -197,12 +199,14 @@ class HasUnderlying extends Token {
      * @param {bool} passthrough pass through to the lowest assets.
      */
     async calcShare(tokens, passthrough) {
+      if (tokens.isZero()) return new UnderlyingBalances();
       const [total, reserves] = await Promise.all(
           [
             this.totalSupply(),
             this.getReserves(),
           ],
       );
+      if (total.isZero()) return new UnderlyingBalances();
 
       const shares = new UnderlyingBalances();
 

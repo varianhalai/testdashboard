@@ -117,11 +117,13 @@ export class HarvestRewardsPool extends ethers.Contract {
    * @return {String} the percentage, string formatted
    */
   async percentageOfTotal(tokens) {
+    if (tokens.isZero() ) return '0%';
     const total = await this.totalSupply();
+    if (total.isZero() ) return '0%';
 
-    const based = !total.isZero() ? tokens.mul(ethers.constants.WeiPerEther).div(total) : 0;
+    const amnt = tokens.mul(ethers.constants.WeiPerEther).div(total);
 
-    return ethers.utils.formatUnits(based, 16).slice(0, 5) + '%';
+    return ethers.utils.formatUnits(amnt, 16).slice(0, 5) + '%';
   }
 
   /**
