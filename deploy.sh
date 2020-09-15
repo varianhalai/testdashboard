@@ -1,3 +1,5 @@
+#!/bin/sh -x
+
 DEPLOY_CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 DEPLOY_CURRENT_COMMIT=$(git rev-parse HEAD)
 git checkout -b tmp-gh-pages && \
