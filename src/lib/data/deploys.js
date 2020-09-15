@@ -276,7 +276,7 @@ assets.push({
   name: 'FRENBTC',
   type: 'ftoken',
   underlyingAsset: assetByName('RENBTC'),
-  decimals: 18,
+  decimals: 8,
   address: '0xfBe122D0ba3c75e1F7C80bd27613c9f35B81FEeC',
 });
 assets.push({
