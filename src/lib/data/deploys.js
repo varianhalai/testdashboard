@@ -238,6 +238,37 @@ const assets = [
     decimals: 18,
     address: '0xb6a6a3d8ef31d9faeb1ab1487ace79fe1f5df1bb',
   },
+  {
+    name: 'CRPT_80_FARM_20_WETH',
+    type: 'balancer',
+    decimals: 18,
+    address: '0x655ad905dec61e4fb7d4840a1f450685801511b2'
+  },
+
+  {
+    name: 'WETH_USDT_LP',
+    type: 'uniswap',
+    decimals: 18,
+    address: '0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852',
+  },
+  {
+    name: 'WETH_USDC_LP',
+    type: 'uniswap',
+    decimals: 18,
+    address: '0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc',
+  },
+  {
+    name: 'WETH_DAI_LP',
+    type: 'uniswap',
+    decimals: 18,
+    address: '0xa478c2975ab1ea89e8196811f51a7b7ade33eb11',
+  },
+  {
+    name: 'WETH_WBTC_LP',
+    type: 'uniswap',
+    decimals: 18,
+    address: '0xbb2b8038a1640196fbe3e38816f3e67cba72d940',
+  }
 ];
 
 /**
@@ -321,6 +352,35 @@ assets.push({
   underlyingAsset: assetByName('WETH'),
   decimals: 18,
   address: '0x8e298734681adbfc41ee5d17ff8b0d6d803e7098',
+});
+
+assets.push({
+  name: 'FWETH_USDT_LP',
+  type: 'ftoken',
+  underlyingAsset: assetByName('WETH_USDT_LP'),
+  decimals: 18,
+  address: '0xb19ebfb37a936cce783142955d39ca70aa29d43c',
+});
+assets.push({
+  name: 'FWETH_USDC_LP',
+  type: 'ftoken',
+  underlyingAsset: assetByName('WETH_USDC_LP'),
+  decimals: 18,
+  address: '0x63671425ef4d25ec2b12c7d05de855c143f16e3b',
+});
+assets.push({
+  name: 'FWETH_DAI_LP',
+  type: 'ftoken',
+  underlyingAsset: assetByName('WETH_DAI_LP'),
+  decimals: 18,
+  address: '0x1a9f22b4c385f78650e7874d64e442839dc32327',
+});
+assets.push({
+  name: 'FWETH_WBTC_LP',
+  type: 'ftoken',
+  underlyingAsset: assetByName('WETH_WBTC_LP'),
+  decimals: 18,
+  address: '0xb1feb6ab4ef7d0f41363da33868e85eb0f3a57ee',
 });
 
 const weekOnePools = [
@@ -593,6 +653,82 @@ const weekThreePools = [
   },
 ];
 
+const weekFourPools = [
+  {
+    asset: assetByName('FARM'),
+    address: '0x59258F4e15A5fC74A7284055A8094F58108dbD4f',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FARM_USDC_LP'),
+    address: '0x99b0d6641A63Ce173E6EB063b3d3AED9A35Cf9bf',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('CRPT_80_FARM_20_WETH'),
+    address: '0x8bcbf139b8d7b26f37d89f2c8aa9de810b5a3814',
+    rewardAsset: assetByName('FARM'),
+  },
+
+  {
+    asset: assetByName('FWETH_USDT_LP'),
+    address: '0x9494a3026f28d0b189252428cebbfa52e69608c4',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FWETH_USDC_LP'),
+    address: '0xc24da7a6b5adc8771588d58b6109ef52c95a311e',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FWETH_DAI_LP'),
+    address: '0xdc27244311c56ed038e7acf104245ec6a040d07f',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FWETH_WBTC_LP'),
+    address: '0x3bdc3e2572a5540bb1eb1e55bb8749d33fd1a105',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FWETH'),
+    address: '0xe11c81b924bb91b44bae19793539054b48158a9d',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FDAI'),
+    address: '0xF9E5f9024c2f3f2908A1d0e7272861a767C9484b',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FUSDC'),
+    address: '0xE1f9A3EE001a2EcC906E8de637DBf20BB2d44633',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FUSDT'),
+    address: '0x5bd997039FFF16F653EF15D1428F2C791519f58d',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FWBTC'),
+    address: '0x6291eCe696CB6682a9bb1d42fca4160771b1D7CC',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FRENBTC'),
+    address: '0xCFE1103863F9e7Cf3452Ca8932Eef44d314bf9C5',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FCRVRENWBTC'),
+    address: '0x5365A2C47b90EE8C9317faC20edC3ce7037384FB',
+    rewardAsset: assetByName('FARM'),
+  },
+];
+
+const periods = [weekOnePools, weekTwoPools, weekThreePools, weekFourPools];
+
 /**
  * @param {Set} setA
  * @param {Set} setB
@@ -629,8 +765,6 @@ function difference(setA, setB) {
 }
 
 // SETUP
-
-const periods = [weekOnePools, weekTwoPools, weekThreePools];
 
 // Get a deduped set of all past pools
 let allPastPools = new Set();
