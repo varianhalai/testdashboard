@@ -807,14 +807,16 @@ Object.freeze(allPastPools);
 
 export default {
   activePools: Object.freeze([...activePools]),
-  allPastPools: [...allPastPools],
+  allPastPools: Object.freeze([...allPastPools]),
   assets,
   assetByAddress,
   assetByName,
-  inactivePools: [...inactivePools],
+  inactivePools: Object.freeze([...inactivePools]),
   isAddressActive,
   isActive,
   periods,
   weekOnePools,
   weekTwoPools,
+  weekThreePools,
+  weekFourPools,
 };
