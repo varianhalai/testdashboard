@@ -119,7 +119,7 @@ export class RewardsPool extends ethers.Contract {
    */
   async percentageOfTotal(tokens) {
     if (tokens.isZero() ) return '0%';
-    const total = this.totaSupply ? await this.totalSupply() : await this.totalValue();
+    const total = this.totalSupply ? await this.totalSupply() : await this.totalValue();
     if (total.isZero() ) return '0%';
 
     const amnt = tokens.mul(ethers.constants.WeiPerEther).div(total);
