@@ -1,6 +1,6 @@
 import data from './data/deploys.js';
 import ethers from 'ethers';
-import {HarvestRewardsPool} from './pool.js';
+import {RewardsPool} from './pool.js';
 import {UnderlyingBalances} from './tokens.js';
 
 /**
@@ -24,7 +24,7 @@ export class PoolManager {
    */
   static weekOne(provider) {
     return new PoolManager(
-        HarvestRewardsPool.weekOne(provider),
+        RewardsPool.weekOne(provider),
         provider,
     );
   }
@@ -34,7 +34,7 @@ export class PoolManager {
    */
   static weekTwo(provider) {
     return new PoolManager(
-        HarvestRewardsPool.weekTwo(provider),
+        RewardsPool.weekTwo(provider),
         provider,
     );
   }
@@ -44,7 +44,7 @@ export class PoolManager {
    */
   static activePools(provider) {
     return new PoolManager(
-        HarvestRewardsPool.activePools(provider),
+        RewardsPool.activePools(provider),
         provider,
     );
   }
@@ -54,7 +54,7 @@ export class PoolManager {
    */
   static inactivePools(provider) {
     return new PoolManager(
-        HarvestRewardsPool.inactivePools(provider),
+        RewardsPool.inactivePools(provider),
         provider,
     );
   }
@@ -64,7 +64,7 @@ export class PoolManager {
    */
   static allPastPools(provider) {
     return new PoolManager(
-        HarvestRewardsPool.allPastPools(provider),
+        RewardsPool.allPastPools(provider),
         provider,
     );
   }
@@ -310,6 +310,6 @@ export class PoolManager {
 export default {
   data,
   ethers,
-  HarvestRewardsPool,
+  RewardsPool,
   PoolManager,
 };

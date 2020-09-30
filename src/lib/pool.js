@@ -1,21 +1,13 @@
 import data from './data/deploys.js';
 import ethers from 'ethers';
-import {REWARDS_ABI} from './data/ABIs.js';
+import {AUTO_REWARDS_ABI, REWARDS_ABI} from './data/ABIs.js';
 import {Token} from './tokens.js';
 
-/**
- * Reward pool wrapper
- */
-export class HarvestRewardsPool extends ethers.Contract {
-  /**
-   *
-   * @param {Object} pool object from data/deploy.js
-   * @param {Object} provider web3 provider
-   */
-  constructor(pool, provider) {
-    super(pool.address, REWARDS_ABI, provider);
-    this.name = pool.asset.name;
-    this._pool = pool;
+export class RewardsPool extends ethers.Contract {
+  constructor(pool, abi, provider) {
+    super(pool.address, abi, provider);
+    this.name = pool.name ? pool.name : pool.asset.name;
+    this._pool = pool
 
     this.lptoken = Token.fromAsset(pool.asset, provider);
     this.reward = Token.fromAsset(pool.rewardAsset, provider);
@@ -23,7 +15,6 @@ export class HarvestRewardsPool extends ethers.Contract {
     // function aliases
     this.unstakedBalance = this.lptoken.balanceOf;
     this.stakedBalance = this.balanceOf;
-    this.earnedRewards = this.earned;
 
     if (this.lptoken.underlyingBalanceOf) {
       this.underlyingBalanceOf = async (address, passthrough) => {
@@ -31,6 +22,71 @@ export class HarvestRewardsPool extends ethers.Contract {
         return this.lptoken.calcShare(balance, passthrough);
       };
     }
+  }
+
+  static fromPool(pool, provider) {
+    switch (pool.type) {
+      case 'autocompounding':
+        return new AutoCompoundingRewardsPool(pool, provider);
+      default:
+        return new HarvestRewardsPool(pool, provider);
+    }
+  }
+
+  /**
+   * @param {Object} provider web3 provider
+   * @return {Array} array of RewardsPools
+   */
+  static knownPools(provider) {
+    return data.pools.map((pool) =>
+      RewardsPool.fromPool(pool, provider),
+    );
+  }
+
+  /**
+   * @param {ethers.Provider} provider provider
+   * @return {PoolManager} manager
+   */
+  static weekOne(provider) {
+    return data.weekOnePools.map((pool) =>
+      RewardsPool.fromPool(pool, provider),
+    );
+  }
+  /**
+   * @param {ethers.Provider} provider provider
+   * @return {PoolManager} manager
+   */
+  static weekTwo(provider) {
+    return data.weekTwoPools.map((pool) =>
+      RewardsPool.fromPool(pool, provider),
+    );
+  }
+  /**
+   * @param {ethers.Provider} provider provider
+   * @return {PoolManager} manager
+   */
+  static activePools(provider) {
+    return data.activePools.map((pool) =>
+      RewardsPool.fromPool(pool, provider),
+    );
+  }
+  /**
+   * @param {ethers.Provider} provider provider
+   * @return {PoolManager} manager
+   */
+  static inactivePools(provider) {
+    return data.inactivePools.map((pool) =>
+      RewardsPool.fromPool(pool, provider),
+    );
+  }
+  /**
+   * @param {ethers.Provider} provider provider
+   * @return {PoolManager} manager
+   */
+  static allPastPools(provider) {
+    return data.allPastPools.map((pool) =>
+      RewardsPool.fromPool(pool, provider),
+    );
   }
 
   /**
@@ -55,61 +111,6 @@ export class HarvestRewardsPool extends ethers.Contract {
     return stakedValue.add(rewardValue);
   }
 
-  /**
-   * @param {Object} provider web3 provider
-   * @return {Array} array of HarvestRewardsPool
-   */
-  static knownPools(provider) {
-    return data.pools.map((pool) =>
-      new HarvestRewardsPool(pool, provider),
-    );
-  }
-
-  /**
-   * @param {ethers.Provider} provider provider
-   * @return {PoolManager} manager
-   */
-  static weekOne(provider) {
-    return data.weekOnePools.map((pool) =>
-      new HarvestRewardsPool(pool, provider),
-    );
-  }
-  /**
-   * @param {ethers.Provider} provider provider
-   * @return {PoolManager} manager
-   */
-  static weekTwo(provider) {
-    return data.weekTwoPools.map((pool) =>
-      new HarvestRewardsPool(pool, provider),
-    );
-  }
-  /**
-   * @param {ethers.Provider} provider provider
-   * @return {PoolManager} manager
-   */
-  static activePools(provider) {
-    return data.activePools.map((pool) =>
-      new HarvestRewardsPool(pool, provider),
-    );
-  }
-  /**
-   * @param {ethers.Provider} provider provider
-   * @return {PoolManager} manager
-   */
-  static inactivePools(provider) {
-    return data.inactivePools.map((pool) =>
-      new HarvestRewardsPool(pool, provider),
-    );
-  }
-  /**
-   * @param {ethers.Provider} provider provider
-   * @return {PoolManager} manager
-   */
-  static allPastPools(provider) {
-    return data.allPastPools.map((pool) =>
-      new HarvestRewardsPool(pool, provider),
-    );
-  }
 
   /**
    * Get the percentage of the supply owned by the address
@@ -170,8 +171,8 @@ export class HarvestRewardsPool extends ethers.Contract {
       this.usdValueOf(address),
     ]);
 
-
     const output = {
+      address: this.address,
       user: address,
       pool: this._pool,
       isActive: this.isActive(),
@@ -184,7 +185,6 @@ export class HarvestRewardsPool extends ethers.Contract {
     if (underlyingBalanceOf) output.underlyingBalanceOf = underlyingBalanceOf;
     return output;
   }
-
 
   /**
    * @param {Bignumber} amnt 0 or undefined for `all`
@@ -217,5 +217,32 @@ export class HarvestRewardsPool extends ethers.Contract {
 
     await approveTx;
     return await stakeTx;
+  }
+}
+
+
+export class AutoCompoundingRewardsPool extends RewardsPool {
+  constructor(pool, provider) {
+    super(pool, AUTO_REWARDS_ABI, provider);
+  }
+
+  async earnedRewards() {
+    return ethers.BigNumber.from(0);
+  }
+}
+
+
+/**
+ * Reward pool wrapper
+ */
+export class HarvestRewardsPool extends RewardsPool {
+  /**
+   *
+   * @param {Object} pool object from data/deploy.js
+   * @param {Object} provider web3 provider
+   */
+  constructor(pool, provider) {
+    super(pool, REWARDS_ABI, provider);
+    this.earnedRewards = this.earned;
   }
 }

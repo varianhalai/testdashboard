@@ -56,7 +56,6 @@ class App extends React.Component {
         this.setState({underlyings});
         return underlyings
       })
-      .then(console.table);
 
     this.state.manager.summary(this.state.address)
       .then(summaries => summaries
@@ -68,13 +67,11 @@ class App extends React.Component {
       .then(summaries => {
         let total = ethers.BigNumber.from(0);
         summaries.forEach((pos) => {
-          console.log(pos)
           total = total.add(pos.summary.usdValueOf)
         });
         this.setState({summaries, usdValue: total});
         return summaries;
       })
-      .then(console.table);
   }
 
   harvestButtonAction() {

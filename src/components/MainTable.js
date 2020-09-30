@@ -54,7 +54,7 @@ export class MainTable extends Table {
             <td>{summary.stakedBalance}</td>
             <td>{summary.earnedRewards}</td>
             <td>{summary.percentOfPool}</td>
-            <td>{summary.usdValueOf}</td>            
+            <td>{summary.usdValueOf}</td>
             <td>{summary.unstakedBalance}</td>
           </tr>
         );

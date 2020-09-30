@@ -728,9 +728,11 @@ const weekFourPools = [
 
 const weekFivePools = [
   {
+    name: 'ProfitShare V3',
     asset: assetByName('FARM'),
     address: '0x25550Cccbd68533Fa04bFD3e3AC4D09f9e00Fc50',
     rewardAsset: assetByName('FARM'),
+    type: 'autocompounding',
   },
   {
     asset: assetByName('FARM_USDC_LP'),

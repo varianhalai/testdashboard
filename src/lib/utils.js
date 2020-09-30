@@ -21,7 +21,7 @@ export function prettyPosition(sum) {
     name,
     summary: {
       pool: {asset: {decimals}},
-      isActive, stakedBalance, unstakedBalance, earnedRewards,
+      address, isActive, stakedBalance, unstakedBalance, earnedRewards,
       percentageOwnership, usdValueOf,
     },
   } = sum;
@@ -33,6 +33,7 @@ export function prettyPosition(sum) {
   return {
     name,
     isActive,
+    address: address,
     stakedBalance: ethers.utils.formatUnits(stakedBalance, decimals),
     unstakedBalance: ethers.utils.formatUnits(unstakedBalance, decimals),
     earnedRewards: ethers.utils.formatUnits(earnedRewards, 18),
