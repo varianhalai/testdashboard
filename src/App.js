@@ -33,6 +33,19 @@ class App extends React.Component {
 
     this.setState({provider, signer, manager});
 
+    window.ethereum.on('accountsChanged', () => {
+      this.setState({
+        provider: undefined,
+        signer: undefined,
+        address: '',
+        manager: undefined,
+        summaries: [],
+        underlyings: [],
+        usdValue: 0,
+      });
+    });
+
+
     console.log({provider, signer, manager})
 
     // get the user address
