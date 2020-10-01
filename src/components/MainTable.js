@@ -35,10 +35,10 @@ export class MainTable extends Table {
     super(props, [
       'Pool',
       'Earning',
-      'Staked Balance',
       'Earned Rewards',
+      'Staked Balance',
       '% of Pool',
-      'USD Value',
+      'Value',
       'Unstaked Balance',
     ]);
   }
@@ -51,8 +51,8 @@ export class MainTable extends Table {
           <tr key={summary.address}>
             <td>{summary.name}</td>
             <td>{String(summary.isActive)}</td>
-            <td>{summary.stakedBalance}</td>
             <td>{summary.earnedRewards}</td>
+            <td>{summary.stakedBalance}</td>
             <td>{summary.percentOfPool}</td>
             <td>{summary.usdValueOf}</td>
             <td>{summary.unstakedBalance}</td>

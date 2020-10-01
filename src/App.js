@@ -107,17 +107,21 @@ class App extends React.Component {
             {exitInactive}
           </div>
           {underlyingTable}
-          <p>Add assets to wallet: &nbsp;
-            <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-farm/">FARM</a>&nbsp;
-            <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fusdc/">fUSDC</a>&nbsp;
-            <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fusdt/">fUSDT</a>&nbsp;
-            <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fdai/">fDAI</a>&nbsp;
-            <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fwbtc/">fwBTC</a>&nbsp;
-            <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-frenbtc/">frenBTC</a>&nbsp;
-            <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fcrvrenwbtc/">fcrvRenWBTC</a>&nbsp;&#x2014;&nbsp;
-            <a target="_blank" rel="noopener noreferrer" href="https://farm.chainwiki.dev">Harvest Wiki</a>
-          </p>
-          <p>Please consider donating: 0x84BB14595Fd30a53cbE18e68085D42645901D8B6</p>
+          <div id="footer">
+            <p>Add assets to wallet: &nbsp;
+              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-farm/">FARM</a>&nbsp;
+              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fusdc/">fUSDC</a>&nbsp;
+              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fusdt/">fUSDT</a>&nbsp;
+              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fdai/">fDAI</a>&nbsp;
+              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fwbtc/">fwBTC</a>&nbsp;
+              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-frenbtc/">frenBTC</a>&nbsp;
+              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fcrvrenwbtc/">fcrvRenWBTC</a>&nbsp;
+            </p>
+            <p>Contribute to&nbsp;
+              <a target="_blank" rel="noopener noreferrer" href="https://farm.chainwiki.dev">Harvest Wiki</a>&nbsp;
+              or 0x84BB14595Fd30a53cbE18e68085D42645901D8B6
+            </p>
+          </div>
         </header>
       </div>
     );
@@ -145,9 +149,7 @@ class App extends React.Component {
         <p>
           Your position includes LP tokens that can be redeemed for the following:
         </p>
-        <p>
-          <UnderlyingTable data={this.state.underlyings}></UnderlyingTable>
-        </p>
+        <UnderlyingTable data={this.state.underlyings}></UnderlyingTable>
       </div>
       );
     }
