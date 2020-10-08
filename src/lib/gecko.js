@@ -29,12 +29,12 @@ class GeckoApi {
    * @param {String} address token address
    * @param {Number} price price in USD
    * @param {Number} validUntil validity of memoization
-   * @return {BigNumber} price in pennies
+   * @return {BigNumber} price in microdollars
    */
   memoize(address, price, validUntil) {
     if (!price) return;
     const key = address.toLowerCase();
-    const bnPrice = ethers.BigNumber.from(parseInt(price * 100));
+    const bnPrice = ethers.BigNumber.from(parseInt(price * 1000000));
     this._memos[key] = {
       validUntil,
       bnPrice,
@@ -74,7 +74,7 @@ class GeckoApi {
 
   /**
    * @param {String} address token address
-   * @return {Promise} price in pennies
+   * @return {Promise} price in microdollars
    */
   getPrice(address) {
     return this._getPrices([address]).then((res) => {
@@ -84,7 +84,7 @@ class GeckoApi {
 
   /**
    * @param {Array} addresses token addresses
-   * @return {Promise} price in pennies
+   * @return {Promise} price in microdollars
    */
   getPrices(addresses) {
     return this._getPrices(addresses);
