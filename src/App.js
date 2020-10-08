@@ -49,15 +49,19 @@ class App extends React.Component {
     console.log({provider, signer, manager})
 
     // get the user address
-    signer.getAddress()
-      .then((address) => this.setState({address}));
+    signer.getAddress() // refreshButtonAction called initially to load table 
+      .then((address) => { this.setState({address}); this.refreshButtonAction() });
   }
 
   connectMetamask() {
     detectEthereumProvider()
       .then((provider) => {
-        window.ethereum.enable()
-          .then(() => this.setProvider(provider))
+        if(!provider) {
+            document.querySelector('.provider-error-modal').classList.add('visible')
+        } else {
+          window.ethereum.enable()
+            .then(() => { this.setProvider(provider);} )
+        }
       });
   }
 
@@ -99,6 +103,10 @@ class App extends React.Component {
     this.state.manager.exitInactive();
   }
 
+  closeErrorModal() {
+      document.querySelector('.provider-error-modal').classList.remove('visible');
+  }
+
   render() {
     const connectBtn = this.renderConnectStatus();
     const refreshBtn = this.renderRefreshButton();
@@ -108,6 +116,9 @@ class App extends React.Component {
     const underlyingTable = this.renderUnderlyingTable();
     return (
       <div className="App">
+        <div className="menu">
+          <div className="menu--logo"><img src="/dashboard/logo@3x.png"></img>harvest.finance</div>
+        </div>
         <header className="App-header">
           <img id="logo" src="/dashboard/logo@3x.png"></img>
           <h1>Harvest Finance Dashboard</h1>
@@ -121,50 +132,59 @@ class App extends React.Component {
           {underlyingTable}
           <div id="footer">
             <h3>Add assets to wallet</h3>
-            <div class="assets">
-              <div class="asset">
+            <div className="assets">
+              <div className="asset">
               <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-farm/">
               <img src="/dashboard/logo@3x.png"></img>
               FARM</a>
               </div>
-              <div class="asset">
+              <div className="asset">
               <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fusdc/">
               <img src="/dashboard/png_usdc_56px@3x.png"></img>
               fUSDC</a>
               </div>
-              <div class="asset">
+              <div className="asset">
               <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fusdt/">
               <img src="/dashboard/png_usdt_56px@3x.png"></img>
               fUSDT</a>
               </div>
-              <div class="asset">
+              <div className="asset">
               <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fdai/">
               <img src="/dashboard/png_dai_56px@3x.png"></img>
               fDAI</a>
               </div>
-              <div class="asset">
+              <div className="asset">
               <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fwbtc/">
               <img src="/dashboard/png_wbtc_56px@3x.png"></img>
               fwBTC</a>
               </div>
-              <div class="asset">
+              <div className="asset">
               <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-frenbtc/">
               <img src="/dashboard/png_frenbtc_56px@3x.png"></img>
               frenBTC</a>
               </div>
-              <div class="asset">
+              <div className="asset">
               <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fcrvrenwbtc/">
               <img src="/dashboard/png_crvrenwbtc_56px@3x.png"></img>
               fcrvRenWBTC</a>
               </div>
             </div>
             <div id="wiki-link">
-              <img class="icon" src="dashboard/Wiki.svg"></img><p><a target="_blank" rel="noopener noreferrer" href="https://farm.chainwiki.dev">Harvest Wiki</a></p>
+              <img className="icon" src="dashboard/Wiki.svg"></img><p><a target="_blank" rel="noopener noreferrer" href="https://farm.chainwiki.dev">Harvest Wiki</a></p>
             </div>
             <div id="donation-link">
             <img src="dashboard/logo@3x.png"></img><p>Please consider donating: <span id="address"><a target="_blank" rel="noopener noreferrer" href="https://etherscan.io/address/0x84BB14595Fd30a53cbE18e68085D42645901D8B6">0x84BB14595Fd30a53cbE18e68085D42645901D8B6</a></span>
             </p>
             </div>
+          </div>
+          <div className="provider-error-modal">
+              <div id="provider-error-modal--inner">
+                  <img id="pe-modal--close" src="/dashboard/closed@3x.png" onClick={this.closeErrorModal}></img>
+                  <img id="no_eth_provider" src="/dashboard/png_eth@3x.png"></img>
+                  <h3>No ETH Account Available</h3>
+                  <p>You are not yet logged in.</p>
+                  {connectBtn}
+              </div>
           </div>
         </header>
       </div>
@@ -225,7 +245,7 @@ class App extends React.Component {
 
     return <div>
       <button
-        disabled={!this.state.provider}
+        disabled={!this.state.provider || this.state.summaries.length === 0 } // disable if, on initial, the table is still loading
         onClick={this.refreshButtonAction.bind(this)}
       >{buttonText}</button>
     </div>;

@@ -1,7 +1,6 @@
 .App {
   text-align: center;
   background-color: #fafbfe;
-  margin-top: 50px;
 }
 
 @media only screen and (max-device-width : 768px) {
@@ -22,7 +21,6 @@
 .App-header {
   background-color: #fafbfe;
   color: black;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
