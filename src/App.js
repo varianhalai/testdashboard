@@ -170,10 +170,10 @@ class App extends React.Component {
               </div>
             </div>
             <div id="wiki-link">
-              <img className="icon" src="dashboard/Wiki.svg"></img><p><a target="_blank" rel="noopener noreferrer" href="https://farm.chainwiki.dev">Harvest Wiki</a></p>
+              <img className="icon" src="/dashboard/Wiki.svg"></img><p><a target="_blank" rel="noopener noreferrer" href="https://farm.chainwiki.dev">Harvest Wiki</a></p>
             </div>
             <div id="donation-link">
-            <img src="dashboard/logo@3x.png"></img><p>Please consider donating: <span id="address"><a target="_blank" rel="noopener noreferrer" href="https://etherscan.io/address/0x84BB14595Fd30a53cbE18e68085D42645901D8B6">0x84BB14595Fd30a53cbE18e68085D42645901D8B6</a></span>
+            <img src="/dashboard/logo@3x.png"></img><p>Please consider donating: <span id="address"><a target="_blank" rel="noopener noreferrer" href="https://etherscan.io/address/0x84BB14595Fd30a53cbE18e68085D42645901D8B6">0x84BB14595Fd30a53cbE18e68085D42645901D8B6</a></span>
             </p>
             </div>
           </div>
