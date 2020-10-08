@@ -1,6 +1,12 @@
+@import url('https://rsms.me/inter/inter.css');
+html { font-family: 'Inter', sans-serif; }
+@supports (font-variation-settings: normal) {
+  html { font-family: 'Inter var', sans-serif; }
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -13,24 +19,69 @@ code {
 }
 
 p {
-  font-size: 0.7em;
+  font-size: 1em;
 }
 
 table {
-  border-collapse: collapse;
-  font-size: 0.7em;
+  font-size: 16px;
 }
 
-table, th, td {
-  border: 3px solid #a0a0a0;
+div#table-container {
+    border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  -webkit-box-shadow: 0px 9px 28px 8px rgba(0,0,0,0.05);
+-moz-box-shadow: 0px 9px 28px 8px rgba(0,0,0,0.05);
+box-shadow: 0px 9px 28px 8px rgba(0,0,0,0.05);
+margin: 20px 0;
 }
 
-th {
-  padding: 5px;
+div#summaries {
+    border-bottom: 1px solid #e5e7eb;
 }
 
-td {
-  font-size: 0.85em;
+
+div#summaries--header {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 2fr 2fr 1fr 1fr 1fr;
+  padding: 10px 15px;
+  border-bottom: 1px solid #e5e7eb;
+  font-weight: 300;
+  font-size: 13px;
+  text-align: left;
+}
+
+div#summaries--row  {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 2fr 2fr 1fr 1fr 1fr;
+  font-size: 14px;
+  padding: 15px;
+  background-color: white;
+  text-align: left;
+}
+
+div#underlying--header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  padding: 10px 15px;
+  font-weight: 300;
+  font-size: 13px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+div#underlying--row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-size: 14px;
+  padding: 15px;
+  background-color: white;
+  text-align: left;
+}
+
+#table--total {
+    background-color: white;
+  font-size: 14px;
+  padding: 10px 0;
 }
 
 button {
@@ -45,6 +96,9 @@ button {
   display: inline-block;
   font-size: 16px;
   font-weight: bold;
+    background-color: #6336ff;
+    font-size: 14px;
+    cursor: pointer;
 }
 
 button:disabled {
@@ -57,16 +111,133 @@ button:disabled {
 }
 
 input {
-  margin: 0px 0px 40px;
   font-size: 0.7em;
   text-align: center;
   width: 65px;
 }
 
+input[type="text"] {
+    font-weight: 600;
+    color: #6336ff;
+    background: #FFFFFF;
+    border: none;
+    padding: 5px 0;
+box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.159064);
+border-radius: 8px;
+}
+
+input[type="text"]::placeholder {
+    opacity: 1;
+}
+
 a {
-  color: white;
+  color: black;
 }
 
 #footer {
   margin: 0px 0px 0px 0px;
+    margin-top: 40px;
 }
+
+.assets {
+    display: flex;
+    justify-content: space-between;
+}
+
+.asset a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.asset img {
+    height: 56px;
+    width: 56px;
+    margin-bottom: 4px;
+}
+
+#footer h3 {
+    text-align: left;
+    font-size: 24px;
+}
+
+img#logo {
+    width: 100px;
+    height: 100px;
+}
+
+span#address {
+    font-family: monospace;
+}
+
+#donation-link {
+min-width: 740px;
+height: 60px;
+display: flex;
+align-items: center;
+justify-content: center;
+margin: 60px 0 60px 0;
+background: #FAFBFE;
+box-shadow: inset -5px -5px 10px #FAFBFF, inset 5px 5px 10px #D3E0EC;
+border-radius: 30px;
+}
+
+#donation-link img {
+    height: 24px;
+    width: 24px;
+    margin-right: 10px;
+}
+
+#wiki-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+#wiki-link a {
+    color: #6336FF;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+#wiki-link img {
+    width: 29px;
+    height: 32px;
+    margin-right: 5px;
+}
+
+@media only screen and (max-device-width : 768px) {
+    div#summaries--header {
+      grid-template-columns: 1.5fr 1fr 2fr 2fr 1fr 1fr 1fr;
+    }
+    div#summaries--row {
+      grid-template-columns: 1.5fr 1fr 2fr 2fr 1fr 1fr 1fr;
+    }
+
+    #footer {
+        width: 100vw;
+    }
+    .assets {
+        flex-wrap: wrap;
+    }
+    .asset {
+        width: 50%;
+        margin-bottom: 50px;
+    }
+
+    #donation-link {
+        min-width: 0;
+        max-width: 100vw !important;
+        margin: 60px 10px;
+        height: 70px;
+    }
+
+    #donation-link img {
+        display: none;
+    }
+}
+

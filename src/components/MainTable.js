@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import harvest from '../lib/index.js';
-const ethers = harvest.ethers;
+const {ethers, utils} = harvest;
 
 
 class Table extends Component {
@@ -12,22 +12,33 @@ class Table extends Component {
 
   render() {
     return (
-      <div>
-        <table id='summaries'>
-          <tbody>
-            <tr>{this.renderTableHeader()}</tr>
+      <div id='table-container'>
+        <div id='summaries'>
+            {this.renderTableHeader()}
             {this.renderTableData()}
-          </tbody>
-        </table>
+        </div>
+        {this.renderNAV()}
       </div>
       )
   }
 
   renderTableHeader() {
-    return this.keys.map((key, index) => {
-      return <th key={index}>{key}</th>
-    });
+    return (<div id="summaries--header">
+        {this.keys.map((key, index) => {
+      return <p key={index}>{key}</p>
+    })}
+    </div>
+    )
   }
+
+  renderNAV() {
+    if (this.props.data.length !== 0) {
+      const formatted = utils.prettyMoney(this.props.usdValue);
+      return <p id="table--total">Your staked assets and earned rewards are worth about <strong>{formatted}</strong></p>;
+    }
+    return <div></div>;
+  }
+
 }
 
 export class MainTable extends Table {
@@ -45,18 +56,18 @@ export class MainTable extends Table {
 
   renderTableData() {
     return this.props.data
-      .map(harvest.utils.prettyPosition)
+      .map(utils.prettyPosition)
       .map((summary, index) => {
         return (
-          <tr key={summary.address}>
-            <td>{summary.name}</td>
-            <td>{String(summary.isActive)}</td>
-            <td>{summary.earnedRewards}</td>
-            <td>{summary.stakedBalance}</td>
-            <td>{summary.percentOfPool}</td>
-            <td>{summary.usdValueOf}</td>
-            <td>{summary.unstakedBalance}</td>
-          </tr>
+          <div id="summaries--row" key={summary.address}>
+            <div>{summary.name}</div>
+            <div>{String(summary.isActive)}</div>
+            <div>{summary.earnedRewards}</div>
+            <div>{summary.stakedBalance}</div>
+            <div>{summary.percentOfPool}</div>
+            <div>{summary.usdValueOf}</div>
+            <div>{summary.unstakedBalance}</div>
+          </div>
         );
       });
   }
@@ -70,15 +81,35 @@ export class UnderlyingTable extends Table {
     ]);
   }
 
+  render() {
+    return (
+      <div id='table-container'>
+        <div id='underlyings'>
+            {this.renderTableHeader()}
+            {this.renderTableData()}
+        </div>
+      </div>
+      )
+  }
+
+  renderTableHeader() {
+    return (<div id="underlying--header">
+        {this.keys.map((key, index) => {
+      return <p key={index}>{key}</p>
+    })}
+    </div>
+    )
+  }
+
   renderTableData() {
     return this.props.data
       .filter((u) => !u.balance.isZero())
       .map((u, index) => {
         return (
-          <tr key={u.asset.address}>
-            <td>{u.asset.name}</td>
-            <td>{ethers.utils.formatUnits(u.balance, u.asset.decimals)}</td>
-          </tr>
+          <div id="underlying--row" key={u.asset.address}>
+            <div>{u.asset.name}</div>
+            <div>{ethers.utils.formatUnits(u.balance, u.asset.decimals)}</div>
+          </div>
         );
       });
   }

@@ -103,37 +103,68 @@ class App extends React.Component {
     const connectBtn = this.renderConnectStatus();
     const refreshBtn = this.renderRefreshButton();
     const harvestAll = this.renderHarvestAll();
-    const navMessage = this.renderNAV();
     const exitInactive = this.renderExitInactiveButton();
     const table = this.renderMainTable();
     const underlyingTable = this.renderUnderlyingTable();
     return (
       <div className="App">
         <header className="App-header">
+          <img id="logo" src="/dashboard/logo@3x.png"></img>
           <h1>Harvest Finance Dashboard</h1>
           {connectBtn}
           {refreshBtn}
           {table}
           <div>
-            {navMessage}
             {harvestAll}
             {exitInactive}
           </div>
           {underlyingTable}
           <div id="footer">
-            <p>Add assets to wallet: &nbsp;
-              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-farm/">FARM</a>&nbsp;
-              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fusdc/">fUSDC</a>&nbsp;
-              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fusdt/">fUSDT</a>&nbsp;
-              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fdai/">fDAI</a>&nbsp;
-              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fwbtc/">fwBTC</a>&nbsp;
-              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-frenbtc/">frenBTC</a>&nbsp;
-              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fcrvrenwbtc/">fcrvRenWBTC</a>&nbsp;
+            <h3>Add assets to wallet</h3>
+            <div class="assets">
+              <div class="asset">
+              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-farm/">
+              <img src="/dashboard/logo@3x.png"></img>
+              FARM</a>
+              </div>
+              <div class="asset">
+              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fusdc/">
+              <img src="/dashboard/png_usdc_56px@3x.png"></img>
+              fUSDC</a>
+              </div>
+              <div class="asset">
+              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fusdt/">
+              <img src="/dashboard/png_usdt_56px@3x.png"></img>
+              fUSDT</a>
+              </div>
+              <div class="asset">
+              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fdai/">
+              <img src="/dashboard/png_dai_56px@3x.png"></img>
+              fDAI</a>
+              </div>
+              <div class="asset">
+              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fwbtc/">
+              <img src="/dashboard/png_wbtc_56px@3x.png"></img>
+              fwBTC</a>
+              </div>
+              <div class="asset">
+              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-frenbtc/">
+              <img src="/dashboard/png_frenbtc_56px@3x.png"></img>
+              frenBTC</a>
+              </div>
+              <div class="asset">
+              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fcrvrenwbtc/">
+              <img src="/dashboard/png_crvrenwbtc_56px@3x.png"></img>
+              fcrvRenWBTC</a>
+              </div>
+            </div>
+            <div id="wiki-link">
+              <img class="icon" src="dashboard/Wiki.svg"></img><p><a target="_blank" rel="noopener noreferrer" href="https://farm.chainwiki.dev">Harvest Wiki</a></p>
+            </div>
+            <div id="donation-link">
+            <img src="dashboard/logo@3x.png"></img><p>Please consider donating: <span id="address"><a target="_blank" rel="noopener noreferrer" href="https://etherscan.io/address/0x84BB14595Fd30a53cbE18e68085D42645901D8B6">0x84BB14595Fd30a53cbE18e68085D42645901D8B6</a></span>
             </p>
-            <p>Contribute to&nbsp;
-              <a target="_blank" rel="noopener noreferrer" href="https://farm.chainwiki.dev">Harvest Wiki</a>&nbsp;
-              or 0x84BB14595Fd30a53cbE18e68085D42645901D8B6
-            </p>
+            </div>
           </div>
         </header>
       </div>
@@ -150,7 +181,7 @@ class App extends React.Component {
 
   renderMainTable() {
     if (this.state.summaries.length !== 0) {
-      return <MainTable data={this.state.summaries}></MainTable>;
+      return <MainTable data={this.state.summaries} usdValue={this.state.usdValue}></MainTable>;
     }
     return <div></div>;
   }
@@ -172,7 +203,7 @@ class App extends React.Component {
   renderConnectStatus() {
     if (!this.state.provider) {
       return <div>
-        Start here: <button onClick={this.connectMetamask.bind(this)}>Connect Wallet</button>
+        <button className="button--action" onClick={this.connectMetamask.bind(this)}>Connect Wallet</button>
       </div>;
     }
     return <p>Your wallet address is: <span id="address"><a target="_blank" rel="noopener noreferrer" href={this.state.address ? "https://etherscan.io/address/" + this.state.address : "#"}>{this.state.address || "not connected"}</a></span></p>;
