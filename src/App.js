@@ -199,7 +199,7 @@ class App extends React.Component {
               ))}
             </div>
             <div id="wiki-link">
-              <img className="icon" src="/dashboard/Wiki.svg"></img>
+              <img alt="wiki" className="icon" src="/dashboard/wiki.png"></img>
               <p>
                 <a
                   target="_blank"
