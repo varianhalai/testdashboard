@@ -191,14 +191,6 @@ class App extends React.Component {
     );
   }
 
-  renderNAV() {
-    if (this.state.summaries.length !== 0) {
-      const formatted = utils.prettyMoney(this.state.usdValue);
-      return <p>Based on Coingecko prices, your staked assets and earned rewards are worth about <strong>{formatted}</strong></p>;
-    }
-    return <div></div>;
-  }
-
   renderMainTable() {
     if (this.state.summaries.length !== 0) {
       return <MainTable data={this.state.summaries} usdValue={this.state.usdValue}></MainTable>;

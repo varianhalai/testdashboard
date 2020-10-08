@@ -34,7 +34,7 @@ class Table extends Component {
   renderNAV() {
     if (this.props.data.length !== 0) {
       const formatted = utils.prettyMoney(this.props.usdValue);
-      return <p id="table--total">Your staked assets and earned rewards are worth about <strong>{formatted}</strong></p>;
+      return <p id="table--total">Based on Coingecko prices, your staked assets and earned rewards are worth about <strong>{formatted}</strong></p>;
     }
     return <div></div>;
   }
