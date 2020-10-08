@@ -334,7 +334,7 @@ assets.push({
   name: 'FTUSD',
   type: 'ftoken',
   underlyingAsset: assetByName('TUSD'),
-  decimals: 6,
+  decimals: 18,
   address: '0x7674622c63Bee7F46E86a4A5A18976693D54441b',
 });
 assets.push({

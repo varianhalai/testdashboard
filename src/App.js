@@ -121,6 +121,7 @@ class App extends React.Component {
           </div>
           {underlyingTable}
           <div id="footer">
+            <hr></hr>
             <p>Add assets to wallet: &nbsp;
               <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-farm/">FARM</a>&nbsp;
               <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fusdc/">fUSDC</a>&nbsp;
@@ -143,7 +144,7 @@ class App extends React.Component {
   renderNAV() {
     if (this.state.summaries.length !== 0) {
       const formatted = utils.prettyMoney(this.state.usdValue);
-      return <p>Your staked assets and earned rewards are worth about <strong>{formatted}</strong></p>;
+      return <p>Based on Coingecko prices, your staked assets and earned rewards are worth about <strong>{formatted}</strong></p>;
     }
     return <div></div>;
   }
