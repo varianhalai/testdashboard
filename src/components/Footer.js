@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-import logo from "../../assets/logo@3x.png";
-import usdcIcon from "../../assets/png_usdc_56px@3x.png";
-import usdtIcon from "../../assets/png_usdt_56px@3x.png";
-import daiIcon from "../../assets/png_dai_56px@3x.png";
-import wbtcIcon from "../../assets/png_wbtc_56px@3x.png";
-import frenbtcIcon from "../../assets/png_frenbtc_56px@3x.png";
-import crvrenwbtcIcon from "../../assets/png_crvrenwbtc_56px@3x.png";
-import wikiIcon from "../../assets/wiki.png";
+import logo from "../assets/logo@3x.png";
+import usdcIcon from "../assets/png_usdc_56px@3x.png";
+import usdtIcon from "../assets/png_usdt_56px@3x.png";
+import daiIcon from "../assets/png_dai_56px@3x.png";
+import wbtcIcon from "../assets/png_wbtc_56px@3x.png";
+import frenbtcIcon from "../assets/png_frenbtc_56px@3x.png";
+import crvrenwbtcIcon from "../assets/png_crvrenwbtc_56px@3x.png";
+import wikiIcon from "../assets/wiki.png";
 
 const DONATION_ADDRESS = "0x84BB14595Fd30a53cbE18e68085D42645901D8B6";
 const tokens = [
@@ -78,7 +78,7 @@ const TokenList = styled.div`
   }
 `;
 
-const _Token = ({ className, name, url, image }) => (
+const Token = ({ className, name, url, image }) => (
   <div className={className}>
     <a target="_blank" rel="noopener noreferrer" href={url}>
       <img alt={name} src={image}></img>
@@ -87,7 +87,7 @@ const _Token = ({ className, name, url, image }) => (
   </div>
 );
 
-const Token = styled(_Token)`
+const StyledToken = styled(Token)`
   display: flex;
   justify-content: space-between;
 
@@ -106,6 +106,7 @@ const Token = styled(_Token)`
   }
 
   @media only screen and (max-width: 768px) {
+    display: block;
     width: 50%;
     margin-bottom: 50px;
   }
@@ -154,6 +155,7 @@ const DonationLink = styled.div`
 
   #address {
     font-family: monospace;
+    text-decoration: underline;
   }
 
   @media only screen and (max-width: 768px) {
@@ -173,7 +175,7 @@ const Footer = () => (
     <h3>Add assets to wallet</h3>
     <TokenList>
       {tokens.map((t) => (
-        <Token {...t} />
+        <StyledToken key={t.name} {...t} />
       ))}
     </TokenList>
     <WikiLink>

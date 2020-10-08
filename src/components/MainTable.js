@@ -1,65 +1,86 @@
-import React, {Component} from 'react';
+import React from "react";
+import styled from "styled-components";
 
-import harvest from '../lib/index.js';
-const {ethers, utils} = harvest;
+import harvest from "../lib/index.js";
+const { ethers, utils } = harvest;
 
+const TableContainer = styled.div`
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  box-shadow: 0px 9px 28px 8px rgba(0, 0, 0, 0.05);
+  margin: 20px 0;
+  max-width: calc(100vw - 20px);
+  overflow-x: auto;
+`;
 
-class Table extends Component {
-  constructor(props, keys) {
-    super(props)
-    this.keys = keys;
-  }
+const MainTableInner = styled.div`
+  width: max-content;
+  border-bottom: 1px solid #e5e7eb;
+`;
 
-  render() {
-    return (
-      <div id='table-container'>
-        <div id='summaries'>
-            {this.renderTableHeader()}
-            {this.renderTableData()}
-        </div>
-        {this.renderNAV()}
-      </div>
-      )
-  }
-
-  renderTableHeader() {
-    return (<div id="summaries--header">
-        {this.keys.map((key, index) => {
-      return <p key={index}>{key}</p>
+const TableHeader = ({ className, keys }) => (
+  <div className={className}>
+    {keys.map((key, index) => {
+      return <p key={index}>{key}</p>;
     })}
-    </div>
-    )
-  }
+  </div>
+);
 
-  renderNAV() {
-    if (this.props.data.length !== 0) {
-      const formatted = utils.prettyMoney(this.props.usdValue);
-      return <p id="table--total">Based on Coingecko prices, your staked assets and earned rewards are worth about <strong>{formatted}</strong></p>;
-    }
-    return <div></div>;
-  }
+const StyledTableHeader = styled(TableHeader)`
+  display: grid;
+  padding: 24px 15px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 13px;
+  text-align: left;
+`;
 
-}
+const MainTableHeader = styled(StyledTableHeader)`
+  grid-template-columns: 1.5fr 1fr 2fr 2fr 1fr 1fr 1fr;
+`;
 
-export class MainTable extends Table {
-  constructor(props) {
-    super(props, [
-      'Pool',
-      'Earning',
-      'Earned Rewards',
-      'Staked Balance',
-      '% of Pool',
-      'Value',
-      'Unstaked Balance',
-    ]);
-  }
+const TableRow = styled.div`
+  display: grid;
+  font-size: 14px;
+  padding: 15px;
+  background-color: white;
+  text-align: left;
+`;
 
-  renderTableData() {
-    return this.props.data
-      .map(utils.prettyPosition)
-      .map((summary, index) => {
-        return (
-          <div id="summaries--row" key={summary.address}>
+const MainTableRow = styled(TableRow)`
+  grid-template-columns: 1.5fr 1fr 2fr 2fr 1fr 1fr 1fr;
+`;
+
+const UnderlyingTableHeader = styled(StyledTableHeader)`
+  grid-template-columns: 1fr 1fr;
+`;
+
+const UnderlyingTableRow = styled(TableRow)`
+  grid-template-columns: 1fr 1fr;
+`;
+
+const TotalDisplay = styled.p`
+  background-color: white;
+  font-size: 14px;
+  padding: 24px 0;
+`;
+
+export const MainTable = ({ data, usdValue }) => {
+  const keys = [
+    "Pool",
+    "Earning",
+    "Earned Rewards",
+    "Staked Balance",
+    "% of Pool",
+    "Value",
+    "Unstaked Balance",
+  ];
+
+  return (
+    <TableContainer>
+      <MainTableInner>
+        <MainTableHeader keys={keys} />
+        {data.map(utils.prettyPosition).map((summary, index) => (
+          <MainTableRow key={summary.address}>
             <div>{summary.name}</div>
             <div>{String(summary.isActive)}</div>
             <div>{summary.earnedRewards}</div>
@@ -67,50 +88,35 @@ export class MainTable extends Table {
             <div>{summary.percentOfPool}</div>
             <div>{summary.usdValueOf}</div>
             <div>{summary.unstakedBalance}</div>
-          </div>
-        );
-      });
-  }
-}
+          </MainTableRow>
+        ))}
+      </MainTableInner>
+      {data.length > 0 && (
+        <TotalDisplay>
+          Based on Coingecko prices, your staked assets and earned rewards are
+          worth about <strong>{utils.prettyMoney(usdValue)}</strong>
+        </TotalDisplay>
+      )}
+    </TableContainer>
+  );
+};
 
-export class UnderlyingTable extends Table {
-  constructor(props) {
-    super(props, [
-      'Asset',
-      'Underlying Balance',
-    ]);
-  }
+export const UnderlyingTable = ({ data }) => {
+  const keys = ["Asset", "Underlying Balance"];
 
-  render() {
-    return (
-      <div id='table-container'>
-        <div id='underlyings'>
-            {this.renderTableHeader()}
-            {this.renderTableData()}
-        </div>
-      </div>
-      )
-  }
-
-  renderTableHeader() {
-    return (<div id="underlying--header">
-        {this.keys.map((key, index) => {
-      return <p key={index}>{key}</p>
-    })}
-    </div>
-    )
-  }
-
-  renderTableData() {
-    return this.props.data
-      .filter((u) => !u.balance.isZero())
-      .map((u, index) => {
-        return (
-          <div id="underlying--row" key={u.asset.address}>
-            <div>{u.asset.name}</div>
-            <div>{ethers.utils.formatUnits(u.balance, u.asset.decimals)}</div>
-          </div>
-        );
-      });
-  }
-}
+  return (
+    <TableContainer>
+      <UnderlyingTableHeader keys={keys} />
+      {data
+        .filter((u) => !u.balance.isZero())
+        .map((u, index) => {
+          return (
+            <UnderlyingTableRow key={u.asset.address}>
+              <div>{u.asset.name}</div>
+              <div>{ethers.utils.formatUnits(u.balance, u.asset.decimals)}</div>
+            </UnderlyingTableRow>
+          );
+        })}
+    </TableContainer>
+  );
+};

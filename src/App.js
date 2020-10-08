@@ -4,11 +4,12 @@ import styled from "styled-components";
 
 import logo from "./assets/logo@3x.png";
 import harvest from "./lib/index.js";
-import Footer from "./components/Footer";
+import Footer from "./components/Footer.js";
 import { MainTable, UnderlyingTable } from "./components/MainTable.js";
 import ErrorModal from "./components/ErrorModal";
+import Menu from "./components/Menu";
 
-const { ethers, utils } = harvest;
+const { ethers } = harvest;
 
 const Container = styled.div`
   text-align: center;
@@ -18,7 +19,7 @@ const Container = styled.div`
     /* Styles */
   }
 
-  & > header {
+  & > main {
     background-color: #fafbfe;
     color: black;
     display: flex;
@@ -169,14 +170,12 @@ class App extends React.Component {
     const underlyingTable = this.renderUnderlyingTable();
     return (
       <Container>
-        <div className="menu">
-          <div className="menu--logo">
-            <img src={logo}></img>harvest.finance
-          </div>
-        </div>
-        <header>
-          <img id="logo" src={logo}></img>
-          <h1>Harvest Finance Dashboard</h1>
+        <Menu />
+        <main>
+          <header>
+            <img id="logo" src={logo}></img>
+            <h1>Harvest Finance Dashboard</h1>
+          </header>
           {connectBtn}
           {refreshBtn}
           {table}
@@ -186,7 +185,7 @@ class App extends React.Component {
           </div>
           {underlyingTable}
           <Footer />
-        </header>
+        </main>
         <ErrorModal
           onClose={() => this.closeErrorModal()}
           onSubmit={() => this.connectMetamask()}
