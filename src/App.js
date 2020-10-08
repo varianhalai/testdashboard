@@ -1,20 +1,57 @@
-import detectEthereumProvider from '@metamask/detect-provider';
-import harvest from './lib/index.js';
+import detectEthereumProvider from "@metamask/detect-provider";
+import harvest from "./lib/index.js";
 
-import React from 'react';
-import './App.css';
-import {MainTable, UnderlyingTable} from './components/MainTable.js';
+import React from "react";
+import "./App.css";
+import { MainTable, UnderlyingTable } from "./components/MainTable.js";
 
-const {ethers, utils} = harvest;
+const { ethers, utils } = harvest;
+
+const tokens = [
+  {
+    name: "FARM",
+    url: "https://harvestfi.github.io/add-farm/",
+    image: "/dashboard/logo@3x.png",
+  },
+  {
+    name: "fUSDC",
+    url: "https://harvestfi.github.io/add-fusdc/",
+    image: "/dashboard/png_usdc_56px@3x.png",
+  },
+  {
+    name: "fUSDT",
+    url: "https://harvestfi.github.io/add-fusdt/",
+    image: "/dashboard/png_usdt_56px@3x.png",
+  },
+  {
+    name: "fDAI",
+    url: "https://harvestfi.github.io/add-fdai/",
+    image: "/dashboard/png_dai_56px@3x.png",
+  },
+  {
+    name: "fwBTC",
+    url: "https://harvestfi.github.io/add-fwbtc/",
+    image: "/dashboard/png_wbtc_56px@3x.png",
+  },
+  {
+    name: "frenBTC",
+    url: "https://harvestfi.github.io/add-frenbtc/",
+    image: "/dashboard/png_frenbtc_56px@3x.png",
+  },
+  {
+    name: "fcrvRenWBTC",
+    url: "https://harvestfi.github.io/add-fcrvrenwbtc/",
+    image: "/dashboard/png_crvrenwbtc_56px@3x.png",
+  },
+];
 
 class App extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
       provider: undefined,
       signer: undefined,
-      address: '',
+      address: "",
       manager: undefined,
       summaries: [],
       underlyings: [],
@@ -28,16 +65,20 @@ class App extends React.Component {
     let signer;
     try {
       signer = provider.getSigner();
-    } catch (e) {console.log(e)}
-    const manager = harvest.manager.PoolManager.allPastPools(signer ? signer : provider);
+    } catch (e) {
+      console.log(e);
+    }
+    const manager = harvest.manager.PoolManager.allPastPools(
+      signer ? signer : provider
+    );
 
-    this.setState({provider, signer, manager});
+    this.setState({ provider, signer, manager });
 
-    window.ethereum.on('accountsChanged', () => {
+    window.ethereum.on("accountsChanged", () => {
       this.setState({
         provider: undefined,
         signer: undefined,
-        address: '',
+        address: "",
         manager: undefined,
         summaries: [],
         underlyings: [],
@@ -45,66 +86,79 @@ class App extends React.Component {
       });
     });
 
-
-    console.log({provider, signer, manager})
+    console.log({ provider, signer, manager });
 
     // get the user address
-    signer.getAddress() // refreshButtonAction called initially to load table 
-      .then((address) => { this.setState({address}); this.refreshButtonAction() });
-  }
-
-  connectMetamask() {
-    detectEthereumProvider()
-      .then((provider) => {
-        if(!provider) {
-            document.querySelector('.provider-error-modal').classList.add('visible')
-        } else {
-          window.ethereum.enable()
-            .then(() => { this.setProvider(provider);} )
-        }
+    signer
+      .getAddress() // refreshButtonAction called initially to load table
+      .then((address) => {
+        this.setState({ address });
+        this.refreshButtonAction();
       });
   }
 
-  refreshButtonAction() {
-    console.log('refreshing')
-    this.state.manager.aggregateUnderlyings(this.state.address)
-      .then((underlying) => underlying.toList().filter((u) => !u.balance.isZero()))
-      .then((underlyings) => {
-        this.setState({underlyings});
-        return underlyings
-      })
+  connectMetamask() {
+    detectEthereumProvider().then((provider) => {
+      if (!provider) {
+        document
+          .querySelector(".provider-error-modal")
+          .classList.add("visible");
+      } else {
+        window.ethereum.enable().then(() => {
+          this.setProvider(provider);
+        });
+      }
+    });
+  }
 
-    this.state.manager.summary(this.state.address)
-      .then(summaries => summaries
-        .filter((p) => !p.summary.earnedRewards.isZero()
-                        || !p.summary.stakedBalance.isZero()
-                        || (p.summary.isActive && !p.summary.unstakedBalance.isZero())
-                        )
+  refreshButtonAction() {
+    console.log("refreshing");
+    this.state.manager
+      .aggregateUnderlyings(this.state.address)
+      .then((underlying) =>
+        underlying.toList().filter((u) => !u.balance.isZero())
       )
-      .then(summaries => {
+      .then((underlyings) => {
+        this.setState({ underlyings });
+        return underlyings;
+      });
+
+    this.state.manager
+      .summary(this.state.address)
+      .then((summaries) =>
+        summaries.filter(
+          (p) =>
+            !p.summary.earnedRewards.isZero() ||
+            !p.summary.stakedBalance.isZero() ||
+            (p.summary.isActive && !p.summary.unstakedBalance.isZero())
+        )
+      )
+      .then((summaries) => {
         let total = ethers.BigNumber.from(0);
         summaries.forEach((pos) => {
-          total = total.add(pos.summary.usdValueOf)
+          total = total.add(pos.summary.usdValueOf);
         });
-        this.setState({summaries, usdValue: total});
+        this.setState({ summaries, usdValue: total });
         return summaries;
-      })
+      });
   }
 
   harvestButtonAction() {
-    console.log('harvesting');
+    console.log("harvesting");
     const minHarvestInput = document.getElementById("minHarvest").value;
-    const minHarvest = minHarvestInput ? ethers.utils.parseUnits(minHarvestInput, 18) : ethers.constants.WeiPerEther.div(10);
+    const minHarvest = minHarvestInput
+      ? ethers.utils.parseUnits(minHarvestInput, 18)
+      : ethers.constants.WeiPerEther.div(10);
     this.state.manager.getRewards(minHarvest);
   }
 
   exitInactiveButtonAction() {
-    console.log('exiting inactive');
+    console.log("exiting inactive");
     this.state.manager.exitInactive();
   }
 
   closeErrorModal() {
-      document.querySelector('.provider-error-modal').classList.remove('visible');
+    document.querySelector(".provider-error-modal").classList.remove("visible");
   }
 
   render() {
@@ -117,7 +171,9 @@ class App extends React.Component {
     return (
       <div className="App">
         <div className="menu">
-          <div className="menu--logo"><img src="/dashboard/logo@3x.png"></img>harvest.finance</div>
+          <div className="menu--logo">
+            <img src="/dashboard/logo@3x.png"></img>harvest.finance
+          </div>
         </div>
         <header className="App-header">
           <img id="logo" src="/dashboard/logo@3x.png"></img>
@@ -133,58 +189,55 @@ class App extends React.Component {
           <div id="footer">
             <h3>Add assets to wallet</h3>
             <div className="assets">
-              <div className="asset">
-              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-farm/">
-              <img src="/dashboard/logo@3x.png"></img>
-              FARM</a>
-              </div>
-              <div className="asset">
-              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fusdc/">
-              <img src="/dashboard/png_usdc_56px@3x.png"></img>
-              fUSDC</a>
-              </div>
-              <div className="asset">
-              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fusdt/">
-              <img src="/dashboard/png_usdt_56px@3x.png"></img>
-              fUSDT</a>
-              </div>
-              <div className="asset">
-              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fdai/">
-              <img src="/dashboard/png_dai_56px@3x.png"></img>
-              fDAI</a>
-              </div>
-              <div className="asset">
-              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fwbtc/">
-              <img src="/dashboard/png_wbtc_56px@3x.png"></img>
-              fwBTC</a>
-              </div>
-              <div className="asset">
-              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-frenbtc/">
-              <img src="/dashboard/png_frenbtc_56px@3x.png"></img>
-              frenBTC</a>
-              </div>
-              <div className="asset">
-              <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fcrvrenwbtc/">
-              <img src="/dashboard/png_crvrenwbtc_56px@3x.png"></img>
-              fcrvRenWBTC</a>
-              </div>
+              {tokens.map(({ name, url, image }) => (
+                <div className="asset">
+                  <a target="_blank" rel="noopener noreferrer" href={url}>
+                    <img alt={name} src={image}></img>
+                    {name}
+                  </a>
+                </div>
+              ))}
             </div>
             <div id="wiki-link">
-              <img className="icon" src="/dashboard/Wiki.svg"></img><p><a target="_blank" rel="noopener noreferrer" href="https://farm.chainwiki.dev">Harvest Wiki</a></p>
+              <img className="icon" src="/dashboard/Wiki.svg"></img>
+              <p>
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://farm.chainwiki.dev"
+                >
+                  Harvest Wiki
+                </a>
+              </p>
             </div>
             <div id="donation-link">
-            <img src="/dashboard/logo@3x.png"></img><p>Please consider donating: <span id="address"><a target="_blank" rel="noopener noreferrer" href="https://etherscan.io/address/0x84BB14595Fd30a53cbE18e68085D42645901D8B6">0x84BB14595Fd30a53cbE18e68085D42645901D8B6</a></span>
-            </p>
+              <img src="/dashboard/logo@3x.png"></img>
+              <p>
+                Please consider donating:{" "}
+                <span id="address">
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://etherscan.io/address/0x84BB14595Fd30a53cbE18e68085D42645901D8B6"
+                  >
+                    0x84BB14595Fd30a53cbE18e68085D42645901D8B6
+                  </a>
+                </span>
+              </p>
             </div>
           </div>
           <div className="provider-error-modal">
-              <div id="provider-error-modal--inner">
-                  <img id="pe-modal--close" src="/dashboard/closed@3x.png" onClick={this.closeErrorModal}></img>
-                  <img id="no_eth_provider" src="/dashboard/png_eth@3x.png"></img>
-                  <h3>No ETH Account Available</h3>
-                  <p>You are not yet logged in.</p>
-                  {connectBtn}
-              </div>
+            <div id="provider-error-modal--inner">
+              <img
+                id="pe-modal--close"
+                src="/dashboard/closed@3x.png"
+                onClick={this.closeErrorModal}
+              ></img>
+              <img id="no_eth_provider" src="/dashboard/png_eth@3x.png"></img>
+              <h3>No ETH Account Available</h3>
+              <p>You are not yet logged in.</p>
+              {connectBtn}
+            </div>
           </div>
         </header>
       </div>
@@ -193,7 +246,12 @@ class App extends React.Component {
 
   renderMainTable() {
     if (this.state.summaries.length !== 0) {
-      return <MainTable data={this.state.summaries} usdValue={this.state.usdValue}></MainTable>;
+      return (
+        <MainTable
+          data={this.state.summaries}
+          usdValue={this.state.usdValue}
+        ></MainTable>
+      );
     }
     return <div></div>;
   }
@@ -201,66 +259,112 @@ class App extends React.Component {
   renderUnderlyingTable() {
     if (this.state.underlyings.length !== 0) {
       return (
-      <div>
-        <p>
-          Your position includes LP tokens that can be redeemed for the following:
-        </p>
-        <UnderlyingTable data={this.state.underlyings}></UnderlyingTable>
-      </div>
+        <div>
+          <p>
+            Your position includes LP tokens that can be redeemed for the
+            following:
+          </p>
+          <UnderlyingTable data={this.state.underlyings}></UnderlyingTable>
+        </div>
       );
     }
-    return <div></div>
+    return <div></div>;
   }
 
   renderConnectStatus() {
     if (!this.state.provider) {
-      return <div>
-        <button className="button--action" onClick={this.connectMetamask.bind(this)}>Connect Wallet</button>
-      </div>;
+      return (
+        <div>
+          <button
+            className="button--action"
+            onClick={this.connectMetamask.bind(this)}
+          >
+            Connect Wallet
+          </button>
+        </div>
+      );
     }
-    return <p>Your wallet address is: <span id="address"><a target="_blank" rel="noopener noreferrer" href={this.state.address ? "https://etherscan.io/address/" + this.state.address : "#"}>{this.state.address || "not connected"}</a></span></p>;
+    return (
+      <p>
+        Your wallet address is:{" "}
+        <span id="address">
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={
+              this.state.address
+                ? "https://etherscan.io/address/" + this.state.address
+                : "#"
+            }
+          >
+            {this.state.address || "not connected"}
+          </a>
+        </span>
+      </p>
+    );
   }
 
   renderHarvestAll() {
-    if (this.state.summaries.length !== 0){
+    if (this.state.summaries.length !== 0) {
       const harvestBtn = this.renderHarvestButton();
       return (
         <p>
-          Harvest all farms with at least <input type="text" id="minHarvest" placeholder="min"></input> FARM rewards {harvestBtn}
-        </p>);
+          Harvest all farms with at least{" "}
+          <input type="text" id="minHarvest" placeholder="min"></input> FARM
+          rewards {harvestBtn}
+        </p>
+      );
     }
     return <div></div>;
   }
 
   renderRefreshButton() {
-    const buttonText = (this.state.summaries.length === 0) ? 'Click to load the table!' : 'Refresh Table';
+    const buttonText =
+      this.state.summaries.length === 0
+        ? "Click to load the table!"
+        : "Refresh Table";
 
-    return <div>
-      <button
-        disabled={!this.state.provider || this.state.summaries.length === 0 } // disable if, on initial, the table is still loading
-        onClick={this.refreshButtonAction.bind(this)}
-      >{buttonText}</button>
-    </div>;
+    return (
+      <div>
+        <button
+          disabled={!this.state.provider || this.state.summaries.length === 0} // disable if, on initial, the table is still loading
+          onClick={this.refreshButtonAction.bind(this)}
+        >
+          {buttonText}
+        </button>
+      </div>
+    );
   }
 
   renderHarvestButton() {
-    return <button
-      disabled={!this.state.provider}
-      onClick={this.harvestButtonAction.bind(this)}
-    >Harvest All</button>
+    return (
+      <button
+        disabled={!this.state.provider}
+        onClick={this.harvestButtonAction.bind(this)}
+      >
+        Harvest All
+      </button>
+    );
   }
 
   renderExitInactiveButton() {
-    let inactivePools = this.state.summaries.filter((sum) => sum.stakedBalance && !sum.isActive);
+    let inactivePools = this.state.summaries.filter(
+      (sum) => sum.stakedBalance && !sum.isActive
+    );
     if (inactivePools.length !== 0) {
-      return <div><button
-        disabled={!this.state.provider}
-        onClick={this.exitInactiveButtonAction.bind(this)}
-      >Exit inactive pools</button></div>;
+      return (
+        <div>
+          <button
+            disabled={!this.state.provider}
+            onClick={this.exitInactiveButtonAction.bind(this)}
+          >
+            Exit inactive pools
+          </button>
+        </div>
+      );
     }
     return <div></div>;
   }
 }
-
 
 export default App;
