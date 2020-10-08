@@ -1,12 +1,44 @@
 import detectEthereumProvider from "@metamask/detect-provider";
-import harvest from "./lib/index.js";
-
 import React from "react";
-import "./App.css";
+import styled from "styled-components";
+
+import logo from "./assets/logo@3x.png";
+import harvest from "./lib/index.js";
 import Footer from "./components/Footer";
 import { MainTable, UnderlyingTable } from "./components/MainTable.js";
+import ErrorModal from "./components/ErrorModal";
 
 const { ethers, utils } = harvest;
+
+const Container = styled.div`
+  text-align: center;
+  background-color: #fafbfe;
+
+  @media only screen and (max-device-width: 768px) {
+    /* Styles */
+  }
+
+  & > header {
+    background-color: #fafbfe;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+
+  h1 {
+    font-weight: bold;
+    font-size: 32px;
+    margin: 16px 0;
+  }
+
+  button.button--action {
+    background-color: #6336ff;
+    font-size: 14px;
+  }
+`;
 
 class App extends React.Component {
   constructor(props) {
@@ -19,6 +51,7 @@ class App extends React.Component {
       summaries: [],
       underlyings: [],
       usdValue: 0,
+      showErrorModal: false,
     };
   }
 
@@ -46,6 +79,7 @@ class App extends React.Component {
         summaries: [],
         underlyings: [],
         usdValue: 0,
+        showErrorModal: false,
       });
     });
 
@@ -63,9 +97,9 @@ class App extends React.Component {
   connectMetamask() {
     detectEthereumProvider().then((provider) => {
       if (!provider) {
-        document
-          .querySelector(".provider-error-modal")
-          .classList.add("visible");
+        this.setState({
+          showErrorModal: true,
+        });
       } else {
         window.ethereum.enable().then(() => {
           this.setProvider(provider);
@@ -121,7 +155,9 @@ class App extends React.Component {
   }
 
   closeErrorModal() {
-    document.querySelector(".provider-error-modal").classList.remove("visible");
+    this.setState({
+      showErrorModal: false,
+    });
   }
 
   render() {
@@ -132,14 +168,14 @@ class App extends React.Component {
     const table = this.renderMainTable();
     const underlyingTable = this.renderUnderlyingTable();
     return (
-      <div className="App">
+      <Container>
         <div className="menu">
           <div className="menu--logo">
-            <img src="/dashboard/logo@3x.png"></img>harvest.finance
+            <img src={logo}></img>harvest.finance
           </div>
         </div>
-        <header className="App-header">
-          <img id="logo" src="/dashboard/logo@3x.png"></img>
+        <header>
+          <img id="logo" src={logo}></img>
           <h1>Harvest Finance Dashboard</h1>
           {connectBtn}
           {refreshBtn}
@@ -150,21 +186,13 @@ class App extends React.Component {
           </div>
           {underlyingTable}
           <Footer />
-          <div className="provider-error-modal">
-            <div id="provider-error-modal--inner">
-              <img
-                id="pe-modal--close"
-                src="/dashboard/closed@3x.png"
-                onClick={this.closeErrorModal}
-              ></img>
-              <img id="no_eth_provider" src="/dashboard/png_eth@3x.png"></img>
-              <h3>No ETH Account Available</h3>
-              <p>You are not yet logged in.</p>
-              {connectBtn}
-            </div>
-          </div>
         </header>
-      </div>
+        <ErrorModal
+          onClose={() => this.closeErrorModal()}
+          onSubmit={() => this.connectMetamask()}
+          isOpen={this.state.showErrorModal}
+        />
+      </Container>
     );
   }
 
