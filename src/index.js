@@ -65,14 +65,14 @@ input {
 }
 
 input[type="text"] {
-    font-weight: 600;
-    font-size: 1em;
-    color: #6336ff;
-    background: #FFFFFF;
-    border: none;
-    padding: 5px 0;
-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.159064);
-border-radius: 8px;
+  font-weight: 600;
+  font-size: 1em;
+  color: #6336ff;
+  background: #FFFFFF;
+  border: none;
+  padding: 5px 0;
+  box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.159064);
+  border-radius: 8px;
 }
 
 input[type="text"]::placeholder {
@@ -81,11 +81,6 @@ input[type="text"]::placeholder {
 
 a {
   color: black;
-}
-
-img#logo {
-    width: 100px;
-    height: 100px;
 }
 `;
 

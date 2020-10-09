@@ -2,12 +2,12 @@ import detectEthereumProvider from "@metamask/detect-provider";
 import React from "react";
 import styled from "styled-components";
 
-import logo from "./assets/logo@3x.png";
 import harvest from "./lib/index.js";
 import Footer from "./components/Footer.js";
 import { MainTable, UnderlyingTable } from "./components/MainTable.js";
 import ErrorModal from "./components/ErrorModal";
 import Menu from "./components/Menu";
+import Header from "./components/Header";
 
 const { ethers } = harvest;
 
@@ -172,10 +172,7 @@ class App extends React.Component {
       <Container>
         <Menu />
         <main>
-          <header>
-            <img id="logo" src={logo}></img>
-            <h1>Harvest Finance Dashboard</h1>
-          </header>
+          <Header />
           {connectBtn}
           {refreshBtn}
           {table}
@@ -204,7 +201,7 @@ class App extends React.Component {
         ></MainTable>
       );
     }
-    return <div></div>;
+    return null;
   }
 
   renderUnderlyingTable() {
@@ -219,7 +216,7 @@ class App extends React.Component {
         </div>
       );
     }
-    return <div></div>;
+    return null;
   }
 
   renderConnectStatus() {
@@ -266,7 +263,7 @@ class App extends React.Component {
         </p>
       );
     }
-    return <div></div>;
+    return null;
   }
 
   renderRefreshButton() {
@@ -314,7 +311,7 @@ class App extends React.Component {
         </div>
       );
     }
-    return <div></div>;
+    return null;
   }
 }
 
