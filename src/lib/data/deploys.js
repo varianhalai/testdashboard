@@ -942,7 +942,7 @@ const weekSevenPools = [
   },
   {
     asset: assetByName('FWETH_USDT_LP'),
-    address: '0xc47EF3da5f58e1dF533bb074AC27928c65D18721',
+    address: '0x75071F2653fBC902EBaff908d4c68712a5d1C960',
     rewardAsset: assetByName('FARM'),
   },
   {
@@ -957,7 +957,7 @@ const weekSevenPools = [
   },
   {
     asset: assetByName('FWETH_WBTC_LP'),
-    address: '0xb036B53164de8423E150c1805C0F6c43abA453E5',
+    address: '0xF1181A71CC331958AE2cA2aAD0784Acfc436CB93',
     rewardAsset: assetByName('FARM'),
   },
   {
