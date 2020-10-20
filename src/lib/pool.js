@@ -226,11 +226,43 @@ export class AutoCompoundingRewardsPool extends RewardsPool {
     super(pool, AUTO_REWARDS_ABI, provider);
   }
 
+  static farmRewards(provider) {
+    return new AutoCompoundingRewardsPool(data.farmRewardsPool, provider);
+  }
+
   async earnedRewards() {
     return ethers.BigNumber.from(0);
   }
-}
 
+  async earnedBy(address) {
+    const STAKED_TOPIC0 = '0x6381ea17a5324d29cc015352644672ead5185c1c61a0d3a521eda97e35cec97e';
+    const WITHDRAWN_TOPIC0 = '0x7084f5476618d8e60b11ef0d7d3f06914655adb8793e28ff7f018d4c76d505d5';
+
+    const stakedFilter = this.filters.Staked(address);
+    const withdrawnFilter = this.filters.Withdrawn(address);
+
+    let [stakedEvents, withdrawnEvents, balance] = await Promise.all([
+        this.queryFilter(stakedFilter),
+        this.queryFilter(withdrawnFilter),
+        this.balanceOf(address),
+    ]);
+
+    stakedEvents = stakedEvents.filter((e) => e.topics[0] === STAKED_TOPIC0);
+    withdrawnEvents = withdrawnEvents.filter((e) => e.topics[0] === WITHDRAWN_TOPIC0);
+
+    let totalStaked = new ethers.BigNumber.from(0);
+    for (const e of stakedEvents) {
+      totalStaked = totalStaked.add(e.args[1])
+    }
+    let totalWithdrawn = new ethers.BigNumber.from(0);
+    for (const e of withdrawnEvents) {
+      totalWithdrawn = totalWithdrawn.add(e.args[1]);
+    }
+
+    let rewards = balance.add(totalWithdrawn).sub(totalStaked);
+    return rewards;
+  }
+}
 
 /**
  * Reward pool wrapper

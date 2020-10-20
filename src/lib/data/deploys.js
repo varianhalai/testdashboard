@@ -1069,6 +1069,24 @@ function isAddressActive(address) {
 }
 
 /**
+ * @param {String} name the name of the asset to find
+ * @return {Object} the asset object
+ */
+function poolByName(name) {
+  return [...allPastPools].find((pool) => pool.name === name);
+}
+
+/**
+ * @param {String} address the address of the pool to find
+ * @return {Object} the pool object
+ */
+function poolByAddress(address) {
+  return [...allPastPools].find(
+      (pool) => pool.address.toLowerCase() === address.toLowerCase(),
+  );
+}
+
+/**
  * @param {Object} pool
  * @return {bool} isActive
  */
@@ -1091,10 +1109,14 @@ export default {
   assets,
   assetByAddress,
   assetByName,
+  // brittle
+  farmRewardsPool: poolByAddress('0x25550Cccbd68533Fa04bFD3e3AC4D09f9e00Fc50'),
   inactivePools: Object.freeze([...inactivePools]),
   isAddressActive,
   isActive,
   periods,
+  poolByAddress,
+  poolByName,
   weekOnePools,
   weekTwoPools,
   weekThreePools,
