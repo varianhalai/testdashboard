@@ -438,6 +438,55 @@ assets.push({
   decimals: 18,
   address: '0xF553E1f826f42716cDFe02bde5ee76b2a52fc7EB',
 });
+assets.push({
+  name: 'FDAIv1',
+  type: 'ftoken',
+  underlyingAsset: assetByName('DAI'),
+  decimals: 18,
+  address: '0xab7fa2b2985bccfc13c6d86b1d5a17486ab1e04c',
+});
+assets.push({
+  name: 'FUSDCv1',
+  type: 'ftoken',
+  underlyingAsset: assetByName('USDC'),
+  decimals: 6,
+  address: '0xf0358e8c3CD5Fa238a29301d0bEa3D63A17bEdBE',
+});
+assets.push({
+  name: 'FUSDTv1',
+  type: 'ftoken',
+  underlyingAsset: assetByName('USDT'),
+  decimals: 6,
+  address: '0x053c80eA73Dc6941F518a68E2FC52Ac45BDE7c9C',
+});
+assets.push({
+  name: 'FWBTCv1',
+  type: 'ftoken',
+  underlyingAsset: assetByName('WBTC'),
+  decimals: 8,
+  address: '0x5d9d25c7C457dD82fc8668FFC6B9746b674d4EcB',
+});
+assets.push({
+  name: 'FRENBTCv1',
+  type: 'ftoken',
+  underlyingAsset: assetByName('RENBTC'),
+  decimals: 8,
+  address: '0xC391d1b08c1403313B0c28D47202DFDA015633C4',
+});
+assets.push({
+  name: 'FCRVRENWBTCv1',
+  type: 'ftoken',
+  underlyingAsset: assetByName('CRVRENWBTC'),
+  decimals: 18,
+  address: '0x9aA8F427A17d6B0d91B6262989EdC7D45d6aEdf8',
+});
+assets.push({
+  name: 'FWETHv1',
+  type: 'ftoken',
+  underlyingAsset: assetByName('WETH'),
+  decimals: 18,
+  address: '0xFE09e53A81Fe2808bc493ea64319109B5bAa573e',
+});
 
 const weekOnePools = [
   {
@@ -1007,7 +1056,87 @@ const weekSevenPools = [
   },
 ];
 
-const periods = [weekOnePools, weekTwoPools, weekThreePools, weekFourPools, weekFivePools, weekSixPools, weekSevenPools];
+const weekEightPools = [
+  {
+    name: 'ProfitShare V3',
+    asset: assetByName('FARM'),
+    address: '0x25550Cccbd68533Fa04bFD3e3AC4D09f9e00Fc50',
+    rewardAsset: assetByName('FARM'),
+    type: 'autocompounding',
+  },
+  {
+    asset: assetByName('FARM_USDC_LP'),
+    address: '0x99b0d6641A63Ce173E6EB063b3d3AED9A35Cf9bf',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FWETH_USDT_LP'),
+    address: '0x75071F2653fBC902EBaff908d4c68712a5d1C960',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FWETH_USDC_LP'),
+    address: '0x156733b89Ac5C704F3217FEe2949A9D4A73764b5',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FWETH_DAI_LP'),
+    address: '0x7aeb36e22e60397098C2a5C51f0A5fB06e7b859c',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FWETH_WBTC_LP'),
+    address: '0xF1181A71CC331958AE2cA2aAD0784Acfc436CB93',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FWETHv1'),
+    address: '0x3DA9D911301f8144bdF5c3c67886e5373DCdff8e',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FDAIv1'),
+    address: '0x15d3A64B2d5ab9E152F16593Cdebc4bB165B5B4A',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FUSDCv1'),
+    address: '0x4F7c28cCb0F1Dbd1388209C67eEc234273C878Bd',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FUSDTv1'),
+    address: '0x6ac4a7ab91e6fd098e13b7d347c6d4d1494994a2',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FTUSD'),
+    address: '0xeC56a21CF0D7FeB93C25587C12bFfe094aa0eCdA',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FWBTCv1'),
+    address: '0x917d6480Ec60cBddd6CbD0C8EA317Bcc709EA77B',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FRENBTCv1'),
+    address: '0x7b8Ff8884590f44e10Ea8105730fe637Ce0cb4F6',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FCRVRENWBTCv1'),
+    address: '0xA3Cf8D1CEe996253FAD1F8e3d68BDCba7B3A3Db5',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FSLP_WBTC_TBTC'),
+    address: '0x9523FdC055F503F73FF40D7F66850F409D80EF34',
+    rewardAsset: assetByName('FARM'),
+  },
+];
+
+const periods = [weekOnePools, weekTwoPools, weekThreePools, weekFourPools, weekFivePools, weekSixPools, weekSevenPools, weekEightPools];
 
 /**
  * @param {Set} setA
@@ -1124,4 +1253,5 @@ export default {
   weekFivePools,
   weekSixPools,
   weekSevenPools,
+  weekEightPools,
 };
