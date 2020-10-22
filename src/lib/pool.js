@@ -234,7 +234,7 @@ export class AutoCompoundingRewardsPool extends RewardsPool {
     return ethers.BigNumber.from(0);
   }
 
-  async earnedBy(address) {
+  async historicalRewards(address) {
     const STAKED_TOPIC0 = '0x6381ea17a5324d29cc015352644672ead5185c1c61a0d3a521eda97e35cec97e';
     const WITHDRAWN_TOPIC0 = '0x7084f5476618d8e60b11ef0d7d3f06914655adb8793e28ff7f018d4c76d505d5';
 
@@ -276,5 +276,22 @@ export class HarvestRewardsPool extends RewardsPool {
   constructor(pool, provider) {
     super(pool, REWARDS_ABI, provider);
     this.earnedRewards = this.earned;
+  }
+
+  async historicalRewards(address) {
+    const REWARD_PAID_TOPIC0 = '0xe2403640ba68fed3a2f88b7557551d1993f84b99bb10ff833f0cf8db0c5e0486';
+    const filter = this.filters.RewardPaid(address);
+    let [currentRewards, rewardPaidEvents] = await Promise.all([
+      this.earnedRewards(address),
+      this.queryFilter(filter),
+    ]);
+
+    rewardPaidEvents = rewardPaidEvents.filter(e => e.topics[0] === REWARD_PAID_TOPIC0);
+    let pastRewards = new ethers.BigNumber.from(0);
+    for (const e of rewardPaidEvents) {
+      pastRewards = pastRewards.add(e.args[1]);
+    }
+
+    return currentRewards.add(pastRewards);
   }
 }
