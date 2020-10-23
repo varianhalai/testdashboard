@@ -191,7 +191,7 @@ const Footer = () => (
       </p>
     </WikiLink>
     <DonationLink>
-      <img src={logo}></img>
+      <img src={logo} alt="harvest logo"></img>
       <p>
         Please consider donating:{" "}
         <span id="address">
