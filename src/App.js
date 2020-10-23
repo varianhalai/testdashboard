@@ -1,45 +1,80 @@
-import detectEthereumProvider from "@metamask/detect-provider";
+
 import React from "react";
 import styled from "styled-components";
+import { Container, Row, Col } from 'styled-bootstrap-grid';
 
 import harvest from "./lib/index.js";
-import Footer from "./components/Footer.js";
+
+// components
+
 import { MainTable, UnderlyingTable } from "./components/MainTable.js";
 import ErrorModal from "./components/ErrorModal";
-import Menu from "./components/Menu";
-import Header from "./components/Header";
+import Wallet from "./components/Wallet";
 
 const { ethers } = harvest;
 
-const Container = styled.div`
-  text-align: center;
-  background-color: #fafbfe;
+const Panel = styled.div`
+  position: relative;
+  padding: 1.5rem;
+  border: 0.2rem solid #363636;
+  border-radius: 1rem;
+  border-top-left-radius: 0rem;
+  margin-top: -1.5rem;
+  background-color: #000;
+  z-index: 1;
+  box-sizing: border-box;
+  box-shadow: 3px 4px 0px #363636;
+`;
 
-  @media only screen and (max-device-width: 768px) {
-    /* Styles */
+const PanelContainer = styled.div`
+  margin-top: 5rem;
+`;
+
+const PanelTab = styled.div`
+  margin-right: .75rem;
+  border-radius: .5rem;
+  border-top: 3px solid #363636;
+  border-left: 3px solid #363636;
+  border-right: 3px solid #363636;
+  padding: 0.75rem 1.25rem;
+  padding-bottom: 2.25rem;
+  background-color: #42857D;
+  box-sizing: border-box;
+  box-shadow: 3px 5.2px 0px #363636;
+  font-size: 2.2rem;
+  font-weight: 700;
+  cursor: pointer;
+
+  a {
+    color: #363636;
+    text-decoration: none;
   }
 
-  & > main {
-    background-color: #fafbfe;
-    color: black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-  }
+  &.wiki-tab {
+    position: relative;
+    background-color: #212121;
+    top: .5rem;
 
-  h1 {
-    font-weight: bold;
-    font-size: 32px;
-    margin: 16px 0;
-  }
+    &:hover {
+      top: 0rem;
 
-  button.button--action {
-    background-color: #6336ff;
-    font-size: 14px;
+      a {
+        top: 0rem;
+      }
+    }
+
+    a {
+      color: #fff;
+      position: relative;
+      top: -0.5rem;
+    }
   }
 `;
+
+const PanelTabContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+`
 
 class App extends React.Component {
   constructor(props) {
@@ -95,22 +130,9 @@ class App extends React.Component {
       });
   }
 
-  connectMetamask() {
-    detectEthereumProvider().then((provider) => {
-      if (!provider) {
-        this.setState({
-          showErrorModal: true,
-        });
-      } else {
-        window.ethereum.enable().then(() => {
-          this.setProvider(provider);
-        });
-      }
-    });
-  }
-
   refreshButtonAction() {
     console.log("refreshing");
+
     this.state.manager
       .aggregateUnderlyings(this.state.address)
       .then((underlying) =>
@@ -170,24 +192,31 @@ class App extends React.Component {
     const underlyingTable = this.renderUnderlyingTable();
     return (
       <Container>
-        <Menu />
-        <main>
-          <Header />
-          {connectBtn}
-          {refreshBtn}
-          {table}
-          <div>
-            {harvestAll}
-            {exitInactive}
-          </div>
-          {underlyingTable}
-          <Footer />
-        </main>
-        <ErrorModal
-          onClose={() => this.closeErrorModal()}
-          onSubmit={() => this.connectMetamask()}
-          isOpen={this.state.showErrorModal}
-        />
+        <Row>
+          <Col col>
+            <main>
+              <PanelContainer>
+                <PanelTabContainer>
+                  <PanelTab><a href="https://harvest.finance">harvest.finance</a></PanelTab>
+                  <PanelTab className="wiki-tab">
+                    <a href="https://farm.chainwiki.dev/en/home" target="_blank">wiki</a>
+                  </PanelTab>
+                </PanelTabContainer>
+
+                <Panel>
+                  <Wallet {...this.state} />
+                </Panel>
+              </PanelContainer>
+
+            </main>
+            <ErrorModal
+              onClose={() => this.closeErrorModal()}
+              onSubmit={() => this.connectMetamask()}
+              isOpen={this.state.showErrorModal}
+            />
+          </Col>
+        </Row>
+
       </Container>
     );
   }
@@ -217,39 +246,6 @@ class App extends React.Component {
       );
     }
     return null;
-  }
-
-  renderConnectStatus() {
-    if (!this.state.provider) {
-      return (
-        <div>
-          <button
-            className="button--action"
-            onClick={this.connectMetamask.bind(this)}
-          >
-            Connect Wallet
-          </button>
-        </div>
-      );
-    }
-    return (
-      <p>
-        Your wallet address is:{" "}
-        <span id="address">
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={
-              this.state.address
-                ? "https://etherscan.io/address/" + this.state.address
-                : "#"
-            }
-          >
-            {this.state.address || "not connected"}
-          </a>
-        </span>
-      </p>
-    );
   }
 
   renderHarvestAll() {

@@ -4,16 +4,17 @@ import App from "./App";
 import { createGlobalStyle } from "styled-components";
 import { reset } from "styled-reset";
 import * as serviceWorker from "./serviceWorker";
+import { BaseCSS } from 'styled-bootstrap-grid';
 
 const GlobalStyle = createGlobalStyle`
 ${reset}
 
 @import url('https://rsms.me/inter/inter.css');
-html { font-family: 'Inter', sans-serif; }
+html { font-family: 'Inter', sans-serif; overflow-x: hidden;}
 @supports (font-variation-settings: normal) {
   html { font-family: 'Inter var', sans-serif; }
 }
- 
+
 body {
   margin: 0;
   font-family: "Inter", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -21,6 +22,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #000000;
 }
 
 code {
@@ -78,14 +80,11 @@ input[type="text"] {
 input[type="text"]::placeholder {
     opacity: 1;
 }
-
-a {
-  color: black;
-}
 `;
 
 ReactDOM.render(
   <React.StrictMode>
+    <BaseCSS />
     <GlobalStyle />
     <App />
   </React.StrictMode>,
