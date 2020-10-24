@@ -1,7 +1,6 @@
-
 import React from "react";
 import styled from "styled-components";
-import { Container, Row, Col } from 'styled-bootstrap-grid';
+import { Container, Row, Col } from "styled-bootstrap-grid";
 
 import harvest from "./lib/index.js";
 
@@ -10,6 +9,7 @@ import harvest from "./lib/index.js";
 import { MainTable, UnderlyingTable } from "./components/MainTable.js";
 import ErrorModal from "./components/ErrorModal";
 import Wallet from "./components/Wallet";
+import FarmingTable from "./components/FarmingTable";
 
 const { ethers } = harvest;
 
@@ -31,30 +31,30 @@ const PanelContainer = styled.div`
 `;
 
 const PanelTab = styled.div`
-  margin-right: .75rem;
-  border-radius: .5rem;
+  margin-right: 0.75rem;
+  border-radius: 0.4rem;
   border-top: 3px solid #363636;
   border-left: 3px solid #363636;
   border-right: 3px solid #363636;
   padding: 0.75rem 1.25rem;
   padding-bottom: 2.25rem;
-  background-color: #42857D;
+  background-color: #42857d;
   box-sizing: border-box;
   box-shadow: 3px 5.2px 0px #363636;
-  font-size: 2.2rem;
+  font-size: 2.6rem;
   font-weight: 700;
   cursor: pointer;
-  font-family: DDIN;
 
   a {
     color: #363636;
     text-decoration: none;
+    font-family: "DDIN";
   }
 
   &.wiki-tab {
     position: relative;
     background-color: #212121;
-    top: .5rem;
+    top: 0.5rem;
 
     &:hover {
       top: 0rem;
@@ -75,7 +75,7 @@ const PanelTab = styled.div`
 const PanelTabContainer = styled.div`
   display: flex;
   justify-content: flex-start;
-`
+`;
 
 class App extends React.Component {
   constructor(props) {
@@ -123,7 +123,7 @@ class App extends React.Component {
     this.state.manager
       .aggregateUnderlyings(this.state.address)
       .then((underlying) =>
-        underlying.toList().filter((u) => !u.balance.isZero())
+        underlying.toList().filter((u) => !u.balance.isZero()),
       )
       .then((underlyings) => {
         this.setState({ underlyings });
@@ -137,8 +137,8 @@ class App extends React.Component {
           (p) =>
             !p.summary.earnedRewards.isZero() ||
             !p.summary.stakedBalance.isZero() ||
-            (p.summary.isActive && !p.summary.unstakedBalance.isZero())
-        )
+            (p.summary.isActive && !p.summary.unstakedBalance.isZero()),
+        ),
       )
       .then((summaries) => {
         let total = ethers.BigNumber.from(0);
@@ -181,9 +181,16 @@ class App extends React.Component {
             <main>
               <PanelContainer>
                 <PanelTabContainer>
-                  <PanelTab><a href="https://harvest.finance">harvest.finance</a></PanelTab>
+                  <PanelTab>
+                    <a href="https://harvest.finance">harvest.finance</a>
+                  </PanelTab>
                   <PanelTab className="wiki-tab">
-                    <a href="https://farm.chainwiki.dev/en/home" target="_blank">wiki</a>
+                    <a
+                      href="https://farm.chainwiki.dev/en/home"
+                      target="_blank"
+                    >
+                      wiki
+                    </a>
                   </PanelTab>
                 </PanelTabContainer>
 
@@ -196,9 +203,13 @@ class App extends React.Component {
                     provider={this.state.provider}
                     address={this.state.address}
                   />
+
+                  <FarmingTable
+                    data={this.state.summaries}
+                    usdValue={this.state.usdValue}
+                  />
                 </Panel>
               </PanelContainer>
-
             </main>
             <ErrorModal
               onClose={() => this.closeErrorModal()}
@@ -207,7 +218,6 @@ class App extends React.Component {
             />
           </Col>
         </Row>
-
       </Container>
     );
   }
@@ -284,7 +294,7 @@ class App extends React.Component {
 
   renderExitInactiveButton() {
     let inactivePools = this.state.summaries.filter(
-      (sum) => sum.stakedBalance && !sum.isActive
+      (sum) => sum.stakedBalance && !sum.isActive,
     );
     if (inactivePools.length !== 0) {
       return (

@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Row, Col } from 'styled-bootstrap-grid';
+import { Row, Col } from "styled-bootstrap-grid";
 import harvest from "../lib/index.js";
 import detectEthereumProvider from "@metamask/detect-provider";
 
@@ -8,15 +8,20 @@ const { ethers } = harvest;
 
 const WalletConnection = styled.div`
   border: 3px solid #363636;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   border-top-right-radius: 0rem;
   display: flex;
   padding: 0.75rem 1.25rem;
-  background-color: #1D1D1D;
+  background-color: #1d1d1d;
   position: relative;
   top: -1.2rem;
+  font-size: 1.4rem;
+  font-family: "TechnaSans";
 
-  a, a:visited, a:hover, a:active {
+  a,
+  a:visited,
+  a:hover,
+  a:active {
     color: #fff;
     text-decoration: none;
   }
@@ -30,13 +35,22 @@ const WalletContainer = styled.div`
 `;
 const WalletTab = styled.div`
   padding: 0.5rem 1rem;
-  border-radius: .5rem;
-  background-color: #1D1D1D;
+  border-radius: 0.5rem;
+  background-color: #1d1d1d;
   border: 3px solid #363636;
   padding-bottom: 1.5rem;
+  font-family: DDIN;
+  font-size: 2rem;
 `;
 
-const Wallet = ({ disconnect, setConnection, setAddress, refresh, provider, address }) => {
+const Wallet = ({
+  disconnect,
+  setConnection,
+  setAddress,
+  refresh,
+  provider,
+  address,
+}) => {
   useEffect(() => {
     connectMetamask();
   }, []);
@@ -51,16 +65,13 @@ const Wallet = ({ disconnect, setConnection, setAddress, refresh, provider, addr
         });
       }
     });
-  }
+  };
 
   const renderConnectStatus = (provider, address) => {
     if (!provider) {
       return (
         <div>
-          <button
-            className="button--action"
-            onClick={() => connectMetamask()}
-          >
+          <button className="button--action" onClick={() => connectMetamask()}>
             Connect Wallet
           </button>
         </div>
@@ -72,18 +83,14 @@ const Wallet = ({ disconnect, setConnection, setAddress, refresh, provider, addr
           <a
             target="_blank"
             rel="noopener noreferrer"
-            href={
-              address
-                ? "https://etherscan.io/address/" + address
-                : "#"
-            }
+            href={address ? "https://etherscan.io/address/" + address : "#"}
           >
             {address || "not connected"}
           </a>
         </span>
       </p>
     );
-  }
+  };
 
   const setProvider = (provider, disconnect, setConnection) => {
     provider = new ethers.providers.Web3Provider(provider);
@@ -95,7 +102,7 @@ const Wallet = ({ disconnect, setConnection, setAddress, refresh, provider, addr
       console.log(e);
     }
     const manager = harvest.manager.PoolManager.allPastPools(
-      signer ? signer : provider
+      signer ? signer : provider,
     );
 
     setConnection({ provider, signer, manager });
@@ -111,19 +118,20 @@ const Wallet = ({ disconnect, setConnection, setAddress, refresh, provider, addr
         setAddress({ address });
         refresh();
       });
-  }
+  };
 
   return (
     <Row>
-    <Col col>
-      <WalletContainer>
-        <WalletTab>wallet</WalletTab>
-        <WalletConnection>{renderConnectStatus(provider, address)}</WalletConnection>
-      </WalletContainer>
-    </Col>
-  </Row>
+      <Col col>
+        <WalletContainer>
+          <WalletTab>wallet</WalletTab>
+          <WalletConnection>
+            {renderConnectStatus(provider, address)}
+          </WalletConnection>
+        </WalletContainer>
+      </Col>
+    </Row>
   );
 };
 
 export default Wallet;
-

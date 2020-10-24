@@ -12,6 +12,11 @@ import TechnaSans from "./assets/fonts/TechnaSans-Regular.otf";
 
 const GlobalStyle = createGlobalStyle`
 ${reset}
+html {
+  /* 1rem = 10px */
+  font-size: 62.5%;
+}
+
 @font-face {
   font-family: 'DDIN';
   src: local('DDIN'), local('DDIN'),
@@ -22,7 +27,7 @@ ${reset}
 @font-face {
   font-family: 'TechnaSans';
   src: local('TechnaSans'), local('TechnaSans'),
-  url(${TechnaSans}) format('truetype');
+  url(${TechnaSans}) format('opentype');
   font-weight: 300;
   font-style: normal;
 }
@@ -30,7 +35,6 @@ ${reset}
 body {
   margin: 0;
   background-color: #000000;
-  font-family: TechnaSans;
 }
 
 code {
