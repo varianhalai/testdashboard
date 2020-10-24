@@ -6,23 +6,31 @@ import { reset } from "styled-reset";
 import * as serviceWorker from "./serviceWorker";
 import { BaseCSS } from 'styled-bootstrap-grid';
 
+// Fonts
+import DDIN from "./assets/fonts/DDIN-Bold.ttf";
+import TechnaSans from "./assets/fonts/TechnaSans-Regular.otf";
+
 const GlobalStyle = createGlobalStyle`
 ${reset}
-
-@import url('https://rsms.me/inter/inter.css');
-html { font-family: 'Inter', sans-serif; overflow-x: hidden;}
-@supports (font-variation-settings: normal) {
-  html { font-family: 'Inter var', sans-serif; }
+@font-face {
+  font-family: 'DDIN';
+  src: local('DDIN'), local('DDIN'),
+  url(${DDIN}) format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'TechnaSans';
+  src: local('TechnaSans'), local('TechnaSans'),
+  url(${TechnaSans}) format('truetype');
+  font-weight: 300;
+  font-style: normal;
 }
 
 body {
   margin: 0;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   background-color: #000000;
+  font-family: TechnaSans;
 }
 
 code {
@@ -30,55 +38,8 @@ code {
     monospace;
 }
 
-p {
-  font-size: 1em;
-}
-
-button {
-  background-color: #109020;
-  border: none;
-  border-radius: 10px;
-  color: white;
-  padding: 10px;
-  margin: 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  font-weight: bold;
-    background-color: #6336ff;
-    font-size: 14px;
-    cursor: pointer;
-}
-
-button:disabled {
-  display: none;
-}
-
 input[type="button"]:focus, button:focus {
     outline: none;
-}
-
-
-input {
-  font-size: 0.7em;
-  text-align: center;
-  width: 65px;
-}
-
-input[type="text"] {
-  font-weight: 600;
-  font-size: 1em;
-  color: #6336ff;
-  background: #FFFFFF;
-  border: none;
-  padding: 5px 0;
-  box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.159064);
-  border-radius: 8px;
-}
-
-input[type="text"]::placeholder {
-    opacity: 1;
 }
 `;
 

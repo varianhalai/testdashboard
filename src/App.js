@@ -44,6 +44,7 @@ const PanelTab = styled.div`
   font-size: 2.2rem;
   font-weight: 700;
   cursor: pointer;
+  font-family: DDIN;
 
   a {
     color: #363636;
@@ -79,6 +80,7 @@ const PanelTabContainer = styled.div`
 class App extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       provider: undefined,
       signer: undefined,
@@ -89,50 +91,35 @@ class App extends React.Component {
       usdValue: 0,
       showErrorModal: false,
     };
+
+    this.setConnection = this.setConnection.bind(this);
+    this.setAddress = this.setAddress.bind(this);
+    this.disconnect = this.disconnect.bind(this);
+    this.refresh = this.refresh.bind(this);
   }
 
-  setProvider(provider) {
-    provider = new ethers.providers.Web3Provider(provider);
-
-    let signer;
-    try {
-      signer = provider.getSigner();
-    } catch (e) {
-      console.log(e);
-    }
-    const manager = harvest.manager.PoolManager.allPastPools(
-      signer ? signer : provider
-    );
-
-    this.setState({ provider, signer, manager });
-
-    window.ethereum.on("accountsChanged", () => {
-      this.setState({
-        provider: undefined,
-        signer: undefined,
-        address: "",
-        manager: undefined,
-        summaries: [],
-        underlyings: [],
-        usdValue: 0,
-        showErrorModal: false,
-      });
+  disconnect() {
+    this.setState({
+      provider: undefined,
+      signer: undefined,
+      address: "",
+      manager: undefined,
+      summaries: [],
+      underlyings: [],
+      usdValue: 0,
+      showErrorModal: false,
     });
-
-    console.log({ provider, signer, manager });
-
-    // get the user address
-    signer
-      .getAddress() // refreshButtonAction called initially to load table
-      .then((address) => {
-        this.setState({ address });
-        this.refreshButtonAction();
-      });
   }
 
-  refreshButtonAction() {
-    console.log("refreshing");
+  setConnection({ provider, signer, manager }) {
+    this.setState({ provider, signer, manager });
+  }
 
+  setAddress({ address }) {
+    this.setState({ address });
+  }
+
+  refresh() {
     this.state.manager
       .aggregateUnderlyings(this.state.address)
       .then((underlying) =>
@@ -164,7 +151,6 @@ class App extends React.Component {
   }
 
   harvestButtonAction() {
-    console.log("harvesting");
     const minHarvestInput = document.getElementById("minHarvest").value;
     const minHarvest = minHarvestInput
       ? ethers.utils.parseUnits(minHarvestInput, 18)
@@ -173,7 +159,6 @@ class App extends React.Component {
   }
 
   exitInactiveButtonAction() {
-    console.log("exiting inactive");
     this.state.manager.exitInactive();
   }
 
@@ -184,7 +169,6 @@ class App extends React.Component {
   }
 
   render() {
-    const connectBtn = this.renderConnectStatus();
     const refreshBtn = this.renderRefreshButton();
     const harvestAll = this.renderHarvestAll();
     const exitInactive = this.renderExitInactiveButton();
@@ -204,7 +188,14 @@ class App extends React.Component {
                 </PanelTabContainer>
 
                 <Panel>
-                  <Wallet {...this.state} />
+                  <Wallet
+                    disconnect={this.disconnect}
+                    setConnection={this.setConnection}
+                    setAddress={this.setAddress}
+                    refresh={this.refresh}
+                    provider={this.state.provider}
+                    address={this.state.address}
+                  />
                 </Panel>
               </PanelContainer>
 
@@ -272,7 +263,7 @@ class App extends React.Component {
       <div>
         <button
           disabled={!this.state.provider || this.state.summaries.length === 0} // disable if, on initial, the table is still loading
-          onClick={this.refreshButtonAction.bind(this)}
+          onClick={this.refresh}
         >
           {buttonText}
         </button>

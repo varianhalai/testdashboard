@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from 'react';
 import styled from "styled-components";
-import { Container, Row, Col } from 'styled-bootstrap-grid';
+import { Row, Col } from 'styled-bootstrap-grid';
 import harvest from "../lib/index.js";
 import detectEthereumProvider from "@metamask/detect-provider";
 
@@ -15,6 +15,11 @@ const WalletConnection = styled.div`
   background-color: #1D1D1D;
   position: relative;
   top: -1.2rem;
+
+  a, a:visited, a:hover, a:active {
+    color: #fff;
+    text-decoration: none;
+  }
 `;
 const WalletContainer = styled.div`
   display: flex;
@@ -31,24 +36,85 @@ const WalletTab = styled.div`
   padding-bottom: 1.5rem;
 `;
 
-const connectMetamask = () => {
-  detectEthereumProvider().then((provider) => {
+const Wallet = ({ disconnect, setConnection, setAddress, refresh, provider, address }) => {
+  useEffect(() => {
+    connectMetamask();
+  }, []);
+
+  const connectMetamask = () => {
+    detectEthereumProvider().then((provider) => {
+      if (!provider) {
+        // setState()
+      } else {
+        window.ethereum.enable().then(() => {
+          setProvider(provider, disconnect, setConnection, address);
+        });
+      }
+    });
+  }
+
+  const renderConnectStatus = (provider, address) => {
     if (!provider) {
-      // this.setState({
-      //   showErrorModal: true,
-      // });
-    } else {
-      window.ethereum.enable().then(() => {
-        this.setProvider(provider);
-      });
+      return (
+        <div>
+          <button
+            className="button--action"
+            onClick={() => connectMetamask()}
+          >
+            Connect Wallet
+          </button>
+        </div>
+      );
     }
-  });
-}
+    return (
+      <p>
+        <span id="address">
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={
+              address
+                ? "https://etherscan.io/address/" + address
+                : "#"
+            }
+          >
+            {address || "not connected"}
+          </a>
+        </span>
+      </p>
+    );
+  }
 
-useEffect(() => { connectMetamask() });
+  const setProvider = (provider, disconnect, setConnection) => {
+    provider = new ethers.providers.Web3Provider(provider);
 
-const Wallet = ({ provider, address }) => (
-  <Row>
+    let signer;
+    try {
+      signer = provider.getSigner();
+    } catch (e) {
+      console.log(e);
+    }
+    const manager = harvest.manager.PoolManager.allPastPools(
+      signer ? signer : provider
+    );
+
+    setConnection({ provider, signer, manager });
+
+    window.ethereum.on("accountsChanged", () => {
+      disconnect();
+    });
+
+    // get the user address
+    signer
+      .getAddress() // refreshButtonAction called initially to load table
+      .then((address) => {
+        setAddress({ address });
+        refresh();
+      });
+  }
+
+  return (
+    <Row>
     <Col col>
       <WalletContainer>
         <WalletTab>wallet</WalletTab>
@@ -56,41 +122,8 @@ const Wallet = ({ provider, address }) => (
       </WalletContainer>
     </Col>
   </Row>
-);
-
-const renderConnectStatus = (provider, address) => {
-  console.log('provider', provider, address);
-
-  if (provider) {
-    return (
-      <div>
-        <button
-          className="button--action"
-          onClick={connectMetamask(provider)}
-        >
-          Connect Wallet
-        </button>
-      </div>
-    );
-  }
-  return (
-    <p>
-      Your wallet address is:{" "}
-      <span id="address">
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href={
-            address
-              ? "https://etherscan.io/address/" + address
-              : "#"
-          }
-        >
-          {address || "not connected"}
-        </a>
-      </span>
-    </p>
   );
-}
+};
 
 export default Wallet;
+
