@@ -6,10 +6,11 @@ import harvest from "./lib/index.js";
 
 // components
 
-import { MainTable, UnderlyingTable } from "./components/MainTable.js";
+import { UnderlyingTable } from "./components/MainTable.js";
 import ErrorModal from "./components/ErrorModal";
 import Wallet from "./components/Wallet";
 import FarmingTable from "./components/FarmingTable";
+import Harvest from "./components/Harvest";
 
 const { ethers } = harvest;
 
@@ -24,6 +25,14 @@ const Panel = styled.div`
   z-index: 1;
   box-sizing: border-box;
   box-shadow: 3px 4px 0px #363636;
+
+  &.four-corner {
+    border-top-left-radius: 1rem;
+    background-color: #1d1d1d;
+    color: #fff;
+    font-size: 1.6rem;
+    font-family: TechnaSans;
+  }
 `;
 
 const PanelContainer = styled.div`
@@ -150,14 +159,6 @@ class App extends React.Component {
       });
   }
 
-  harvestButtonAction() {
-    const minHarvestInput = document.getElementById("minHarvest").value;
-    const minHarvest = minHarvestInput
-      ? ethers.utils.parseUnits(minHarvestInput, 18)
-      : ethers.constants.WeiPerEther.div(10);
-    this.state.manager.getRewards(minHarvest);
-  }
-
   exitInactiveButtonAction() {
     this.state.manager.exitInactive();
   }
@@ -170,10 +171,9 @@ class App extends React.Component {
 
   render() {
     const refreshBtn = this.renderRefreshButton();
-    const harvestAll = this.renderHarvestAll();
     const exitInactive = this.renderExitInactiveButton();
-    const table = this.renderMainTable();
     const underlyingTable = this.renderUnderlyingTable();
+
     return (
       <Container>
         <Row>
@@ -208,6 +208,11 @@ class App extends React.Component {
                     data={this.state.summaries}
                     usdValue={this.state.usdValue}
                   />
+
+                  <Harvest
+                    provider={this.state.provider}
+                    manager={this.state.manager}
+                  />
                 </Panel>
               </PanelContainer>
             </main>
@@ -220,18 +225,6 @@ class App extends React.Component {
         </Row>
       </Container>
     );
-  }
-
-  renderMainTable() {
-    if (this.state.summaries.length !== 0) {
-      return (
-        <MainTable
-          data={this.state.summaries}
-          usdValue={this.state.usdValue}
-        ></MainTable>
-      );
-    }
-    return null;
   }
 
   renderUnderlyingTable() {
@@ -278,17 +271,6 @@ class App extends React.Component {
           {buttonText}
         </button>
       </div>
-    );
-  }
-
-  renderHarvestButton() {
-    return (
-      <button
-        disabled={!this.state.provider}
-        onClick={this.harvestButtonAction.bind(this)}
-      >
-        Harvest All
-      </button>
     );
   }
 
