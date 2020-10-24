@@ -8,6 +8,18 @@ const { ethers, utils } = harvest;
 const TableContainer = styled.div`
   div[role="table"] {
     background-color: #000;
+    padding: 0rem 0.5rem;
+
+    div:not(.rdt_TableHeadRow):not(.rdt_TableBody) {
+      border-bottom: 0px;
+      background-color: #000;
+      font-family: TechnaSans;
+      font-size: 1.8rem;
+      color: #fff;
+    }
+  }
+
+  .no-data {
   }
 
   .rdt_TableHeadRow {
@@ -15,7 +27,7 @@ const TableContainer = styled.div`
     background: #252525;
     border: 3px solid #363636;
     box-sizing: border-box;
-    box-shadow: 0px 5.2px 0px #363636;
+    box-shadow: 0.3rem 0.3rem 0px #363636;
     border-radius: 0.5rem;
     font-size: 2rem;
   }
@@ -24,7 +36,7 @@ const TableContainer = styled.div`
     background: #1d1d1d;
     border: 3px solid #363636;
     box-sizing: border-box;
-    box-shadow: 0px 5.2px 0px #363636;
+    box-shadow: 0.3rem 0.3rem 0px #363636;
     border-radius: 0.5rem;
     margin-bottom: 1.5rem;
   }
@@ -91,6 +103,7 @@ const FarmingTable = ({ data, usdValue }) => {
         noHeader={true}
         noDivider={true}
         columns={columns}
+        noDataComponent="Checking the fields for harvests..."
         data={data.map(utils.prettyPosition)}
       />
     </TableContainer>
