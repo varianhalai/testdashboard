@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled, { css, ThemeProvider } from "styled-components";
 import closedIcon from "../assets/closed@3x.png";
 import ethIcon from "../assets/png_eth@3x.png";
 
@@ -59,7 +59,7 @@ const EthIcon = styled.img`
   height: 80px;
 `;
 
-const ErrorModal = ({ onSubmit, onClose, isOpen }) => (
+const ErrorModal = ({ state, onSubmit, onClose, isOpen }) => (
   <Container isOpen={isOpen}>
     <Inner>
       <CloseIcon src={closedIcon} onClick={onClose} />

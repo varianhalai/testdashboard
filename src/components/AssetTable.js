@@ -1,42 +1,41 @@
 import React, { useEffect } from "react";
 import DataTable from "react-data-table-component";
-import styled from "styled-components";
-import { darkTheme, fonts } from "../styles/appStyles";
-import { Col } from "styled-bootstrap-grid";
+import styled, { ThemeProvider } from "styled-components";
+import { darkTheme, lightTheme, fonts } from "../styles/appStyles";
 
 const TableContainer = styled.div`
   div[role="table"] {
-    background-color: ${darkTheme.table.tableBackground};
+    background-color: ${(props) => props.theme.table.tableBackground};
     padding: 0rem 0.5rem 0rem 0rem;
   }
 
   .rdt_TableHeadRow {
     margin-bottom: 1.5rem;
-    background: ${darkTheme.table.tableHeadBackground};
-    border: ${darkTheme.style.mainBorder};
+    background: ${(props) => props.theme.table.tableHeadBackground};
+    border: ${(props) => props.theme.style.mainBorder};
     box-sizing: border-box;
-    box-shadow: ${darkTheme.table.tableItemBoxShadow};
+    box-shadow: ${(props) => props.theme.table.tableItemBoxShadow};
     border-radius: 0.5rem;
   }
 
   .rdt_TableBody {
     background: #1d1d1d;
-    border: ${darkTheme.style.mainBorder};
+    border: ${(props) => props.theme.style.mainBorder};
     box-sizing: border-box;
-    box-shadow: ${darkTheme.table.tableItemBoxShadow};
+    box-shadow: ${(props) => props.theme.table.tableItemBoxShadow};
     border-radius: 0.5rem;
   }
 
   .rdt_TableRow {
     border-bottom: 0px;
-    background-color: ${darkTheme.table.tableRowBackground};
-    font-family: ${fonts.contentFont};
-    color: #fff;
+    background-color: ${(props) => props.theme.table.tableRowBackground};
+    font-family: ${(props) => props.theme.contentFont};
+    color: ${(props) => props.theme.style.primaryFontColor};
   }
 
   div[role="columnheader"] {
-    color: #fff;
-    background-color: ${darkTheme.table.tableHeadBackground};
+    color: ${(props) => props.theme.style.primaryFontColor};
+    background-color: ${(props) => props.theme.table.tableHeadBackground};
     font-family: ${fonts.headerFont};
     font-size: 1.4rem;
 
@@ -44,7 +43,7 @@ const TableContainer = styled.div`
     &:visited,
     &:active,
     &:focus {
-      color: #fff;
+      color: ${(props) => props.theme.style.primaryFontColor};
     }
   }
 `;
@@ -76,20 +75,22 @@ const data = [
   },
 ];
 
-const AssetTable = ({ underlyings }) => {
+const AssetTable = ({ state }) => {
   useEffect(() => {
-    console.log("UNDERDLYINGS", underlyings);
-  }, [underlyings]);
+    console.log("UNDERDLYINGS", state.underlyings);
+  }, [state.underlyings]);
   return (
-    <TableContainer>
-      <DataTable
-        noHeader={true}
-        noDivider={true}
-        columns={columns}
-        noDataComponent={false}
-        data={data}
-      />
-    </TableContainer>
+    <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
+      <TableContainer>
+        <DataTable
+          noHeader={true}
+          noDivider={true}
+          columns={columns}
+          noDataComponent={false}
+          data={data}
+        />
+      </TableContainer>
+    </ThemeProvider>
   );
 };
 

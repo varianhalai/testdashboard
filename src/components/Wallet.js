@@ -1,31 +1,31 @@
 import React, { useEffect } from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import { Row, Col } from "styled-bootstrap-grid";
 import harvest from "../lib/index.js";
 import detectEthereumProvider from "@metamask/detect-provider";
-import { darkTheme, fonts } from "../styles/appStyles";
+import { darkTheme, lightTheme, fonts } from "../styles/appStyles";
 
 import ErrorModal from "./ErrorModal";
 
 const { ethers } = harvest;
 
 const WalletConnection = styled.div`
-  border: ${darkTheme.style.mainBorder};
+  border: ${(props) => props.theme.style.mainBorder};
   border-radius: 0.5rem;
   border-top-right-radius: 0rem;
   display: flex;
   padding: 0.75rem 1.25rem;
-  background-color: ${darkTheme.style.lightBackground};
+  background-color: ${(props) => props.theme.style.lightBackground};
   position: relative;
   top: -1.2rem;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-family: "TechnaSans";
 
   a,
   a:visited,
   a:hover,
   a:active {
-    color: #fff;
+    color: ${(props) => props.theme.style.primaryFontColor};
     text-decoration: none;
   }
 `;
@@ -34,16 +34,16 @@ const WalletContainer = styled.div`
   flex: 1;
   flex-direction: column;
   align-items: flex-end;
-  color: #fff;
+  color: ${(props) => props.theme.style.primaryFontColor};
 `;
 const WalletTab = styled.div`
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
-  background-color: ${darkTheme.style.lightBackground};
-  border: ${darkTheme.style.mainBorder};
+  background-color: ${(props) => props.theme.style.lightBackground};
+  border: ${(props) => props.theme.style.mainBorder};
   padding-bottom: 1.5rem;
   font-family: ${fonts.headerFont};
-  font-size: 2rem;
+  font-size: 1.4rem;
 `;
 
 const Wallet = ({
@@ -70,7 +70,7 @@ const Wallet = ({
     });
   };
 
-  const connectMetamask = (provider, signer, manager) => {
+  const connectMetamask = (signer, manager) => {
     detectEthereumProvider().then((provider) => {
       if (!provider) {
         // setState()
@@ -138,21 +138,23 @@ const Wallet = ({
   };
 
   return (
-    <Row>
-      <Col col>
-        <WalletContainer>
-          <WalletTab>wallet</WalletTab>
-          <WalletConnection>
-            {renderConnectStatus(state.provider, state.address)}
-          </WalletConnection>
-        </WalletContainer>
-        <ErrorModal
-          onClose={() => closeErrorModal()}
-          onSubmit={() => connectMetamask()}
-          isOpen={state.showErrorModal}
-        />
-      </Col>
-    </Row>
+    <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
+      <Row>
+        <Col col>
+          <WalletContainer>
+            <WalletTab>wallet</WalletTab>
+            <WalletConnection>
+              {renderConnectStatus(state.provider, state.address)}
+            </WalletConnection>
+          </WalletContainer>
+          <ErrorModal
+            onClose={() => closeErrorModal()}
+            onSubmit={() => connectMetamask()}
+            isOpen={state.showErrorModal}
+          />
+        </Col>
+      </Row>
+    </ThemeProvider>
   );
 };
 

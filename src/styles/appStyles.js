@@ -19,8 +19,9 @@ export const darkThemeColors = {
   grey: "#252525",
   darkGrey: "#212121",
   darkerGrey: "#1d1d1d",
-  green: "#A2E7DB",
+  blue: "#A2E7DB",
   orange: "#FFCD8D",
+  black: "#000000",
 };
 
 export const darkTheme = {
@@ -31,13 +32,15 @@ export const darkTheme = {
     buttonFontColor: `${darkThemeColors.lightGrey}`,
     panelBackground: "#000",
     panelBoxShadow: `0.2rem 0.2rem 0px ${darkThemeColors.lightGrey}`,
-    panelTabBackground: `${darkThemeColors.green}`,
+    panelTabBackground: `${darkThemeColors.blue}`,
     panelTabBoxShadow: `0.2rem 0.2rem 0px ${darkThemeColors.lightGrey}`,
     panelTabLinkColor: `${darkThemeColors.lightGrey}`,
     wikiTabBackground: `${darkThemeColors.darkGrey}`,
     lightBackground: `${darkThemeColors.darkGrey}`,
-    greenBackground: `${darkThemeColors.green}`,
+    blueBackground: `${darkThemeColors.blue}`,
     highlight: `${darkThemeColors.orange}`,
+    bodyBackground: `${darkThemeColors.black}`,
+    primaryFontColor: "#fff",
   },
 
   table: {
@@ -45,5 +48,40 @@ export const darkTheme = {
     tableHeadBackground: `${darkThemeColors.grey}`,
     tableItemBoxShadow: `0.3rem 0.3rem 0px ${darkThemeColors.lightGrey}`,
     tableRowBackground: `${darkThemeColors.darkerGrey}`,
+  },
+};
+
+export const lightThemeColors = {
+  offwhite: "#F5F1DE",
+  blue: "#ABE4E2",
+  darkBlue: "#A2E7DB",
+  orange: "#FFCD8D",
+  black: "#000",
+};
+
+export const lightTheme = {
+  style: {
+    mainBorder: `0.2rem solid ${lightThemeColors.black}`,
+    smallBorder: `0.1rem solid ${lightThemeColors.black}`,
+    buttonBoxShadow: `0rem 0.2rem 0px ${lightThemeColors.black}`,
+    buttonFontColor: `${lightThemeColors.black}`,
+    panelBackground: `${lightThemeColors.offwhite}`,
+    panelBoxShadow: `0.2rem 0.2rem 0px ${lightThemeColors.black}`,
+    panelTabBackground: `${lightThemeColors.darkBlue}`,
+    panelTabBoxShadow: `0.2rem 0.2rem 0px ${lightThemeColors.black}`,
+    panelTabLinkColor: `${lightThemeColors.black}`,
+    wikiTabBackground: `${lightThemeColors.offwhite}`,
+    lightBackground: `${lightThemeColors.offwhite}`,
+    blueBackground: `${lightThemeColors.darkBlue}`,
+    highlight: `${lightThemeColors.orange}`,
+    bodyBackground: `${lightThemeColors.offwhite}`,
+    primaryFontColor: `${lightThemeColors.black}`,
+  },
+
+  table: {
+    tableBackground: `${lightThemeColors.offwhite}`,
+    tableHeadBackground: `${lightThemeColors.offwhite}`,
+    tableItemBoxShadow: `0.3rem 0.3rem 0px ${lightThemeColors.black}`,
+    tableRowBackground: `${lightThemeColors.offwhite}`,
   },
 };

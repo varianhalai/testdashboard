@@ -1,49 +1,49 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import { darkTheme } from "../styles/appStyles";
-import { Col } from "styled-bootstrap-grid";
+import styled, { ThemeProvider } from "styled-components";
+import { darkTheme, lightTheme } from "../styles/appStyles";
 
 const Panel = styled.div`
-  text-align: center;
   position: relative;
-  background-color: ${darkTheme.style.lightBackground};
-  color: #fff;
+  background-color: ${(props) => props.theme.style.lightBackground};
+  color: ${(props) => props.theme.style.primaryFontColor};
   font-size: 1.4rem;
   font-family: TechnaSans;
   padding: 1.5rem;
-  border: ${darkTheme.style.mainBorder};
+  border: ${(props) => props.theme.style.mainBorder};
   border-radius: 0.5rem;
   box-sizing: border-box;
-  box-shadow: ${darkTheme.style.panelBoxShadow};
+  box-shadow: ${(props) => props.theme.style.panelBoxShadow};
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   margin-top: 1.5rem;
 `;
 
-const StakePanel = ({ provider, manager }) => {
+const StakePanel = ({ state }) => {
   const [stakeAmount, setStakeAmount] = useState(0);
 
   return (
-    <Panel>
-      <p>
-        Stake
-        <input
-          type="number"
-          onChange={(event) => setStakeAmount(event.value)}
-          value={stakeAmount}
-        />
-        FARM
-      </p>
+    <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
+      <Panel>
+        <p>
+          Stake
+          <input
+            type="number"
+            onChange={(event) => setStakeAmount(event.value)}
+            value={stakeAmount}
+          />
+          FARM
+        </p>
 
-      <ButtonContainer>
-        <button className="button" disabled={!provider}>
-          stake
-        </button>
-      </ButtonContainer>
-    </Panel>
+        <ButtonContainer>
+          <button className="button" disabled={!state.provider}>
+            stake
+          </button>
+        </ButtonContainer>
+      </Panel>
+    </ThemeProvider>
   );
 };
 

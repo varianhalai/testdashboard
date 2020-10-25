@@ -1,9 +1,15 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import { Container, Row, Col } from "styled-bootstrap-grid";
+import { createGlobalStyle } from "styled-components";
+import { reset } from "styled-reset";
 
 import harvest from "./lib/index.js";
-import { darkTheme, fonts } from "./styles/appStyles";
+import { darkTheme, lightTheme, fonts } from "./styles/appStyles";
+
+// fonts
+import DDIN from "./assets/fonts/DDIN-Bold.ttf";
+import TechnaSans from "./assets/fonts/TechnaSans-Regular.otf";
 
 // components
 import { UnderlyingTable } from "./components/MainTable";
@@ -18,22 +24,171 @@ import APY from "./components/APY";
 
 const { ethers } = harvest;
 
+const GlobalStyle = createGlobalStyle`
+  ${reset}
+  html {
+    /* 1rem = 10px */
+    font-size: 62.5%;
+  }
+
+  @font-face {
+    font-family: 'DDIN';
+    src: local('DDIN'), local('DDIN'),
+    url(${DDIN}) format('truetype');
+    font-weight: 700;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'TechnaSans';
+    src: local('TechnaSans'), local('TechnaSans'),
+    url(${TechnaSans}) format('opentype');
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  body {
+    margin: 0;
+    background-color: ${(props) => props.theme.style.bodyBackground};
+  }
+
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+
+  /* The switch - the box around the slider */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: ${(props) => props.theme.style.highlight};
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  input:checked + .slider {
+    background-color: ${(props) => props.theme.style.blueBackground};
+  }
+
+  input:focus + .slider {
+    box-shadow: 0 0 1px ${(props) => props.theme.style.blueBackground};
+  }
+
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+  input[type="button"]:focus, button:focus {
+      outline: none;
+  }
+
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+    background-color: ${(props) => props.theme.style.lightBackground};
+    border: 0.2rem solid #363636;
+    font-size: 1.4rem;
+    color: ${(props) => props.theme.style.primaryFontColor};;
+    width: 60px;
+    text-align: center;
+    border-radius: 0.5rem;
+    margin: 0rem 1rem;
+    padding: 0.3rem 0.7rem;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .button {
+    background: ${(props) => props.theme.style.highlight};
+    border: ${(props) => props.theme.style.smallBorder};
+    box-shadow: ${(props) => props.theme.style.buttonBoxShadow};
+    box-sizing: border-box;
+    border-radius: 0.8rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-family: TechnaSans;
+    color: ${(props) => props.theme.style.buttonFontColor};
+    font-size: 1.2rem;
+
+    &.ghost {
+      background: transparent;
+      border: 0px;
+      box-shadow: none;
+      color: ${(props) => props.theme.style.highlight};
+      padding: 0px;
+    }
+  }
+
+  .spread-row {
+    justify-content: space-between;
+  }
+
+  div[data-name="row"] {
+    margin-bottom: 1.5rem;
+  }
+`;
+
 const Panel = styled.div`
   position: relative;
   padding: 1.5rem;
-  border: ${darkTheme.style.mainBorder};
+  border: ${(props) => props.theme.style.mainBorder};
   border-radius: 1rem;
   border-top-left-radius: 0rem;
   margin-top: -1.5rem;
-  background-color: ${darkTheme.style.panelBackground};
+  background-color: ${(props) => props.theme.style.panelBackground};
   z-index: 1;
   box-sizing: border-box;
-  box-shadow: ${darkTheme.style.panelBoxShadow};
+  box-shadow: ${(props) => props.theme.style.panelBoxShadow};
 
   &.four-corner {
     border-top-left-radius: 1rem;
     background-color: #1d1d1d;
-    color: #fff;
+    color: ${(props) => props.theme.style.primaryFontColor};
     font-size: 1.6rem;
     font-family: TechnaSans;
   }
@@ -46,27 +201,28 @@ const PanelContainer = styled.div`
 const PanelTab = styled.div`
   margin-right: 0.75rem;
   border-radius: 0.4rem;
-  border-top: ${darkTheme.style.mainBorder};
-  border-left: ${darkTheme.style.mainBorder};
-  border-right: ${darkTheme.style.mainBorder};
+  border-top: ${(props) => props.theme.style.mainBorder};
+  border-left: ${(props) => props.theme.style.mainBorder};
+  border-right: ${(props) => props.theme.style.mainBorder};
   padding: 0.75rem 1.25rem;
   padding-bottom: 2.25rem;
-  background-color: ${darkTheme.style.panelTabBackground};
+  background-color: ${(props) => props.theme.style.highlight};
   box-sizing: border-box;
-  box-shadow: ${darkTheme.style.panelTabBoxShadow};
-  font-size: 2.6rem;
+  box-shadow: ${(props) => props.theme.style.panelTabBoxShadow};
+  font-size: 2rem;
   font-weight: 700;
   cursor: pointer;
+  color: ${(props) => props.theme.style.buttonFontColor};
 
   a {
-    color: ${darkTheme.style.panelTabLinkColor};
+    color: ${(props) => props.theme.style.panelTabLinkColor};
     text-decoration: none;
     font-family: ${fonts.headerFont};
   }
 
   &.wiki-tab {
     position: relative;
-    background-color: ${darkTheme.style.wikiTabBackground};
+    background-color: ${(props) => props.theme.style.wikiTabBackground};
     top: 0.5rem;
 
     &:hover {
@@ -74,7 +230,7 @@ const PanelTab = styled.div`
     }
 
     a {
-      color: #fff;
+      color: ${(props) => props.theme.style.primaryFontColor};
       position: relative;
       top: -0.2rem;
     }
@@ -83,7 +239,17 @@ const PanelTab = styled.div`
 
 const PanelTabContainer = styled.div`
   display: flex;
+  justify-content: space-between;
+`;
+
+const PanelTabContainerLeft = styled.div`
+  display: flex;
   justify-content: flex-start;
+`;
+
+const PanelTabContainerRight = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
 
 function App() {
@@ -96,6 +262,7 @@ function App() {
     underlyings: [],
     usdValue: 0,
     showErrorModal: false,
+    theme: "dark",
   });
 
   const disconnect = () => {
@@ -197,84 +364,91 @@ function App() {
     return null;
   };
 
-  //  const renderRefreshButton = () => {
-  //   const buttonText =
-  //     state.summaries.length === 0
-  //       ? "Click to load the table!"
-  //       : "Refresh Table";
+  const toggleTheme = (theme) => {
+    console.log("changing theme");
+    setState({ ...state, theme: theme });
+  };
 
-  //   return (
-  //     <div>
-  //       <button
-  //         disabled={!state.provider || state.summaries.length === 0} // disable if, on initial, the table is still loading
-  //         onClick={refresh}
-  //       >
-  //         {buttonText}
-  //       </button>
-  //     </div>
-  //   );
-  // }
-  //     const refreshBtn = renderRefreshButton();
   // const exitInactive = renderExitInactiveButton();
   // const underlyingTable = renderUnderlyingTable();
 
   return (
-    <Container>
-      <Row>
-        <Col col>
-          <PanelContainer>
-            <PanelTabContainer>
-              <PanelTab>
-                <a href="https://harvest.finance">harvest.finance</a>
-              </PanelTab>
-              <PanelTab className="wiki-tab">
-                <a href="https://farm.chainwiki.dev/en/home" target="_blank">
-                  wiki
-                </a>
-              </PanelTab>
-            </PanelTabContainer>
+    <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
+      <GlobalStyle />
 
-            <Panel>
-              <Wallet
-                state={state}
-                setState={setState}
-                disconnect={disconnect}
-                setConnection={setConnection}
-                setAddress={setAddress}
-                refresh={refresh}
-              />
+      <Container>
+        <Row>
+          <Col col>
+            <PanelContainer>
+              <PanelTabContainer>
+                <PanelTabContainerLeft>
+                  <PanelTab>
+                    <a href="https://harvest.finance">harvest.finance</a>
+                  </PanelTab>
+                  <PanelTab className="wiki-tab">
+                    <a
+                      href="https://farm.chainwiki.dev/en/home"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      wiki
+                    </a>
+                  </PanelTab>
+                </PanelTabContainerLeft>
 
-              <FarmingTable data={state.summaries} usdValue={state.usdValue} />
+                <PanelTabContainerRight>
+                  <label className="switch">
+                    <input
+                      type="checkbox"
+                      checked={state.theme === "dark" ? true : false}
+                      onChange={() =>
+                        toggleTheme(state.theme === "dark" ? "light" : "dark")
+                      }
+                    />
+                    <span className="slider round"></span>
+                  </label>
+                </PanelTabContainerRight>
+              </PanelTabContainer>
 
-              <Row>
-                <Col lg="6">
-                  <Harvest provider={state.provider} manager={state.manager} />
-                </Col>
-                <Col lg="3">
-                  <APY />
-                </Col>
-                <Col lg="3">
-                  <Balance />
-                </Col>
-              </Row>
+              <Panel>
+                <Wallet
+                  state={state}
+                  setState={setState}
+                  disconnect={disconnect}
+                  setConnection={setConnection}
+                  setAddress={setAddress}
+                  refresh={refresh}
+                />
 
-              <Row className="spread-row">
-                <Col lg="3">
-                  <StakePanel
-                    provider={state.provider}
-                    manager={state.manager}
-                  />
-                </Col>
+                <FarmingTable state={state} />
 
-                <Col lg="4">
-                  <AssetTable underlyings={state.underlyings} />
-                </Col>
-              </Row>
-            </Panel>
-          </PanelContainer>
-        </Col>
-      </Row>
-    </Container>
+                <Row>
+                  <Col lg="6">
+                    <Harvest state={state} />
+                  </Col>
+                  <Col lg="3">
+                    <APY state={state} />
+                  </Col>
+                  <Col lg="3">
+                    <Balance state={state} />
+                  </Col>
+                </Row>
+
+                <Row className="spread-row">
+                  <Col lg="3">
+                    <StakePanel state={state} />
+                  </Col>
+
+                  <Col lg="4">
+                    <AssetTable state={state} />
+                  </Col>
+                </Row>
+              </Panel>
+            </PanelContainer>
+          </Col>
+        </Row>
+      </Container>
+    </ThemeProvider>
   );
 }
 

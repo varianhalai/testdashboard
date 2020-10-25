@@ -1,27 +1,31 @@
 import React from "react";
-import styled from "styled-components";
-import { darkTheme, fonts } from "../styles/appStyles";
-import { Col } from "styled-bootstrap-grid";
+import styled, { ThemeProvider } from "styled-components";
+import { darkTheme, lightTheme, fonts } from "../styles/appStyles";
 
-const GreenPanel = styled.div`
+const BluePanel = styled.div`
   position: relative;
-  background-color: ${darkTheme.style.greenBackground};
-  color: #fff;
+  background-color: ${(props) => props.theme.style.blueBackground};
+  color: ${(props) => props.theme.style.primaryFontColor};
   font-size: 1.4rem;
   font-family: ${fonts.contentFont};
   padding: 1.5rem;
-  border: ${darkTheme.style.mainBorder};
+  border: ${(props) => props.theme.style.mainBorder};
   border-radius: 0.5rem;
   box-sizing: border-box;
-  box-shadow: ${darkTheme.style.panelBoxShadow};
+  box-shadow: ${(props) => props.theme.style.panelBoxShadow};
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 `;
 
-const APY = () => {
-  return <GreenPanel>APY</GreenPanel>;
+const APY = ({ state }) => {
+  console.log("state apy", state);
+  return (
+    <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
+      <BluePanel>APY</BluePanel>
+    </ThemeProvider>
+  );
 };
 
 export default APY;
