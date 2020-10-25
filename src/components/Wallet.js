@@ -3,16 +3,17 @@ import styled from "styled-components";
 import { Row, Col } from "styled-bootstrap-grid";
 import harvest from "../lib/index.js";
 import detectEthereumProvider from "@metamask/detect-provider";
+import {style,fonts} from '../styles/appStyles';
 
 const { ethers } = harvest;
 
 const WalletConnection = styled.div`
-  border: 3px solid #363636;
+  border: ${style.smallerBorder};
   border-radius: 0.5rem;
   border-top-right-radius: 0rem;
   display: flex;
   padding: 0.75rem 1.25rem;
-  background-color: #1d1d1d;
+  background-color: ${style.lightBlackBG};
   position: relative;
   top: -1.2rem;
   font-size: 1.4rem;
@@ -36,10 +37,10 @@ const WalletContainer = styled.div`
 const WalletTab = styled.div`
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
-  background-color: #1d1d1d;
-  border: 3px solid #363636;
+  background-color: ${style.lightBlackBG};
+  border: ${style.smallerBorder};
   padding-bottom: 1.5rem;
-  font-family: DDIN;
+  font-family: ${fonts.headerFont};
   font-size: 2rem;
 `;
 
@@ -50,28 +51,47 @@ const Wallet = ({
   refresh,
   provider,
   address,
+  state,
+  
+  
 }) => {
-  useEffect(() => {
-    connectMetamask();
-  }, []);
 
-  const connectMetamask = () => {
+
+
+  useEffect(() => {
+    console.log(state)
+  }, [state]);
+
+
+  useEffect(() => {
+    if(address !== '') {
+      refresh()
+    }
+  },[address])
+
+  useEffect(() => {
+    console.log(harvest)
+  })
+
+  const connectMetamask = (provider,signer,manager) => {
     detectEthereumProvider().then((provider) => {
       if (!provider) {
         // setState()
       } else {
         window.ethereum.enable().then(() => {
-          setProvider(provider, disconnect, setConnection, address);
+          setProvider(provider,signer,manager);
+          
         });
       }
     });
+    
   };
 
   const renderConnectStatus = (provider, address) => {
     if (!provider) {
       return (
         <div>
-          <button className="button--action" onClick={() => connectMetamask()}>
+          <button className="button--action" onClick={() => connectMetamask(provider)}>
             Connect Wallet
           </button>
         </div>
@@ -92,7 +112,7 @@ const Wallet = ({
     );
   };
 
-  const setProvider = (provider, disconnect, setConnection) => {
+  const setProvider = (provider) => {
     provider = new ethers.providers.Web3Provider(provider);
 
     let signer;
@@ -104,8 +124,9 @@ const Wallet = ({
     const manager = harvest.manager.PoolManager.allPastPools(
       signer ? signer : provider,
     );
-
-    setConnection({ provider, signer, manager });
+    
+    setConnection(provider, signer, manager);
+    
 
     window.ethereum.on("accountsChanged", () => {
       disconnect();
@@ -114,10 +135,12 @@ const Wallet = ({
     // get the user address
     signer
       .getAddress() // refreshButtonAction called initially to load table
-      .then((address) => {
-        setAddress({ address });
-        refresh();
-      });
+      .then((add) => {
+        setAddress(add)
+        
+      })
+      
+      
   };
 
   return (

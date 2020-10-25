@@ -1,25 +1,25 @@
 import React, { useState, setState } from "react";
 import styled from "styled-components";
+import {style,fonts,screen} from '../styles/appStyles';
 import { Row, Col } from "styled-bootstrap-grid";
 
 import harvest from "../lib/index.js";
 const { ethers } = harvest;
 
 const Panel = styled.div`
-  position: relative;
-  background-color: #1d1d1d;
+  background-color: ${style.lightBlackBG};
   color: #fff;
   font-size: 1.4rem;
-  font-family: TechnaSans;
+  font-family: ${fonts.contentFont};
   padding: 1.5rem;
-  border: 0.2rem solid #363636;
+  border: ${style.mainBorder};
   border-radius: 0.5rem;
   box-sizing: border-box;
-  box-shadow: 3px 4px 0px #363636;
+  box-shadow: ${style.panelBoxShadow};
 
   input[type="number"] {
     -moz-appearance: textfield;
-    background-color: #1d1d1d;
+    background-color: ${style.lightBlackBG};
     border: 0.3rem solid #363636;
     font-size: 1.8rem;
     color: #fff;
@@ -62,8 +62,8 @@ const Harvest = ({ provider, manager }) => {
   // }
 
   return (
-    <Row style={{ marginTop: "1.5rem" }}>
-      <Col col lg="4">
+    <>
+    <Col col lg="12">
         <Panel>
           <p>
             Harvest all farms with at least
@@ -80,13 +80,15 @@ const Harvest = ({ provider, manager }) => {
           </button>
         </Panel>
       </Col>
-      <Col col lg="4">
+      <Col col lg="12">
         test
       </Col>
-      <Col col lg="4">
+      <Col col lg="12">
         test
       </Col>
-    </Row>
+    </>
+      
+    
   );
 };
 

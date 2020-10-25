@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import styled from "styled-components";
 import { Container, Row, Col } from "styled-bootstrap-grid";
 
@@ -10,21 +10,25 @@ import { UnderlyingTable } from "./components/MainTable.js";
 import ErrorModal from "./components/ErrorModal";
 import Wallet from "./components/Wallet";
 import FarmingTable from "./components/FarmingTable";
+import AssetTable from './components/AssetTable';
 import Harvest from "./components/Harvest";
+import StakePanel from './components/StakePanel';
+import {style,fonts} from './styles/appStyles';
+import BalanceAndAPY from "./components/BalanceAndAPY.jsx";
 
 const { ethers } = harvest;
 
 const Panel = styled.div`
   position: relative;
   padding: 1.5rem;
-  border: 0.2rem solid #363636;
+  border: ${style.mainBorder};
   border-radius: 1rem;
   border-top-left-radius: 0rem;
   margin-top: -1.5rem;
-  background-color: #000;
+  background-color: ${style.panelBackground};
   z-index: 1;
   box-sizing: border-box;
-  box-shadow: 3px 4px 0px #363636;
+  box-shadow: ${style.panelBoxShadow};
 
   &.four-corner {
     border-top-left-radius: 1rem;
@@ -33,6 +37,7 @@ const Panel = styled.div`
     font-size: 1.6rem;
     font-family: TechnaSans;
   }
+  
 `;
 
 const PanelContainer = styled.div`
@@ -42,27 +47,27 @@ const PanelContainer = styled.div`
 const PanelTab = styled.div`
   margin-right: 0.75rem;
   border-radius: 0.4rem;
-  border-top: 3px solid #363636;
-  border-left: 3px solid #363636;
-  border-right: 3px solid #363636;
+  border-top: ${style.smallerBorder};
+  border-left: ${style.smallerBorder};
+  border-right: ${style.smallerBorder};
   padding: 0.75rem 1.25rem;
   padding-bottom: 2.25rem;
-  background-color: #42857d;
+  background-color: ${style.panelTabBG};
   box-sizing: border-box;
-  box-shadow: 3px 5.2px 0px #363636;
+  box-shadow: ${style.panelTabBoxShadow};
   font-size: 2.6rem;
   font-weight: 700;
   cursor: pointer;
 
   a {
-    color: #363636;
+    color: ${style.panelTabLinkColor};
     text-decoration: none;
-    font-family: "DDIN";
+    font-family: ${fonts.headerFont};
   }
 
   &.wiki-tab {
     position: relative;
-    background-color: #212121;
+    background-color: ${style.wikiTabBG};
     top: 0.5rem;
 
     &:hover {
@@ -86,33 +91,26 @@ const PanelTabContainer = styled.div`
   justify-content: flex-start;
 `;
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
+function App () {
+  
+  const [state,setState] = useState({
       provider: undefined,
       signer: undefined,
-      address: "",
       manager: undefined,
+      address: '',
       summaries: [],
       underlyings: [],
       usdValue: 0,
       showErrorModal: false,
-    };
+  })
 
-    this.setConnection = this.setConnection.bind(this);
-    this.setAddress = this.setAddress.bind(this);
-    this.disconnect = this.disconnect.bind(this);
-    this.refresh = this.refresh.bind(this);
-  }
 
-  disconnect() {
-    this.setState({
+ const disconnect = () => {
+    setState({
       provider: undefined,
       signer: undefined,
-      address: "",
       manager: undefined,
+      address: '',
       summaries: [],
       underlyings: [],
       usdValue: 0,
@@ -120,27 +118,30 @@ class App extends React.Component {
     });
   }
 
-  setConnection({ provider, signer, manager }) {
-    this.setState({ provider, signer, manager });
-  }
+ const setConnection = ( provider, signer, manager ) => {
+    
+  setState({...state,provider: provider,signer:signer,manager:manager});
+}
+  
 
-  setAddress({ address }) {
-    this.setState({ address });
+ const setAddress = (address) => {
+    setState((state) => ({...state,address: address}));
   }
+  
 
-  refresh() {
-    this.state.manager
-      .aggregateUnderlyings(this.state.address)
+  const refresh = () => {
+    state.manager
+      .aggregateUnderlyings(state.address)
       .then((underlying) =>
         underlying.toList().filter((u) => !u.balance.isZero()),
       )
       .then((underlyings) => {
-        this.setState({ underlyings });
+        setState({...state,underlyings:underlyings});
         return underlyings;
       });
 
-    this.state.manager
-      .summary(this.state.address)
+    state.manager
+      .summary(state.address)
       .then((summaries) =>
         summaries.filter(
           (p) =>
@@ -154,25 +155,78 @@ class App extends React.Component {
         summaries.forEach((pos) => {
           total = total.add(pos.summary.usdValueOf);
         });
-        this.setState({ summaries, usdValue: total });
+        setState((state) => ({ ...state,summaries:summaries, usdValue: total }));
         return summaries;
       });
   }
 
-  exitInactiveButtonAction() {
-    this.state.manager.exitInactive();
+ const exitInactiveButtonAction = () => {
+    state.manager.exitInactive();
   }
 
-  closeErrorModal() {
-    this.setState({
+ const closeErrorModal = () => {
+    setState({
       showErrorModal: false,
     });
   }
 
-  render() {
-    const refreshBtn = this.renderRefreshButton();
-    const exitInactive = this.renderExitInactiveButton();
-    const underlyingTable = this.renderUnderlyingTable();
+  // const renderExitInactiveButton = () => {
+  //   let inactivePools = state.summaries.filter(
+  //     (sum) => sum.stakedBalance && !sum.isActive,
+  //   );
+  //   if (inactivePools.length !== 0) {
+  //     return (
+  //       <div>
+  //         <button
+  //           disabled={!state.provider}
+  //           onClick={exitInactiveButtonAction}
+  //         >
+  //           Exit inactive pools
+  //         </button>
+  //       </div>
+  //     );
+  //   }
+  //   return null;
+  // }
+  
+ 
+
+  const renderUnderlyingTable = () => {
+    if (state.underlyings.length !== 0) {
+      return (
+        <div>
+          <p>
+            Your position includes LP tokens that can be redeemed for the
+            following:
+          </p>
+          <UnderlyingTable data={state.underlyings}></UnderlyingTable>
+        </div>
+      );
+    }
+    return null;
+  }
+
+  
+//  const renderRefreshButton = () => {
+//   const buttonText =
+//     state.summaries.length === 0
+//       ? "Click to load the table!"
+//       : "Refresh Table";
+
+//   return (
+//     <div>
+//       <button
+//         disabled={!state.provider || state.summaries.length === 0} // disable if, on initial, the table is still loading
+//         onClick={refresh}
+//       >
+//         {buttonText}
+//       </button>
+//     </div>
+//   );
+// } 
+//     const refreshBtn = renderRefreshButton();
+    // const exitInactive = renderExitInactiveButton();
+    // const underlyingTable = renderUnderlyingTable();
 
     return (
       <Container>
@@ -196,102 +250,59 @@ class App extends React.Component {
 
                 <Panel>
                   <Wallet
-                    disconnect={this.disconnect}
-                    setConnection={this.setConnection}
-                    setAddress={this.setAddress}
-                    refresh={this.refresh}
-                    provider={this.state.provider}
-                    address={this.state.address}
+                    state={state}
+                    setState = {setState}
+                    disconnect={disconnect}
+                    setConnection={setConnection}
+                    setAddress={setAddress}
+                    refresh={refresh}
+                    provider={state.provider}
+                    address={state.address}
                   />
-
                   <FarmingTable
-                    data={this.state.summaries}
-                    usdValue={this.state.usdValue}
+                    data={state.summaries}
+                    usdValue={state.usdValue}
                   />
 
-                  <Harvest
-                    provider={this.state.provider}
-                    manager={this.state.manager}
-                  />
+                
+                <Row>
+                  <Col lg='4'>
+                    <Harvest
+                      provider={state.provider}
+                      manager={state.manager}
+                    />
+                    <StakePanel
+                      provider={state.provider}
+                      manager={state.manager}
+                    />
+                    </Col>
+                    <AssetTable 
+                      underlyings={state.underlyings}
+                      />
+                    <Col lg='4'>
+                    <BalanceAndAPY />
+                  </Col>
+                  </Row>
                 </Panel>
               </PanelContainer>
             </main>
-            <ErrorModal
-              onClose={() => this.closeErrorModal()}
-              onSubmit={() => this.connectMetamask()}
-              isOpen={this.state.showErrorModal}
-            />
+            {/* <ErrorModal
+              onClose={() => closeErrorModal()}
+              onSubmit={() => connectMetamask()}
+              isOpen={state.showErrorModal}
+            /> */}
           </Col>
         </Row>
+
+        
+      
       </Container>
     );
-  }
-
-  renderUnderlyingTable() {
-    if (this.state.underlyings.length !== 0) {
-      return (
-        <div>
-          <p>
-            Your position includes LP tokens that can be redeemed for the
-            following:
-          </p>
-          <UnderlyingTable data={this.state.underlyings}></UnderlyingTable>
-        </div>
-      );
+  
     }
-    return null;
-  }
 
-  renderHarvestAll() {
-    if (this.state.summaries.length !== 0) {
-      const harvestBtn = this.renderHarvestButton();
-      return (
-        <p>
-          Harvest all farms with at least{" "}
-          <input type="text" id="minHarvest" placeholder="min"></input> FARM
-          rewards {harvestBtn}
-        </p>
-      );
-    }
-    return null;
-  }
 
-  renderRefreshButton() {
-    const buttonText =
-      this.state.summaries.length === 0
-        ? "Click to load the table!"
-        : "Refresh Table";
 
-    return (
-      <div>
-        <button
-          disabled={!this.state.provider || this.state.summaries.length === 0} // disable if, on initial, the table is still loading
-          onClick={this.refresh}
-        >
-          {buttonText}
-        </button>
-      </div>
-    );
-  }
 
-  renderExitInactiveButton() {
-    let inactivePools = this.state.summaries.filter(
-      (sum) => sum.stakedBalance && !sum.isActive,
-    );
-    if (inactivePools.length !== 0) {
-      return (
-        <div>
-          <button
-            disabled={!this.state.provider}
-            onClick={this.exitInactiveButtonAction.bind(this)}
-          >
-            Exit inactive pools
-          </button>
-        </div>
-      );
-    }
-    return null;
-  }
-}
 
 export default App;
