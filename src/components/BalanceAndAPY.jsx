@@ -1,9 +1,9 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import {style, fonts} from '../styles/appStyles';
 import {Col} from "styled-bootstrap-grid";
-import harvest from "../lib/index.js";
-const { ethers } = harvest;
+
+
 
 const GreenPanel = styled.div`
   position: relative;

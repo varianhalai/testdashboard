@@ -1,7 +1,7 @@
-import React, { useState, setState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import {style,fonts,screen} from '../styles/appStyles';
-import { Row, Col } from "styled-bootstrap-grid";
+import {style,fonts} from '../styles/appStyles';
+import { Col } from "styled-bootstrap-grid";
 
 import harvest from "../lib/index.js";
 const { ethers } = harvest;

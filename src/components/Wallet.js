@@ -5,6 +5,8 @@ import harvest from "../lib/index.js";
 import detectEthereumProvider from "@metamask/detect-provider";
 import {style,fonts} from '../styles/appStyles';
 
+import ErrorModal from "./ErrorModal";
+
 const { ethers } = harvest;
 
 const WalletConnection = styled.div`
@@ -52,6 +54,7 @@ const Wallet = ({
   provider,
   address,
   state,
+  setState
   
   
 }) => {
@@ -69,9 +72,11 @@ const Wallet = ({
     }
   },[address])
 
-  useEffect(() => {
-    console.log(harvest)
-  })
+  const closeErrorModal = () => {
+    setState({
+      showErrorModal: false,
+    });
+  }
 
   const connectMetamask = (provider,signer,manager) => {
     detectEthereumProvider().then((provider) => {
@@ -152,6 +157,11 @@ const Wallet = ({
             {renderConnectStatus(provider, address)}
           </WalletConnection>
         </WalletContainer>
+        <ErrorModal
+              onClose={() => closeErrorModal()}
+              onSubmit={() => connectMetamask()}
+              isOpen={state.showErrorModal}
+            />
       </Col>
     </Row>
   );

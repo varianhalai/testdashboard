@@ -7,7 +7,7 @@ import harvest from "./lib/index.js";
 // components
 
 import { UnderlyingTable } from "./components/MainTable.js";
-import ErrorModal from "./components/ErrorModal";
+
 import Wallet from "./components/Wallet";
 import FarmingTable from "./components/FarmingTable";
 import AssetTable from './components/AssetTable';
@@ -164,11 +164,7 @@ function App () {
     state.manager.exitInactive();
   }
 
- const closeErrorModal = () => {
-    setState({
-      showErrorModal: false,
-    });
-  }
+ 
 
   // const renderExitInactiveButton = () => {
   //   let inactivePools = state.summaries.filter(
@@ -286,11 +282,7 @@ function App () {
                 </Panel>
               </PanelContainer>
             </main>
-            {/* <ErrorModal
-              onClose={() => closeErrorModal()}
-              onSubmit={() => connectMetamask()}
-              isOpen={state.showErrorModal}
-            /> */}
+            
           </Col>
         </Row>
 
