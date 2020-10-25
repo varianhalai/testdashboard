@@ -2,48 +2,46 @@ import React from "react";
 import DataTable from "react-data-table-component";
 import styled from "styled-components";
 import harvest from "../lib/index.js";
-import {style,fonts,table} from '../styles/appStyles';
+import { darkTheme, fonts } from "../styles/appStyles";
 
 const { utils } = harvest;
 
 const TableContainer = styled.div`
   div[role="table"] {
-    background-color: ${table.tableBG};
+    background-color: ${darkTheme.table.tableBackground};
     padding: 0rem 0.5rem 0rem 0rem;
   }
 
   .rdt_TableHeadRow {
     margin-bottom: 1.5rem;
-    background: ${table.tableHeadBG};
-    border: ${style.smallerBorder};
+    background: ${darkTheme.table.tableHeadBackground};
+    border: ${darkTheme.style.mainBorder};
     box-sizing: border-box;
-    box-shadow: ${table.tableItemBoxShadow};
+    box-shadow: ${darkTheme.table.tableItemBoxShadow};
     border-radius: 0.5rem;
-    font-size: 2rem;
   }
 
   .rdt_TableBody {
     background: #1d1d1d;
-    border: ${style.smallerBorder};
+    border: ${darkTheme.style.mainBorder};
     box-sizing: border-box;
-    box-shadow: ${table.tableItemBoxShadow};
+    box-shadow: ${darkTheme.table.tableItemBoxShadow};
     border-radius: 0.5rem;
     margin-bottom: 1.5rem;
   }
 
   .rdt_TableRow {
     border-bottom: 0px;
-    background-color: ${table.tableRowBG};
+    background-color: ${darkTheme.table.tableRowBackground};
     font-family: ${fonts.contentFont};
-    font-size: 1.8rem;
     color: #fff;
   }
 
   div[role="columnheader"] {
     color: #fff;
-    background-color: ${table.tableHeadBG};
+    background-color: ${darkTheme.table.tableHeadBackground};
     font-family: ${fonts.headerFont};
-    font-size: 2rem;
+    font-size: 1.4rem;
 
     &:hover,
     &:visited,

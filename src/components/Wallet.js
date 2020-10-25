@@ -3,19 +3,19 @@ import styled from "styled-components";
 import { Row, Col } from "styled-bootstrap-grid";
 import harvest from "../lib/index.js";
 import detectEthereumProvider from "@metamask/detect-provider";
-import {style,fonts} from '../styles/appStyles';
+import { darkTheme, fonts } from "../styles/appStyles";
 
 import ErrorModal from "./ErrorModal";
 
 const { ethers } = harvest;
 
 const WalletConnection = styled.div`
-  border: ${style.smallerBorder};
+  border: ${darkTheme.style.mainBorder};
   border-radius: 0.5rem;
   border-top-right-radius: 0rem;
   display: flex;
   padding: 0.75rem 1.25rem;
-  background-color: ${style.lightBlackBG};
+  background-color: ${darkTheme.style.lightBackground};
   position: relative;
   top: -1.2rem;
   font-size: 1.4rem;
@@ -39,8 +39,8 @@ const WalletContainer = styled.div`
 const WalletTab = styled.div`
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
-  background-color: ${style.lightBlackBG};
-  border: ${style.smallerBorder};
+  background-color: ${darkTheme.style.lightBackground};
+  border: ${darkTheme.style.mainBorder};
   padding-bottom: 1.5rem;
   font-family: ${fonts.headerFont};
   font-size: 2rem;
@@ -48,56 +48,49 @@ const WalletTab = styled.div`
 
 const Wallet = ({
   disconnect,
-  setConnection,
-  setAddress,
   refresh,
-  provider,
-  address,
+  setAddress,
+  setConnection,
+  setState,
   state,
-  setState
-  
-  
 }) => {
-
-
-
   useEffect(() => {
-    console.log(state)
+    console.log("state", state);
   }, [state]);
 
-
   useEffect(() => {
-    if(address !== '') {
-      refresh()
+    if (state.address !== "") {
+      refresh(state);
     }
-  },[address])
+  }, [state.address]);
 
   const closeErrorModal = () => {
     setState({
       showErrorModal: false,
     });
-  }
+  };
 
-  const connectMetamask = (provider,signer,manager) => {
+  const connectMetamask = (provider, signer, manager) => {
     detectEthereumProvider().then((provider) => {
       if (!provider) {
         // setState()
       } else {
         window.ethereum.enable().then(() => {
-          setProvider(provider,signer,manager);
-          
+          setProvider(provider, signer, manager);
         });
       }
     });
-    
   };
 
   const renderConnectStatus = (provider, address) => {
     if (!provider) {
       return (
         <div>
-          <button className="button--action" onClick={() => connectMetamask(provider)}>
-            Connect Wallet
+          <button
+            className="button ghost"
+            onClick={() => connectMetamask(provider)}
+          >
+            connect
           </button>
         </div>
       );
@@ -129,9 +122,8 @@ const Wallet = ({
     const manager = harvest.manager.PoolManager.allPastPools(
       signer ? signer : provider,
     );
-    
+
     setConnection(provider, signer, manager);
-    
 
     window.ethereum.on("accountsChanged", () => {
       disconnect();
@@ -141,11 +133,8 @@ const Wallet = ({
     signer
       .getAddress() // refreshButtonAction called initially to load table
       .then((add) => {
-        setAddress(add)
-        
-      })
-      
-      
+        setAddress(add);
+      });
   };
 
   return (
@@ -154,14 +143,14 @@ const Wallet = ({
         <WalletContainer>
           <WalletTab>wallet</WalletTab>
           <WalletConnection>
-            {renderConnectStatus(provider, address)}
+            {renderConnectStatus(state.provider, state.address)}
           </WalletConnection>
         </WalletContainer>
         <ErrorModal
-              onClose={() => closeErrorModal()}
-              onSubmit={() => connectMetamask()}
-              isOpen={state.showErrorModal}
-            />
+          onClose={() => closeErrorModal()}
+          onSubmit={() => connectMetamask()}
+          isOpen={state.showErrorModal}
+        />
       </Col>
     </Row>
   );

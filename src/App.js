@@ -1,34 +1,34 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Container, Row, Col } from "styled-bootstrap-grid";
 
 import harvest from "./lib/index.js";
+import { darkTheme, fonts } from "./styles/appStyles";
 
 // components
-
-import { UnderlyingTable } from "./components/MainTable.js";
+import { UnderlyingTable } from "./components/MainTable";
 
 import Wallet from "./components/Wallet";
 import FarmingTable from "./components/FarmingTable";
-import AssetTable from './components/AssetTable';
+import AssetTable from "./components/AssetTable";
 import Harvest from "./components/Harvest";
-import StakePanel from './components/StakePanel';
-import {style,fonts} from './styles/appStyles';
-import BalanceAndAPY from "./components/BalanceAndAPY.jsx";
+import StakePanel from "./components/StakePanel";
+import Balance from "./components/Balance";
+import APY from "./components/APY";
 
 const { ethers } = harvest;
 
 const Panel = styled.div`
   position: relative;
   padding: 1.5rem;
-  border: ${style.mainBorder};
+  border: ${darkTheme.style.mainBorder};
   border-radius: 1rem;
   border-top-left-radius: 0rem;
   margin-top: -1.5rem;
-  background-color: ${style.panelBackground};
+  background-color: ${darkTheme.style.panelBackground};
   z-index: 1;
   box-sizing: border-box;
-  box-shadow: ${style.panelBoxShadow};
+  box-shadow: ${darkTheme.style.panelBoxShadow};
 
   &.four-corner {
     border-top-left-radius: 1rem;
@@ -37,7 +37,6 @@ const Panel = styled.div`
     font-size: 1.6rem;
     font-family: TechnaSans;
   }
-  
 `;
 
 const PanelContainer = styled.div`
@@ -47,41 +46,37 @@ const PanelContainer = styled.div`
 const PanelTab = styled.div`
   margin-right: 0.75rem;
   border-radius: 0.4rem;
-  border-top: ${style.smallerBorder};
-  border-left: ${style.smallerBorder};
-  border-right: ${style.smallerBorder};
+  border-top: ${darkTheme.style.mainBorder};
+  border-left: ${darkTheme.style.mainBorder};
+  border-right: ${darkTheme.style.mainBorder};
   padding: 0.75rem 1.25rem;
   padding-bottom: 2.25rem;
-  background-color: ${style.panelTabBG};
+  background-color: ${darkTheme.style.panelTabBackground};
   box-sizing: border-box;
-  box-shadow: ${style.panelTabBoxShadow};
+  box-shadow: ${darkTheme.style.panelTabBoxShadow};
   font-size: 2.6rem;
   font-weight: 700;
   cursor: pointer;
 
   a {
-    color: ${style.panelTabLinkColor};
+    color: ${darkTheme.style.panelTabLinkColor};
     text-decoration: none;
     font-family: ${fonts.headerFont};
   }
 
   &.wiki-tab {
     position: relative;
-    background-color: ${style.wikiTabBG};
+    background-color: ${darkTheme.style.wikiTabBackground};
     top: 0.5rem;
 
     &:hover {
       top: 0rem;
-
-      a {
-        top: 0rem;
-      }
     }
 
     a {
       color: #fff;
       position: relative;
-      top: -0.5rem;
+      top: -0.2rem;
     }
   }
 `;
@@ -91,43 +86,43 @@ const PanelTabContainer = styled.div`
   justify-content: flex-start;
 `;
 
-function App () {
-  
-  const [state,setState] = useState({
-      provider: undefined,
-      signer: undefined,
-      manager: undefined,
-      address: '',
-      summaries: [],
-      underlyings: [],
-      usdValue: 0,
-      showErrorModal: false,
-  })
+function App() {
+  const [state, setState] = useState({
+    provider: undefined,
+    signer: undefined,
+    manager: undefined,
+    address: "",
+    summaries: [],
+    underlyings: [],
+    usdValue: 0,
+    showErrorModal: false,
+  });
 
-
- const disconnect = () => {
+  const disconnect = () => {
     setState({
       provider: undefined,
       signer: undefined,
       manager: undefined,
-      address: '',
+      address: "",
       summaries: [],
       underlyings: [],
       usdValue: 0,
       showErrorModal: false,
     });
-  }
+  };
 
- const setConnection = ( provider, signer, manager ) => {
-    
-  setState({...state,provider: provider,signer:signer,manager:manager});
-}
-  
+  const setConnection = (provider, signer, manager) => {
+    setState({
+      ...state,
+      provider: provider,
+      signer: signer,
+      manager: manager,
+    });
+  };
 
- const setAddress = (address) => {
-    setState((state) => ({...state,address: address}));
-  }
-  
+  const setAddress = (address) => {
+    setState((state) => ({ ...state, address: address }));
+  };
 
   const refresh = () => {
     state.manager
@@ -136,7 +131,7 @@ function App () {
         underlying.toList().filter((u) => !u.balance.isZero()),
       )
       .then((underlyings) => {
-        setState({...state,underlyings:underlyings});
+        setState({ ...state, underlyings: underlyings });
         return underlyings;
       });
 
@@ -155,16 +150,18 @@ function App () {
         summaries.forEach((pos) => {
           total = total.add(pos.summary.usdValueOf);
         });
-        setState((state) => ({ ...state,summaries:summaries, usdValue: total }));
+        setState((state) => ({
+          ...state,
+          summaries: summaries,
+          usdValue: total,
+        }));
         return summaries;
       });
-  }
+  };
 
- const exitInactiveButtonAction = () => {
+  const exitInactiveButtonAction = () => {
     state.manager.exitInactive();
-  }
-
- 
+  };
 
   // const renderExitInactiveButton = () => {
   //   let inactivePools = state.summaries.filter(
@@ -184,8 +181,6 @@ function App () {
   //   }
   //   return null;
   // }
-  
- 
 
   const renderUnderlyingTable = () => {
     if (state.underlyings.length !== 0) {
@@ -200,101 +195,87 @@ function App () {
       );
     }
     return null;
-  }
+  };
 
-  
-//  const renderRefreshButton = () => {
-//   const buttonText =
-//     state.summaries.length === 0
-//       ? "Click to load the table!"
-//       : "Refresh Table";
+  //  const renderRefreshButton = () => {
+  //   const buttonText =
+  //     state.summaries.length === 0
+  //       ? "Click to load the table!"
+  //       : "Refresh Table";
 
-//   return (
-//     <div>
-//       <button
-//         disabled={!state.provider || state.summaries.length === 0} // disable if, on initial, the table is still loading
-//         onClick={refresh}
-//       >
-//         {buttonText}
-//       </button>
-//     </div>
-//   );
-// } 
-//     const refreshBtn = renderRefreshButton();
-    // const exitInactive = renderExitInactiveButton();
-    // const underlyingTable = renderUnderlyingTable();
+  //   return (
+  //     <div>
+  //       <button
+  //         disabled={!state.provider || state.summaries.length === 0} // disable if, on initial, the table is still loading
+  //         onClick={refresh}
+  //       >
+  //         {buttonText}
+  //       </button>
+  //     </div>
+  //   );
+  // }
+  //     const refreshBtn = renderRefreshButton();
+  // const exitInactive = renderExitInactiveButton();
+  // const underlyingTable = renderUnderlyingTable();
 
-    return (
-      <Container>
-        <Row>
-          <Col col>
-            <main>
-              <PanelContainer>
-                <PanelTabContainer>
-                  <PanelTab>
-                    <a href="https://harvest.finance">harvest.finance</a>
-                  </PanelTab>
-                  <PanelTab className="wiki-tab">
-                    <a
-                      href="https://farm.chainwiki.dev/en/home"
-                      target="_blank"
-                    >
-                      wiki
-                    </a>
-                  </PanelTab>
-                </PanelTabContainer>
+  return (
+    <Container>
+      <Row>
+        <Col col>
+          <PanelContainer>
+            <PanelTabContainer>
+              <PanelTab>
+                <a href="https://harvest.finance">harvest.finance</a>
+              </PanelTab>
+              <PanelTab className="wiki-tab">
+                <a href="https://farm.chainwiki.dev/en/home" target="_blank">
+                  wiki
+                </a>
+              </PanelTab>
+            </PanelTabContainer>
 
-                <Panel>
-                  <Wallet
-                    state={state}
-                    setState = {setState}
-                    disconnect={disconnect}
-                    setConnection={setConnection}
-                    setAddress={setAddress}
-                    refresh={refresh}
+            <Panel>
+              <Wallet
+                state={state}
+                setState={setState}
+                disconnect={disconnect}
+                setConnection={setConnection}
+                setAddress={setAddress}
+                refresh={refresh}
+              />
+
+              <FarmingTable data={state.summaries} usdValue={state.usdValue} />
+
+              <Row>
+                <Col lg="6">
+                  <Harvest provider={state.provider} manager={state.manager} />
+                </Col>
+                <Col lg="3">
+                  <APY />
+                </Col>
+                <Col lg="3">
+                  <Balance />
+                </Col>
+              </Row>
+
+              <Row className="spread-row">
+                <Col lg="3">
+                  <StakePanel
                     provider={state.provider}
-                    address={state.address}
+                    manager={state.manager}
                   />
-                  <FarmingTable
-                    data={state.summaries}
-                    usdValue={state.usdValue}
-                  />
+                </Col>
 
-                
-                <Row>
-                  <Col lg='4'>
-                    <Harvest
-                      provider={state.provider}
-                      manager={state.manager}
-                    />
-                    <StakePanel
-                      provider={state.provider}
-                      manager={state.manager}
-                    />
-                    </Col>
-                    <AssetTable 
-                      underlyings={state.underlyings}
-                      />
-                    <Col lg='4'>
-                    <BalanceAndAPY />
-                  </Col>
-                  </Row>
-                </Panel>
-              </PanelContainer>
-            </main>
-            
-          </Col>
-        </Row>
-
-        
-      
-      </Container>
-    );
-  
-    }
-
-
-
-
+                <Col lg="4">
+                  <AssetTable underlyings={state.underlyings} />
+                </Col>
+              </Row>
+            </Panel>
+          </PanelContainer>
+        </Col>
+      </Row>
+    </Container>
+  );
+}
 
 export default App;

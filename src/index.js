@@ -5,6 +5,7 @@ import { createGlobalStyle } from "styled-components";
 import { reset } from "styled-reset";
 import * as serviceWorker from "./serviceWorker";
 import { BaseCSS } from "styled-bootstrap-grid";
+import { darkTheme } from "./styles/appStyles";
 
 // Fonts
 import DDIN from "./assets/fonts/DDIN-Bold.ttf";
@@ -46,16 +47,53 @@ const GlobalStyle = createGlobalStyle`
       outline: none;
   }
 
-  .button {
-    background: #C78170;
-    border: 3px solid #363636;
-    box-sizing: border-box;
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+    background-color: ${darkTheme.style.lightBackground};
+    border: 0.2rem solid #363636;
+    font-size: 1.4rem;
+    color: #fff;
+    width: 60px;
+    text-align: center;
     border-radius: 0.5rem;
+    margin: 0rem 1rem;
+    padding: 0.3rem 0.7rem;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .button {
+    background: ${darkTheme.style.highlight};
+    border: ${darkTheme.style.smallBorder};
+    box-shadow: ${darkTheme.style.buttonBoxShadow};
+    box-sizing: border-box;
+    border-radius: 0.8rem;
     padding: 0.5rem 1rem;
     cursor: pointer;
     font-family: TechnaSans;
-    color: #1d1d1d;
-    font-size: 1.6rem;
+    color: ${darkTheme.style.buttonFontColor};
+    font-size: 1.4rem;
+
+    &.ghost {
+      background: transparent;
+      border: 0px;
+      box-shadow: none;
+      color: ${darkTheme.style.highlight};
+      padding: 0px;
+    }
+  }
+
+  .spread-row {
+    justify-content: space-between;
+  }
+
+  div[data-name="row"] {
+    margin-bottom: 1.5rem;
   }
 `;
 
