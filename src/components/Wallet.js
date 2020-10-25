@@ -55,10 +55,6 @@ const Wallet = ({
   state,
 }) => {
   useEffect(() => {
-    console.log("state", state);
-  }, [state]);
-
-  useEffect(() => {
     if (state.address !== "") {
       refresh(state);
     }

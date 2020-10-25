@@ -294,9 +294,9 @@ function App() {
   const refresh = () => {
     state.manager
       .aggregateUnderlyings(state.address)
-      .then((underlying) =>
-        underlying.toList().filter((u) => !u.balance.isZero()),
-      )
+      .then((underlying) => {
+        underlying.toList().filter((u) => !u.balance.isZero());
+      })
       .then((underlyings) => {
         setState({ ...state, underlyings: underlyings });
         return underlyings;
@@ -349,23 +349,7 @@ function App() {
   //   return null;
   // }
 
-  const renderUnderlyingTable = () => {
-    if (state.underlyings.length !== 0) {
-      return (
-        <div>
-          <p>
-            Your position includes LP tokens that can be redeemed for the
-            following:
-          </p>
-          <UnderlyingTable data={state.underlyings}></UnderlyingTable>
-        </div>
-      );
-    }
-    return null;
-  };
-
   const toggleTheme = (theme) => {
-    console.log("changing theme");
     setState({ ...state, theme: theme });
   };
 

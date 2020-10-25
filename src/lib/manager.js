@@ -185,8 +185,10 @@ export class PoolManager {
    */
   aggregateUnderlyings(address) {
     return this.underlying(address, true).then((underlyings) => {
+      console.log("underlyings", underlyings[0].underlyingBalances.balances);
       let aggregateUnderlyings = new UnderlyingBalances();
       underlyings.reduce((acc, next) => {
+        console.log("acc", acc, next);
         return acc.combine(next.underlyingBalances);
       }, aggregateUnderlyings);
       return aggregateUnderlyings;

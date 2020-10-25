@@ -6,7 +6,7 @@ import { darkTheme, lightTheme, fonts } from "../styles/appStyles";
 const TableContainer = styled.div`
   div[role="table"] {
     background-color: ${(props) => props.theme.table.tableBackground};
-    padding: 0rem 0.5rem 0rem 0rem;
+    padding: 0.3rem 0.3rem 0.3rem 0.3rem;
   }
 
   .rdt_TableHeadRow {
@@ -29,7 +29,7 @@ const TableContainer = styled.div`
   .rdt_TableRow {
     border-bottom: 0px;
     background-color: ${(props) => props.theme.table.tableRowBackground};
-    font-family: ${(props) => props.theme.contentFont};
+    font-family: ${fonts.contentFont};
     color: ${(props) => props.theme.style.primaryFontColor};
   }
 
@@ -57,28 +57,8 @@ const columns = [
     selector: "value",
   },
 ];
-const data = [
-  {
-    id: 0,
-    asset: "USDC",
-    value: "144",
-  },
-  {
-    id: 1,
-    asset: "ETH",
-    value: "23.42",
-  },
-  {
-    id: 2,
-    asset: "FARM",
-    value: "29.15",
-  },
-];
 
 const AssetTable = ({ state }) => {
-  useEffect(() => {
-    console.log("UNDERDLYINGS", state.underlyings);
-  }, [state.underlyings]);
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       <TableContainer>
@@ -87,7 +67,7 @@ const AssetTable = ({ state }) => {
           noDivider={true}
           columns={columns}
           noDataComponent={false}
-          data={data}
+          data={state.underlyings}
         />
       </TableContainer>
     </ThemeProvider>

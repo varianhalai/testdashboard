@@ -41,6 +41,7 @@ export const darkTheme = {
     highlight: `${darkThemeColors.orange}`,
     bodyBackground: `${darkThemeColors.black}`,
     primaryFontColor: "#fff",
+    secondaryFontColor: `${darkThemeColors.black}`,
   },
 
   table: {
@@ -74,8 +75,9 @@ export const lightTheme = {
     lightBackground: `${lightThemeColors.offwhite}`,
     blueBackground: `${lightThemeColors.darkBlue}`,
     highlight: `${lightThemeColors.orange}`,
-    bodyBackground: `${lightThemeColors.offwhite}`,
+    bodyBackground: `${lightThemeColors.blue}`,
     primaryFontColor: `${lightThemeColors.black}`,
+    secondaryFontColor: `${darkThemeColors.black}`,
   },
 
   table: {

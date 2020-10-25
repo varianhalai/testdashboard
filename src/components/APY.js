@@ -5,7 +5,7 @@ import { darkTheme, lightTheme, fonts } from "../styles/appStyles";
 const BluePanel = styled.div`
   position: relative;
   background-color: ${(props) => props.theme.style.blueBackground};
-  color: ${(props) => props.theme.style.primaryFontColor};
+  color: ${(props) => props.theme.style.secondaryFontColor};
   font-size: 1.4rem;
   font-family: ${fonts.contentFont};
   padding: 1.5rem;
@@ -20,7 +20,6 @@ const BluePanel = styled.div`
 `;
 
 const APY = ({ state }) => {
-  console.log("state apy", state);
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       <BluePanel>APY</BluePanel>

@@ -25,7 +25,7 @@ const ButtonContainer = styled.div`
 `;
 
 const Harvest = ({ state }) => {
-  const [minimumHarvestAmount, setMinimumHarvestAmount] = useState(0.1);
+  const [minimumHarvestAmount, setMinimumHarvestAmount] = useState(0);
 
   const harvest = async () => {
     const minHarvest = minimumHarvestAmount
@@ -43,7 +43,7 @@ const Harvest = ({ state }) => {
           <input
             type="number"
             onChange={(event) => setMinimumHarvestAmount(event.value)}
-            value={minimumHarvestAmount}
+            placeholder="min"
           />
           FARM rewards
         </p>
