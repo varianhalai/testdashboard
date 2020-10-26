@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme } from "../styles/appStyles";
+import harvest from "../lib/index.js";
+
+const { ethers } = harvest;
 
 const Panel = styled.div`
   position: relative;
@@ -24,6 +27,14 @@ const ButtonContainer = styled.div`
 const StakePanel = ({ state }) => {
   const [stakeAmount, setStakeAmount] = useState(0);
 
+  const stake = async () => {
+    const amount = stakeAmount
+      ? ethers.utils.parseUnits(stakeAmount.toString(), 18)
+      : ethers.constants.WeiPerEther.div(10);
+
+    await state.manager.stakeUnstaked(amount);
+  };
+
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       <Panel>
@@ -38,7 +49,7 @@ const StakePanel = ({ state }) => {
         </p>
 
         <ButtonContainer>
-          <button className="button" disabled={!state.provider}>
+          <button className="button" disabled={!state.provider} onClick={stake}>
             stake
           </button>
         </ButtonContainer>

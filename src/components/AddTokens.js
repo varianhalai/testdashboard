@@ -15,7 +15,7 @@ import wikiIcon from "../assets/wiki.png";
 const Header = styled.h1`
   font-family: ${fonts.headerFont};
   margin-bottom: 2.4rem;
-  font-size: 2.4rem;
+  font-size: 2rem;
 `;
 const Panel = styled.div`
   position: relative;
@@ -96,18 +96,19 @@ const StyledToken = styled(Token)`
     align-items: center;
     text-decoration: none;
     color: ${(props) => props.theme.style.linkColor};
+    font-size: 1.4rem;
   }
 
   img {
-    height: 56px;
-    width: 56px;
-    margin-bottom: 4px;
+    height: 3.5rem;
+    width: 3.5rem;
+    margin-bottom: 0.5rem;
   }
 
   @media only screen and (max-width: 768px) {
     display: block;
-    width: 50%;
-    margin-bottom: 50px;
+    width: 25%;
+    margin-bottom: 1.5rem;
   }
 `;
 

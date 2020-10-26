@@ -25,7 +25,7 @@ const WalletConnection = styled.div`
   a:visited,
   a:hover,
   a:active {
-    color: ${(props) => props.theme.style.primaryFontColor};
+    color: ${(props) => props.theme.style.linkColor};
     text-decoration: none;
   }
 `;
@@ -86,7 +86,7 @@ const Wallet = ({
             className="button ghost"
             onClick={() => connectMetamask(provider)}
           >
-            connect
+            connect wallet to get started
           </button>
         </div>
       );

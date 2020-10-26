@@ -3,8 +3,8 @@ import styled, { ThemeProvider } from "styled-components";
 import { Container, Row, Col } from "styled-bootstrap-grid";
 import { createGlobalStyle } from "styled-components";
 import { reset } from "styled-reset";
-
 import harvest from "./lib/index.js";
+
 import { darkTheme, lightTheme, fonts } from "./styles/appStyles";
 
 // images
@@ -25,7 +25,6 @@ import APY from "./components/APY";
 import AddTokens from "./components/AddTokens";
 
 const { ethers } = harvest;
-
 const GlobalStyle = createGlobalStyle`
   ${reset}
 
@@ -388,6 +387,7 @@ function App() {
             </Brand>
           </Col>
         </Row>
+
         <Row>
           <Col>
             <PanelTabContainer>
@@ -440,33 +440,37 @@ function App() {
                 </Col>
               </Row>
 
-              <Row>
-                <Col>
-                  <FarmingTable state={state} />
-                </Col>
-              </Row>
+              {state.provider && (
+                <div>
+                  <Row>
+                    <Col>
+                      <FarmingTable state={state} />
+                    </Col>
+                  </Row>
 
-              <Row>
-                <Col lg="6">
-                  <Harvest state={state} />
-                </Col>
-                <Col lg="3">
-                  <APY state={state} />
-                </Col>
-                <Col lg="3">
-                  <Balance state={state} />
-                </Col>
-              </Row>
+                  <Row>
+                    <Col lg="6">
+                      <Harvest state={state} />
+                    </Col>
+                    <Col lg="3">
+                      <APY state={state} />
+                    </Col>
+                    <Col lg="3">
+                      <Balance state={state} />
+                    </Col>
+                  </Row>
 
-              <Row className="spread-row">
-                <Col lg="3">
-                  <StakePanel state={state} />
-                </Col>
+                  <Row className="spread-row">
+                    <Col lg="3">
+                      <StakePanel state={state} />
+                    </Col>
 
-                <Col lg="4">
-                  <AssetTable state={state} />
-                </Col>
-              </Row>
+                    <Col lg="4">
+                      <AssetTable state={state} />
+                    </Col>
+                  </Row>
+                </div>
+              )}
 
               <Row>
                 <Col>
