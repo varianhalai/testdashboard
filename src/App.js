@@ -7,13 +7,14 @@ import { reset } from "styled-reset";
 import harvest from "./lib/index.js";
 import { darkTheme, lightTheme, fonts } from "./styles/appStyles";
 
+// images
+import logo from "./assets/logo.png";
+
 // fonts
 import DDIN from "./assets/fonts/DDIN-Bold.ttf";
 import TechnaSans from "./assets/fonts/TechnaSans-Regular.otf";
 
 // components
-import { UnderlyingTable } from "./components/MainTable";
-
 import Wallet from "./components/Wallet";
 import FarmingTable from "./components/FarmingTable";
 import AssetTable from "./components/AssetTable";
@@ -21,11 +22,13 @@ import Harvest from "./components/Harvest";
 import StakePanel from "./components/StakePanel";
 import Balance from "./components/Balance";
 import APY from "./components/APY";
+import AddTokens from "./components/AddTokens";
 
 const { ethers } = harvest;
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
+
   html {
     /* 1rem = 10px */
     font-size: 62.5%;
@@ -159,7 +162,7 @@ const GlobalStyle = createGlobalStyle`
       background: transparent;
       border: 0px;
       box-shadow: none;
-      color: ${(props) => props.theme.style.highlight};
+      color: ${(props) => props.theme.style.linkColor};
       padding: 0px;
     }
   }
@@ -170,6 +173,26 @@ const GlobalStyle = createGlobalStyle`
 
   div[data-name="row"] {
     margin-bottom: 1.5rem;
+  }
+`;
+
+// App
+const Brand = styled.div`
+  padding-top: 1.5rem;
+  padding-right: 1rem;
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-right: 1rem;
+  }
+
+  span {
+    color: ${(props) => props.theme.style.primaryFontColor};
+    font-family: ${(props) => fonts.headerFont};
+    font-size: 1.4rem;
   }
 `;
 
@@ -192,10 +215,6 @@ const Panel = styled.div`
     font-size: 1.6rem;
     font-family: TechnaSans;
   }
-`;
-
-const PanelContainer = styled.div`
-  margin-top: 5rem;
 `;
 
 const PanelTab = styled.div`
@@ -363,72 +382,98 @@ function App() {
       <Container>
         <Row>
           <Col col>
-            <PanelContainer>
-              <PanelTabContainer>
-                <PanelTabContainerLeft>
-                  <PanelTab>
-                    <a href="https://harvest.finance">harvest.finance</a>
-                  </PanelTab>
-                  <PanelTab className="wiki-tab">
-                    <a
-                      href="https://farm.chainwiki.dev/en/home"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      wiki
-                    </a>
-                  </PanelTab>
-                </PanelTabContainerLeft>
+            <Brand>
+              <img src={logo} alt="harvest finance logo" />{" "}
+              <span>harvest.dashboard</span>
+            </Brand>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <PanelTabContainer>
+              <PanelTabContainerLeft>
+                <PanelTab>
+                  <a
+                    href="https://harvest.finance"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    harvest.finance
+                  </a>
+                </PanelTab>
+                <PanelTab className="wiki-tab">
+                  <a
+                    href="https://farm.chainwiki.dev/en/home"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    wiki
+                  </a>
+                </PanelTab>
+              </PanelTabContainerLeft>
 
-                <PanelTabContainerRight>
-                  <label className="switch">
-                    <input
-                      type="checkbox"
-                      checked={state.theme === "dark" ? true : false}
-                      onChange={() =>
-                        toggleTheme(state.theme === "dark" ? "light" : "dark")
-                      }
-                    />
-                    <span className="slider round"></span>
-                  </label>
-                </PanelTabContainerRight>
-              </PanelTabContainer>
+              <PanelTabContainerRight>
+                <label className="switch">
+                  <input
+                    type="checkbox"
+                    checked={state.theme === "dark" ? true : false}
+                    onChange={() =>
+                      toggleTheme(state.theme === "dark" ? "light" : "dark")
+                    }
+                  />
+                  <span className="slider round"></span>
+                </label>
+              </PanelTabContainerRight>
+            </PanelTabContainer>
 
-              <Panel>
-                <Wallet
-                  state={state}
-                  setState={setState}
-                  disconnect={disconnect}
-                  setConnection={setConnection}
-                  setAddress={setAddress}
-                  refresh={refresh}
-                />
+            <Panel>
+              <Row>
+                <Col>
+                  <Wallet
+                    state={state}
+                    setState={setState}
+                    disconnect={disconnect}
+                    setConnection={setConnection}
+                    setAddress={setAddress}
+                    refresh={refresh}
+                  />
+                </Col>
+              </Row>
 
-                <FarmingTable state={state} />
+              <Row>
+                <Col>
+                  <FarmingTable state={state} />
+                </Col>
+              </Row>
 
-                <Row>
-                  <Col lg="6">
-                    <Harvest state={state} />
-                  </Col>
-                  <Col lg="3">
-                    <APY state={state} />
-                  </Col>
-                  <Col lg="3">
-                    <Balance state={state} />
-                  </Col>
-                </Row>
+              <Row>
+                <Col lg="6">
+                  <Harvest state={state} />
+                </Col>
+                <Col lg="3">
+                  <APY state={state} />
+                </Col>
+                <Col lg="3">
+                  <Balance state={state} />
+                </Col>
+              </Row>
 
-                <Row className="spread-row">
-                  <Col lg="3">
-                    <StakePanel state={state} />
-                  </Col>
+              <Row className="spread-row">
+                <Col lg="3">
+                  <StakePanel state={state} />
+                </Col>
 
-                  <Col lg="4">
-                    <AssetTable state={state} />
-                  </Col>
-                </Row>
-              </Panel>
-            </PanelContainer>
+                <Col lg="4">
+                  <AssetTable state={state} />
+                </Col>
+              </Row>
+
+              <Row>
+                <Col>
+                  <AddTokens state={state} />
+                </Col>
+              </Row>
+            </Panel>
           </Col>
         </Row>
       </Container>

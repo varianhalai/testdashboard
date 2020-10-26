@@ -135,21 +135,17 @@ const Wallet = ({
 
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-      <Row>
-        <Col col>
-          <WalletContainer>
-            <WalletTab>wallet</WalletTab>
-            <WalletConnection>
-              {renderConnectStatus(state.provider, state.address)}
-            </WalletConnection>
-          </WalletContainer>
-          <ErrorModal
-            onClose={() => closeErrorModal()}
-            onSubmit={() => connectMetamask()}
-            isOpen={state.showErrorModal}
-          />
-        </Col>
-      </Row>
+      <WalletContainer>
+        <WalletTab>wallet</WalletTab>
+        <WalletConnection>
+          {renderConnectStatus(state.provider, state.address)}
+        </WalletConnection>
+      </WalletContainer>
+      <ErrorModal
+        onClose={() => closeErrorModal()}
+        onSubmit={() => connectMetamask()}
+        isOpen={state.showErrorModal}
+      />
     </ThemeProvider>
   );
 };
