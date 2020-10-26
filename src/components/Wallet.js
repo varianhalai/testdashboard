@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { Row, Col } from "styled-bootstrap-grid";
 import harvest from "../lib/index.js";
 import detectEthereumProvider from "@metamask/detect-provider";
 import { darkTheme, lightTheme, fonts } from "../styles/appStyles";

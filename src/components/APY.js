@@ -41,9 +41,9 @@ const APY = ({ state }) => {
     setPools(await poolsData.json());
   };
 
-  console.log("pools", pools, "summaries", state.summaries);
-
   const calcApy = () => {
+    let totalYield;
+
     for (let i = 0; i < pools.length; i++) {
       for (let j = 0; j < state.summaries.length; j++) {
         if (
@@ -51,9 +51,7 @@ const APY = ({ state }) => {
           pools[i].autoStakePoolAddress === state.summaries[j].address
         ) {
           let rewardApy = parseFloat(pools[i].rewardAPY);
-          let totalYield = apy + rewardApy;
-
-          console.log("totalYield", totalYield);
+          totalYield = (apy + rewardApy) / state.summaries.length;
 
           setApy(totalYield);
         }
