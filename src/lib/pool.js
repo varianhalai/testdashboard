@@ -186,14 +186,16 @@ export class RewardsPool extends ethers.Contract {
    * @return {Optional} `undefined` or a tx receipt
    */
   async approveAndStake(amnt, approveForever) {
-    if (!ethers.Signer.isSigner(this.provider)) {
+    const signer = this.provider.getSigner();
+
+    if (!ethers.Signer.isSigner(signer)) {
       throw new Error("No signer");
     }
 
     const me = this.provider.getAddress();
 
     let [allowance, balance] = await Promise.all([
-      this.lptoken.allowances(me, this.address),
+      this.lptoken.allowance(me, this.address),
       this.lptoken.balanceOf(me),
     ]);
 

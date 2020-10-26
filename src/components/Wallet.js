@@ -71,7 +71,7 @@ const Wallet = ({
         // setState()
       } else {
         window.ethereum.enable().then(() => {
-          setProvider(provider, signer, manager);
+          setProvider(provider);
         });
       }
     });
@@ -105,15 +105,11 @@ const Wallet = ({
     );
   };
 
-  const setProvider = (provider) => {
-    provider = new ethers.providers.Web3Provider(provider);
+  const setProvider = async (provider) => {
+    const ethersProvider = new ethers.providers.Web3Provider(provider);
 
-    let signer;
-    try {
-      signer = provider.getSigner();
-    } catch (e) {
-      console.log(e);
-    }
+    const signer = ethersProvider.getSigner();
+
     const manager = harvest.manager.PoolManager.allPastPools(
       signer ? signer : provider,
     );
@@ -127,8 +123,8 @@ const Wallet = ({
     // get the user address
     signer
       .getAddress() // refreshButtonAction called initially to load table
-      .then((add) => {
-        setAddress(add);
+      .then((address) => {
+        setAddress(address);
       });
   };
 

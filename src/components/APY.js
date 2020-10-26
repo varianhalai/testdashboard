@@ -6,7 +6,6 @@ const BluePanel = styled.div`
   position: relative;
   background-color: ${(props) => props.theme.style.blueBackground};
   color: ${(props) => props.theme.style.secondaryFontColor};
-  font-size: 1.4rem;
   font-family: ${fonts.contentFont};
   padding: 1.5rem;
   border: ${(props) => props.theme.style.mainBorder};
@@ -14,9 +13,18 @@ const BluePanel = styled.div`
   box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+
+  h1 {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  span {
+    font-size: 1.4rem;
+  }
 `;
 
 const APY = ({ state }) => {
@@ -45,16 +53,8 @@ const APY = ({ state }) => {
     let totalYield;
 
     for (let i = 0; i < pools.length; i++) {
-      for (let j = 0; j < state.summaries.length; j++) {
-        if (
-          pools[i].contractAddress === state.summaries[j].address ||
-          pools[i].autoStakePoolAddress === state.summaries[j].address
-        ) {
-          let rewardApy = parseFloat(pools[i].rewardAPY);
-          totalYield = (apy + rewardApy) / state.summaries.length;
-
-          setApy(totalYield);
-        }
+      if (pools[i].id === "profit-sharing-farm") {
+        setApy(pools[i].rewardAPY);
       }
     }
   };
@@ -62,8 +62,8 @@ const APY = ({ state }) => {
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       <BluePanel>
-        <h1>%{apy}</h1>
-        <span>Average APY</span>
+        <h1>{apy} %</h1>
+        <span>Profit Share APY</span>
       </BluePanel>
     </ThemeProvider>
   );

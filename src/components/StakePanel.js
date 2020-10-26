@@ -27,12 +27,26 @@ const ButtonContainer = styled.div`
 const StakePanel = ({ state }) => {
   const [stakeAmount, setStakeAmount] = useState(0);
 
-  const stake = async () => {
-    const amount = stakeAmount
-      ? ethers.utils.parseUnits(stakeAmount.toString(), 18)
-      : ethers.constants.WeiPerEther.div(10);
+  const stake = () => {
+    const amount = ethers.utils.parseUnits(stakeAmount.toString(), 18);
 
-    await state.manager.stakeUnstaked(amount);
+    state.manager.pools.forEach(async (pool) => {
+      if (pool.address === "0x25550Cccbd68533Fa04bFD3e3AC4D09f9e00Fc50") {
+        const allowance = await pool.lptoken.allowance(
+          state.address,
+          pool.address,
+        );
+
+        if (allowance.lt(amount)) {
+          await pool.approve(state.address, ethers.constants.MaxUint256);
+          await pool.stake(amount);
+        } else {
+          await pool.stake(amount).catch((e) => {
+            console.log("insufficientBalance", e);
+          });
+        }
+      }
+    });
   };
 
   return (
@@ -42,8 +56,11 @@ const StakePanel = ({ state }) => {
           Stake
           <input
             type="number"
-            onChange={(event) => setStakeAmount(event.value)}
-            value={stakeAmount}
+            onChange={(event) =>
+              setStakeAmount(event.target.value) && console.log(stakeAmount)
+            }
+            placeholder="1"
+            step="any"
           />
           FARM
         </p>
