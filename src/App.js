@@ -288,12 +288,11 @@ function App() {
   });
 
   useEffect(() => {
-    setTimeout(() => {
-      if (state.address) {
-        refresh();
-      }
+    const timer = setTimeout(() => {
+      state.manager && refresh();
     }, 60000);
-  }, []);
+    return () => clearTimeout(timer);
+  });
 
   const disconnect = () => {
     setState({
@@ -304,7 +303,8 @@ function App() {
       summaries: [],
       underlyings: [],
       usdValue: 0,
-      showErrorModal: false,
+      error: { message: null, type: null, display: false },
+      theme: window.localStorage.getItem("HarvestFinance:Theme") || "light",
     });
   };
 
