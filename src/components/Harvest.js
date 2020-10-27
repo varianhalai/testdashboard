@@ -36,11 +36,26 @@ const Harvest = ({ state }) => {
   const [minimumHarvestAmount, setMinimumHarvestAmount] = useState(0);
 
   const harvest = async () => {
-    const minHarvest = minimumHarvestAmount
-      ? ethers.utils.parseUnits(minimumHarvestAmount.toString(), 18)
-      : ethers.constants.WeiPerEther.div(10);
+    const minHarvest = ethers.utils.parseUnits(
+      minimumHarvestAmount.toString(),
+      18,
+    );
+    const activePools = state.manager.pools.filter((pool) => {
+      console.log(pool.isActive());
+      return pool.isActive();
+    });
 
-    await state.manager.getRewards(minHarvest);
+    console.log("activePools", activePools);
+
+    for (let i = 0; i < activePools.length; i++) {
+      const earned = await activePools[i].earnedRewards(state.address);
+
+      if (earned.gt(minHarvest)) {
+        await activePools[i]
+          .getReward()
+          .catch((e) => console.log("Rejected Transaction"));
+      }
+    }
   };
 
   return (
@@ -50,8 +65,9 @@ const Harvest = ({ state }) => {
           Harvest all farms with at least
           <input
             type="number"
-            onChange={(event) => setMinimumHarvestAmount(event.value)}
+            onChange={(event) => setMinimumHarvestAmount(event.target.value)}
             placeholder="min"
+            step="any"
           />
           FARM rewards
         </p>
@@ -59,7 +75,7 @@ const Harvest = ({ state }) => {
         <ButtonContainer>
           <button
             className="button"
-            disabled={!state.provider}
+            disabled={!state.provider || minimumHarvestAmount === 0}
             onClick={harvest}
           >
             harvest all

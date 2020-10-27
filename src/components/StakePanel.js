@@ -18,7 +18,7 @@ const Panel = styled.div`
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
 
   input[type="number"] {
-    margin-right: 1rem;
+    margin: 0rem 1rem;
   }
 
   button {

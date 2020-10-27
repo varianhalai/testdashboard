@@ -59,6 +59,8 @@ const columns = [
 ];
 
 const AssetTable = ({ state }) => {
+  console.log(state.underlyings);
+
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       <TableContainer>
