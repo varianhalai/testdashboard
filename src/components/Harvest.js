@@ -41,11 +41,8 @@ const Harvest = ({ state }) => {
       18,
     );
     const activePools = state.manager.pools.filter((pool) => {
-      console.log(pool.isActive());
       return pool.isActive();
     });
-
-    console.log("activePools", activePools);
 
     for (let i = 0; i < activePools.length; i++) {
       const earned = await activePools[i].earnedRewards(state.address);
