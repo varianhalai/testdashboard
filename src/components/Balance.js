@@ -51,7 +51,7 @@ const Balance = ({ state }) => {
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       <BluePanel>
         <h1>{utils.prettyMoney(userBalance)}</h1>
-        <span>Total Balance</span>
+        <span>Staked Balance</span>
       </BluePanel>
     </ThemeProvider>
   );

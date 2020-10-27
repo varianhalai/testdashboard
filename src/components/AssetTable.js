@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import DataTable from "react-data-table-component";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../styles/appStyles";

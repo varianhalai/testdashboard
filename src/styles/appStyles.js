@@ -44,6 +44,7 @@ export const darkTheme = {
     secondaryFontColor: `${darkThemeColors.black}`,
     linkColor: `${darkThemeColors.blue}`,
     headerColor: `${darkThemeColors.darkBlue}`,
+    alertColor: `${darkThemeColors.blue}`,
   },
 
   table: {
@@ -82,6 +83,7 @@ export const lightTheme = {
     secondaryFontColor: `${lightThemeColors.black}`,
     linkColor: `${lightThemeColors.black}`,
     headerColor: `${lightThemeColors.black}`,
+    alertColor: `${darkThemeColors.blue}`,
   },
 
   table: {

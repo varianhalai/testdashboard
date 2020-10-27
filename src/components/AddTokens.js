@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../styles/appStyles";
 
@@ -10,7 +10,6 @@ import daiIcon from "../assets/png_dai_56px@3x.png";
 import wbtcIcon from "../assets/png_wbtc_56px@3x.png";
 import frenbtcIcon from "../assets/png_frenbtc_56px@3x.png";
 import crvrenwbtcIcon from "../assets/png_crvrenwbtc_56px@3x.png";
-import wikiIcon from "../assets/wiki.png";
 
 const Header = styled.h1`
   font-family: ${fonts.headerFont};

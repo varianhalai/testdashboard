@@ -16,6 +16,14 @@ const Panel = styled.div`
   border-radius: 0.5rem;
   box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
+
+  input[type="number"] {
+    margin: 0 1rem;
+  }
+
+  @media only screen and (max-width: 768px) {
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const ButtonContainer = styled.div`

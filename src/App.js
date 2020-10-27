@@ -4,6 +4,7 @@ import { Container, Row, Col } from "styled-bootstrap-grid";
 import { createGlobalStyle } from "styled-components";
 import { reset } from "styled-reset";
 import harvest from "./lib/index.js";
+import ErrorModal from "./components/ErrorModal";
 
 import { darkTheme, lightTheme, fonts } from "./styles/appStyles";
 
@@ -135,7 +136,6 @@ const GlobalStyle = createGlobalStyle`
     width: 60px;
     text-align: center;
     border-radius: 0.5rem;
-    margin: 0rem 1rem;
     padding: 0.3rem 0.7rem;
   }
 
@@ -163,6 +163,10 @@ const GlobalStyle = createGlobalStyle`
       box-shadow: none;
       color: ${(props) => props.theme.style.linkColor};
       padding: 0px;
+    }
+
+    &.alert {
+      background-color: ${(props) => props.theme.style.alertColor}
     }
   }
 
@@ -279,7 +283,7 @@ function App() {
     summaries: [],
     underlyings: [],
     usdValue: 0,
-    showErrorModal: false,
+    error: { message: null, type: null, display: false },
     theme: "dark",
   });
 
@@ -293,6 +297,20 @@ function App() {
       underlyings: [],
       usdValue: 0,
       showErrorModal: false,
+    });
+  };
+
+  const closeErrorModal = () => {
+    setState({
+      ...state,
+      error: { message: null, type: null, display: false },
+    });
+  };
+
+  const openModal = (message, type) => {
+    setState({
+      ...state,
+      error: { message: message, type: type, display: true },
     });
   };
 
@@ -344,35 +362,9 @@ function App() {
       });
   };
 
-  const exitInactiveButtonAction = () => {
-    state.manager.exitInactive();
-  };
-
-  // const renderExitInactiveButton = () => {
-  //   let inactivePools = state.summaries.filter(
-  //     (sum) => sum.stakedBalance && !sum.isActive,
-  //   );
-  //   if (inactivePools.length !== 0) {
-  //     return (
-  //       <div>
-  //         <button
-  //           disabled={!state.provider}
-  //           onClick={exitInactiveButtonAction}
-  //         >
-  //           Exit inactive pools
-  //         </button>
-  //       </div>
-  //     );
-  //   }
-  //   return null;
-  // }
-
   const toggleTheme = (theme) => {
     setState({ ...state, theme: theme });
   };
-
-  // const exitInactive = renderExitInactiveButton();
-  // const underlyingTable = renderUnderlyingTable();
 
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
@@ -431,7 +423,7 @@ function App() {
                 <Col>
                   <Wallet
                     state={state}
-                    setState={setState}
+                    openModal={openModal}
                     disconnect={disconnect}
                     setConnection={setConnection}
                     setAddress={setAddress}
@@ -462,7 +454,7 @@ function App() {
 
                   <Row className="spread-row">
                     <Col lg="3">
-                      <StakePanel state={state} />
+                      <StakePanel state={state} openModal={openModal} />
                     </Col>
 
                     <Col lg="4">
@@ -481,6 +473,8 @@ function App() {
           </Col>
         </Row>
       </Container>
+
+      <ErrorModal state={state} onClose={() => closeErrorModal()} />
     </ThemeProvider>
   );
 }

@@ -4,8 +4,6 @@ import harvest from "../lib/index.js";
 import detectEthereumProvider from "@metamask/detect-provider";
 import { darkTheme, lightTheme, fonts } from "../styles/appStyles";
 
-import ErrorModal from "./ErrorModal";
-
 const { ethers } = harvest;
 
 const WalletConnection = styled.div`
@@ -50,7 +48,7 @@ const Wallet = ({
   refresh,
   setAddress,
   setConnection,
-  setState,
+  openModal,
   state,
 }) => {
   useEffect(() => {
@@ -59,16 +57,13 @@ const Wallet = ({
     }
   }, [state.address]);
 
-  const closeErrorModal = () => {
-    setState({
-      showErrorModal: false,
-    });
-  };
-
   const connectMetamask = (signer, manager) => {
     detectEthereumProvider().then((provider) => {
       if (!provider) {
-        // setState()
+        openModal(
+          "No provider, please install a supported Web3 wallet.",
+          "error",
+        );
       } else {
         window.ethereum.enable().then(() => {
           setProvider(provider);
@@ -136,11 +131,6 @@ const Wallet = ({
           {renderConnectStatus(state.provider, state.address)}
         </WalletConnection>
       </WalletContainer>
-      <ErrorModal
-        onClose={() => closeErrorModal()}
-        onSubmit={() => connectMetamask()}
-        isOpen={state.showErrorModal}
-      />
     </ThemeProvider>
   );
 };

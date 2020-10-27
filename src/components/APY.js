@@ -50,8 +50,6 @@ const APY = ({ state }) => {
   };
 
   const calcApy = () => {
-    let totalYield;
-
     for (let i = 0; i < pools.length; i++) {
       if (pools[i].id === "profit-sharing-farm") {
         setApy(pools[i].rewardAPY);
