@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { Container, Row, Col } from "styled-bootstrap-grid";
 import { createGlobalStyle } from "styled-components";
@@ -284,8 +284,16 @@ function App() {
     underlyings: [],
     usdValue: 0,
     error: { message: null, type: null, display: false },
-    theme: "dark",
+    theme: window.localStorage.getItem("HarvestFinance:Theme") || "light",
   });
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (state.address) {
+        refresh();
+      }
+    }, 60000);
+  }, []);
 
   const disconnect = () => {
     setState({
@@ -364,6 +372,7 @@ function App() {
 
   const toggleTheme = (theme) => {
     setState({ ...state, theme: theme });
+    window.localStorage.setItem("HarvestFinance:Theme", theme);
   };
 
   return (
