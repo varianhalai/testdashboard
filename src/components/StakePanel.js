@@ -50,12 +50,15 @@ const StakePanel = ({ state, openModal }) => {
       await pool.stake(amount);
     } else {
       await pool.stake(amount).catch((e) => {
-        openModal(
-          `You do not have enough to stake ${ethers.utils.formatEther(
-            amount,
-          )} FARM`,
-          "error",
-        );
+        console.log(e);
+        if (e.code !== 4001) {
+          openModal(
+            `You do not have enough to stake ${ethers.utils.formatEther(
+              amount,
+            )} FARM`,
+            "error",
+          );
+        }
       });
     }
   };
