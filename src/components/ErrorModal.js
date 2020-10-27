@@ -54,7 +54,7 @@ const CloseIcon = styled.span`
   font-size: 1.2rem;
   font-family: ${fonts.headerFont}
   cursor: pointer;
-  color: #fff;
+  color: ${(props) => props.theme.style.primaryFontColor};
 `;
 
 const ErrorModal = ({ state, onClose }) => (
