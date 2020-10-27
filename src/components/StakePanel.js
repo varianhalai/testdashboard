@@ -37,13 +37,16 @@ const StakePanel = ({ state, openModal }) => {
   const pool = state.manager.pools.find((pool) => {
     return pool.address === "0x25550Cccbd68533Fa04bFD3e3AC4D09f9e00Fc50";
   });
-  const amount = ethers.utils.parseUnits(stakeAmount.toString(), 18);
   const inactivePools = state.summaries.filter(
     (sum) => sum.stakedBalance && !sum.isActive,
   );
 
   const stake = async () => {
     const allowance = await pool.lptoken.allowance(state.address, pool.address);
+    const amount =
+      stakeAmount > 0
+        ? ethers.utils.parseUnits(stakeAmount.toString(), 18)
+        : await pool.unstakedBalance(state.address);
 
     if (allowance.lt(amount)) {
       await pool.approve(state.address, ethers.constants.MaxUint256);
@@ -83,7 +86,7 @@ const StakePanel = ({ state, openModal }) => {
             onChange={(event) =>
               setStakeAmount(event.target.value) && console.log(stakeAmount)
             }
-            placeholder="1"
+            placeholder="max"
             step="any"
           />
           FARM

@@ -21,7 +21,7 @@ const Panel = styled.div`
     margin: 0 1rem;
   }
 
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 990px) {
     margin-bottom: 1.5rem;
   }
 `;
