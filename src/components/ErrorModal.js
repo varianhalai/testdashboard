@@ -1,7 +1,6 @@
 import React from "react";
-import styled, { css } from "styled-components";
-import closedIcon from "../assets/closed@3x.png";
-import ethIcon from "../assets/png_eth@3x.png";
+import styled, { css, ThemeProvider } from "styled-components";
+import { darkTheme, lightTheme, fonts } from "../styles/appStyles";
 
 const Container = styled.div`
   ${({ isOpen }) => {
@@ -28,47 +27,45 @@ const Container = styled.div`
 `;
 
 const Inner = styled.div`
-  background-color: white;
-  border-radius: 12px;
-  width: 560px;
+  background-color: ${(props) => props.theme.style.wikiTabBackground};
+  border-radius: 1.2rem;
+  width: 56rem;
   display: flex;
   position: relative;
   flex-direction: column;
   align-items: center;
-  padding: 40px 0;
+  padding: 4rem 0;
+  font-family: ${fonts.contentFont};
+  border: ${(props) => props.theme.style.mainBorder};
+  box-shadow: ${(props) => props.theme.style.panelBoxShadow};
 
   p {
     font-size: 16px;
     line-height: 24px;
-    color: rgba(31, 35, 41, 0.65);
+    color: ${(props) => props.theme.style.primaryFontColor};
     margin-bottom: 0;
   }
 `;
 
-const CloseIcon = styled.img`
+const CloseIcon = styled.span`
   position: absolute;
-  right: 20px;
-  top: 20px;
-  height: 15px;
-  width: 15px;
+  right: 2rem;
+  top: 2rem;
+  font-size: 1.2rem;
+  font-family: ${fonts.headerFont}
   cursor: pointer;
+  color: ${(props) => props.theme.style.primaryFontColor};
 `;
 
-const EthIcon = styled.img`
-  width: 66px;
-  height: 80px;
-`;
-
-const ErrorModal = ({ onSubmit, onClose, isOpen }) => (
-  <Container isOpen={isOpen}>
-    <Inner>
-      <CloseIcon src={closedIcon} onClick={onClose} />
-      <EthIcon src={ethIcon} />
-      <h3>No ETH Account Available</h3>
-      <p>You are not yet logged in.</p>
-      <button onClick={onSubmit}>Connect Wallet</button>
-    </Inner>
-  </Container>
+const ErrorModal = ({ state, onClose }) => (
+  <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
+    <Container isOpen={state.error.display}>
+      <Inner>
+        <CloseIcon onClick={onClose}>X</CloseIcon>
+        <p>{state.error.message}</p>
+      </Inner>
+    </Container>
+  </ThemeProvider>
 );
 
 export default ErrorModal;

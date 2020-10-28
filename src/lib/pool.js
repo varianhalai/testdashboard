@@ -1,13 +1,13 @@
-import data from './data/deploys.js';
-import ethers from 'ethers';
-import {AUTO_REWARDS_ABI, REWARDS_ABI} from './data/ABIs.js';
-import {Token} from './tokens.js';
+import data from "./data/deploys.js";
+import ethers from "ethers";
+import { AUTO_REWARDS_ABI, REWARDS_ABI } from "./data/ABIs.js";
+import { Token } from "./tokens.js";
 
 export class RewardsPool extends ethers.Contract {
   constructor(pool, abi, provider) {
     super(pool.address, abi, provider);
     this.name = pool.name ? pool.name : pool.asset.name;
-    this._pool = pool
+    this._pool = pool;
 
     this.lptoken = Token.fromAsset(pool.asset, provider);
     this.reward = Token.fromAsset(pool.rewardAsset, provider);
@@ -26,7 +26,7 @@ export class RewardsPool extends ethers.Contract {
 
   static fromPool(pool, provider) {
     switch (pool.type) {
-      case 'autocompounding':
+      case "autocompounding":
         return new AutoCompoundingRewardsPool(pool, provider);
       default:
         return new HarvestRewardsPool(pool, provider);
@@ -38,9 +38,7 @@ export class RewardsPool extends ethers.Contract {
    * @return {Array} array of RewardsPools
    */
   static knownPools(provider) {
-    return data.pools.map((pool) =>
-      RewardsPool.fromPool(pool, provider),
-    );
+    return data.pools.map((pool) => RewardsPool.fromPool(pool, provider));
   }
 
   /**
@@ -66,9 +64,7 @@ export class RewardsPool extends ethers.Contract {
    * @return {PoolManager} manager
    */
   static activePools(provider) {
-    return data.activePools.map((pool) =>
-      RewardsPool.fromPool(pool, provider),
-    );
+    return data.activePools.map((pool) => RewardsPool.fromPool(pool, provider));
   }
   /**
    * @param {ethers.Provider} provider provider
@@ -95,10 +91,7 @@ export class RewardsPool extends ethers.Contract {
    * @return {String} the percentage, string formatted
    */
   async usdValueOf(address) {
-    const [
-      stakedBalance,
-      rewardBalance
-    ] = await Promise.all([
+    const [stakedBalance, rewardBalance] = await Promise.all([
       this.stakedBalance(address),
       this.earnedRewards(address),
     ]);
@@ -111,20 +104,21 @@ export class RewardsPool extends ethers.Contract {
     return stakedValue.add(rewardValue);
   }
 
-
   /**
    * Get the percentage of the supply owned by the address
    * @param {BigNumberish} tokens the address
    * @return {String} the percentage, string formatted
    */
   async percentageOfTotal(tokens) {
-    if (tokens.isZero() ) return '0%';
-    const total = this.totalSupply ? await this.totalSupply() : await this.totalValue();
-    if (total.isZero() ) return '0%';
+    if (tokens.isZero()) return "0%";
+    const total = this.totalSupply
+      ? await this.totalSupply()
+      : await this.totalValue();
+    if (total.isZero()) return "0%";
 
     const amnt = tokens.mul(ethers.constants.WeiPerEther).div(total);
 
-    return ethers.utils.formatUnits(amnt, 16).slice(0, 5) + '%';
+    return ethers.utils.formatUnits(amnt, 16).slice(0, 5) + "%";
   }
 
   /**
@@ -185,41 +179,7 @@ export class RewardsPool extends ethers.Contract {
     if (underlyingBalanceOf) output.underlyingBalanceOf = underlyingBalanceOf;
     return output;
   }
-
-  /**
-   * @param {Bignumber} amnt 0 or undefined for `all`
-   * @param {bool} approveForever approve infinite tokens
-   * @return {Optional} `undefined` or a tx receipt
-   */
-  async approveAndStake(amnt, approveForever) {
-    if (!ethers.Signer.isSigner(this.provider)) {
-      throw new Error('No signer');
-    };
-
-    const me = this.provider.getAddress();
-
-    let [allowance, balance] = await Promise.all([
-      this.lptoken.allowances(me, this.address),
-      this.lptoken.balanceOf(me),
-    ]);
-
-    if (!amnt || amnt.isZero()) amnt = balance;
-    if (balance.lt(amnt)) return;
-
-    let approveTx;
-    if (approveForever || allowance.lt(balance)) {
-      approveTx = this.lptoken.approve(
-        this.address,
-        approveForever ? ethers.constants.MaxUint256 : amnt,
-      );
-    }
-    let stakeTx = this.stake(amnt);
-
-    await approveTx;
-    return await stakeTx;
-  }
 }
-
 
 export class AutoCompoundingRewardsPool extends RewardsPool {
   constructor(pool, provider) {
@@ -235,24 +195,28 @@ export class AutoCompoundingRewardsPool extends RewardsPool {
   }
 
   async historicalRewards(address) {
-    const STAKED_TOPIC0 = '0x6381ea17a5324d29cc015352644672ead5185c1c61a0d3a521eda97e35cec97e';
-    const WITHDRAWN_TOPIC0 = '0x7084f5476618d8e60b11ef0d7d3f06914655adb8793e28ff7f018d4c76d505d5';
+    const STAKED_TOPIC0 =
+      "0x6381ea17a5324d29cc015352644672ead5185c1c61a0d3a521eda97e35cec97e";
+    const WITHDRAWN_TOPIC0 =
+      "0x7084f5476618d8e60b11ef0d7d3f06914655adb8793e28ff7f018d4c76d505d5";
 
     const stakedFilter = this.filters.Staked(address);
     const withdrawnFilter = this.filters.Withdrawn(address);
 
     let [stakedEvents, withdrawnEvents, balance] = await Promise.all([
-        this.queryFilter(stakedFilter),
-        this.queryFilter(withdrawnFilter),
-        this.balanceOf(address),
+      this.queryFilter(stakedFilter),
+      this.queryFilter(withdrawnFilter),
+      this.balanceOf(address),
     ]);
 
     stakedEvents = stakedEvents.filter((e) => e.topics[0] === STAKED_TOPIC0);
-    withdrawnEvents = withdrawnEvents.filter((e) => e.topics[0] === WITHDRAWN_TOPIC0);
+    withdrawnEvents = withdrawnEvents.filter(
+      (e) => e.topics[0] === WITHDRAWN_TOPIC0,
+    );
 
     let totalStaked = new ethers.BigNumber.from(0);
     for (const e of stakedEvents) {
-      totalStaked = totalStaked.add(e.args[1])
+      totalStaked = totalStaked.add(e.args[1]);
     }
     let totalWithdrawn = new ethers.BigNumber.from(0);
     for (const e of withdrawnEvents) {
@@ -279,14 +243,17 @@ export class HarvestRewardsPool extends RewardsPool {
   }
 
   async historicalRewards(address) {
-    const REWARD_PAID_TOPIC0 = '0xe2403640ba68fed3a2f88b7557551d1993f84b99bb10ff833f0cf8db0c5e0486';
+    const REWARD_PAID_TOPIC0 =
+      "0xe2403640ba68fed3a2f88b7557551d1993f84b99bb10ff833f0cf8db0c5e0486";
     const filter = this.filters.RewardPaid(address);
     let [currentRewards, rewardPaidEvents] = await Promise.all([
       this.earnedRewards(address),
       this.queryFilter(filter),
     ]);
 
-    rewardPaidEvents = rewardPaidEvents.filter(e => e.topics[0] === REWARD_PAID_TOPIC0);
+    rewardPaidEvents = rewardPaidEvents.filter(
+      (e) => e.topics[0] === REWARD_PAID_TOPIC0,
+    );
     let pastRewards = new ethers.BigNumber.from(0);
     for (const e of rewardPaidEvents) {
       pastRewards = pastRewards.add(e.args[1]);
