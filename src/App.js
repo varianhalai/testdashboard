@@ -465,7 +465,7 @@ function App() {
                       <StakePanel state={state} openModal={openModal} />
                     </Col>
 
-                    <Col lg="4">
+                    <Col lg="6" xl="4">
                       <AssetTable state={state} />
                     </Col>
                   </Row>

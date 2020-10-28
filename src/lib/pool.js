@@ -179,41 +179,6 @@ export class RewardsPool extends ethers.Contract {
     if (underlyingBalanceOf) output.underlyingBalanceOf = underlyingBalanceOf;
     return output;
   }
-
-  /**
-   * @param {Bignumber} amnt 0 or undefined for `all`
-   * @param {bool} approveForever approve infinite tokens
-   * @return {Optional} `undefined` or a tx receipt
-   */
-  async approveAndStake(amnt, approveForever) {
-    const signer = this.provider.getSigner();
-
-    if (!ethers.Signer.isSigner(signer)) {
-      throw new Error("No signer");
-    }
-
-    const me = this.provider.getAddress();
-
-    let [allowance, balance] = await Promise.all([
-      this.lptoken.allowance(me, this.address),
-      this.lptoken.balanceOf(me),
-    ]);
-
-    if (!amnt || amnt.isZero()) amnt = balance;
-    if (balance.lt(amnt)) return;
-
-    let approveTx;
-    if (approveForever || allowance.lt(balance)) {
-      approveTx = this.lptoken.approve(
-        this.address,
-        approveForever ? ethers.constants.MaxUint256 : amnt,
-      );
-    }
-    let stakeTx = this.stake(amnt);
-
-    await approveTx;
-    return await stakeTx;
-  }
 }
 
 export class AutoCompoundingRewardsPool extends RewardsPool {
