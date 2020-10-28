@@ -82,9 +82,7 @@ const StakePanel = ({ state, openModal }) => {
           Stake
           <input
             type="number"
-            onChange={(event) =>
-              setStakeAmount(event.target.value) && console.log(stakeAmount)
-            }
+            onChange={(event) => setStakeAmount(event.target.value)}
             placeholder="max"
             step="any"
           />

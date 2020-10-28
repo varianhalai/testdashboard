@@ -339,11 +339,10 @@ function App() {
     state.manager
       .aggregateUnderlyings(state.address)
       .then((underlying) => {
-        underlying.toList().filter((u) => !u.balance.isZero());
+        return underlying.toList().filter((u) => !u.balance.isZero());
       })
       .then((underlyings) => {
         setState({ ...state, underlyings: underlyings });
-        return underlyings;
       });
 
     state.manager

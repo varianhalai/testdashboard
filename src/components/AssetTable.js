@@ -3,6 +3,9 @@ import DataTable from "react-data-table-component";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../styles/appStyles";
 
+import harvest from "../lib/index.js";
+const { ethers } = harvest;
+
 const TableContainer = styled.div`
   div[role="table"] {
     background-color: ${(props) => props.theme.table.tableBackground};
@@ -10,7 +13,7 @@ const TableContainer = styled.div`
   }
 
   .rdt_TableHeadRow {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     background: ${(props) => props.theme.table.tableHeadBackground};
     border: ${(props) => props.theme.style.mainBorder};
     box-sizing: border-box;
@@ -19,7 +22,6 @@ const TableContainer = styled.div`
   }
 
   .rdt_TableBody {
-    background: #1d1d1d;
     border: ${(props) => props.theme.style.mainBorder};
     box-sizing: border-box;
     box-shadow: ${(props) => props.theme.table.tableItemBoxShadow};
@@ -47,29 +49,39 @@ const TableContainer = styled.div`
     }
   }
 `;
+
+const Note = styled.p`
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+  color: ${(props) => props.theme.style.primaryFontColor};
+`;
 const columns = [
   {
     name: "Asset",
-    selector: "asset",
+    selector: (data) => data.asset.name,
   },
   {
     name: "Underlying Balance",
-    selector: "value",
+    selector: (data) =>
+      ethers.utils.formatUnits(data.balance, data.asset.decimals),
   },
 ];
 
 const AssetTable = ({ state }) => {
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-      <TableContainer>
-        <DataTable
-          noHeader={true}
-          noDivider={true}
-          columns={columns}
-          noDataComponent={false}
-          data={state.underlyings}
-        />
-      </TableContainer>
+      {state.underlyings.length && (
+        <TableContainer>
+          <Note>*Your staked assets underlying values</Note>
+          <DataTable
+            noHeader={true}
+            noDivider={true}
+            columns={columns}
+            noDataComponent={false}
+            data={state.underlyings}
+          />
+        </TableContainer>
+      )}
     </ThemeProvider>
   );
 };
