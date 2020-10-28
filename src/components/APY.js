@@ -39,6 +39,7 @@ const APY = ({ state }) => {
 
   useEffect(() => {
     calcApy();
+    // eslint-disable-next-line 
   }, [summaries]);
 
   const getPools = async () => {

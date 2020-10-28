@@ -55,6 +55,7 @@ const Wallet = ({
     if (state.address !== "") {
       refresh(state);
     }
+    // eslint-disable-next-line 
   }, [state.address]);
 
   const connectMetamask = (signer, manager) => {

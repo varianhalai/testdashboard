@@ -35,6 +35,7 @@ const Balance = ({ state }) => {
 
   useEffect(() => {
     balance();
+    // eslint-disable-next-line 
   }, [state.summaries]);
 
   const balance = () => {
