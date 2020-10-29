@@ -218,6 +218,15 @@ const Panel = styled.div`
     font-size: 1.6rem;
     font-family: TechnaSans;
   }
+
+  .refresh-button {
+    font-size: 2em;
+    position: relative;
+    left: 6.8rem;
+    &:hover {
+      top: 1.5px;
+    }
+  }
 `;
 
 const PanelTab = styled.div`
@@ -303,6 +312,7 @@ function App() {
       summaries: [],
       underlyings: [],
       usdValue: 0,
+      apy: 0,
       error: { message: null, type: null, display: false },
       theme: window.localStorage.getItem("HarvestFinance:Theme") || "light",
     });
@@ -336,6 +346,7 @@ function App() {
   };
 
   const refresh = () => {
+    console.log("refresh")
     state.manager
       .aggregateUnderlyings(state.address)
       .then((underlying) => {
@@ -343,7 +354,6 @@ function App() {
       })
       .then((underlyings) => {
         setState({ ...state, underlyings: underlyings });
-        console.log(state.underlyings)
       });
 
     state.manager
@@ -464,12 +474,10 @@ function App() {
                   
                     
                     <Col lg="4">
-                      <APY state={state} />
+                      <APY state={state} setState={setState} />
                       <Balance state={state} />
                     </Col>
                   </Row>
-
-                  
                 </div>
               )}
 
@@ -478,6 +486,7 @@ function App() {
                   <AddTokens state={state} />
                 </Col>
               </Row>
+              
             </Panel>
           </Col>
         </Row>

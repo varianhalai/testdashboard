@@ -10,7 +10,7 @@ const BluePanel = styled.div`
   background-color: ${(props) => props.theme.style.blueBackground};
   color: ${(props) => props.theme.style.primaryFontColor};
   font-family: ${fonts.contentFont};
-  padding: 2.5rem 1.5rem;
+  padding: 2.75rem 1.5rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: 0.5rem;
   box-sizing: border-box;
@@ -22,7 +22,7 @@ const BluePanel = styled.div`
   margin-top: 30px;
 
   h1 {
-    font-size: 2.2rem;
+    font-size: 2.8rem;
     margin-bottom: 0.5rem;
   }
 

@@ -7,7 +7,7 @@ const BluePanel = styled.div`
   background-color: ${(props) => props.theme.style.blueBackground};
   color: ${(props) => props.theme.style.primaryFontColor};
   font-family: ${fonts.contentFont};
-  padding: 2.5rem 1.5rem;
+  padding: 2.75rem 1.5rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: 0.5rem;
   box-sizing: border-box;
@@ -18,7 +18,7 @@ const BluePanel = styled.div`
   flex-direction: column;
 
   h1 {
-    font-size: 2.2rem;
+    font-size: 2.8rem;
     margin-bottom: 0.5rem;
   }
 
@@ -27,10 +27,11 @@ const BluePanel = styled.div`
   }
 `;
 
-const APY = ({ state }) => {
+const APY = ({ state,setState }) => {
   const [pools, setPools] = useState([]);
   const [summaries, setSummaries] = useState([]);
-  const [apy, setApy] = useState(0);
+
+  
 
   useEffect(() => {
     getPools();
@@ -40,19 +41,19 @@ const APY = ({ state }) => {
   useEffect(() => {
     calcApy();
   }, [summaries]);
+  
 
   const getPools = async () => {
     const poolsData = await fetch(
       "https://api-ui.harvest.finance/pools?key=41e90ced-d559-4433-b390-af424fdc76d6",
     );
-
     setPools(await poolsData.json());
   };
 
   const calcApy = () => {
     for (let i = 0; i < pools.length; i++) {
       if (pools[i].id === "profit-sharing-farm") {
-        setApy(pools[i].rewardAPY);
+        setState({...state,apy: pools[i].rewardAPY})
       }
     }
   };
@@ -60,7 +61,7 @@ const APY = ({ state }) => {
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       <BluePanel>
-        <h1>{apy} %</h1>
+        <h1>{state.apy} %</h1>
         <span>Profit Share APY</span>
       </BluePanel>
     </ThemeProvider>

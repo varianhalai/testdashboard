@@ -39,13 +39,14 @@ const TableContainer = styled.div`
     background-color: ${(props) => props.theme.table.tableRowBackground};
     font-family: ${fonts.contentFont};
     color: ${(props) => props.theme.style.primaryFontColor};
+    font-size: 1.7rem;
   }
 
   div[role="columnheader"] {
     color: ${(props) => props.theme.style.primaryFontColor};
     background-color: ${(props) => props.theme.table.tableHeadBackground};
     font-family: ${fonts.headerFont};
-    font-size: 1.8rem;
+    font-size: 2.2rem;
 
     &:hover,
     &:visited,
@@ -94,7 +95,7 @@ const FarmingTable = ({ state }) => {
       <TableContainer>
       {state.summaries.length ===0 ? <Loader
          type="TailSpin"
-         color = {state.theme === "dark" ? '#42857D' : "#ABE4E2"}
+         color = {state.theme === "dark" ? '#42857D' : "#A2E7DB"}
          height={100}
          width={100}
  

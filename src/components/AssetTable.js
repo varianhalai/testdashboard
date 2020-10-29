@@ -13,9 +13,9 @@ const TableContainer = styled.div`
     ::-webkit-scrollbar {
       width: 1px;
     }
-    min-height: 22.5rem;
-    max-height: 22.5rem;
-     overflow-y:scroll;
+    min-height: 23.5rem;
+    max-height: 23.5rem;
+    overflow-y:scroll;
     background-color: ${(props) => props.theme.table.tableBackground};
     padding: 0.3rem 0.3rem 0.3rem 0.3rem;
   }
@@ -40,6 +40,7 @@ const TableContainer = styled.div`
     border-bottom: 0px;
     background-color: ${(props) => props.theme.table.tableRowBackground};
     font-family: ${fonts.contentFont};
+    font-size: 1.7rem;
     color: ${(props) => props.theme.style.primaryFontColor};
   }
 
@@ -47,7 +48,7 @@ const TableContainer = styled.div`
     color: ${(props) => props.theme.style.primaryFontColor};
     background-color: ${(props) => props.theme.table.tableHeadBackground};
     font-family: ${fonts.headerFont};
-    font-size: 1.8rem;
+    font-size: 2rem;
 
     &:hover,
     &:visited,
@@ -58,72 +59,53 @@ const TableContainer = styled.div`
   }
 `;
 
-const Note = styled.p`
-  font-size: 1.2rem;
-  margin-bottom: 0.3rem;
-  color: ${(props) => props.theme.style.primaryFontColor};
-`;
 
-const data = [
+const noAssetColumns = [
+  {
+    name: "You currently have no assets",
+    // selector: (data) => data.asset.name,
+    selector: "asset",
+    center: true
+  },
+]
+const noAssetData = [
   {
     id:0,
-    asset: 'USDC',
-    value: '$144'
-  },
-  {
-    id:1,
-    asset: 'ETH',
-    value: '23.42'
-  },
-  {
-    id:2,
-    asset: 'FARM',
-    value: '29.15'
-  },
-  {
-    id:3,
-    asset: 'USDC',
-    value: '$144'
-  },
-  {
-    id:4,
-    asset: 'ETH',
-    value: '23.42'
-  },
-  {
-    id:5,
-    asset: 'FARM',
-    value: '29.15'
+    asset: 'Add assets below'
   },
 ]
 const columns = [
   {
     name: "Asset",
-    // selector: (data) => data.asset.name,
-    selector: "asset"
+    selector: (data) => data.asset.name,
+    
   },
   {
-    name: "Underlying Balance",
-    // selector: (data) =>
-    //   ethers.utils.formatUnits(data.balance, data.asset.decimals),
-    selector: 'value'
+    name: "Balance",
+    selector: (data) =>
+      ethers.utils.formatUnits(data.balance, data.asset.decimals),
+    
   },
 ];
 
 const AssetTable = ({ state }) => {
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-      {/* {state.underlyings.length && ( */}
         <TableContainer>
-          {/* <Note>*Your staked assets underlying values</Note> */}
-          <DataTable
+          {state.underlyings.length ? <DataTable
             noHeader={true}
             noDivider={true}
             columns={columns}
             noDataComponent={false}
-            data={data}
-            
-          />
+            data={state.underlyings}
+          /> : 
+          <DataTable
+            noHeader={true}
+            noDivider={true}
+            columns={noAssetColumns}
+            noDataComponent={false}
+            data={noAssetData}
+          />}
         </TableContainer>
       
     </ThemeProvider>

@@ -6,12 +6,16 @@ import harvest from "../lib/index.js";
 const { ethers } = harvest;
 
 const Panel = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   position: relative;
   background-color: ${(props) => props.theme.style.lightBackground};
   color: ${(props) => props.theme.style.primaryFontColor};
-  font-size: 1.4rem;
+  font-size: 1.7rem;
   font-family: TechnaSans;
-  padding: 1.5rem;
+  padding: 1.5rem .5rem;
   margin-top: 30px;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: 0.5rem;
@@ -29,8 +33,16 @@ const Panel = styled.div`
 
 const ButtonContainer = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
   margin-top: 1.5rem;
+  button {
+    font-size: 1.1em;
+    position: relative;
+    &:hover {
+      top: 1.5px;
+    }
+  }
 `;
 
 const StakePanel = ({ state, openModal }) => {
@@ -80,14 +92,14 @@ const StakePanel = ({ state, openModal }) => {
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       <Panel>
         <p>
-          Stake
+          stake
           <input
             type="number"
             onChange={(event) => setStakeAmount(event.target.value)}
             placeholder="max"
             step="any"
           />
-          FARM
+          FARM at {state.apy}% apy
         </p>
 
         <ButtonContainer>
