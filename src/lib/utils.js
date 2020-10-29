@@ -2,13 +2,13 @@ import ethers from 'ethers';
 
 /**
  * Prettifies money
- * @param {Number} pennies value in cents
+ * @param {Number} USD value in microdollars
  * @return {String} pretty
  */
-export function prettyMoney(pennies) {
+export function prettyMoney(microdollars) {
   return Intl
     .NumberFormat('en-US', {style: 'currency', currency: 'USD'})
-    .format(pennies / 100);
+    .format(microdollars / 1000000);
 }
 
 /**
@@ -21,7 +21,7 @@ export function prettyPosition(sum) {
     name,
     summary: {
       pool: {asset: {decimals}},
-      isActive, stakedBalance, unstakedBalance, earnedRewards,
+      address, isActive, stakedBalance, unstakedBalance, earnedRewards,
       percentageOwnership, usdValueOf,
     },
   } = sum;
@@ -33,6 +33,7 @@ export function prettyPosition(sum) {
   return {
     name,
     isActive,
+    address: address,
     stakedBalance: ethers.utils.formatUnits(stakedBalance, decimals),
     unstakedBalance: ethers.utils.formatUnits(unstakedBalance, decimals),
     earnedRewards: ethers.utils.formatUnits(earnedRewards, 18),

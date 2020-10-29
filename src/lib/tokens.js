@@ -116,7 +116,7 @@ export class Token extends ERC20Extended {
   /**
    * Calculate USD value of an amount of tokens
    * @param {BigNumber} amount the amount of tokens to value
-   * @return {BigNumber} the value in pennies
+   * @return {BigNumber} the value in microdollars
    */
   async usdValueOf(amount) {
     if (amount.isZero()) return ethers.BigNumber.from(0);
@@ -241,7 +241,7 @@ class HasUnderlying extends Token {
       /**
        * Calculate USD value of an amount of tokens
        * @param {BigNumber} amount the amount of tokens to value
-       * @return {BigNumber} the value in pennies
+       * @return {BigNumber} the value in microdollars
        */
     async usdValueOf(amount) {
       if (amount.isZero()) return ethers.BigNumber.from(0);

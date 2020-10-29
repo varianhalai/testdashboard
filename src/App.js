@@ -1,211 +1,491 @@
-import detectEthereumProvider from '@metamask/detect-provider';
-import harvest from './lib/index.js';
+import React, { useState, useEffect } from "react";
+import styled, { ThemeProvider } from "styled-components";
+import { Container, Row, Col } from "styled-bootstrap-grid";
+import { createGlobalStyle } from "styled-components";
+import { reset } from "styled-reset";
+import harvest from "./lib/index.js";
+import ErrorModal from "./components/ErrorModal";
 
-import React from 'react';
-import './App.css';
-import {MainTable, UnderlyingTable} from './components/MainTable.js';
+import { darkTheme, lightTheme, fonts } from "./styles/appStyles";
 
-const {ethers, utils} = harvest;
+// images
+import logo from "./assets/logo.png";
 
-class App extends React.Component {
+// fonts
+import DDIN from "./assets/fonts/DDIN-Bold.ttf";
+import TechnaSans from "./assets/fonts/TechnaSans-Regular.otf";
 
-  constructor(props) {
-    super(props);
-    this.state = {
+// components
+import Wallet from "./components/Wallet";
+import FarmingTable from "./components/FarmingTable";
+import AssetTable from "./components/AssetTable";
+import Harvest from "./components/Harvest";
+import StakePanel from "./components/StakePanel";
+import Balance from "./components/Balance";
+import APY from "./components/APY";
+import AddTokens from "./components/AddTokens";
+
+const { ethers } = harvest;
+const GlobalStyle = createGlobalStyle`
+  ${reset}
+
+  html {
+    /* 1rem = 10px */
+    font-size: 62.5%;
+  }
+
+  @font-face {
+    font-family: 'DDIN';
+    src: local('DDIN'), local('DDIN'),
+    url(${DDIN}) format('truetype');
+    font-weight: 700;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'TechnaSans';
+    src: local('TechnaSans'), local('TechnaSans'),
+    url(${TechnaSans}) format('opentype');
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  body {
+    margin: 0;
+    background-color: ${(props) => props.theme.style.bodyBackground};
+  }
+
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+
+  /* The switch - the box around the slider */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: ${(props) => props.theme.style.highlight};
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  input:checked + .slider {
+    background-color: ${(props) => props.theme.style.blueBackground};
+  }
+
+  input:focus + .slider {
+    box-shadow: 0 0 1px ${(props) => props.theme.style.blueBackground};
+  }
+
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+  input[type="button"]:focus, button:focus {
+      outline: none;
+  }
+
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+    background-color: ${(props) => props.theme.style.lightBackground};
+    border: 0.2rem solid #363636;
+    font-size: 1.4rem;
+    color: ${(props) => props.theme.style.primaryFontColor};;
+    width: 60px;
+    text-align: center;
+    border-radius: 0.5rem;
+    padding: 0.3rem 0.7rem;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .button {
+    background: ${(props) => props.theme.style.highlight};
+    border: ${(props) => props.theme.style.smallBorder};
+    box-shadow: ${(props) => props.theme.style.buttonBoxShadow};
+    box-sizing: border-box;
+    border-radius: 0.8rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-family: TechnaSans;
+    color: ${(props) => props.theme.style.buttonFontColor};
+    font-size: 1.2rem;
+
+    &.ghost {
+      background: transparent;
+      border: 0px;
+      box-shadow: none;
+      color: ${(props) => props.theme.style.linkColor};
+      padding: 0px;
+    }
+
+    &.alert {
+      background-color: ${(props) => props.theme.style.alertColor}
+    }
+  }
+
+  .spread-row {
+    justify-content: space-between;
+  }
+
+  div[data-name="row"] {
+    margin-bottom: 1.5rem;
+  }
+`;
+
+// App
+const Brand = styled.div`
+  padding-top: 1.5rem;
+  padding-right: 1rem;
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-right: 1rem;
+  }
+
+  span {
+    color: ${(props) => props.theme.style.primaryFontColor};
+    font-family: ${(props) => fonts.headerFont};
+    font-size: 1.4rem;
+  }
+`;
+
+const Panel = styled.div`
+  position: relative;
+  padding: 1.5rem;
+  border: ${(props) => props.theme.style.mainBorder};
+  border-radius: 1rem;
+  border-top-left-radius: 0rem;
+  margin-top: -1.5rem;
+  background-color: ${(props) => props.theme.style.panelBackground};
+  z-index: 1;
+  box-sizing: border-box;
+  box-shadow: ${(props) => props.theme.style.panelBoxShadow};
+
+  &.four-corner {
+    border-top-left-radius: 1rem;
+    background-color: #1d1d1d;
+    color: ${(props) => props.theme.style.primaryFontColor};
+    font-size: 1.6rem;
+    font-family: TechnaSans;
+  }
+`;
+
+const PanelTab = styled.div`
+  margin-right: 0.75rem;
+  border-radius: 0.4rem;
+  border-top: ${(props) => props.theme.style.mainBorder};
+  border-left: ${(props) => props.theme.style.mainBorder};
+  border-right: ${(props) => props.theme.style.mainBorder};
+  padding: 0.75rem 1.25rem;
+  padding-bottom: 2.25rem;
+  background-color: ${(props) => props.theme.style.highlight};
+  box-sizing: border-box;
+  box-shadow: ${(props) => props.theme.style.panelTabBoxShadow};
+  font-size: 2rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: ${(props) => props.theme.style.buttonFontColor};
+
+  a {
+    color: ${(props) => props.theme.style.panelTabLinkColor};
+    text-decoration: none;
+    font-family: ${fonts.headerFont};
+  }
+
+  &.wiki-tab {
+    position: relative;
+    background-color: ${(props) => props.theme.style.wikiTabBackground};
+    top: 0.5rem;
+
+    &:hover {
+      top: 0rem;
+    }
+
+    a {
+      color: ${(props) => props.theme.style.primaryFontColor};
+      position: relative;
+      top: -0.2rem;
+    }
+  }
+`;
+
+const PanelTabContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const PanelTabContainerLeft = styled.div`
+  display: flex;
+  justify-content: flex-start;
+`;
+
+const PanelTabContainerRight = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+function App() {
+  const [state, setState] = useState({
+    provider: undefined,
+    signer: undefined,
+    manager: undefined,
+    address: "",
+    summaries: [],
+    underlyings: [],
+    usdValue: 0,
+    error: { message: null, type: null, display: false },
+    theme: window.localStorage.getItem("HarvestFinance:Theme") || "light",
+  });
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      state.manager && refresh();
+    }, 60000);
+    return () => clearTimeout(timer);
+  });
+
+  const disconnect = () => {
+    setState({
       provider: undefined,
       signer: undefined,
-      address: '',
       manager: undefined,
+      address: "",
       summaries: [],
       underlyings: [],
       usdValue: 0,
-    };
-  }
+      error: { message: null, type: null, display: false },
+      theme: window.localStorage.getItem("HarvestFinance:Theme") || "light",
+    });
+  };
 
-  setProvider(provider) {
-    provider = new ethers.providers.Web3Provider(provider);
+  const closeErrorModal = () => {
+    setState({
+      ...state,
+      error: { message: null, type: null, display: false },
+    });
+  };
 
-    let signer;
-    try {
-      signer = provider.getSigner();
-    } catch (e) {console.log(e)}
-    const manager = harvest.manager.PoolManager.allPastPools(signer ? signer : provider);
+  const openModal = (message, type) => {
+    setState({
+      ...state,
+      error: { message: message, type: type, display: true },
+    });
+  };
 
-    this.setState({provider, signer, manager});
+  const setConnection = (provider, signer, manager) => {
+    setState({
+      ...state,
+      provider: provider,
+      signer: signer,
+      manager: manager,
+    });
+  };
 
-    console.log({provider, signer, manager})
+  const setAddress = (address) => {
+    setState((state) => ({ ...state, address: address }));
+  };
 
-    // get the user address
-    signer.getAddress()
-      .then((address) => this.setState({address}));
-  }
-
-  connectMetamask() {
-    detectEthereumProvider()
-      .then((provider) => {
-        window.ethereum.enable()
-          .then(() => this.setProvider(provider))
-      });
-  }
-
-  refreshButtonAction() {
-    console.log('refreshing')
-    this.state.manager.aggregateUnderlyings(this.state.address)
-      .then((underlying) => underlying.toList().filter((u) => !u.balance.isZero()))
-      .then((underlyings) => {
-        this.setState({underlyings});
-        return underlyings
+  const refresh = () => {
+    state.manager
+      .aggregateUnderlyings(state.address)
+      .then((underlying) => {
+        return underlying.toList().filter((u) => !u.balance.isZero());
       })
-      .then(console.table);
+      .then((underlyings) => {
+        setState({ ...state, underlyings: underlyings });
+        console.log(state.underlyings)
+      });
 
-    this.state.manager.summary(this.state.address)
-      .then(summaries => summaries
-        .filter((p) => !p.summary.earnedRewards.isZero()
-                        || !p.summary.stakedBalance.isZero()
-                        || (p.summary.isActive && !p.summary.unstakedBalance.isZero())
-                        )
+    state.manager
+      .summary(state.address)
+      .then((summaries) =>
+        summaries.filter(
+          (p) =>
+            !p.summary.earnedRewards.isZero() ||
+            !p.summary.stakedBalance.isZero() ||
+            (p.summary.isActive && !p.summary.unstakedBalance.isZero()),
+        ),
       )
-      .then(summaries => {
+      .then((summaries) => {
         let total = ethers.BigNumber.from(0);
         summaries.forEach((pos) => {
-          console.log(pos)
-          total = total.add(pos.summary.usdValueOf)
+          total = total.add(pos.summary.usdValueOf);
         });
-        this.setState({summaries, usdValue: total});
+        setState((state) => ({
+          ...state,
+          summaries: summaries,
+          usdValue: total,
+        }));
         return summaries;
-      })
-      .then(console.table);
-  }
+      });
+  };
 
-  harvestButtonAction() {
-    console.log('harvesting');
-    const minHarvestInput = document.getElementById("minHarvest").value;
-    const minHarvest = minHarvestInput ? ethers.utils.parseUnits(minHarvestInput, 18) : ethers.constants.WeiPerEther.div(10);
-    this.state.manager.getRewards(minHarvest);
-  }
+  const toggleTheme = (theme) => {
+    setState({ ...state, theme: theme });
+    window.localStorage.setItem("HarvestFinance:Theme", theme);
+  };
 
-  exitInactiveButtonAction() {
-    console.log('exiting inactive');
-    this.state.manager.exitInactive();
-  }
+  return (
+    <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
+      <GlobalStyle />
 
-  render() {
-    const connectBtn = this.renderConnectStatus();
-    const refreshBtn = this.renderRefreshButton();
-    const harvestAll = this.renderHarvestAll();
-    const navMessage = this.renderNAV();
-    const exitInactive = this.renderExitInactiveButton();
-    const table = this.renderMainTable();
-    const underlyingTable = this.renderUnderlyingTable();
-    return (
-      <div className="App">
-        <header className="App-header">
-          <h1>Harvest Finance Dashboard</h1>
-          {connectBtn}
-          {refreshBtn}
-          {table}
-          <div>
-            {navMessage}
-            {harvestAll}
-            {exitInactive}
-          </div>
-          {underlyingTable}
-          <p>Add assets to wallet: &nbsp;
-            <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-farm/">FARM</a>&nbsp;
-            <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fusdc/">fUSDC</a>&nbsp;
-            <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fusdt/">fUSDT</a>&nbsp;
-            <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fdai/">fDAI</a>&nbsp;
-            <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fwbtc/">fwBTC</a>&nbsp;
-            <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-frenbtc/">frenBTC</a>&nbsp;
-            <a target="_blank" rel="noopener noreferrer" href="https://harvestfi.github.io/add-fcrvrenwbtc/">fcrvRenWBTC</a>&nbsp;&#x2014;&nbsp;
-            <a target="_blank" rel="noopener noreferrer" href="https://farm.chainwiki.dev">Harvest Wiki</a>
-          </p>
-          <p>Please consider donating: 0x84BB14595Fd30a53cbE18e68085D42645901D8B6</p>
-        </header>
-      </div>
-    );
-  }
+      <Container>
+        <Row>
+          <Col col>
+            <Brand>
+              <img src={logo} alt="harvest finance logo" />{" "}
+              <span>harvest.dashboard</span>
+            </Brand>
+          </Col>
+        </Row>
 
-  renderNAV() {
-    if (this.state.summaries.length !== 0) {
-      const formatted = utils.prettyMoney(this.state.usdValue);
-      return <p>Your staked assets and earned rewards are worth about <strong>{formatted}</strong></p>;
-    }
-    return <div></div>;
-  }
+        <Row>
+          <Col>
+            <PanelTabContainer>
+              <PanelTabContainerLeft>
+                <PanelTab>
+                  <a
+                    href="https://harvest.finance"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    harvest.finance
+                  </a>
+                </PanelTab>
+                <PanelTab className="wiki-tab">
+                  <a
+                    href="https://farm.chainwiki.dev/en/home"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    wiki
+                  </a>
+                </PanelTab>
+              </PanelTabContainerLeft>
 
-  renderMainTable() {
-    if (this.state.summaries.length !== 0) {
-      return <MainTable data={this.state.summaries}></MainTable>;
-    }
-    return <div></div>;
-  }
+              <PanelTabContainerRight>
+                <label className="switch">
+                  <input
+                    type="checkbox"
+                    checked={state.theme === "dark" ? true : false}
+                    onChange={() =>
+                      toggleTheme(state.theme === "dark" ? "light" : "dark")
+                    }
+                  />
+                  <span className="slider round"></span>
+                </label>
+              </PanelTabContainerRight>
+            </PanelTabContainer>
 
-  renderUnderlyingTable() {
-    if (this.state.underlyings.length !== 0) {
-      return (
-      <div>
-        <p>
-          Your position includes LP tokens that can be redeemed for the following:
-        </p>
-        <p>
-          <UnderlyingTable data={this.state.underlyings}></UnderlyingTable>
-        </p>
-      </div>
-      );
-    }
-    return <div></div>
-  }
+            <Panel>
+              <Row>
+                <Col>
+                  <Wallet
+                    state={state}
+                    openModal={openModal}
+                    disconnect={disconnect}
+                    setConnection={setConnection}
+                    setAddress={setAddress}
+                    refresh={refresh}
+                  />
+                </Col>
+              </Row>
 
-  renderConnectStatus() {
-    if (!this.state.provider) {
-      return <div>
-        Start here: <button onClick={this.connectMetamask.bind(this)}>Connect Wallet</button>
-      </div>;
-    }
-    return <p>Your wallet address is: <span id="address"><a target="_blank" rel="noopener noreferrer" href={this.state.address ? "https://etherscan.io/address/" + this.state.address : "#"}>{this.state.address || "not connected"}</a></span></p>;
-  }
+              {state.provider && (
+                <div>
+                  <Row>
+                    <Col>
+                      <FarmingTable state={state} />
+                    </Col>
+                  </Row>
 
-  renderHarvestAll() {
-    if (this.state.summaries.length !== 0){
-      const harvestBtn = this.renderHarvestButton();
-      return (
-        <p>
-          Harvest all farms with at least <input type="text" id="minHarvest" placeholder="min"></input> FARM rewards {harvestBtn}
-        </p>);
-    }
-    return <div></div>;
-  }
+                  <Row>
+                    <Col lg="4">
+                      <Harvest state={state} />
+                      <StakePanel state={state} openModal={openModal} />
+                    </Col>
 
-  renderRefreshButton() {
-    const buttonText = (this.state.summaries.length === 0) ? 'Click to load the table!' : 'Refresh Table';
+                    
+                    
 
-    return <div>
-      <button
-        disabled={!this.state.provider}
-        onClick={this.refreshButtonAction.bind(this)}
-      >{buttonText}</button>
-    </div>;
-  }
+                    <Col lg="4" xl="4">
+                      <AssetTable state={state} />
+                    </Col>
+                  
+                    
+                    <Col lg="4">
+                      <APY state={state} />
+                      <Balance state={state} />
+                    </Col>
+                  </Row>
 
-  renderHarvestButton() {
-    return <button
-      disabled={!this.state.provider}
-      onClick={this.harvestButtonAction.bind(this)}
-    >Harvest All</button>
-  }
+                  
+                </div>
+              )}
 
-  renderExitInactiveButton() {
-    let inactivePools = this.state.summaries.filter((sum) => sum.stakedBalance && !sum.isActive);
-    if (inactivePools.length !== 0) {
-      return <div><button
-        disabled={!this.state.provider}
-        onClick={this.exitInactiveButtonAction.bind(this)}
-      >Exit inactive pools</button></div>;
-    }
-    return <div></div>;
-  }
+              <Row>
+                <Col>
+                  <AddTokens state={state} />
+                </Col>
+              </Row>
+            </Panel>
+          </Col>
+        </Row>
+      </Container>
+
+      <ErrorModal state={state} onClose={() => closeErrorModal()} />
+    </ThemeProvider>
+  );
 }
-
 
 export default App;
