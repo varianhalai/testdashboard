@@ -5,9 +5,9 @@ import { darkTheme, lightTheme, fonts } from "../styles/appStyles";
 const BluePanel = styled.div`
   position: relative;
   background-color: ${(props) => props.theme.style.blueBackground};
-  color: ${(props) => props.theme.style.secondaryFontColor};
+  color: ${(props) => props.theme.style.primaryFontColor};
   font-family: ${fonts.contentFont};
-  padding: 1.5rem;
+  padding: 2.5rem 1.5rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: 0.5rem;
   box-sizing: border-box;

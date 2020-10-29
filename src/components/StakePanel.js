@@ -12,6 +12,7 @@ const Panel = styled.div`
   font-size: 1.4rem;
   font-family: TechnaSans;
   padding: 1.5rem;
+  margin-top: 30px;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: 0.5rem;
   box-sizing: border-box;

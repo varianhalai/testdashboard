@@ -66,7 +66,7 @@ const Harvest = ({ state }) => {
             placeholder="min"
             step="any"
           />
-          FARM rewards
+          FARM 
         </p>
 
         <ButtonContainer>

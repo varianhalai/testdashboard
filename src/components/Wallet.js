@@ -14,17 +14,25 @@ const WalletConnection = styled.div`
   padding: 0.75rem 1.25rem;
   background-color: ${(props) => props.theme.style.lightBackground};
   position: relative;
-  top: -1.2rem;
-  font-size: 1.2rem;
+  top: .5rem;
+  font-size: 1.6rem;
   font-family: "TechnaSans";
 
   a,
   a:visited,
   a:hover,
   a:active {
-    color: ${(props) => props.theme.style.linkColor};
+    color: ${(props) => props.theme.style.primaryFontColor};
     text-decoration: none;
   }
+
+  div {
+    .ghost {
+      color: ${(props) => props.theme.style.primaryFontColor};
+      font-size: 1.2em;
+    }
+  }
+  
 `;
 const WalletContainer = styled.div`
   display: flex;
@@ -32,6 +40,7 @@ const WalletContainer = styled.div`
   flex-direction: column;
   align-items: flex-end;
   color: ${(props) => props.theme.style.primaryFontColor};
+  
 `;
 const WalletTab = styled.div`
   padding: 0.5rem 1rem;
@@ -40,7 +49,9 @@ const WalletTab = styled.div`
   border: ${(props) => props.theme.style.mainBorder};
   padding-bottom: 1.5rem;
   font-family: ${fonts.headerFont};
-  font-size: 1.4rem;
+  font-size: 2rem;
+  position: relative;
+  top: 1.3rem;
 `;
 
 const Wallet = ({

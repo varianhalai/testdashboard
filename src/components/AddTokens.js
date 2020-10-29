@@ -94,7 +94,7 @@ const StyledToken = styled(Token)`
     flex-direction: column;
     align-items: center;
     text-decoration: none;
-    color: ${(props) => props.theme.style.linkColor};
+    color: ${(props) => props.theme.style.primaryFontColor};
     font-size: 1.4rem;
   }
 

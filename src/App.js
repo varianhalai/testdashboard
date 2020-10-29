@@ -343,6 +343,7 @@ function App() {
       })
       .then((underlyings) => {
         setState({ ...state, underlyings: underlyings });
+        console.log(state.underlyings)
       });
 
     state.manager
@@ -449,26 +450,26 @@ function App() {
                   </Row>
 
                   <Row>
-                    <Col lg="6">
+                    <Col lg="4">
                       <Harvest state={state} />
+                      <StakePanel state={state} openModal={openModal} />
                     </Col>
-                    <Col lg="3">
+
+                    
+                    
+
+                    <Col lg="4" xl="4">
+                      <AssetTable state={state} />
+                    </Col>
+                  
+                    
+                    <Col lg="4">
                       <APY state={state} />
-                    </Col>
-                    <Col lg="3">
                       <Balance state={state} />
                     </Col>
                   </Row>
 
-                  <Row className="spread-row">
-                    <Col lg="3">
-                      <StakePanel state={state} openModal={openModal} />
-                    </Col>
-
-                    <Col lg="6" xl="4">
-                      <AssetTable state={state} />
-                    </Col>
-                  </Row>
+                  
                 </div>
               )}
 

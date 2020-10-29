@@ -3,10 +3,14 @@ import DataTable from "react-data-table-component";
 import styled, { ThemeProvider } from "styled-components";
 import harvest from "../lib/index.js";
 import { darkTheme, lightTheme, fonts } from "../styles/appStyles";
+import Loader from 'react-loader-spinner'
 
 const { utils } = harvest;
 
 const TableContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   div[role="table"] {
     background-color: ${(props) => props.theme.table.tableBackground};
     padding: 0rem 0.5rem 0rem 0rem;
@@ -41,7 +45,7 @@ const TableContainer = styled.div`
     color: ${(props) => props.theme.style.primaryFontColor};
     background-color: ${(props) => props.theme.table.tableHeadBackground};
     font-family: ${fonts.headerFont};
-    font-size: 1.4rem;
+    font-size: 1.8rem;
 
     &:hover,
     &:visited,
@@ -88,14 +92,22 @@ const FarmingTable = ({ state }) => {
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       <TableContainer>
-        <DataTable
-          noHeader={true}
-          noDivider={true}
-          columns={columns}
-          noDataComponent={false}
-          data={state.summaries.map(utils.prettyPosition)}
-        />
-      </TableContainer>
+      {state.summaries.length ===0 ? <Loader
+         type="TailSpin"
+         color = {state.theme === "dark" ? '#42857D' : "#ABE4E2"}
+         height={100}
+         width={100}
+ 
+      /> : 
+      <DataTable
+        noHeader={true}
+        noDivider={true}
+        columns={columns}
+        noDataComponent={false}
+        data={state.summaries.map(utils.prettyPosition)}
+      />}
+    </TableContainer>
+      
     </ThemeProvider>
   );
 };
