@@ -9,14 +9,11 @@ const Panel = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   background-color: ${(props) => props.theme.style.lightBackground};
   color: ${(props) => props.theme.style.primaryFontColor};
-  font-size: 1.7rem;
-  font-family: ${fonts.contentFont};
-  padding: 1.5rem .5rem;
+  padding: 1.5rem;
   border: ${(props) => props.theme.style.mainBorder};
-  border-radius: 0.5rem;
+  border-radius: 0.8rem;
   box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
 
@@ -27,15 +24,24 @@ const Panel = styled.div`
   @media only screen and (max-width: 990px) {
     margin-bottom: 1.5rem;
   }
+
+  .panel-text {
+    width: 100%;
+    font-size: 1.7rem;
+    display: flex;
+    justify-content: flex-end;
+    font-family: ${fonts.contentFont};
+  }
 `;
 
 const ButtonContainer = styled.div`
+  width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-end;
   margin-top: 1.5rem;
   button {
-    font-size: 1.1em;
+    font-family: ${fonts.headerFont};
+    font-size: 2em;
     position: relative;
     &:hover {
       top: 1.5px;
@@ -69,16 +75,19 @@ const Harvest = ({ state }) => {
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       <Panel>
-        <p>
-          harvest farms with at least
-          <input
-            type="number"
-            onChange={(event) => setMinimumHarvestAmount(event.target.value)}
-            placeholder="min"
-            step="any"
-          />
-          FARM 
-        </p>
+        <div className='panel-text'>
+          <p>
+            Harvest all farms with at least
+            <input
+              type="number"
+              onChange={(event) => setMinimumHarvestAmount(event.target.value)}
+              placeholder="min"
+              step="any"
+            />
+            FARM rewards
+          </p>
+        </div>
+        
 
         <ButtonContainer>
           <button

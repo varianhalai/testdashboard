@@ -1,24 +1,22 @@
 import React, { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { darkTheme, lightTheme } from "../styles/appStyles";
+import { darkTheme, lightTheme, fonts } from "../styles/appStyles";
 import harvest from "../lib/index.js";
 
 const { ethers } = harvest;
 
 const Panel = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   position: relative;
   background-color: ${(props) => props.theme.style.lightBackground};
   color: ${(props) => props.theme.style.primaryFontColor};
-  font-size: 1.7rem;
-  font-family: TechnaSans;
-  padding: 1.5rem .5rem;
-  margin-top: 30px;
+  font-family: ${fonts.contentFont};
+  padding: 1.6rem 1.5rem;
   border: ${(props) => props.theme.style.mainBorder};
-  border-radius: 0.5rem;
+  border-radius: 0.8rem;
   box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
 
@@ -29,16 +27,24 @@ const Panel = styled.div`
   button {
     margin-right: 0.5rem;
   }
+
+  .panel-text {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 2rem
+  }
 `;
 
 const ButtonContainer = styled.div`
+  width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-end;
   margin-top: 1.5rem;
+  font-family: ${fonts.headerFont};
   button {
-    font-size: 1.1em;
+    font-size: 2rem;
     position: relative;
+    margin-top: 4px;
     &:hover {
       top: 1.5px;
     }
@@ -91,16 +97,19 @@ const StakePanel = ({ state, openModal }) => {
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       <Panel>
-        <p>
-          stake
-          <input
-            type="number"
-            onChange={(event) => setStakeAmount(event.target.value)}
-            placeholder="max"
-            step="any"
-          />
-          FARM at {state.apy}% apy
-        </p>
+        <div className='panel-text'>
+          <p>
+            Stake
+            <input
+              type="number"
+              onChange={(event) => setStakeAmount(event.target.value)}
+              placeholder="max"
+              step="any"
+            />
+            FARM 
+          </p>
+        </div> 
+        
 
         <ButtonContainer>
           <button className="button" disabled={!state.provider} onClick={stake}>

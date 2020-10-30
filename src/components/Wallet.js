@@ -49,7 +49,7 @@ const WalletTab = styled.div`
   border: ${(props) => props.theme.style.mainBorder};
   padding-bottom: 1.5rem;
   font-family: ${fonts.headerFont};
-  font-size: 2rem;
+  font-size: 1.5rem;
   position: relative;
   top: 1.3rem;
 `;

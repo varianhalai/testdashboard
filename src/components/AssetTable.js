@@ -8,13 +8,11 @@ const { ethers } = harvest;
 
 const TableContainer = styled.div`
 
- 
+  
   div[role="table"] {
     ::-webkit-scrollbar {
       width: 1px;
     }
-    min-height: 23.5rem;
-    max-height: 23.5rem;
     overflow-y:scroll;
     background-color: ${(props) => props.theme.table.tableBackground};
     padding: 0.3rem 0.3rem 0.3rem 0.3rem;
@@ -34,13 +32,16 @@ const TableContainer = styled.div`
     box-sizing: border-box;
     box-shadow: ${(props) => props.theme.table.tableItemBoxShadow};
     border-radius: 0.5rem;
+    ::-webkit-scrollbar {
+      width: 1px;
+    }
   }
 
   .rdt_TableRow {
     border-bottom: 0px;
     background-color: ${(props) => props.theme.table.tableRowBackground};
     font-family: ${fonts.contentFont};
-    font-size: 1.7rem;
+    font-size: 1.4rem;
     color: ${(props) => props.theme.style.primaryFontColor};
   }
 
@@ -48,7 +49,7 @@ const TableContainer = styled.div`
     color: ${(props) => props.theme.style.primaryFontColor};
     background-color: ${(props) => props.theme.table.tableHeadBackground};
     font-family: ${fonts.headerFont};
-    font-size: 2rem;
+    font-size: 1.4rem;
 
     &:hover,
     &:visited,
@@ -81,9 +82,10 @@ const columns = [
     
   },
   {
-    name: "Balance",
+    name: "Underlying Balance",
     selector: (data) =>
       ethers.utils.formatUnits(data.balance, data.asset.decimals),
+    grow: 2
     
   },
 ];

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { Container, Row, Col } from "styled-bootstrap-grid";
+import { Row, Col } from "styled-bootstrap-grid";
+import {gridTheme} from './styles/gridTheme';
 import { createGlobalStyle } from "styled-components";
 import { reset } from "styled-reset";
 import harvest from "./lib/index.js";
@@ -185,6 +186,7 @@ const Brand = styled.div`
   padding-right: 1rem;
   display: flex;
   align-items: center;
+  margin-bottom: 5rem;
 
   img {
     width: 2.5rem;
@@ -194,14 +196,15 @@ const Brand = styled.div`
 
   span {
     color: ${(props) => props.theme.style.primaryFontColor};
-    font-family: ${(props) => fonts.headerFont};
+    font-family: ${fonts.contentFont};
     font-size: 1.4rem;
   }
 `;
 
 const Panel = styled.div`
   position: relative;
-  padding: 1.5rem;
+  width: 100%;
+  padding: 1.5rem 3rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: 1rem;
   border-top-left-radius: 0rem;
@@ -231,30 +234,30 @@ const Panel = styled.div`
 
 const PanelTab = styled.div`
   margin-right: 0.75rem;
-  border-radius: 0.4rem;
+  border-radius: 1.2rem;
   border-top: ${(props) => props.theme.style.mainBorder};
   border-left: ${(props) => props.theme.style.mainBorder};
   border-right: ${(props) => props.theme.style.mainBorder};
-  padding: 0.75rem 1.25rem;
-  padding-bottom: 2.25rem;
+  padding: 0.75rem 2rem 2.25rem 2rem;
+  
   background-color: ${(props) => props.theme.style.highlight};
   box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelTabBoxShadow};
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: 2.2rem;
   cursor: pointer;
   color: ${(props) => props.theme.style.buttonFontColor};
 
   a {
     color: ${(props) => props.theme.style.panelTabLinkColor};
     text-decoration: none;
-    font-family: ${fonts.headerFont};
+    font-family: ${fonts.contentFont};
   }
 
   &.wiki-tab {
     position: relative;
     background-color: ${(props) => props.theme.style.wikiTabBackground};
-    top: 0.5rem;
+    top: 0.7rem;
+    font-size: 1.8rem;
 
     &:hover {
       top: 0rem;
@@ -281,6 +284,11 @@ const PanelTabContainerLeft = styled.div`
 const PanelTabContainerRight = styled.div`
   display: flex;
   justify-content: flex-end;
+`;
+
+const Container = styled.div`
+  width: 80%;
+  margin: 0 auto;
 `;
 
 function App() {
@@ -346,7 +354,6 @@ function App() {
   };
 
   const refresh = () => {
-    console.log("refresh")
     state.manager
       .aggregateUnderlyings(state.address)
       .then((underlying) => {
@@ -388,111 +395,114 @@ function App() {
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       <GlobalStyle />
+        <Container>
+          <Row>
+            <Col col>
+              <Brand>
+                <img src={logo} alt="harvest finance logo" />{" "}
+                <span>harvest.dashboard</span>
+              </Brand>
+            </Col>
+          </Row>
 
-      <Container>
-        <Row>
-          <Col col>
-            <Brand>
-              <img src={logo} alt="harvest finance logo" />{" "}
-              <span>harvest.dashboard</span>
-            </Brand>
-          </Col>
-        </Row>
+          <Row>
+            <Col>
+              <PanelTabContainer>
+                <PanelTabContainerLeft>
+                  <PanelTab>
+                    <a
+                      href="https://harvest.finance"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      harvest.finance
+                    </a>
+                  </PanelTab>
+                  <PanelTab className="wiki-tab">
+                    <a
+                      href="https://farm.chainwiki.dev/en/home"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      wiki
+                    </a>
+                  </PanelTab>
+                </PanelTabContainerLeft>
 
-        <Row>
-          <Col>
-            <PanelTabContainer>
-              <PanelTabContainerLeft>
-                <PanelTab>
-                  <a
-                    href="https://harvest.finance"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    harvest.finance
-                  </a>
-                </PanelTab>
-                <PanelTab className="wiki-tab">
-                  <a
-                    href="https://farm.chainwiki.dev/en/home"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    wiki
-                  </a>
-                </PanelTab>
-              </PanelTabContainerLeft>
+                <PanelTabContainerRight>
+                  <label className="switch">
+                    <input
+                      type="checkbox"
+                      checked={state.theme === "dark" ? true : false}
+                      onChange={() =>
+                        toggleTheme(state.theme === "dark" ? "light" : "dark")
+                      }
+                    />
+                    <span className="slider round"></span>
+                  </label>
+                </PanelTabContainerRight>
+              </PanelTabContainer>
 
-              <PanelTabContainerRight>
-                <label className="switch">
-                  <input
-                    type="checkbox"
-                    checked={state.theme === "dark" ? true : false}
-                    onChange={() =>
-                      toggleTheme(state.theme === "dark" ? "light" : "dark")
-                    }
-                  />
-                  <span className="slider round"></span>
-                </label>
-              </PanelTabContainerRight>
-            </PanelTabContainer>
+              <Panel>
+                <Row>
+                  <Col>
+                    <Wallet
+                      state={state}
+                      openModal={openModal}
+                      disconnect={disconnect}
+                      setConnection={setConnection}
+                      setAddress={setAddress}
+                      refresh={refresh}
+                    />
+                  </Col>
+                </Row>
 
-            <Panel>
-              <Row>
-                <Col>
-                  <Wallet
-                    state={state}
-                    openModal={openModal}
-                    disconnect={disconnect}
-                    setConnection={setConnection}
-                    setAddress={setAddress}
-                    refresh={refresh}
-                  />
-                </Col>
-              </Row>
+                {state.provider && (
+                  <div>
+                    <Row>
+                      <Col>
+                        <FarmingTable state={state} />
+                      </Col>
+                    </Row>
 
-              {state.provider && (
-                <div>
-                  <Row>
-                    <Col>
-                      <FarmingTable state={state} />
-                    </Col>
-                  </Row>
-
-                  <Row>
-                    <Col lg="4">
-                      <Harvest state={state} />
-                      <StakePanel state={state} openModal={openModal} />
-                    </Col>
-
+                    <Row>
+                      <Col lg="6">
+                        <Harvest state={state} />
+                      </Col>
+                      <Col lg="4">
+                        <StakePanel state={state} openModal={openModal} />
+                      </Col>
+                      <Col lg="2">
+                        <Balance state={state}/>  
+                      </Col>
+                      
+                      
+                      </Row>
+                      <Row>
+                      <Col lg ="6">
+                        <AddTokens state={state} />
+                      </Col>
+                      <Col lg="4" xl="4">
+                        <AssetTable state={state} />
+                      </Col>
+                      <Col lg="2">
+                        <APY state={state} setState={setState} />
+                      </Col>
+                      </Row>
+                      
                     
-                    
+                  </div>
+                )}
 
-                    <Col lg="4" xl="4">
-                      <AssetTable state={state} />
-                    </Col>
-                  
-                    
-                    <Col lg="4">
-                      <APY state={state} setState={setState} />
-                      <Balance state={state} />
-                    </Col>
-                  </Row>
-                </div>
-              )}
+                
+                
+              </Panel>
+            </Col>
+          </Row>
+        </Container>
 
-              <Row>
-                <Col>
-                  <AddTokens state={state} />
-                </Col>
-              </Row>
-              
-            </Panel>
-          </Col>
-        </Row>
-      </Container>
-
-      <ErrorModal state={state} onClose={() => closeErrorModal()} />
+        <ErrorModal state={state} onClose={() => closeErrorModal()} />
+      
     </ThemeProvider>
   );
 }

@@ -10,8 +10,8 @@ export const screen = {
 };
 
 export const fonts = {
-  headerFont: '"DDIN"',
-  contentFont: "TechnaSans",
+  headerFont: 'Open Sans',
+  contentFont: "Roboto",
 };
 
 export const darkThemeColors = {
@@ -31,9 +31,9 @@ export const darkTheme = {
     buttonBoxShadow: `0rem 0.2rem 0px ${darkThemeColors.lightGrey}`,
     buttonFontColor: `${darkThemeColors.lightGrey}`,
     panelBackground: "#000",
-    panelBoxShadow: `0.2rem 0.2rem 0px ${darkThemeColors.lightGrey}`,
+    panelBoxShadow: `0.35rem 0.5rem 0px ${darkThemeColors.lightGrey}`,
     panelTabBackground: `${darkThemeColors.blue}`,
-    panelTabBoxShadow: `0.2rem 0.2rem 0px ${darkThemeColors.lightGrey}`,
+    panelTabBoxShadow: `0.35rem 0.35rem 0px ${darkThemeColors.lightGrey}`,
     panelTabLinkColor: `${darkThemeColors.lightGrey}`,
     wikiTabBackground: `${darkThemeColors.darkGrey}`,
     lightBackground: `${darkThemeColors.darkGrey}`,
@@ -70,9 +70,9 @@ export const lightTheme = {
     buttonBoxShadow: `0rem 0.2rem 0px ${lightThemeColors.black}`,
     buttonFontColor: `${lightThemeColors.black}`,
     panelBackground: `${lightThemeColors.offwhite}`,
-    panelBoxShadow: `0.2rem 0.2rem 0px ${lightThemeColors.black}`,
+    panelBoxShadow: `0.35rem 0.2rem 0px ${lightThemeColors.black}`,
     panelTabBackground: `${lightThemeColors.darkBlue}`,
-    panelTabBoxShadow: `0.2rem 0.2rem 0px ${lightThemeColors.black}`,
+    panelTabBoxShadow: `0.35rem 0.35rem 0px ${lightThemeColors.black}`,
     panelTabLinkColor: `${lightThemeColors.black}`,
     wikiTabBackground: `${lightThemeColors.offwhite}`,
     lightBackground: `${lightThemeColors.offwhite}`,

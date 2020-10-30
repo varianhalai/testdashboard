@@ -46,7 +46,8 @@ const TableContainer = styled.div`
     color: ${(props) => props.theme.style.primaryFontColor};
     background-color: ${(props) => props.theme.table.tableHeadBackground};
     font-family: ${fonts.headerFont};
-    font-size: 2.2rem;
+    font-size: 1.6rem;
+    letter-spacing: -1.5px;
 
     &:hover,
     &:visited,
@@ -59,31 +60,31 @@ const TableContainer = styled.div`
 
 const columns = [
   {
-    name: "pool",
+    name: "Pool",
     selector: "name",
   },
   {
-    name: "earning",
+    name: "Earning",
     selector: (data) => data.isActive.toString(),
   },
   {
-    name: "rewards",
+    name: "Rewards",
     selector: "earnedRewards",
   },
   {
-    name: "staked",
+    name: "Staked",
     selector: "stakedBalance",
   },
   {
-    name: "% of pool",
+    name: "% of Pool",
     selector: "percentOfPool",
   },
   {
-    name: "unstaked",
+    name: "Unstaked",
     selector: "unstakedBalance",
   },
   {
-    name: "value",
+    name: "Value",
     selector: "usdValueOf",
     sortable: true,
   },

@@ -14,7 +14,7 @@ import crvrenwbtcIcon from "../assets/png_crvrenwbtc_56px@3x.png";
 const Header = styled.h1`
   font-family: ${fonts.headerFont};
   margin-bottom: 2.4rem;
-  font-size: 2rem;
+  font-size: 2.4rem;
 `;
 const Panel = styled.div`
   position: relative;
