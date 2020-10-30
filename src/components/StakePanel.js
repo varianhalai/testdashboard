@@ -7,14 +7,13 @@ const { ethers } = harvest;
 
 const Panel = styled.div`
   display: flex;
-  width: 100%;
   flex-direction: column;
   justify-content: center;
   position: relative;
   background-color: ${(props) => props.theme.style.lightBackground};
   color: ${(props) => props.theme.style.primaryFontColor};
   font-family: ${fonts.contentFont};
-  padding: 1.6rem 1.5rem;
+  padding: 1.6rem .3rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: 0.8rem;
   box-sizing: border-box;
@@ -31,7 +30,9 @@ const Panel = styled.div`
   .panel-text {
     display: flex;
     justify-content: flex-end;
-    font-size: 2rem
+    align-items: center;
+    font-size: 1.8rem;
+    margin-right: 0.5rem;
   }
 `;
 
@@ -42,7 +43,7 @@ const ButtonContainer = styled.div`
   margin-top: 1.5rem;
   font-family: ${fonts.headerFont};
   button {
-    font-size: 2rem;
+    font-size: 1.9rem;
     position: relative;
     margin-top: 4px;
     &:hover {

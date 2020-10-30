@@ -16,7 +16,7 @@ const BluePanel = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: .5rem;
+  
 
   h1 {
     font-size: 2.4rem;

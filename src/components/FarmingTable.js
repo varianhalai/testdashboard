@@ -11,34 +11,40 @@ const TableContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  
   div[role="table"] {
     background-color: ${(props) => props.theme.table.tableBackground};
-    padding: 0rem 0.5rem 0rem 0rem;
+    padding: .5rem 0.3rem;
   }
 
   .rdt_TableHeadRow {
-    margin-bottom: 1.5rem;
     background: ${(props) => props.theme.table.tableHeadBackground};
     border: ${(props) => props.theme.style.mainBorder};
     box-sizing: border-box;
     box-shadow: ${(props) => props.theme.table.tableItemBoxShadow};
-    border-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
   }
 
   .rdt_TableBody {
     background: #1d1d1d;
-    border: ${(props) => props.theme.style.mainBorder};
+    border-left: ${(props) => props.theme.style.mainBorder};
+    border-right: ${(props) => props.theme.style.mainBorder};
+    border-bottom: ${(props) => props.theme.style.mainBorder};
     box-sizing: border-box;
     box-shadow: ${(props) => props.theme.table.tableItemBoxShadow};
-    border-radius: 0.5rem;
-    margin-bottom: 1.5rem;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: .8rem;
+    
   }
 
   .rdt_TableRow {
-    border-bottom: 0px;
     background-color: ${(props) => props.theme.table.tableRowBackground};
     font-family: ${fonts.contentFont};
     color: ${(props) => props.theme.style.primaryFontColor};
+    
     font-size: 1.7rem;
   }
 
@@ -48,6 +54,7 @@ const TableContainer = styled.div`
     font-family: ${fonts.headerFont};
     font-size: 1.6rem;
     letter-spacing: -1.5px;
+    
 
     &:hover,
     &:visited,

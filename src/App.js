@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { Row, Col } from "styled-bootstrap-grid";
-import {gridTheme} from './styles/gridTheme';
 import { createGlobalStyle } from "styled-components";
 import { reset } from "styled-reset";
 import harvest from "./lib/index.js";
@@ -186,7 +185,8 @@ const Brand = styled.div`
   padding-right: 1rem;
   display: flex;
   align-items: center;
-  margin-bottom: 5rem;
+  margin-top: 2rem;
+  margin-bottom: 4rem;
 
   img {
     width: 2.5rem;
@@ -203,7 +203,6 @@ const Brand = styled.div`
 
 const Panel = styled.div`
   position: relative;
-  width: 100%;
   padding: 1.5rem 3rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: 1rem;
@@ -482,7 +481,7 @@ function App() {
                       <Col lg ="6">
                         <AddTokens state={state} />
                       </Col>
-                      <Col lg="4" xl="4">
+                      <Col lg="4">
                         <AssetTable state={state} />
                       </Col>
                       <Col lg="2">

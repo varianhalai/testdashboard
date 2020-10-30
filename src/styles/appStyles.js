@@ -31,7 +31,7 @@ export const darkTheme = {
     buttonBoxShadow: `0rem 0.2rem 0px ${darkThemeColors.lightGrey}`,
     buttonFontColor: `${darkThemeColors.lightGrey}`,
     panelBackground: "#000",
-    panelBoxShadow: `0.35rem 0.5rem 0px ${darkThemeColors.lightGrey}`,
+    panelBoxShadow: `0.35rem 0.2rem 0px ${darkThemeColors.lightGrey}`,
     panelTabBackground: `${darkThemeColors.blue}`,
     panelTabBoxShadow: `0.35rem 0.35rem 0px ${darkThemeColors.lightGrey}`,
     panelTabLinkColor: `${darkThemeColors.lightGrey}`,
@@ -50,7 +50,7 @@ export const darkTheme = {
   table: {
     tableBackground: "#000",
     tableHeadBackground: `${darkThemeColors.grey}`,
-    tableItemBoxShadow: `0.3rem 0.3rem 0px ${darkThemeColors.lightGrey}`,
+    tableItemBoxShadow: `0.48rem 0.48rem 0px ${darkThemeColors.lightGrey}`,
     tableRowBackground: `${darkThemeColors.darkerGrey}`,
   },
 };

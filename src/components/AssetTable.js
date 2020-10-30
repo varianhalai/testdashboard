@@ -1,7 +1,7 @@
 import React from "react";
 import DataTable from "react-data-table-component";
 import styled, { ThemeProvider } from "styled-components";
-import { darkTheme, lightTheme, fonts } from "../styles/appStyles";
+import { darkTheme, lightTheme, fonts,table } from "../styles/appStyles";
 
 import harvest from "../lib/index.js";
 const { ethers } = harvest;
@@ -15,41 +15,46 @@ const TableContainer = styled.div`
     }
     overflow-y:scroll;
     background-color: ${(props) => props.theme.table.tableBackground};
-    padding: 0.3rem 0.3rem 0.3rem 0.3rem;
+    padding:  0 .4rem .4rem 0;
   }
 
   .rdt_TableHeadRow {
-    margin-bottom: 1rem;
     background: ${(props) => props.theme.table.tableHeadBackground};
     border: ${(props) => props.theme.style.mainBorder};
     box-sizing: border-box;
     box-shadow: ${(props) => props.theme.table.tableItemBoxShadow};
-    border-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
   }
 
   .rdt_TableBody {
-    border: ${(props) => props.theme.style.mainBorder};
+    background: #1d1d1d;
+    border-left: ${(props) => props.theme.style.mainBorder};
+    border-right: ${(props) => props.theme.style.mainBorder};
+    border-bottom: ${(props) => props.theme.style.mainBorder};
     box-sizing: border-box;
     box-shadow: ${(props) => props.theme.table.tableItemBoxShadow};
-    border-radius: 0.5rem;
-    ::-webkit-scrollbar {
-      width: 1px;
-    }
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: .5rem;
+    
   }
 
   .rdt_TableRow {
-    border-bottom: 0px;
     background-color: ${(props) => props.theme.table.tableRowBackground};
     font-family: ${fonts.contentFont};
     font-size: 1.4rem;
     color: ${(props) => props.theme.style.primaryFontColor};
+    padding: 2rem 1rem;
   }
 
   div[role="columnheader"] {
     color: ${(props) => props.theme.style.primaryFontColor};
     background-color: ${(props) => props.theme.table.tableHeadBackground};
     font-family: ${fonts.headerFont};
-    font-size: 1.4rem;
+    font-size: 1.5rem;
+    padding: 2rem .5rem;
 
     &:hover,
     &:visited,
@@ -80,12 +85,15 @@ const columns = [
     name: "Asset",
     selector: (data) => data.asset.name,
     
+    
   },
   {
     name: "Underlying Balance",
     selector: (data) =>
       ethers.utils.formatUnits(data.balance, data.asset.decimals),
-    grow: 2
+    grow: 2,
+    compact: true
+    
     
   },
 ];

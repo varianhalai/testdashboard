@@ -27,10 +27,13 @@ const Panel = styled.div`
 
   .panel-text {
     width: 100%;
-    font-size: 1.7rem;
+    font-size: 1.75rem;
     display: flex;
     justify-content: flex-end;
     font-family: ${fonts.contentFont};
+    @media(min-width: 1400px) {
+      font-size: 2.1rem;
+    }
   }
 `;
 
@@ -38,10 +41,10 @@ const ButtonContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  margin-top: 1.5rem;
+  margin-top: 1.6rem;
   button {
     font-family: ${fonts.headerFont};
-    font-size: 2em;
+    font-size: 1.7em;
     position: relative;
     &:hover {
       top: 1.5px;
