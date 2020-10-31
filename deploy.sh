@@ -10,5 +10,5 @@ git push -f origin gh-pages:gh-pages && \
 git checkout $DEPLOY_CURRENT_BRANCH
 
 # try this regardless
-# git branch -D tmp-gh-pages
-# git branch -D gh-pages
+git branch -D tmp-gh-pages
+git branch -D gh-pages

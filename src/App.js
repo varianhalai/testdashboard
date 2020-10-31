@@ -38,7 +38,6 @@ const GlobalStyle = createGlobalStyle`
 
 
   body {
-    margin-bottom: 0;
     height: 100%;
     background-color: ${(props) => props.theme.style.bodyBackground};
   }
