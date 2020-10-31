@@ -28,8 +28,8 @@ export const darkTheme = {
   style: {
     mainBorder: `0.2rem solid ${darkThemeColors.lightGrey}`,
     smallBorder: `0.1rem solid ${darkThemeColors.lightGrey}`,
-    buttonBoxShadow: `0rem 0.2rem 0px ${darkThemeColors.lightGrey}`,
-    buttonFontColor: `${darkThemeColors.lightGrey}`,
+    buttonBoxShadow: `.35rem 0.2rem 0px ${darkThemeColors.lightGrey}`,
+    buttonFontColor: `${darkThemeColors.orange}`,
     panelBackground: "#000",
     panelBoxShadow: `0.35rem 0.2rem 0px ${darkThemeColors.lightGrey}`,
     panelTabBackground: `${darkThemeColors.blue}`,
@@ -45,12 +45,13 @@ export const darkTheme = {
     linkColor: `${darkThemeColors.blue}`,
     headerColor: `${darkThemeColors.darkBlue}`,
     alertColor: `${darkThemeColors.blue}`,
+    themeSwitchBackground: `${darkThemeColors.blueBackground}`
   },
 
   table: {
     tableBackground: "#000",
     tableHeadBackground: `${darkThemeColors.grey}`,
-    tableItemBoxShadow: `0.48rem 0.48rem 0px ${darkThemeColors.lightGrey}`,
+    tableItemBoxShadow: `0.35rem 0.35rem 0px ${darkThemeColors.lightGrey}`,
     tableRowBackground: `${darkThemeColors.darkerGrey}`,
   },
 };
@@ -84,6 +85,7 @@ export const lightTheme = {
     linkColor: `${lightThemeColors.black}`,
     headerColor: `${lightThemeColors.black}`,
     alertColor: `${darkThemeColors.blue}`,
+    themeSwitchBackground: `${lightThemeColors.orange}`
   },
 
   table: {

@@ -11,12 +11,12 @@ const WalletConnection = styled.div`
   border-radius: 0.5rem;
   border-top-right-radius: 0rem;
   display: flex;
-  padding: 0.75rem 1.25rem;
+  padding: .5rem;
   background-color: ${(props) => props.theme.style.lightBackground};
   position: relative;
-  top: .5rem;
+  top: -.6rem;
   font-size: 1.6rem;
-  font-family: "TechnaSans";
+  
 
   a,
   a:visited,
@@ -29,7 +29,7 @@ const WalletConnection = styled.div`
   div {
     .ghost {
       color: ${(props) => props.theme.style.primaryFontColor};
-      font-size: 1.2em;
+      font-size: 1.8rem;
     }
   }
   
@@ -40,6 +40,7 @@ const WalletContainer = styled.div`
   flex-direction: column;
   align-items: flex-end;
   color: ${(props) => props.theme.style.primaryFontColor};
+  font-family: ${fonts.headerFont};
   
 `;
 const WalletTab = styled.div`
@@ -51,7 +52,7 @@ const WalletTab = styled.div`
   font-family: ${fonts.headerFont};
   font-size: 1.5rem;
   position: relative;
-  top: 1.3rem;
+  top: .6rem;
 `;
 
 const Wallet = ({

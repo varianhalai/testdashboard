@@ -34,20 +34,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 62.5%;
   }
 
-  @font-face {
-    font-family: 'DDIN';
-    src: local('DDIN'), local('DDIN'),
-    url(${DDIN}) format('truetype');
-    font-weight: 700;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: 'TechnaSans';
-    src: local('TechnaSans'), local('TechnaSans'),
-    url(${TechnaSans}) format('opentype');
-    font-weight: 300;
-    font-style: normal;
-  }
+
 
   body {
     margin: 0;
@@ -63,8 +50,8 @@ const GlobalStyle = createGlobalStyle`
   .switch {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 34px;
+    width: 6rem;
+    height: 2.8rem;
   }
 
   /* Hide default HTML checkbox */
@@ -82,7 +69,7 @@ const GlobalStyle = createGlobalStyle`
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: ${(props) => props.theme.style.highlight};
+    background-color: ${(props) => props.theme.style.blueBackground};
     -webkit-transition: .4s;
     transition: .4s;
   }
@@ -90,8 +77,8 @@ const GlobalStyle = createGlobalStyle`
   .slider:before {
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
+    height: 2rem;
+    width: 2rem;
     left: 4px;
     bottom: 4px;
     background-color: white;
@@ -115,11 +102,11 @@ const GlobalStyle = createGlobalStyle`
 
   /* Rounded sliders */
   .slider.round {
-    border-radius: 34px;
+    border-radius: .5rem;
   }
 
   .slider.round:before {
-    border-radius: 50%;
+    border-radius: .5rem;
   }
 
   input[type="button"]:focus, button:focus {
@@ -162,6 +149,7 @@ const GlobalStyle = createGlobalStyle`
       border: 0px;
       box-shadow: none;
       color: ${(props) => props.theme.style.linkColor};
+      font-family: ${fonts.headerFont};
       padding: 0px;
     }
 
@@ -185,8 +173,7 @@ const Brand = styled.div`
   padding-right: 1rem;
   display: flex;
   align-items: center;
-  margin-top: 2rem;
-  margin-bottom: 4rem;
+  margin-bottom: 1rem;
 
   img {
     width: 2.5rem;
@@ -203,7 +190,7 @@ const Brand = styled.div`
 
 const Panel = styled.div`
   position: relative;
-  padding: 1.5rem 3rem;
+  padding: 2.5rem 2rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: 1rem;
   border-top-left-radius: 0rem;
@@ -238,11 +225,10 @@ const PanelTab = styled.div`
   border-left: ${(props) => props.theme.style.mainBorder};
   border-right: ${(props) => props.theme.style.mainBorder};
   padding: 0.75rem 2rem 2.25rem 2rem;
-  
   background-color: ${(props) => props.theme.style.highlight};
   box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelTabBoxShadow};
-  font-size: 2.2rem;
+  font-size: 2.6rem;
   cursor: pointer;
   color: ${(props) => props.theme.style.buttonFontColor};
 
@@ -268,6 +254,13 @@ const PanelTab = styled.div`
       top: -0.2rem;
     }
   }
+    &.switch-panel {
+      margin-right: 1.2rem;
+      position: relative;
+      top: .7rem;
+      padding: 0.5rem .5rem 2rem .5rem;
+    }
+  
 `;
 
 const PanelTabContainer = styled.div`
@@ -429,16 +422,19 @@ function App() {
                 </PanelTabContainerLeft>
 
                 <PanelTabContainerRight>
-                  <label className="switch">
-                    <input
-                      type="checkbox"
-                      checked={state.theme === "dark" ? true : false}
-                      onChange={() =>
-                        toggleTheme(state.theme === "dark" ? "light" : "dark")
-                      }
-                    />
-                    <span className="slider round"></span>
-                  </label>
+                  <PanelTab className='switch-panel'>
+                    <label className="switch">
+                      <input
+                        type="checkbox"
+                        checked={state.theme === "dark" ? true : false}
+                        onChange={() =>
+                          toggleTheme(state.theme === "dark" ? "light" : "dark")
+                        }
+                      />
+                      <span className="slider round"></span>
+                    </label>
+                  </PanelTab>
+                  
                 </PanelTabContainerRight>
               </PanelTabContainer>
 
@@ -491,17 +487,12 @@ function App() {
                       
                     
                   </div>
-                )}
-
-                
-                
+                )} 
               </Panel>
             </Col>
           </Row>
         </Container>
-
         <ErrorModal state={state} onClose={() => closeErrorModal()} />
-      
     </ThemeProvider>
   );
 }

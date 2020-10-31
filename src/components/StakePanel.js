@@ -13,7 +13,7 @@ const Panel = styled.div`
   background-color: ${(props) => props.theme.style.lightBackground};
   color: ${(props) => props.theme.style.primaryFontColor};
   font-family: ${fonts.contentFont};
-  padding: 1.6rem .3rem;
+  padding: 1.5rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: 0.8rem;
   box-sizing: border-box;

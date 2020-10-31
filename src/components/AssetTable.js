@@ -7,33 +7,33 @@ import harvest from "../lib/index.js";
 const { ethers } = harvest;
 
 const TableContainer = styled.div`
-
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 103%;
   div[role="table"] {
-    ::-webkit-scrollbar {
-      width: 1px;
-    }
-    overflow-y:scroll;
+    
     background-color: ${(props) => props.theme.table.tableBackground};
-    padding:  0 .4rem .4rem 0;
+    padding-bottom: 1rem;
+    padding-right: .5rem;
   }
 
   .rdt_TableHeadRow {
     background: ${(props) => props.theme.table.tableHeadBackground};
     border: ${(props) => props.theme.style.mainBorder};
     box-sizing: border-box;
-    box-shadow: ${(props) => props.theme.table.tableItemBoxShadow};
+    box-shadow: ${(props) => props.theme.style.panelBoxShadow};
     border-top-right-radius: 0.5rem;
     border-top-left-radius: 0.5rem;
   }
 
   .rdt_TableBody {
-    background: #1d1d1d;
+   
     border-left: ${(props) => props.theme.style.mainBorder};
     border-right: ${(props) => props.theme.style.mainBorder};
     border-bottom: ${(props) => props.theme.style.mainBorder};
     box-sizing: border-box;
-    box-shadow: ${(props) => props.theme.table.tableItemBoxShadow};
+    box-shadow: ${(props) => props.theme.style.panelBoxShadow};
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-left-radius: .5rem;
@@ -44,17 +44,19 @@ const TableContainer = styled.div`
   .rdt_TableRow {
     background-color: ${(props) => props.theme.table.tableRowBackground};
     font-family: ${fonts.contentFont};
-    font-size: 1.4rem;
     color: ${(props) => props.theme.style.primaryFontColor};
-    padding: 2rem 1rem;
+    padding: 1rem 2rem;
+    font-size: 1.4rem;
   }
 
   div[role="columnheader"] {
     color: ${(props) => props.theme.style.primaryFontColor};
     background-color: ${(props) => props.theme.table.tableHeadBackground};
     font-family: ${fonts.headerFont};
-    font-size: 1.5rem;
-    padding: 2rem .5rem;
+    font-size: 1.6rem;
+    padding: 1rem 2rem;
+    letter-spacing: -1px;
+    
 
     &:hover,
     &:visited,
@@ -64,6 +66,7 @@ const TableContainer = styled.div`
     }
   }
 `;
+
 
 
 const noAssetColumns = [
@@ -77,13 +80,14 @@ const noAssetColumns = [
 const noAssetData = [
   {
     id:0,
-    asset: 'Add assets below'
+    asset: 'Add assets to get started'
   },
 ]
 const columns = [
   {
     name: "Asset",
     selector: (data) => data.asset.name,
+    compact: true
     
     
   },
@@ -92,7 +96,7 @@ const columns = [
     selector: (data) =>
       ethers.utils.formatUnits(data.balance, data.asset.decimals),
     grow: 2,
-    compact: true
+    compact: true,
     
     
   },

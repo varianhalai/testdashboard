@@ -11,7 +11,8 @@ const TableContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  
+  width: 101%:
+  padding-bottom: 2rem;
   div[role="table"] {
     background-color: ${(props) => props.theme.table.tableBackground};
     padding: .5rem 0.3rem;
@@ -21,7 +22,7 @@ const TableContainer = styled.div`
     background: ${(props) => props.theme.table.tableHeadBackground};
     border: ${(props) => props.theme.style.mainBorder};
     box-sizing: border-box;
-    box-shadow: ${(props) => props.theme.table.tableItemBoxShadow};
+    box-shadow: ${(props) => props.theme.style.panelBoxShadow};
     border-top-right-radius: 0.5rem;
     border-top-left-radius: 0.5rem;
   }
@@ -32,7 +33,7 @@ const TableContainer = styled.div`
     border-right: ${(props) => props.theme.style.mainBorder};
     border-bottom: ${(props) => props.theme.style.mainBorder};
     box-sizing: border-box;
-    box-shadow: ${(props) => props.theme.table.tableItemBoxShadow};
+    box-shadow: ${(props) => props.theme.style.panelBoxShadow};
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-left-radius: .5rem;
@@ -44,15 +45,14 @@ const TableContainer = styled.div`
     background-color: ${(props) => props.theme.table.tableRowBackground};
     font-family: ${fonts.contentFont};
     color: ${(props) => props.theme.style.primaryFontColor};
-    
-    font-size: 1.7rem;
+    font-size: 1.5rem;
   }
 
   div[role="columnheader"] {
     color: ${(props) => props.theme.style.primaryFontColor};
     background-color: ${(props) => props.theme.table.tableHeadBackground};
     font-family: ${fonts.headerFont};
-    font-size: 1.6rem;
+    font-size: 1.7rem;
     letter-spacing: -1.5px;
     
 
@@ -73,22 +73,27 @@ const columns = [
   {
     name: "Earning",
     selector: (data) => data.isActive.toString(),
+    compact: true
   },
   {
     name: "Rewards",
     selector: "earnedRewards",
+    compact: true
   },
   {
     name: "Staked",
     selector: "stakedBalance",
+    
   },
   {
     name: "% of Pool",
     selector: "percentOfPool",
+    compact: true
   },
   {
     name: "Unstaked",
     selector: "unstakedBalance",
+    compact: true
   },
   {
     name: "Value",

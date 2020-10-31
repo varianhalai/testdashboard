@@ -43,6 +43,7 @@ const ButtonContainer = styled.div`
   justify-content: flex-end;
   margin-top: 1.6rem;
   button {
+    
     font-family: ${fonts.headerFont};
     font-size: 1.7em;
     position: relative;
