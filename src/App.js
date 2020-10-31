@@ -42,6 +42,10 @@ const GlobalStyle = createGlobalStyle`
     background-color: ${(props) => props.theme.style.bodyBackground};
   }
 
+  .root {
+    height: 100%;
+  }
+
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
       monospace;
