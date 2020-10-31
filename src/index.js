@@ -3,11 +3,10 @@ import ReactDOM from "react-dom";
 import App from "./App";
 
 import * as serviceWorker from "./serviceWorker";
-import { BaseCSS } from "styled-bootstrap-grid";
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <BaseCSS />
     <App />
   </React.StrictMode>,
   document.getElementById("root"),
