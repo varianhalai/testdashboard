@@ -47,7 +47,7 @@ const APY = ({ state,setState }) => {
 
   const getPools = async () => {
     const poolsData = await fetch(
-      "https://api-ui.harvest.finance/pools?key=41e90ced-d559-4433-b390-af424fdc76d6",
+      "http://api-ui.harvest.finance/pools?key=41e90ced-d559-4433-b390-af424fdc76d6",
     );
     setPools(await poolsData.json());
   };
