@@ -29,7 +29,7 @@ export const darkTheme = {
     mainBorder: `0.2rem solid ${darkThemeColors.lightGrey}`,
     smallBorder: `0.1rem solid ${darkThemeColors.lightGrey}`,
     buttonBoxShadow: `.35rem 0.2rem 0px ${darkThemeColors.lightGrey}`,
-    buttonFontColor: `${darkThemeColors.orange}`,
+    buttonFontColor: `${darkThemeColors.black}`,
     panelBackground: "#000",
     panelBoxShadow: `0.35rem 0.2rem 0px ${darkThemeColors.lightGrey}`,
     panelTabBackground: `${darkThemeColors.blue}`,

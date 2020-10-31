@@ -10,12 +10,22 @@ const TableContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 103%;
+  width: 102%;
+  
+ 
+  
+
   div[role="table"] {
-    
     background-color: ${(props) => props.theme.table.tableBackground};
     padding-bottom: 1rem;
     padding-right: .5rem;
+    overflow-y: scroll;
+    max-height: 18rem;
+    ::-webkit-scrollbar {
+      width: .1rem;
+    }
+    
+    
   }
 
   .rdt_TableHeadRow {

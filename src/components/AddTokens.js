@@ -89,6 +89,7 @@ const StyledToken = styled(Token)`
   display: flex;
   justify-content: space-between;
   position: relative;
+  
 
   &:hover {
     top: .2rem;

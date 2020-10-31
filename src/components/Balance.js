@@ -10,9 +10,10 @@ const BluePanel = styled.div`
   background-color: ${(props) => props.theme.style.blueBackground};
   color: ${(props) => props.theme.style.primaryFontColor};
   font-family: ${fonts.headerFont};
-  padding: 3.4rem 1rem;
+  margin-right: .5rem;
+  padding: 3.65rem .7rem 3.59rem .7rem;
   border: ${(props) => props.theme.style.mainBorder};
-  border-radius: 1.2rem;
+  border-radius: .5rem;
   box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
   display: flex;
@@ -20,8 +21,6 @@ const BluePanel = styled.div`
   justify-content: center;
   flex-direction: column;
   
-  
-
   h1 {
     font-size: 2.4rem;
     margin-bottom: 0.5rem;

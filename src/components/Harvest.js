@@ -13,10 +13,10 @@ const Panel = styled.div`
   color: ${(props) => props.theme.style.primaryFontColor};
   padding: 1.5rem;
   border: ${(props) => props.theme.style.mainBorder};
-  border-radius: 0.8rem;
+  border-radius: 0.5rem;
   box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
-
+  
   input[type="number"] {
     margin: 0 1rem;
   }
@@ -34,6 +34,9 @@ const Panel = styled.div`
     @media(min-width: 1400px) {
       font-size: 2.1rem;
     }
+    @media(min-width: 1500px) {
+      font-size: 2.45rem;
+    }
   }
 `;
 
@@ -43,10 +46,10 @@ const ButtonContainer = styled.div`
   justify-content: flex-end;
   margin-top: 1.6rem;
   button {
-    
     font-family: ${fonts.headerFont};
-    font-size: 1.7em;
+    font-size: 1.9em;
     position: relative;
+    margin-top: 4px;
     &:hover {
       top: 1.5px;
     }

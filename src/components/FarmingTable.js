@@ -11,11 +11,16 @@ const TableContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 101%:
-  padding-bottom: 2rem;
+  width: 100%:
+  padding-bottom: 3rem;
   div[role="table"] {
     background-color: ${(props) => props.theme.table.tableBackground};
-    padding: .5rem 0.3rem;
+    padding: .35rem;
+    max-height: 23.2rem;
+    overflow-y: scroll;
+    ::-webkit-scrollbar {
+      width: .1rem;
+    }
   }
 
   .rdt_TableHeadRow {
@@ -37,7 +42,7 @@ const TableContainer = styled.div`
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-left-radius: .5rem;
-    border-bottom-right-radius: .8rem;
+    border-bottom-right-radius: .5rem;
     
   }
 

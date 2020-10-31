@@ -15,7 +15,7 @@ const Panel = styled.div`
   font-family: ${fonts.contentFont};
   padding: 1.5rem;
   border: ${(props) => props.theme.style.mainBorder};
-  border-radius: 0.8rem;
+  border-radius: 0.5rem;
   box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
 
@@ -33,6 +33,13 @@ const Panel = styled.div`
     align-items: center;
     font-size: 1.8rem;
     margin-right: 0.5rem;
+
+    @media(min-width: 1400px) {
+      font-size: 2.1rem;
+    }
+    @media(min-width: 1500px) {
+      font-size: 2.45rem;
+    }
   }
 `;
 
@@ -41,9 +48,9 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-top: 1.5rem;
-  font-family: ${fonts.headerFont};
   button {
     font-size: 1.9rem;
+    font-family: ${fonts.headerFont};
     position: relative;
     margin-top: 4px;
     &:hover {

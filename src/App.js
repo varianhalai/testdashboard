@@ -9,7 +9,7 @@ import ErrorModal from "./components/ErrorModal";
 import { darkTheme, lightTheme, fonts } from "./styles/appStyles";
 
 // images
-import logo from "./assets/logo.png";
+import logo from "./assets/gif_tractor.gif";
 
 // fonts
 import DDIN from "./assets/fonts/DDIN-Bold.ttf";
@@ -51,7 +51,7 @@ const GlobalStyle = createGlobalStyle`
     position: relative;
     display: inline-block;
     width: 6rem;
-    height: 2.8rem;
+    height: 2.6rem;
   }
 
   /* Hide default HTML checkbox */
@@ -77,8 +77,8 @@ const GlobalStyle = createGlobalStyle`
   .slider:before {
     position: absolute;
     content: "";
-    height: 2rem;
-    width: 2rem;
+    height: 1.9rem;
+    width: 1.9rem;
     left: 4px;
     bottom: 4px;
     background-color: white;
@@ -95,9 +95,9 @@ const GlobalStyle = createGlobalStyle`
   }
 
   input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
+    -webkit-transform: translateX(3.3rem);
+    -ms-transform: translateX(3.3rem);
+    transform: translateX(3.3rem);
   }
 
   /* Rounded sliders */
@@ -176,15 +176,20 @@ const Brand = styled.div`
   margin-bottom: 1rem;
 
   img {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 3rem;
+    height: 3rem;
     margin-right: 1rem;
+    margin-left: .5rem;
   }
 
   span {
     color: ${(props) => props.theme.style.primaryFontColor};
     font-family: ${fonts.contentFont};
-    font-size: 1.4rem;
+    font-size: 2.5rem;
+  }
+
+  @media(min-width: 1500px) {
+    margin: 2.5rem 0;
   }
 `;
 
@@ -206,15 +211,6 @@ const Panel = styled.div`
     color: ${(props) => props.theme.style.primaryFontColor};
     font-size: 1.6rem;
     font-family: TechnaSans;
-  }
-
-  .refresh-button {
-    font-size: 2em;
-    position: relative;
-    left: 6.8rem;
-    &:hover {
-      top: 1.5px;
-    }
   }
 `;
 
@@ -241,7 +237,7 @@ const PanelTab = styled.div`
   &.wiki-tab {
     position: relative;
     background-color: ${(props) => props.theme.style.wikiTabBackground};
-    top: 0.7rem;
+    top: 0.8rem;
     font-size: 1.8rem;
 
     &:hover {
@@ -251,14 +247,15 @@ const PanelTab = styled.div`
     a {
       color: ${(props) => props.theme.style.primaryFontColor};
       position: relative;
-      top: -0.2rem;
+      top: .1rem;
     }
   }
     &.switch-panel {
       margin-right: 1.2rem;
       position: relative;
-      top: .7rem;
-      padding: 0.5rem .5rem 2rem .5rem;
+      top: .9rem;
+      padding: 0.4rem .5rem 1rem .5rem;
+      
     }
   
 `;
@@ -281,6 +278,11 @@ const PanelTabContainerRight = styled.div`
 const Container = styled.div`
   width: 80%;
   margin: 0 auto;
+  
+
+  @media(min-width: 1500px) {
+    width: 55%;
+  }
 `;
 
 function App() {
@@ -453,7 +455,7 @@ function App() {
                 </Row>
 
                 {state.provider && (
-                  <div>
+                  <div className='main-content'>
                     <Row>
                       <Col>
                         <FarmingTable state={state} />
