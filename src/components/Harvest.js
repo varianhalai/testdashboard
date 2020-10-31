@@ -6,17 +6,17 @@ import harvest from "../lib/index.js";
 const { ethers } = harvest;
 
 const Panel = styled.div`
-  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-color: ${(props) => props.theme.style.lightBackground};
   color: ${(props) => props.theme.style.primaryFontColor};
-  font-size: 1.4rem;
-  font-family: ${fonts.contentFont};
   padding: 1.5rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: 0.5rem;
   box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
-
+  
   input[type="number"] {
     margin: 0 1rem;
   }
@@ -24,12 +24,36 @@ const Panel = styled.div`
   @media only screen and (max-width: 990px) {
     margin-bottom: 1.5rem;
   }
+
+  .panel-text {
+    width: 100%;
+    font-size: 1.75rem;
+    display: flex;
+    justify-content: flex-end;
+    font-family: ${fonts.contentFont};
+    @media(min-width: 1400px) {
+      font-size: 2.1rem;
+    }
+    @media(min-width: 1500px) {
+      font-size: 2.45rem;
+    }
+  }
 `;
 
 const ButtonContainer = styled.div`
+  width: 100%;
   display: flex;
-  justify-content: flex-start;
-  margin-top: 1.5rem;
+  justify-content: flex-end;
+  margin-top: 1.6rem;
+  button {
+    font-family: ${fonts.headerFont};
+    font-size: 1.9em;
+    position: relative;
+    margin-top: 4px;
+    &:hover {
+      top: 1.5px;
+    }
+  }
 `;
 
 const Harvest = ({ state }) => {
@@ -58,16 +82,19 @@ const Harvest = ({ state }) => {
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       <Panel>
-        <p>
-          Harvest all farms with at least
-          <input
-            type="number"
-            onChange={(event) => setMinimumHarvestAmount(event.target.value)}
-            placeholder="min"
-            step="any"
-          />
-          FARM 
-        </p>
+        <div className='panel-text'>
+          <p>
+            Harvest all farms with at least
+            <input
+              type="number"
+              onChange={(event) => setMinimumHarvestAmount(event.target.value)}
+              placeholder="min"
+              step="any"
+            />
+            FARM rewards
+          </p>
+        </div>
+        
 
         <ButtonContainer>
           <button

@@ -14,7 +14,7 @@ import crvrenwbtcIcon from "../assets/png_crvrenwbtc_56px@3x.png";
 const Header = styled.h1`
   font-family: ${fonts.headerFont};
   margin-bottom: 2.4rem;
-  font-size: 2rem;
+  font-size: 2.6rem;
 `;
 const Panel = styled.div`
   position: relative;
@@ -88,6 +88,13 @@ const Token = ({ className, name, url, image }) => (
 const StyledToken = styled(Token)`
   display: flex;
   justify-content: space-between;
+  position: relative;
+  
+
+  &:hover {
+    top: .2rem;
+  }
+  
 
   a {
     display: flex;
@@ -95,7 +102,8 @@ const StyledToken = styled(Token)`
     align-items: center;
     text-decoration: none;
     color: ${(props) => props.theme.style.primaryFontColor};
-    font-size: 1.4rem;
+    font-size: 1.5rem;
+    margin-bottom: 1.6rem;
   }
 
   img {

@@ -9,25 +9,25 @@ const BluePanel = styled.div`
   position: relative;
   background-color: ${(props) => props.theme.style.blueBackground};
   color: ${(props) => props.theme.style.primaryFontColor};
-  font-family: ${fonts.contentFont};
-  padding: 2.5rem 1.5rem;
+  font-family: ${fonts.headerFont};
+  margin-right: .5rem;
+  padding: 3.65rem .7rem 3.59rem .7rem;
   border: ${(props) => props.theme.style.mainBorder};
-  border-radius: 0.5rem;
+  border-radius: .5rem;
   box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: 30px;
-
+  
   h1 {
-    font-size: 2.2rem;
+    font-size: 2.4rem;
     margin-bottom: 0.5rem;
   }
 
   span {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 `;
 

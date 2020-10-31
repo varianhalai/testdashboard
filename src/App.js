@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { Container, Row, Col } from "styled-bootstrap-grid";
+import { Row, Col } from "styled-bootstrap-grid";
 import { createGlobalStyle } from "styled-components";
 import { reset } from "styled-reset";
 import harvest from "./lib/index.js";
@@ -9,7 +9,7 @@ import ErrorModal from "./components/ErrorModal";
 import { darkTheme, lightTheme, fonts } from "./styles/appStyles";
 
 // images
-import logo from "./assets/logo.png";
+import logo from "./assets/gif_tractor.gif";
 
 // fonts
 import DDIN from "./assets/fonts/DDIN-Bold.ttf";
@@ -34,20 +34,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 62.5%;
   }
 
-  @font-face {
-    font-family: 'DDIN';
-    src: local('DDIN'), local('DDIN'),
-    url(${DDIN}) format('truetype');
-    font-weight: 700;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: 'TechnaSans';
-    src: local('TechnaSans'), local('TechnaSans'),
-    url(${TechnaSans}) format('opentype');
-    font-weight: 300;
-    font-style: normal;
-  }
+
 
   body {
     margin: 0;
@@ -63,8 +50,8 @@ const GlobalStyle = createGlobalStyle`
   .switch {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 34px;
+    width: 6rem;
+    height: 2.6rem;
   }
 
   /* Hide default HTML checkbox */
@@ -82,7 +69,7 @@ const GlobalStyle = createGlobalStyle`
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: ${(props) => props.theme.style.highlight};
+    background-color: ${(props) => props.theme.style.blueBackground};
     -webkit-transition: .4s;
     transition: .4s;
   }
@@ -90,8 +77,8 @@ const GlobalStyle = createGlobalStyle`
   .slider:before {
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
+    height: 1.9rem;
+    width: 1.9rem;
     left: 4px;
     bottom: 4px;
     background-color: white;
@@ -108,18 +95,18 @@ const GlobalStyle = createGlobalStyle`
   }
 
   input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
+    -webkit-transform: translateX(3.3rem);
+    -ms-transform: translateX(3.3rem);
+    transform: translateX(3.3rem);
   }
 
   /* Rounded sliders */
   .slider.round {
-    border-radius: 34px;
+    border-radius: .5rem;
   }
 
   .slider.round:before {
-    border-radius: 50%;
+    border-radius: .5rem;
   }
 
   input[type="button"]:focus, button:focus {
@@ -162,6 +149,7 @@ const GlobalStyle = createGlobalStyle`
       border: 0px;
       box-shadow: none;
       color: ${(props) => props.theme.style.linkColor};
+      font-family: ${fonts.headerFont};
       padding: 0px;
     }
 
@@ -185,23 +173,29 @@ const Brand = styled.div`
   padding-right: 1rem;
   display: flex;
   align-items: center;
+  margin-bottom: 1rem;
 
   img {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 3rem;
+    height: 3rem;
     margin-right: 1rem;
+    margin-left: .5rem;
   }
 
   span {
     color: ${(props) => props.theme.style.primaryFontColor};
-    font-family: ${(props) => fonts.headerFont};
-    font-size: 1.4rem;
+    font-family: ${fonts.contentFont};
+    font-size: 2.5rem;
+  }
+
+  @media(min-width: 1500px) {
+    margin: 2.5rem 0;
   }
 `;
 
 const Panel = styled.div`
   position: relative;
-  padding: 1.5rem;
+  padding: 2.5rem 2rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: 1rem;
   border-top-left-radius: 0rem;
@@ -222,30 +216,29 @@ const Panel = styled.div`
 
 const PanelTab = styled.div`
   margin-right: 0.75rem;
-  border-radius: 0.4rem;
+  border-radius: 1.2rem;
   border-top: ${(props) => props.theme.style.mainBorder};
   border-left: ${(props) => props.theme.style.mainBorder};
   border-right: ${(props) => props.theme.style.mainBorder};
-  padding: 0.75rem 1.25rem;
-  padding-bottom: 2.25rem;
+  padding: 0.75rem 2rem 2.25rem 2rem;
   background-color: ${(props) => props.theme.style.highlight};
   box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelTabBoxShadow};
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: 2.6rem;
   cursor: pointer;
   color: ${(props) => props.theme.style.buttonFontColor};
 
   a {
     color: ${(props) => props.theme.style.panelTabLinkColor};
     text-decoration: none;
-    font-family: ${fonts.headerFont};
+    font-family: ${fonts.contentFont};
   }
 
   &.wiki-tab {
     position: relative;
     background-color: ${(props) => props.theme.style.wikiTabBackground};
-    top: 0.5rem;
+    top: 0.8rem;
+    font-size: 1.8rem;
 
     &:hover {
       top: 0rem;
@@ -254,9 +247,17 @@ const PanelTab = styled.div`
     a {
       color: ${(props) => props.theme.style.primaryFontColor};
       position: relative;
-      top: -0.2rem;
+      top: .1rem;
     }
   }
+    &.switch-panel {
+      margin-right: 1.2rem;
+      position: relative;
+      top: .9rem;
+      padding: 0.4rem .5rem 1rem .5rem;
+      
+    }
+  
 `;
 
 const PanelTabContainer = styled.div`
@@ -272,6 +273,16 @@ const PanelTabContainerLeft = styled.div`
 const PanelTabContainerRight = styled.div`
   display: flex;
   justify-content: flex-end;
+`;
+
+const Container = styled.div`
+  width: 80%;
+  margin: 0 auto;
+  
+
+  @media(min-width: 1500px) {
+    width: 55%;
+  }
 `;
 
 function App() {
@@ -303,6 +314,7 @@ function App() {
       summaries: [],
       underlyings: [],
       usdValue: 0,
+      apy: 0,
       error: { message: null, type: null, display: false },
       theme: window.localStorage.getItem("HarvestFinance:Theme") || "light",
     });
@@ -343,7 +355,6 @@ function App() {
       })
       .then((underlyings) => {
         setState({ ...state, underlyings: underlyings });
-        console.log(state.underlyings)
       });
 
     state.manager
@@ -378,112 +389,112 @@ function App() {
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       <GlobalStyle />
+        <Container>
+          <Row>
+            <Col col>
+              <Brand>
+                <img src={logo} alt="harvest finance logo" />{" "}
+                <span>harvest.dashboard</span>
+              </Brand>
+            </Col>
+          </Row>
 
-      <Container>
-        <Row>
-          <Col col>
-            <Brand>
-              <img src={logo} alt="harvest finance logo" />{" "}
-              <span>harvest.dashboard</span>
-            </Brand>
-          </Col>
-        </Row>
+          <Row>
+            <Col>
+              <PanelTabContainer>
+                <PanelTabContainerLeft>
+                  <PanelTab>
+                    <a
+                      href="https://harvest.finance"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      harvest.finance
+                    </a>
+                  </PanelTab>
+                  <PanelTab className="wiki-tab">
+                    <a
+                      href="https://farm.chainwiki.dev/en/home"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      wiki
+                    </a>
+                  </PanelTab>
+                </PanelTabContainerLeft>
 
-        <Row>
-          <Col>
-            <PanelTabContainer>
-              <PanelTabContainerLeft>
-                <PanelTab>
-                  <a
-                    href="https://harvest.finance"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    harvest.finance
-                  </a>
-                </PanelTab>
-                <PanelTab className="wiki-tab">
-                  <a
-                    href="https://farm.chainwiki.dev/en/home"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    wiki
-                  </a>
-                </PanelTab>
-              </PanelTabContainerLeft>
-
-              <PanelTabContainerRight>
-                <label className="switch">
-                  <input
-                    type="checkbox"
-                    checked={state.theme === "dark" ? true : false}
-                    onChange={() =>
-                      toggleTheme(state.theme === "dark" ? "light" : "dark")
-                    }
-                  />
-                  <span className="slider round"></span>
-                </label>
-              </PanelTabContainerRight>
-            </PanelTabContainer>
-
-            <Panel>
-              <Row>
-                <Col>
-                  <Wallet
-                    state={state}
-                    openModal={openModal}
-                    disconnect={disconnect}
-                    setConnection={setConnection}
-                    setAddress={setAddress}
-                    refresh={refresh}
-                  />
-                </Col>
-              </Row>
-
-              {state.provider && (
-                <div>
-                  <Row>
-                    <Col>
-                      <FarmingTable state={state} />
-                    </Col>
-                  </Row>
-
-                  <Row>
-                    <Col lg="4">
-                      <Harvest state={state} />
-                      <StakePanel state={state} openModal={openModal} />
-                    </Col>
-
-                    
-                    
-
-                    <Col lg="4" xl="4">
-                      <AssetTable state={state} />
-                    </Col>
+                <PanelTabContainerRight>
+                  <PanelTab className='switch-panel'>
+                    <label className="switch">
+                      <input
+                        type="checkbox"
+                        checked={state.theme === "dark" ? true : false}
+                        onChange={() =>
+                          toggleTheme(state.theme === "dark" ? "light" : "dark")
+                        }
+                      />
+                      <span className="slider round"></span>
+                    </label>
+                  </PanelTab>
                   
+                </PanelTabContainerRight>
+              </PanelTabContainer>
+
+              <Panel>
+                <Row>
+                  <Col>
+                    <Wallet
+                      state={state}
+                      openModal={openModal}
+                      disconnect={disconnect}
+                      setConnection={setConnection}
+                      setAddress={setAddress}
+                      refresh={refresh}
+                    />
+                  </Col>
+                </Row>
+
+                {state.provider && (
+                  <div className='main-content'>
+                    <Row>
+                      <Col>
+                        <FarmingTable state={state} />
+                      </Col>
+                    </Row>
+
+                    <Row>
+                      <Col lg="6">
+                        <Harvest state={state} />
+                      </Col>
+                      <Col lg="4">
+                        <StakePanel state={state} openModal={openModal} />
+                      </Col>
+                      <Col lg="2">
+                        <Balance state={state}/>  
+                      </Col>
+                      
+                      
+                      </Row>
+                      <Row>
+                      <Col lg ="6">
+                        <AddTokens state={state} />
+                      </Col>
+                      <Col lg="4">
+                        <AssetTable state={state} />
+                      </Col>
+                      <Col lg="2">
+                        <APY state={state} setState={setState} />
+                      </Col>
+                      </Row>
+                      
                     
-                    <Col lg="4">
-                      <APY state={state} />
-                      <Balance state={state} />
-                    </Col>
-                  </Row>
-
-                  
-                </div>
-              )}
-
-              <Row>
-                <Col>
-                  <AddTokens state={state} />
-                </Col>
-              </Row>
-            </Panel>
-          </Col>
-        </Row>
-      </Container>
-
-      <ErrorModal state={state} onClose={() => closeErrorModal()} />
+                  </div>
+                )} 
+              </Panel>
+            </Col>
+          </Row>
+        </Container>
+        <ErrorModal state={state} onClose={() => closeErrorModal()} />
     </ThemeProvider>
   );
 }

@@ -11,41 +11,55 @@ const TableContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%:
+  padding-bottom: 3rem;
   div[role="table"] {
     background-color: ${(props) => props.theme.table.tableBackground};
-    padding: 0rem 0.5rem 0rem 0rem;
+    padding: .35rem;
+    max-height: 23.2rem;
+    overflow-y: scroll;
+    ::-webkit-scrollbar {
+      width: .1rem;
+    }
   }
 
   .rdt_TableHeadRow {
-    margin-bottom: 1.5rem;
     background: ${(props) => props.theme.table.tableHeadBackground};
     border: ${(props) => props.theme.style.mainBorder};
     box-sizing: border-box;
-    box-shadow: ${(props) => props.theme.table.tableItemBoxShadow};
-    border-radius: 0.5rem;
+    box-shadow: ${(props) => props.theme.style.panelBoxShadow};
+    border-top-right-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
   }
 
   .rdt_TableBody {
     background: #1d1d1d;
-    border: ${(props) => props.theme.style.mainBorder};
+    border-left: ${(props) => props.theme.style.mainBorder};
+    border-right: ${(props) => props.theme.style.mainBorder};
+    border-bottom: ${(props) => props.theme.style.mainBorder};
     box-sizing: border-box;
-    box-shadow: ${(props) => props.theme.table.tableItemBoxShadow};
-    border-radius: 0.5rem;
-    margin-bottom: 1.5rem;
+    box-shadow: ${(props) => props.theme.style.panelBoxShadow};
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: .5rem;
+    
   }
 
   .rdt_TableRow {
-    border-bottom: 0px;
     background-color: ${(props) => props.theme.table.tableRowBackground};
     font-family: ${fonts.contentFont};
     color: ${(props) => props.theme.style.primaryFontColor};
+    font-size: 1.5rem;
   }
 
   div[role="columnheader"] {
     color: ${(props) => props.theme.style.primaryFontColor};
     background-color: ${(props) => props.theme.table.tableHeadBackground};
     font-family: ${fonts.headerFont};
-    font-size: 1.8rem;
+    font-size: 1.7rem;
+    letter-spacing: -1.5px;
+    
 
     &:hover,
     &:visited,
@@ -58,31 +72,36 @@ const TableContainer = styled.div`
 
 const columns = [
   {
-    name: "pool",
+    name: "Pool",
     selector: "name",
   },
   {
-    name: "earning",
+    name: "Earning",
     selector: (data) => data.isActive.toString(),
+    compact: true
   },
   {
-    name: "rewards",
+    name: "Rewards",
     selector: "earnedRewards",
+    compact: true
   },
   {
-    name: "staked",
+    name: "Staked",
     selector: "stakedBalance",
+    
   },
   {
-    name: "% of pool",
+    name: "% of Pool",
     selector: "percentOfPool",
+    compact: true
   },
   {
-    name: "unstaked",
+    name: "Unstaked",
     selector: "unstakedBalance",
+    compact: true
   },
   {
-    name: "value",
+    name: "Value",
     selector: "usdValueOf",
     sortable: true,
   },
@@ -94,7 +113,7 @@ const FarmingTable = ({ state }) => {
       <TableContainer>
       {state.summaries.length ===0 ? <Loader
          type="TailSpin"
-         color = {state.theme === "dark" ? '#42857D' : "#ABE4E2"}
+         color = {state.theme === "dark" ? '#42857D' : "#A2E7DB"}
          height={100}
          width={100}
  
