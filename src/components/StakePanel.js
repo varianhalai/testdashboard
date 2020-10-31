@@ -6,7 +6,6 @@ import harvest from "../lib/index.js";
 const { ethers } = harvest;
 
 const Panel = styled.div`
-  margin-top: 3.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
