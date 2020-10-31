@@ -7,7 +7,6 @@ import harvest from "./lib/index.js";
 import ErrorModal from "./components/ErrorModal";
 
 import { darkTheme, lightTheme, fonts } from "./styles/appStyles";
-import { BaseCSS } from "styled-bootstrap-grid";
 
 // images
 import logo from "./assets/gif_tractor.gif";
@@ -390,7 +389,6 @@ function App() {
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       <GlobalStyle />
-      <BaseCSS />
         <Container>
           <Row>
             <Col col>
