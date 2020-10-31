@@ -77,7 +77,7 @@ export const lightTheme = {
     panelTabLinkColor: `${lightThemeColors.black}`,
     wikiTabBackground: `${lightThemeColors.offwhite}`,
     lightBackground: `${lightThemeColors.offwhite}`,
-    blueBackground: "red",
+    blueBackground: `${lightThemeColors.darkBlue}`,
     highlight: `${lightThemeColors.orange}`,
     bodyBackground: `${lightThemeColors.blue}`,
     primaryFontColor: `${lightThemeColors.black}`,
