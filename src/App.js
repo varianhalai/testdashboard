@@ -27,7 +27,7 @@ import AddTokens from "./components/AddTokens";
 
 const { ethers } = harvest;
 const GlobalStyle = createGlobalStyle`
-  
+  ${reset}
 
   html {
     /* 1rem = 10px */
