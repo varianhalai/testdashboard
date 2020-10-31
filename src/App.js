@@ -464,7 +464,7 @@ function App() {
                       </Col>
                     </Row>
 
-                    <Row>
+                    <Row style={{marginTop:"35px"}}>
                       <Col lg="6">
                         <Harvest state={state} />
                       </Col>
@@ -477,7 +477,7 @@ function App() {
                       
                       
                       </Row>
-                      <Row>
+                      <Row style={{marginTop:"35px"}}>
                       <Col lg ="6">
                         <AddTokens state={state} />
                       </Col>
