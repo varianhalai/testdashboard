@@ -32,12 +32,14 @@ const GlobalStyle = createGlobalStyle`
   html {
     /* 1rem = 10px */
     font-size: 62.5%;
+    height: 100%;
   }
 
 
 
   body {
-    margin: 0;
+    margin-bottom: 0;
+    height: 100%;
     background-color: ${(props) => props.theme.style.bodyBackground};
   }
 
