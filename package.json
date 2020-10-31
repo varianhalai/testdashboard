@@ -2,8 +2,8 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "homepage": "https://varianhalai.github.io/dashboardtest",
-  "name":"dashboardtest",
+  "homepage": "https://varianhalai.github.io/testdashboard",
+  "name":"testdashboard",
   "dependencies": {
     "@metamask/detect-provider": "^1.1.0",
     "@testing-library/jest-dom": "^4.2.4",
