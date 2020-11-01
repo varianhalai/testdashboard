@@ -51,12 +51,13 @@ const Panel = styled.div`
     @media(max-width: 1134px) {
       font-size: 1.5rem;
     }
-    @media(max-width: 980px) {
+    @media(max-width: 1002px) {
       font-size: 2.25rem;
       
     }
     @media(max-width: 680px) {
       font-size: 2rem;
+      justify-content: center;
 
     }
     @media(max-width: 628px) {
@@ -64,10 +65,10 @@ const Panel = styled.div`
     }
     @media(max-width: 580px) {
       font-size: 1.5rem;
-      justify-content: center;
+      
     }
     @media(max-width: 500px) {
-      font-size: 1.5rem;
+      font-size: 1.9rem;
     }
 `;
 

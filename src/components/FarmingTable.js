@@ -54,8 +54,8 @@ const TableContainer = styled.div`
     font-family: ${fonts.contentFont};
     color: ${(props) => props.theme.style.primaryFontColor};
     font-size: 1.5rem;
-    @media(max-width: 600px) {
-      font-size: 1.2rem;
+    @media(max-width: 330px) {
+      font-size: 1.3rem;
     }
   }
 
@@ -65,9 +65,10 @@ const TableContainer = styled.div`
     font-family: ${fonts.headerFont};
     font-size: 1.7rem;
     letter-spacing: -1.5px;
-    @media(max-width: 600px) {
-      font-size: 1.4rem;
+    @media(max-width: 330px) {
+      font-size: 1.5rem;
     }
+    
     
 
     &:hover,
@@ -99,6 +100,7 @@ const columns = [
   {
     name: "Staked",
     selector: "stakedBalance",
+    hide: 'sm'
     
   },
   {

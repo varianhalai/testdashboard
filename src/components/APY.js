@@ -18,15 +18,7 @@ const BluePanel = styled.div`
   justify-content: center;
   flex-direction: column;
   
-  @media(max-width: 1103px) {
-    padding: 3.65rem .7rem 3.3rem 1.5rem;
-
-  }
-  @media(max-width: 980px) {
-    padding: 3.65rem .7rem 3.59rem 1.5rem;
-    margin-right: 0px;
-    
-  }
+  
   
 
   h1 {
@@ -36,6 +28,21 @@ const BluePanel = styled.div`
 
   span {
     font-size: 1.3rem;
+  }
+
+  @media(max-width: 1107px) {
+    padding: 3.65rem .7rem 7.6rem 1.5rem;
+    margin-right: 0px;
+    h1 {
+      font-size:2.2rem;
+      position: relative;
+      top:1.2rem;
+    }
+    span {
+      font-size:1.1rem;
+      position: relative;
+      top:1.2rem;
+    }
   }
 `;
 

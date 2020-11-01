@@ -15,7 +15,15 @@ const WalletConnection = styled.div`
   background-color: ${(props) => props.theme.style.lightBackground};
   position: relative;
   top: -.6rem;
-  font-size: 1.6rem;
+  font-size: 2rem;
+  @media(max-width: 620px) {
+    font-size: 1.175rem;
+    width: 100%;
+  }
+  @media(max-width: 330px) {
+    font-size: .9rem;
+    width: 100%;
+  }
   
 
   a,

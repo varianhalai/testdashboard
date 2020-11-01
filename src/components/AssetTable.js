@@ -71,6 +71,9 @@ const TableContainer = styled.div`
       padding: .75rem;
       font-size: 1.2rem;
     }
+    @media(max-width: 330px) {
+      font-size: .9rem;
+    }
   }
 
   div[role="columnheader"] {
@@ -80,6 +83,9 @@ const TableContainer = styled.div`
     font-size: 1.6rem;
     padding: 1rem;
     letter-spacing: -1px;
+    @media(max-width: 330px) {
+      font-size: 1.2rem;
+    }
     
 
     &:hover,

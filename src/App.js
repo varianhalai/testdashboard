@@ -57,6 +57,10 @@ const GlobalStyle = createGlobalStyle`
     display: inline-block;
     width: 6rem;
     height: 2.6rem;
+    @media(max-width: 500px) {
+      height: 2.4rem;
+      width: 5.5rem;
+    }
   }
 
   /* Hide default HTML checkbox */
@@ -89,6 +93,10 @@ const GlobalStyle = createGlobalStyle`
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
+    @media(max-width: 500px) {
+      height: 1.7rem;
+      width: 1.7rem;
+    }
   }
 
   input:checked + .slider {
@@ -235,18 +243,39 @@ const PanelTab = styled.div`
   font-size: 2.6rem;
   cursor: pointer;
   color: ${(props) => props.theme.style.buttonFontColor};
+  
 
   a {
     color: ${(props) => props.theme.style.panelTabLinkColor};
     text-decoration: none;
     font-family: ${fonts.contentFont};
+    position: relative;
+    top: .1rem;
+  }
+  @media(max-width: 500px) {
+    font-size: 1.9rem;
+    padding: 0.75rem 1rem 2.4rem 1rem;
+    position: relative;
+    top: .1rem;
+    a {
+      top: .4rem;
+    }
+  }
+  @media(max-width: 330px) {
+    font-size: 1.9rem;
+    padding: 0.75rem .75rem 2.4rem .75rem;
+    position: relative;
+    top: .1rem;
+    a {
+      top: .4rem;
+    }
   }
 
   &.wiki-tab {
     position: relative;
     background-color: ${(props) => props.theme.style.wikiTabBackground};
     top: 0.8rem;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
 
     &:hover {
       top: 0rem;
@@ -257,12 +286,21 @@ const PanelTab = styled.div`
       position: relative;
       top: .1rem;
     }
+    @media(max-width: 500px) {
+      top: 0.9rem;
+      font-size: 1.7rem;
+    }
   }
     &.switch-panel {
       margin-right: 1.2rem;
       position: relative;
       top: .9rem;
       padding: 0.4rem .5rem 1rem .5rem;
+
+      @media(max-width: 500px) {
+        top: 1.2rem;
+        padding: 0.4rem .5rem 3rem .5rem;
+      }
       
     }
   
