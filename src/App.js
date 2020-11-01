@@ -473,6 +473,7 @@ function App() {
                     </Row>
 
                     <Row style={{marginTop:"15px"}}>
+                      {/* Git hub pages would not recognize the margin from the bootstrap grid */}
                       <Col lg="6">
                         <Harvest state={state} />
                       </Col>
@@ -486,6 +487,7 @@ function App() {
                       
                       </Row>
                       <Row style={{marginTop:"15px"}}>
+                        {/* Git hub pages would not recognize the margin from the bootstrap grid */}
                       <Col lg ="6">
                         <AddTokens state={state} />
                       </Col>

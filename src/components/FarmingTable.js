@@ -13,7 +13,9 @@ const TableContainer = styled.div`
   align-items: center;
   width: 100%:
   padding-bottom: 3rem;
-
+  ::-webkit-scrollbar {
+    height: .1rem;
+  }
   
 
 
@@ -24,7 +26,7 @@ const TableContainer = styled.div`
     max-height: 23.2rem;
     overflow-y: scroll;
     ::-webkit-scrollbar {
-      width: .1rem;
+      height: .1rem;
     }
   }
 
@@ -48,6 +50,9 @@ const TableContainer = styled.div`
     border-top-right-radius: 0;
     border-bottom-left-radius: .5rem;
     border-bottom-right-radius: .5rem;
+    ::-webkit-scrollbar {
+      height: .1rem;
+    }
     
   }
 
@@ -59,6 +64,9 @@ const TableContainer = styled.div`
     @media(max-width:1040px) {
       font-size: 1.3rem;
     }
+    ::-webkit-scrollbar {
+      height: .1rem;
+    }
   }
 
   div[role="columnheader"] {
@@ -69,6 +77,9 @@ const TableContainer = styled.div`
     letter-spacing: -1.5px;
     @media(max-width:1040px) {
       font-size: 1.5rem;
+    }
+    ::-webkit-scrollbar {
+      height: .1rem;
     }
     
 
