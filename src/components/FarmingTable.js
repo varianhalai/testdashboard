@@ -13,9 +13,6 @@ const TableContainer = styled.div`
   align-items: center;
   width: 100%:
   padding-bottom: 3rem;
-    @media(max-width: 980px) {
-        justify-content: flex-start;
-    }
 
 
 
