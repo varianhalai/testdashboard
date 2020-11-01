@@ -27,6 +27,11 @@ const Panel = styled.div`
   border-radius: 0.5rem;
   box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
+
+  @media(max-width: 1002px) {
+    margin-bottom: 1.5rem;
+    
+  }
 `;
 
 const TokenList = styled.div`

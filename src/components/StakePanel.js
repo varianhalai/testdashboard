@@ -19,6 +19,11 @@ const Panel = styled.div`
   box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
 
+  @media(max-width: 1002px) {
+    margin-bottom: 1.5rem;
+    
+  }
+
   input[type="number"] {
     margin: 0rem 1rem;
   }
@@ -55,21 +60,25 @@ const Panel = styled.div`
       font-size: 2.25rem;
       
     }
-    @media(max-width: 680px) {
+    @media(max-width: 960px) {
       font-size: 2rem;
       justify-content: center;
-
+      text-align: center;
+    }
+    @media(max-width: 680px) {
+      font-size: 2rem;
     }
     @media(max-width: 628px) {
       font-size: 1.8rem;
     }
     @media(max-width: 580px) {
       font-size: 1.5rem;
-      
     }
     @media(max-width: 500px) {
-      font-size: 1.9rem;
+      font-size: 1.7rem;   
     }
+    
+  }
 `;
 
 const ButtonContainer = styled.div`
@@ -86,11 +95,18 @@ const ButtonContainer = styled.div`
       top: 1.5px;
     }
   }
+  @media(max-width: 960px) {
+    justify-content: center;
+    button {
+      font-size: 1.6rem;
+    }
+    
+  }
   @media(max-width: 680px) {
     button {
       font-size: 1.3rem;
     }
-    justify-content: center;
+    
   }
 `;
 

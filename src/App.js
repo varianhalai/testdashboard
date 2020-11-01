@@ -11,9 +11,6 @@ import { darkTheme, lightTheme, fonts } from "./styles/appStyles";
 // images
 import logo from "./assets/gif_tractor.gif";
 
-// fonts
-import DDIN from "./assets/fonts/DDIN-Bold.ttf";
-import TechnaSans from "./assets/fonts/TechnaSans-Regular.otf";
 
 // components
 import Wallet from "./components/Wallet";
@@ -61,6 +58,7 @@ const GlobalStyle = createGlobalStyle`
       height: 2.4rem;
       width: 5.5rem;
     }
+    
   }
 
   /* Hide default HTML checkbox */
@@ -217,6 +215,7 @@ const Panel = styled.div`
   z-index: 1;
   box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
+  
 
   &.four-corner {
     border-top-left-radius: 1rem;
@@ -240,17 +239,24 @@ const PanelTab = styled.div`
   background-color: ${(props) => props.theme.style.highlight};
   box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelTabBoxShadow};
-  font-size: 2.6rem;
+  
   cursor: pointer;
   color: ${(props) => props.theme.style.buttonFontColor};
+
+  
   
 
   a {
     color: ${(props) => props.theme.style.panelTabLinkColor};
     text-decoration: none;
     font-family: ${fonts.contentFont};
+    font-size: 2.4rem;
     position: relative;
     top: .1rem;
+    @media(max-width: 500px) {
+      font-size: 1.8rem;
+    }
+   
   }
   @media(max-width: 500px) {
     font-size: 1.9rem;
@@ -262,7 +268,7 @@ const PanelTab = styled.div`
     }
   }
   @media(max-width: 330px) {
-    font-size: 1.9rem;
+    font-size: 1.7rem;
     padding: 0.75rem .75rem 2.4rem .75rem;
     position: relative;
     top: .1rem;
@@ -274,8 +280,8 @@ const PanelTab = styled.div`
   &.wiki-tab {
     position: relative;
     background-color: ${(props) => props.theme.style.wikiTabBackground};
-    top: 0.8rem;
-    font-size: 1.5rem;
+    top: 0.4rem;
+    
 
     &:hover {
       top: 0rem;
@@ -283,18 +289,22 @@ const PanelTab = styled.div`
 
     a {
       color: ${(props) => props.theme.style.primaryFontColor};
+      font-size: 1.9rem;
       position: relative;
       top: .1rem;
     }
     @media(max-width: 500px) {
       top: 0.9rem;
-      font-size: 1.7rem;
+      a {
+        font-size: 1.7rem;
+      }
+      
     }
   }
     &.switch-panel {
       margin-right: 1.2rem;
       position: relative;
-      top: .9rem;
+      top: .6rem;
       padding: 0.4rem .5rem 1rem .5rem;
 
       @media(max-width: 500px) {
