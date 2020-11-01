@@ -13,6 +13,11 @@ const TableContainer = styled.div`
   align-items: center;
   width: 100%:
   padding-bottom: 3rem;
+
+  
+
+
+
   div[role="table"] {
     background-color: ${(props) => props.theme.table.tableBackground};
     padding: .35rem;
@@ -51,6 +56,9 @@ const TableContainer = styled.div`
     font-family: ${fonts.contentFont};
     color: ${(props) => props.theme.style.primaryFontColor};
     font-size: 1.5rem;
+    @media(max-width:1040px) {
+      font-size: 1.3rem;
+    }
   }
 
   div[role="columnheader"] {
@@ -59,6 +67,9 @@ const TableContainer = styled.div`
     font-family: ${fonts.headerFont};
     font-size: 1.7rem;
     letter-spacing: -1.5px;
+    @media(max-width:1040px) {
+      font-size: 1.5rem;
+    }
     
 
     &:hover,
@@ -88,6 +99,7 @@ const columns = [
   {
     name: "Staked",
     selector: "stakedBalance",
+    grow:1
     
   },
   {
@@ -98,7 +110,9 @@ const columns = [
   {
     name: "Unstaked",
     selector: "unstakedBalance",
-    compact: true
+    grow: 1,
+    compact:true
+    
   },
   {
     name: "Value",
@@ -124,6 +138,7 @@ const FarmingTable = ({ state }) => {
         columns={columns}
         noDataComponent={false}
         data={state.summaries.map(utils.prettyPosition)}
+        responsive={true}
       />}
     </TableContainer>
       

@@ -1,16 +1,23 @@
 import React from "react";
 import DataTable from "react-data-table-component";
 import styled, { ThemeProvider } from "styled-components";
-import { darkTheme, lightTheme, fonts,table } from "../styles/appStyles";
+import { darkTheme, lightTheme, fonts } from "../styles/appStyles";
 
 import harvest from "../lib/index.js";
 const { ethers } = harvest;
 
 const TableContainer = styled.div`
+  ::-webkit-scrollbar {
+    width: .1rem;
+  }
   display: flex;
   justify-content: center;
   align-items: center;
   width: 102%;
+
+  @media(max-width: 1100px) {
+    width: 101%;
+  }
   
  
   
@@ -55,8 +62,12 @@ const TableContainer = styled.div`
     background-color: ${(props) => props.theme.table.tableRowBackground};
     font-family: ${fonts.contentFont};
     color: ${(props) => props.theme.style.primaryFontColor};
-    padding: 1rem 2rem;
+    padding: 1rem;
     font-size: 1.4rem;
+    @media(max-width: 1300px) {
+      padding: .75rem;
+      font-size: 1.2rem;
+    }
   }
 
   div[role="columnheader"] {
@@ -64,7 +75,7 @@ const TableContainer = styled.div`
     background-color: ${(props) => props.theme.table.tableHeadBackground};
     font-family: ${fonts.headerFont};
     font-size: 1.6rem;
-    padding: 1rem 2rem;
+    padding: 1rem;
     letter-spacing: -1px;
     
 
@@ -129,6 +140,7 @@ const AssetTable = ({ state }) => {
             columns={noAssetColumns}
             noDataComponent={false}
             data={noAssetData}
+            responsive={true}
           />}
         </TableContainer>
       

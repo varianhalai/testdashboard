@@ -27,15 +27,21 @@ const Panel = styled.div`
 
   .panel-text {
     width: 100%;
-    font-size: 1.75rem;
+    font-size: 1.9rem;
     display: flex;
     justify-content: flex-end;
     font-family: ${fonts.contentFont};
-    @media(min-width: 1400px) {
-      font-size: 2.1rem;
+    @media(min-width: 1461px) {
+      font-size: 2.2rem;
     }
-    @media(min-width: 1500px) {
+    @media(min-width: 1590px) {
       font-size: 2.45rem;
+    }
+    @media(min-width: 1796px) {
+      font-size: 2rem;
+    }
+    @media(max-width: 1105px) {
+      font-size: 1.8rem;
     }
   }
 `;

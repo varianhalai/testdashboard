@@ -40,6 +40,9 @@ const GlobalStyle = createGlobalStyle`
   body {
     height: 100%;
     background-color: ${(props) => props.theme.style.bodyBackground};
+    ::-webkit-scrollbar {
+      width: .1rem;
+    }
   }
 
 
@@ -280,11 +283,16 @@ const PanelTabContainerRight = styled.div`
 const Container = styled.div`
   width: 80%;
   margin: 0 auto;
-  
-
-  @media(min-width: 1500px) {
-    width: 55%;
+  @media(min-width: 1800px) {
+    width: 75%;
   }
+  @media(max-width: 1300px) {
+    width: 85%;
+  }
+  @media(max-width: 1250px) {
+    width: 95%;
+  }
+  
 `;
 
 function App() {
