@@ -15,7 +15,7 @@ const TableContainer = styled.div`
   padding-bottom: 3rem;
   ::-webkit-scrollbar {
     height: .1rem;
-  }
+  };
   
 
 
@@ -27,7 +27,7 @@ const TableContainer = styled.div`
     overflow-y: scroll;
     ::-webkit-scrollbar {
       height: .1rem;
-    }
+    };
   }
 
   .rdt_TableHeadRow {
@@ -52,7 +52,7 @@ const TableContainer = styled.div`
     border-bottom-right-radius: .5rem;
     ::-webkit-scrollbar {
       height: .1rem;
-    }
+    };
     
   }
 
@@ -66,7 +66,7 @@ const TableContainer = styled.div`
     }
     ::-webkit-scrollbar {
       height: .1rem;
-    }
+    };
   }
 
   div[role="columnheader"] {
@@ -80,7 +80,7 @@ const TableContainer = styled.div`
     }
     ::-webkit-scrollbar {
       height: .1rem;
-    }
+    };
     
 
     &:hover,

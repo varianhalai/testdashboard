@@ -9,7 +9,7 @@ const { ethers } = harvest;
 const TableContainer = styled.div`
   ::-webkit-scrollbar {
     width: .1rem;
-  }
+  };
   display: flex;
   justify-content: center;
   align-items: center;

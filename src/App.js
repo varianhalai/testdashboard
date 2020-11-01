@@ -217,6 +217,12 @@ const Panel = styled.div`
     font-size: 1.6rem;
     font-family: TechnaSans;
   }
+
+  .farm-table {
+    ::-webkit-scrollbar {
+    width: .1rem;
+  };
+  };
 `;
 
 const PanelTab = styled.div`
@@ -284,7 +290,7 @@ const Container = styled.div`
   width: 80%;
   margin: 0 auto;
   @media(min-width: 1800px) {
-    width: 75%;
+    width: 65%;
   }
   @media(max-width: 1300px) {
     width: 85%;
@@ -466,8 +472,8 @@ function App() {
 
                 {state.provider && (
                   <div className='main-content'>
-                    <Row>
-                      <Col>
+                    <Row className='farm-table'>
+                      <Col className='farm-table'>
                         <FarmingTable state={state} />
                       </Col>
                     </Row>
