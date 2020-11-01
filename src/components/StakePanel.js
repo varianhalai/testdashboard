@@ -31,16 +31,44 @@ const Panel = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    font-size: 1.8rem;
+    font-size: 2.7rem;
     margin-right: 0.5rem;
-
-    @media(min-width: 1400px) {
-      font-size: 2.1rem;
+    @media(max-width: 1964px) {
+      font-size: 2.5rem;
     }
-    @media(min-width: 1500px) {
+    @media(max-width: 1716px) {
       font-size: 2.45rem;
     }
-  }
+    @media(max-width: 1590px) {
+      font-size: 2.25rem;
+    }
+    @media(max-width: 1498px) {
+      font-size: 2.0rem;
+    }
+    @media(max-width: 1384px) {
+      font-size: 1.80rem;
+    }
+    @media(max-width: 1134px) {
+      font-size: 1.5rem;
+    }
+    @media(max-width: 980px) {
+      font-size: 2.25rem;
+      
+    }
+    @media(max-width: 680px) {
+      font-size: 2rem;
+
+    }
+    @media(max-width: 628px) {
+      font-size: 1.8rem;
+    }
+    @media(max-width: 580px) {
+      font-size: 1.5rem;
+      justify-content: center;
+    }
+    @media(max-width: 500px) {
+      font-size: 1.5rem;
+    }
 `;
 
 const ButtonContainer = styled.div`
@@ -56,6 +84,12 @@ const ButtonContainer = styled.div`
     &:hover {
       top: 1.5px;
     }
+  }
+  @media(max-width: 680px) {
+    button {
+      font-size: 1.3rem;
+    }
+    justify-content: center;
   }
 `;
 

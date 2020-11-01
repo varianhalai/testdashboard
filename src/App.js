@@ -287,13 +287,13 @@ const Container = styled.div`
   width: 80%;
   margin: 0 auto;
   @media(min-width: 1800px) {
-    width: 66%;
+    width: 75%;
   }
   @media(max-width: 1300px) {
     width: 85%;
   }
   @media(max-width: 1250px) {
-    width: 95%;
+    width: 90%;
   }
   
 `;
