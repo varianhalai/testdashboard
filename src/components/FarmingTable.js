@@ -13,10 +13,9 @@ const TableContainer = styled.div`
   align-items: center;
   width: 100%:
   padding-bottom: 3rem;
-  ::-webkit-scrollbar {
-    height: .1rem;
-  };
-  
+    @media(max-width: 980px) {
+        justify-content: flex-start;
+    }
 
 
 
@@ -26,8 +25,8 @@ const TableContainer = styled.div`
     max-height: 23.2rem;
     overflow-y: scroll;
     ::-webkit-scrollbar {
-      height: .1rem;
-    };
+      width: .1rem;
+    }
   }
 
   .rdt_TableHeadRow {
@@ -50,9 +49,6 @@ const TableContainer = styled.div`
     border-top-right-radius: 0;
     border-bottom-left-radius: .5rem;
     border-bottom-right-radius: .5rem;
-    ::-webkit-scrollbar {
-      height: .1rem;
-    };
     
   }
 
@@ -61,12 +57,9 @@ const TableContainer = styled.div`
     font-family: ${fonts.contentFont};
     color: ${(props) => props.theme.style.primaryFontColor};
     font-size: 1.5rem;
-    @media(max-width:1040px) {
+    @media(max-width: 700px) {
       font-size: 1.3rem;
     }
-    ::-webkit-scrollbar {
-      height: .1rem;
-    };
   }
 
   div[role="columnheader"] {
@@ -75,12 +68,9 @@ const TableContainer = styled.div`
     font-family: ${fonts.headerFont};
     font-size: 1.7rem;
     letter-spacing: -1.5px;
-    @media(max-width:1040px) {
+    @media(max-width: 700px) {
       font-size: 1.5rem;
     }
-    ::-webkit-scrollbar {
-      height: .1rem;
-    };
     
 
     &:hover,
@@ -100,30 +90,31 @@ const columns = [
   {
     name: "Earning",
     selector: (data) => data.isActive.toString(),
-    compact: true
+    compact: true,
+    hide: 'md'
   },
   {
     name: "Rewards",
     selector: "earnedRewards",
-    compact: true
+    compact: true,
+    hide: 'sm'
   },
   {
     name: "Staked",
     selector: "stakedBalance",
-    grow:1
     
   },
   {
     name: "% of Pool",
     selector: "percentOfPool",
-    compact: true
+    compact: true,
+    hide: 'md'
   },
   {
     name: "Unstaked",
     selector: "unstakedBalance",
-    grow: 1,
-    compact:true
-    
+    compact: true,
+    hide: 'lg'
   },
   {
     name: "Value",
@@ -149,7 +140,6 @@ const FarmingTable = ({ state }) => {
         columns={columns}
         noDataComponent={false}
         data={state.summaries.map(utils.prettyPosition)}
-        responsive={true}
       />}
     </TableContainer>
       

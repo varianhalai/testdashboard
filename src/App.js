@@ -200,7 +200,7 @@ const Brand = styled.div`
 
 const Panel = styled.div`
   position: relative;
-  padding: 2.5rem 2rem;
+  padding: 2.5rem 2.5rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: 1rem;
   border-top-left-radius: 0rem;
@@ -218,11 +218,8 @@ const Panel = styled.div`
     font-family: TechnaSans;
   }
 
-  .farm-table {
-    ::-webkit-scrollbar {
-    width: .1rem;
-  };
-  };
+  
+  
 `;
 
 const PanelTab = styled.div`
@@ -290,7 +287,7 @@ const Container = styled.div`
   width: 80%;
   margin: 0 auto;
   @media(min-width: 1800px) {
-    width: 65%;
+    width: 66%;
   }
   @media(max-width: 1300px) {
     width: 85%;
@@ -472,8 +469,8 @@ function App() {
 
                 {state.provider && (
                   <div className='main-content'>
-                    <Row className='farm-table'>
-                      <Col className='farm-table'>
+                    <Row >
+                      <Col >
                         <FarmingTable state={state} />
                       </Col>
                     </Row>
