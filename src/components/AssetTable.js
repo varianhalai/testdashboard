@@ -18,6 +18,9 @@ const TableContainer = styled.div`
   @media(max-width: 1100px) {
     width: 101%;
   }
+  @media(max-width: 600px) {
+    margin-top: 1rem;
+  }
   
  
   
