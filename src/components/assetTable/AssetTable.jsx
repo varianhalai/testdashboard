@@ -60,17 +60,23 @@ const TableContainer = styled.div`
     border-bottom-left-radius: .5rem;
     border-bottom-right-radius: .5rem;
     
+    
   }
 
   .rdt_TableRow {
     background-color: ${(props) => props.theme.table.tableRowBackground};
     font-family: ${fonts.contentFont};
     color: ${(props) => props.theme.style.primaryFontColor};
-    padding: 1rem;
+    padding: 1rem ;
     font-size: 1.4rem;
-    @media(max-width: 1300px) {
-      padding: .75rem;
+    
+    @media(max-width: 1090px) {
       font-size: 1.2rem;
+      
+    }
+    @media(max-width: 760px) {
+      font-size: 1.5rem;
+      
     }
     @media(max-width: 330px) {
       font-size: .9rem;
@@ -81,12 +87,24 @@ const TableContainer = styled.div`
     color: ${(props) => props.theme.style.primaryFontColor};
     background-color: ${(props) => props.theme.table.tableHeadBackground};
     font-family: ${fonts.headerFont};
-    font-size: 1.6rem;
-    padding: 1rem;
+    font-size: 1.7rem;
+    padding: 1rem .5rem;
     letter-spacing: -1px;
-    @media(max-width: 330px) {
-      font-size: 1.2rem;
+    
+    @@media(max-width: 1400px) {
+      font-size: 1.6rem;
+      
     }
+    @media(max-width: 1090px) {
+      font-size: 1.4rem;
+      
+    }
+    media(max-width: 760px) {
+      font-size: 1.7rem;
+      
+    }
+    
+    
     
 
     &:hover,
@@ -126,10 +144,7 @@ const columns = [
     name: "Underlying Balance",
     selector: (data) =>
       ethers.utils.formatUnits(data.balance, data.asset.decimals),
-    grow: 2,
     compact: true,
-    
-    
   },
 ];
 

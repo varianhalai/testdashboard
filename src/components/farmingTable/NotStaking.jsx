@@ -1,28 +1,24 @@
-import React,{useState,useEffect} from "react";
+import React from "react";
 import DataTable from "react-data-table-component";
 import styled, { ThemeProvider } from "styled-components";
 import harvest from "../../lib/index";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 
-import FarmTableSkeleton from './FarmTableSkeleton';
-import NotStaking from './NotStaking';
 
-
-const { utils } = harvest;
 
 const TableContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%:
+  width: 80vw;
   padding-bottom: 3rem;
 
 
 
   div[role="table"] {
+      width: 100%;
     background-color: ${(props) => props.theme.table.tableBackground};
     padding: .35rem;
-    max-height: 23.2rem;
     overflow-y: scroll;
     ::-webkit-scrollbar {
       width: .1rem;
@@ -102,81 +98,43 @@ const TableContainer = styled.div`
   }
 `;
 
-const columns = [
-  {
-    name: "Pool",
-    selector: "name",
-  },
-  {
-    name: "Earning",
-    selector: (data) => data.isActive.toString(),
-    compact: true,
-    hide: 'md'
-  },
-  {
-    name: "Rewards",
-    selector: "earnedRewards",
-    compact: true,
-    hide: 'md'
-  },
-  {
-    name: "Staked",
-    selector: "stakedBalance",
-    hide: 'sm'
-    
-  },
-  {
-    name: "% of Pool",
-    selector: "percentOfPool",
-    compact: true,
-    hide: 'md'
-  },
-  {
-    name: "Unstaked",
-    selector: "unstakedBalance",
-    compact: true,
-    hide: 'lg'
-  },
-  {
-    name: "Value",
-    selector: "usdValueOf",
-    sortable: true,
-  },
-];
+const noAssetColumns = [
+    {
+      name: "You currently are not staking any assets",
+      // selector: (data) => data.asset.name,
+      selector: "asset",
+      center: true
+    },
+  ]
+  const noAssetData = [
+    {
+      id:0,
+      asset: 'Add assets to get started',
+      center: true
+    },
+  ]
 
 
 
-const FarmingTable = ({ state }) => {
+const NotStaking = ({ state }) => {
 
-  
-
-  const [displayTable,setDisplay]=useState(false);
-
-  useEffect(() => {
-    if(state.apy) {
-      setDisplay(true)
-    }
-  },[state.apy,state.summaries.length])
 
   return (
       <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
         
-        {displayTable ? 
         <TableContainer>
-          {state.summaries.length === 0 ? <NotStaking state={state} />:
           <DataTable
           noHeader={true}
           noDivider={true}
-          columns={columns}
+          columns={noAssetColumns}
           noDataComponent={false}
-          data={state.summaries.map(utils.prettyPosition)}
-        />  }
-        </TableContainer> 
-        : <FarmTableSkeleton state={state} />}
-          
+          data={noAssetData}
+          />
+
+        </TableContainer>    
     </ThemeProvider>
     
   );
 };
 
-export default FarmingTable;
+export default NotStaking;

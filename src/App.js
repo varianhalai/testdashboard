@@ -473,7 +473,7 @@ function App() {
         });
         setState((state) => ({
           ...state,
-          summaries: summaries,
+          summaries: [],
           usdValue: total,
         }));
         

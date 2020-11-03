@@ -27,7 +27,7 @@ const Panel = styled.div`
   }
 
   input[type="number"] {
-    margin: 0rem 1rem;
+    margin: 0 1rem;
   }
 
   button {
@@ -114,6 +114,7 @@ const ButtonContainer = styled.div`
 
 const StakePanel = ({ state, openModal }) => {
   const [display,setDisplay]=useState(false);
+  const [maximum,setMaximum] = useState(0)
   const [delay,setDelay] = useState(2200);
   const [stakeAmount, setStakeAmount] = useState(0);
   const pool = state.manager.pools.find((pool) => {
@@ -146,7 +147,17 @@ const StakePanel = ({ state, openModal }) => {
       });
     }
   };
+  const setMax = async () => {
+    const allowance = await pool.lptoken.allowance(state.address, pool.address);
+    const amount =
+      stakeAmount > 0
+        ? ethers.utils.parseUnits(stakeAmount.toString(), 18)
+        : await pool.unstakedBalance(state.address);
+        
+        setStakeAmount(ethers.utils.formatEther(amount))
+        
 
+  }
   const unstake = async () => {
     await pool.exit().catch((e) => {
       console.log("insufficientBalance", e);
@@ -160,6 +171,10 @@ const StakePanel = ({ state, openModal }) => {
     setDisplay(true)
   }, delay)
 
+  const stakeChangeHandler =(e) => {
+    setStakeAmount(e.target.value)
+  }
+
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       {display ? <Panel>
@@ -168,8 +183,9 @@ const StakePanel = ({ state, openModal }) => {
             Stake
             <input
               type="number"
-              onChange={(event) => setStakeAmount(event.target.value)}
-              placeholder="max"
+              onChange={stakeChangeHandler}
+              placeholder="amount"
+              value={stakeAmount}
               step="any"
             />
             FARM 
@@ -181,12 +197,19 @@ const StakePanel = ({ state, openModal }) => {
           <button className="button" disabled={!state.provider} onClick={stake}>
             stake
           </button>
-          <button
+          {/* <button
             className="button"
             disabled={!state.provider}
             onClick={unstake}
           >
             unstake
+          </button> */}
+          <button
+            className="button"
+            disabled={!state.provider}
+            onClick={setMax}
+          >
+            max
           </button>
           {inactivePools.length > 0 && (
             <button
