@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { darkTheme, lightTheme, fonts } from "../styles/appStyles";
-import harvest from "../lib/index.js";
+import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
+import harvest from "../../lib/index.js";
+import { useInterval } from '../../tools/interval';
+import StakePanelSkeleton from './StakePanelSkeleton';
 
 const { ethers } = harvest;
 
@@ -111,6 +113,8 @@ const ButtonContainer = styled.div`
 `;
 
 const StakePanel = ({ state, openModal }) => {
+  const [display,setDisplay]=useState(false);
+  const [delay,setDelay] = useState(2200);
   const [stakeAmount, setStakeAmount] = useState(0);
   const pool = state.manager.pools.find((pool) => {
     return pool.address === "0x25550Cccbd68533Fa04bFD3e3AC4D09f9e00Fc50";
@@ -152,10 +156,13 @@ const StakePanel = ({ state, openModal }) => {
   const exitInactivePools = () => {
     state.manager.exitInactive();
   };
+  useInterval(() => {
+    setDisplay(true)
+  }, delay)
 
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-      <Panel>
+      {display ? <Panel>
         <div className='panel-text'>
           <p>
             Stake
@@ -191,7 +198,9 @@ const StakePanel = ({ state, openModal }) => {
             </button>
           )}
         </ButtonContainer>
-      </Panel>
+      </Panel> :
+        <StakePanelSkeleton state={state} />}
+      
     </ThemeProvider>
   );
 };

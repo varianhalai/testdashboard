@@ -14,13 +14,14 @@ import logo from "./assets/gif_tractor.gif";
 
 // components
 import Wallet from "./components/Wallet";
-import FarmingTable from "./components/FarmingTable";
-import AssetTable from "./components/AssetTable";
-import Harvest from "./components/Harvest";
-import StakePanel from "./components/StakePanel";
-import Balance from "./components/Balance";
-import APY from "./components/APY";
-import AddTokens from "./components/AddTokens";
+import FarmingTable from "./components/farmingTable/FarmingTable";
+import AssetTable from "./components/assetTable/AssetTable";
+import Harvest from "./components/harvest/Harvest";
+import StakePanel from "./components/stakePanel/StakePanel";
+import Balance from "./components/balance/Balance";
+import APY from "./components/apy/APY";
+import AddTokens from "./components/addTokens/AddTokens";
+import WelcomeText from './components/WelcomeText';
 
 const { ethers } = harvest;
 const GlobalStyle = createGlobalStyle`
@@ -223,6 +224,43 @@ const Panel = styled.div`
     color: ${(props) => props.theme.style.primaryFontColor};
     font-size: 1.6rem;
     font-family: TechnaSans;
+  }
+
+
+  .welcome-text {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 0.5rem;
+    h1 {
+      font-size: 2.5rem;
+      font-family: ${fonts.headerFont};
+      margin: 1rem 0;
+    }
+    h4 {
+      font-size: 2rem;
+      font-family: ${fonts.contentFont};
+      margin: 1rem 0;
+    } h6 {
+      font-family: ${fonts.headerFont};
+      width: 60%;
+      margin: 1rem auto;
+      font-family: ${fonts.contentFont};
+      font-size: 1.2rem;
+      line-height: 1.5rem;
+    }
+    button {
+      font-size: 1.5rem;
+      font-family: ${fonts.headerFont};
+      margin: 1rem 0;
+      position: relative;
+      &:hover {
+        top: 1.5px;
+      }
+    }
   }
 
   
@@ -438,6 +476,7 @@ function App() {
           summaries: summaries,
           usdValue: total,
         }));
+        
         return summaries;
       });
   };
@@ -515,7 +554,9 @@ function App() {
                   </Col>
                 </Row>
 
-                {state.provider && (
+                 
+                
+                {state.provider ? (
                   <div className='main-content'>
                     <Row >
                       <Col >
@@ -552,7 +593,20 @@ function App() {
                       
                     
                   </div>
-                )} 
+                ) :
+                <Row >
+                  <Col >
+                    <WelcomeText 
+                      state={state}
+                      openModal={openModal}
+                      disconnect={disconnect}
+                      setConnection={setConnection}
+                      setAddress={setAddress}
+                      refresh={refresh}
+                     />
+                  </Col>
+                  
+                  </Row>} 
               </Panel>
             </Col>
           </Row>

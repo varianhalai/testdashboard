@@ -1,9 +1,10 @@
-import React from "react";
+import React,{useState} from "react";
 import DataTable from "react-data-table-component";
 import styled, { ThemeProvider } from "styled-components";
-import { darkTheme, lightTheme, fonts } from "../styles/appStyles";
-
-import harvest from "../lib/index.js";
+import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
+import { useInterval } from '../../tools/interval';
+import AssetTableSkeleton from './AssetTableSkeleton'
+import harvest from "../../lib/index.js";
 const { ethers } = harvest;
 
 const TableContainer = styled.div`
@@ -132,10 +133,17 @@ const columns = [
   },
 ];
 
+
+
 const AssetTable = ({ state }) => {
+  const [display,setDisplay]=useState(false);
+  const [delay,setDelay] = useState(2200);
+  useInterval(() => {
+    setDisplay(true)
+  }, delay)
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-        <TableContainer>
+        {display ? <TableContainer>
           {state.underlyings.length ? <DataTable
             noHeader={true}
             noDivider={true}
@@ -151,7 +159,7 @@ const AssetTable = ({ state }) => {
             data={noAssetData}
             responsive={true}
           />}
-        </TableContainer>
+        </TableContainer> : <AssetTableSkeleton state={state} />}
       
     </ThemeProvider>
   );

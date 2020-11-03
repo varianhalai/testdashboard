@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { darkTheme, lightTheme, fonts } from "../styles/appStyles";
-import harvest from "../lib/index.js";
-
+import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
+import harvest from "../../lib/index.js";
+import BalanceSkeleton from './BalanceSkeleton';
+import { useInterval } from '../../tools/interval';
 const { ethers, utils } = harvest;
 
 const BluePanel = styled.div`
@@ -62,12 +63,19 @@ const Balance = ({ state }) => {
     }
   };
 
+  const [display,setDisplay]=useState(false);
+  const [delay,setDelay] = useState(2200);
+  useInterval(() => {
+    setDisplay(true)
+  }, delay)
+
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-      <BluePanel>
+      {display ? <BluePanel>
         <h1>{utils.prettyMoney(userBalance)}</h1>
         <span>Staked Balance</span>
-      </BluePanel>
+      </BluePanel> :
+      <BalanceSkeleton state={state} />}
     </ThemeProvider>
   );
 };
