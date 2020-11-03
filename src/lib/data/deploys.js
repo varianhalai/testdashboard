@@ -359,6 +359,20 @@ assets.push({
   address: '0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8',
 });
 assets.push({
+  name: 'F3CRV',
+  type: 'ftoken',
+  underlyingAsset: assetByName('3CRV'),
+  decimals: 18,
+  address: '0x71B9eC42bB3CB40F017D8AD8011BE8e384a95fa5',
+});
+assets.push({
+  name: 'FYCRV',
+  type: 'ftoken',
+  underlyingAsset: assetByName('YCRV'),
+  decimals: 18,
+  address: '0x0FE4283e0216F94f5f9750a7a11AC54D3c9C38F3',
+});
+assets.push({
   name: 'FDAI',
   type: 'ftoken',
   underlyingAsset: assetByName('DAI'),
