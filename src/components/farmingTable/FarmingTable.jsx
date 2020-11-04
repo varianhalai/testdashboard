@@ -153,10 +153,10 @@ const FarmingTable = ({ state }) => {
   const [displayTable,setDisplay]=useState(false);
 
   useEffect(() => {
-    if(state.apy) {
+    if(state.usdValue) {
       setDisplay(true)
     }
-  },[state.apy,state.summaries.length])
+  },[state.usdValue])
 
   return (
       <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
