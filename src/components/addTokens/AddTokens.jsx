@@ -11,7 +11,7 @@ import daiIcon from "../../assets/png_dai_56px@3x.png";
 import wbtcIcon from "../../assets/png_wbtc_56px@3x.png";
 import frenbtcIcon from "../../assets/png_frenbtc_56px@3x.png";
 import crvrenwbtcIcon from "../../assets/png_crvrenwbtc_56px@3x.png";
-import sushi from '../../assets/sushi.jpg'
+import sushi from '../../assets/sushi.png'
 
 const Header = styled.h1`
   font-family: ${fonts.headerFont};
@@ -81,11 +81,11 @@ const tokens = [
     url: "https://harvestfi.github.io/add-fcrvrenwbtc/",
     image: crvrenwbtcIcon,
   },
-  // {
-  //   name: "Sushi",
-  //   url: "https://harvestfi.github.io/add-sushi/",
-  //   image: sushi,
-  // },
+  {
+    name: "Sushi",
+    url: "https://varianhalai.github.io/add-sushi/",
+    image: sushi,
+  },
   // {
   //   name: "Uni",
   //   url: "https://harvestfi.github.io/add-uni/",
