@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
-import { useInterval } from '../../tools/interval';
 import HarvestSkeleton from './HarvestSkeleton'
 import harvest from "../../lib/index.js";
 const { ethers } = harvest;
@@ -130,9 +129,11 @@ const Harvest = ({ state }) => {
       }
     }
   };
-  useInterval(() => {
-    setDisplay(true)
-  }, delay)
+  useEffect(() => {
+    if(state.apy) {
+      setDisplay(true)
+    }
+  },[state.apy])
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       {display ? <Panel>

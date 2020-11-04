@@ -52,6 +52,10 @@ const Panel = styled.div`
       &:hover {
         top: 1.5px;
       }
+
+      .foot-note {
+        font-family: font-family: ${fonts.contentFont};
+      }
     }
   }
 

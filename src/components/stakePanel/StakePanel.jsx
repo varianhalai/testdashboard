@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 import harvest from "../../lib/index.js";
-import { useInterval } from '../../tools/interval';
 import StakePanelSkeleton from './StakePanelSkeleton';
 
 const { ethers } = harvest;
@@ -167,9 +166,11 @@ const StakePanel = ({ state, openModal }) => {
   const exitInactivePools = () => {
     state.manager.exitInactive();
   };
-  useInterval(() => {
-    setDisplay(true)
-  }, delay)
+  useEffect(() => {
+    if(state.apy) {
+      setDisplay(true)
+    }
+  },[state.apy])
 
   const stakeChangeHandler =(e) => {
     setStakeAmount(e.target.value)

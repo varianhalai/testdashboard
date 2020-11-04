@@ -1,8 +1,7 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 import AddTokenSkeleton from './AddTokenSkeleton';
-import { useInterval } from '../../tools/interval';
 
 // images
 import logo from "../../assets/logo.png";
@@ -146,9 +145,11 @@ const AddTokens = ({ state }) => {
 
   const [display,setDisplay]=useState(false);
   const [delay,setDelay] = useState(2200);
-  useInterval(() => {
-    setDisplay(true)
-  }, delay)
+  useEffect(() => {
+    if(state.apy) {
+      setDisplay(true)
+    }
+  },[state.apy])
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       {display ? <Panel>

@@ -3,7 +3,6 @@ import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 import harvest from "../../lib/index.js";
 import BalanceSkeleton from './BalanceSkeleton';
-import { useInterval } from '../../tools/interval';
 const { ethers, utils } = harvest;
 
 const BluePanel = styled.div`
@@ -65,9 +64,11 @@ const Balance = ({ state }) => {
 
   const [display,setDisplay]=useState(false);
   const [delay,setDelay] = useState(2200);
-  useInterval(() => {
-    setDisplay(true)
-  }, delay)
+  useEffect(() => {
+    if(state.apy) {
+      setDisplay(true)
+    }
+  },[state.apy])
 
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>

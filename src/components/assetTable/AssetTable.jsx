@@ -1,8 +1,7 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import DataTable from "react-data-table-component";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
-import { useInterval } from '../../tools/interval';
 import AssetTableSkeleton from './AssetTableSkeleton'
 import harvest from "../../lib/index.js";
 const { ethers } = harvest;
@@ -153,9 +152,11 @@ const columns = [
 const AssetTable = ({ state }) => {
   const [display,setDisplay]=useState(false);
   const [delay,setDelay] = useState(2200);
-  useInterval(() => {
-    setDisplay(true)
-  }, delay)
+  useEffect(() => {
+    if(state.apy) {
+      setDisplay(true)
+    }
+  },[state.apy])
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
         {display ? <TableContainer>

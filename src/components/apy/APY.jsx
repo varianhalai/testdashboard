@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
-import { useInterval } from '../../tools/interval';
 import APYSkeleton from "./APYSkeleton";
 
 const BluePanel = styled.div`
@@ -80,9 +79,11 @@ const APY = ({ state,setState }) => {
   };
   const [display,setDisplay]=useState(false);
   const [delay,setDelay] = useState(2200);
-  useInterval(() => {
-    setDisplay(true)
-  }, delay)
+  useEffect(() => {
+    if(state.apy) {
+      setDisplay(true)
+    }
+  },[state.apy])
 
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
