@@ -28,7 +28,7 @@ const Panel = styled.div`
     text-align: center;
     border-radius: 0.5rem;
     h1 {
-      font-size: 2.5rem;
+      font-size: 2.6rem;
       font-family: ${fonts.headerFont};
       margin: 1rem 0;
     }
@@ -44,8 +44,8 @@ const Panel = styled.div`
       font-size: 1.2rem;
       line-height: 1.5rem;
     }
-    button {
-      font-size: 1.5rem;
+    .button {
+      font-size: 1.8rem;
       font-family: ${fonts.headerFont};
       margin: 1rem 0;
       position: relative;
@@ -53,9 +53,12 @@ const Panel = styled.div`
         top: 1.5px;
       }
 
-      .foot-note {
-        font-family: font-family: ${fonts.contentFont};
-      }
+      
+    }
+    .foot-note {
+      font-family: font-family: ${fonts.contentFont};
+      width: 50%;
+      margin: 1rem auto;
     }
   }
 

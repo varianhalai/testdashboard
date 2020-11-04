@@ -16,19 +16,26 @@ const WalletConnection = styled.div`
   position: relative;
   top: -.6rem;
   font-size: 2rem;
-  @media(max-width: 620px) {
-    font-size: 1.175rem;
+  @media(max-width: 585px) {
+    font-size: 1.8rem;
     width: 100%;
   }
-  @media(max-width: 360px) {
+  @media(max-width: 560px) {
+    font-size: 1.7rem;
+  }
+  @media(max-width: 530px) {
+    font-size: 1.4rem;
+  }
+  @media(max-width: 430px) {
+    font-size: 1.2rem;
+  }
+  @media(max-width: 390px) {
     font-size: 1rem;
-
-    
   }
   @media(max-width: 360px) {
     font-size: .9rem;
-    
   }
+ 
   
 
   a,

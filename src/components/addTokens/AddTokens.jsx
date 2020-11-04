@@ -82,7 +82,7 @@ const tokens = [
     image: crvrenwbtcIcon,
   },
   {
-    name: "Sushi",
+    name: "SUSHI",
     url: "https://varianhalai.github.io/add-sushi/",
     image: sushi,
   },
