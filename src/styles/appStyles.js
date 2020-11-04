@@ -28,7 +28,7 @@ export const darkTheme = {
   style: {
     mainBorder: `0.2rem solid ${darkThemeColors.lightGrey}`,
     smallBorder: `0.1rem solid ${darkThemeColors.lightGrey}`,
-    buttonBoxShadow: `.35rem 0.2rem 0px ${darkThemeColors.lightGrey}`,
+    buttonBoxShadow: `.35rem 0.35rem 0px ${darkThemeColors.lightGrey}`,
     buttonFontColor: `${darkThemeColors.black}`,
     panelBackground: "#000",
     panelBoxShadow: `0.35rem 0.2rem 0px ${darkThemeColors.lightGrey}`,
@@ -68,10 +68,10 @@ export const lightTheme = {
   style: {
     mainBorder: `0.2rem solid ${lightThemeColors.black}`,
     smallBorder: `0.1rem solid ${lightThemeColors.black}`,
-    buttonBoxShadow: `0rem 0.2rem 0px ${lightThemeColors.black}`,
+    buttonBoxShadow: `.35rem 0.35rem 0px ${lightThemeColors.black}`,
     buttonFontColor: `${lightThemeColors.black}`,
     panelBackground: `${lightThemeColors.offwhite}`,
-    panelBoxShadow: `0.35rem 0.2rem 0px ${lightThemeColors.black}`,
+    panelBoxShadow: `0.35rem 0.35rem 0px ${lightThemeColors.black}`,
     panelTabBackground: `${lightThemeColors.darkBlue}`,
     panelTabBoxShadow: `0.35rem 0.35rem 0px ${lightThemeColors.black}`,
     panelTabLinkColor: `${lightThemeColors.black}`,

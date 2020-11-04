@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { darkTheme, lightTheme, fonts } from "../styles/appStyles";
-import harvest from "../lib/index.js";
-
+import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
+import harvest from "../../lib/index.js";
+import BalanceSkeleton from './BalanceSkeleton';
 const { ethers, utils } = harvest;
 
 const BluePanel = styled.div`
@@ -20,6 +20,8 @@ const BluePanel = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+  
   
   h1 {
     font-size: 2.4rem;
@@ -29,6 +31,18 @@ const BluePanel = styled.div`
   span {
     font-size: 1.3rem;
   }
+
+  @media(max-width: 1107px) {
+    padding: 3.65rem .7rem 5.5rem 1.5rem;
+    margin-right: 0px;
+    h1 {
+      font-size:2.2rem;
+    }
+    span {
+      font-size:1.1rem;
+    }
+  }
+  
 `;
 
 const Balance = ({ state }) => {
@@ -48,12 +62,21 @@ const Balance = ({ state }) => {
     }
   };
 
+  const [display,setDisplay]=useState(false);
+  const [delay,setDelay] = useState(2200);
+  useEffect(() => {
+    if(state.apy) {
+      setDisplay(true)
+    }
+  },[state.apy])
+
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-      <BluePanel>
+      {display ? <BluePanel>
         <h1>{utils.prettyMoney(userBalance)}</h1>
         <span>Staked Balance</span>
-      </BluePanel>
+      </BluePanel> :
+      <BalanceSkeleton state={state} />}
     </ThemeProvider>
   );
 };

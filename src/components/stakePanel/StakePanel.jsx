@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { darkTheme, lightTheme, fonts } from "../styles/appStyles";
-import harvest from "../lib/index.js";
+import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
+import harvest from "../../lib/index.js";
+import StakePanelSkeleton from './StakePanelSkeleton';
 
 const { ethers } = harvest;
 
@@ -19,8 +20,13 @@ const Panel = styled.div`
   box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
 
+  @media(max-width: 1002px) {
+    margin-bottom: 1.5rem;
+    
+  }
+
   input[type="number"] {
-    margin: 0rem 1rem;
+    margin: 0 1rem;
   }
 
   button {
@@ -31,15 +37,48 @@ const Panel = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    font-size: 1.8rem;
+    font-size: 2.7rem;
     margin-right: 0.5rem;
-
-    @media(min-width: 1400px) {
-      font-size: 2.1rem;
+    @media(max-width: 1964px) {
+      font-size: 2.5rem;
     }
-    @media(min-width: 1500px) {
+    @media(max-width: 1716px) {
       font-size: 2.45rem;
     }
+    @media(max-width: 1590px) {
+      font-size: 2.25rem;
+    }
+    @media(max-width: 1498px) {
+      font-size: 2.0rem;
+    }
+    @media(max-width: 1384px) {
+      font-size: 1.80rem;
+    }
+    @media(max-width: 1134px) {
+      font-size: 1.5rem;
+    }
+    @media(max-width: 1002px) {
+      font-size: 2.25rem;
+      
+    }
+    @media(max-width: 960px) {
+      font-size: 2rem;
+      justify-content: center;
+      text-align: center;
+    }
+    @media(max-width: 680px) {
+      font-size: 2rem;
+    }
+    @media(max-width: 628px) {
+      font-size: 1.8rem;
+    }
+    @media(max-width: 580px) {
+      font-size: 1.5rem;
+    }
+    @media(max-width: 500px) {
+      font-size: 1.7rem;   
+    }
+    
   }
 `;
 
@@ -57,9 +96,25 @@ const ButtonContainer = styled.div`
       top: 1.5px;
     }
   }
+  @media(max-width: 960px) {
+    justify-content: center;
+    button {
+      font-size: 1.6rem;
+    }
+    
+  }
+  @media(max-width: 680px) {
+    button {
+      font-size: 1.3rem;
+    }
+    
+  }
 `;
 
 const StakePanel = ({ state, openModal }) => {
+  const [display,setDisplay]=useState(false);
+  const [maximum,setMaximum] = useState(0)
+  const [delay,setDelay] = useState(2200);
   const [stakeAmount, setStakeAmount] = useState(0);
   const pool = state.manager.pools.find((pool) => {
     return pool.address === "0x25550Cccbd68533Fa04bFD3e3AC4D09f9e00Fc50";
@@ -91,7 +146,17 @@ const StakePanel = ({ state, openModal }) => {
       });
     }
   };
+  const setMax = async () => {
+    const allowance = await pool.lptoken.allowance(state.address, pool.address);
+    const amount =
+      stakeAmount > 0
+        ? ethers.utils.parseUnits(stakeAmount.toString(), 18)
+        : await pool.unstakedBalance(state.address);
+        
+        setStakeAmount(ethers.utils.formatEther(amount))
+        
 
+  }
   const unstake = async () => {
     await pool.exit().catch((e) => {
       console.log("insufficientBalance", e);
@@ -101,17 +166,27 @@ const StakePanel = ({ state, openModal }) => {
   const exitInactivePools = () => {
     state.manager.exitInactive();
   };
+  useEffect(() => {
+    if(state.apy) {
+      setDisplay(true)
+    }
+  },[state.apy])
+
+  const stakeChangeHandler =(e) => {
+    setStakeAmount(e.target.value)
+  }
 
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-      <Panel>
+      {display ? <Panel>
         <div className='panel-text'>
           <p>
             Stake
             <input
               type="number"
-              onChange={(event) => setStakeAmount(event.target.value)}
-              placeholder="max"
+              onChange={stakeChangeHandler}
+              placeholder="amount"
+              value={stakeAmount}
               step="any"
             />
             FARM 
@@ -123,12 +198,19 @@ const StakePanel = ({ state, openModal }) => {
           <button className="button" disabled={!state.provider} onClick={stake}>
             stake
           </button>
-          <button
+          {/* <button
             className="button"
             disabled={!state.provider}
             onClick={unstake}
           >
             unstake
+          </button> */}
+          <button
+            className="button"
+            disabled={!state.provider}
+            onClick={setMax}
+          >
+            max
           </button>
           {inactivePools.length > 0 && (
             <button
@@ -140,7 +222,9 @@ const StakePanel = ({ state, openModal }) => {
             </button>
           )}
         </ButtonContainer>
-      </Panel>
+      </Panel> :
+        <StakePanelSkeleton state={state} />}
+      
     </ThemeProvider>
   );
 };
