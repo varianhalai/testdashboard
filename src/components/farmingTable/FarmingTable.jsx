@@ -61,10 +61,10 @@ const TableContainer = styled.div`
     color: ${(props) => props.theme.style.primaryFontColor};
     font-size: 1.5rem;
     
-    @media(max-width: 1090px) {
-      font-size: 1.2rem;
+    // @media(max-width: 1090px) {
+    //   font-size: 1.2rem;
       
-    }
+    // }
     @media(max-width: 760px) {
       font-size: 1.5rem;
       
@@ -84,17 +84,10 @@ const TableContainer = styled.div`
       font-size: 1.6rem;
       
     }
-    @media(max-width: 1090px) {
-      font-size: 1.4rem;
-      
-    }
     media(max-width: 760px) {
-      font-size: 1.7rem;
-      
+      font-size: 1.7rem; 
     }
-    
-    
-
+  
     &:hover,
     &:visited,
     &:active,

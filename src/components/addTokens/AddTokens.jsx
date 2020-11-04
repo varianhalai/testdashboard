@@ -12,6 +12,8 @@ import wbtcIcon from "../../assets/png_wbtc_56px@3x.png";
 import frenbtcIcon from "../../assets/png_frenbtc_56px@3x.png";
 import crvrenwbtcIcon from "../../assets/png_crvrenwbtc_56px@3x.png";
 import sushi from '../../assets/sushi.png'
+import uni from '../../assets/uni.png'
+import yearn from '../../assets/yearn.png'
 
 const Header = styled.h1`
   font-family: ${fonts.headerFont};
@@ -39,10 +41,8 @@ const Panel = styled.div`
 const TokenList = styled.div`
   display: flex;
   justify-content: space-between;
-
-  @media only screen and (max-width: 768px) {
-    flex-wrap: wrap;
-  }
+  flex-wrap: wrap;
+ 
 `;
 
 const tokens = [
@@ -86,16 +86,16 @@ const tokens = [
     url: "https://varianhalai.github.io/add-sushi/",
     image: sushi,
   },
-  // {
-  //   name: "Uni",
-  //   url: "https://harvestfi.github.io/add-uni/",
-  //   image: crvrenwbtcIcon,
-  // },
-  // {
-  //   name: "YCRV",
-  //   url: "https://harvestfi.github.io/add-ycrv/",
-  //   image: crvrenwbtcIcon,
-  // },
+  {
+    name: "Uni",
+    url: "https://varianhalai.github.io/add-uni/",
+    image: uni,
+  },
+  {
+    name: "YCRV",
+    url: "https://varianhalai.github.io/add-ycrv/",
+    image: yearn,
+  },
 ];
 
 const Token = ({ className, name, url, image }) => (
@@ -124,6 +124,7 @@ const StyledToken = styled(Token)`
     align-items: center;
     text-decoration: none;
     color: ${(props) => props.theme.style.primaryFontColor};
+    font-family: ${fonts.contentFont}
     font-size: 1.5rem;
     margin-bottom: 1.6rem;
   }
@@ -132,6 +133,10 @@ const StyledToken = styled(Token)`
     height: 3.5rem;
     width: 3.5rem;
     margin-bottom: 0.5rem;
+  }
+
+  @media(max-width: 1450px) {
+    margin: 0 1rem;
   }
 
   @media only screen and (max-width: 768px) {

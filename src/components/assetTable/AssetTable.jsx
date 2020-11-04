@@ -96,12 +96,12 @@ const TableContainer = styled.div`
     padding: 1rem .5rem;
     letter-spacing: -1px;
     
-    @@media(max-width: 1400px) {
-      font-size: 1.6rem;
+    @@media(max-width: 1330px) {
+      font-size: 1.4rem;
       
     }
-    @media(max-width: 1090px) {
-      font-size: 1.4rem;
+    @media(max-width: 1180px) {
+      font-size: 1.35rem;
       
     }
     media(max-width: 760px) {
