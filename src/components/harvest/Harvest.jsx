@@ -130,10 +130,10 @@ const Harvest = ({ state }) => {
     }
   };
   useEffect(() => {
-    if(state.apy) {
+    if(state.usdValue) {
       setDisplay(true)
     }
-  },[state.apy])
+  },[state.usdValue])
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       {display ? <Panel>

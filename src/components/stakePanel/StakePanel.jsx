@@ -167,10 +167,10 @@ const StakePanel = ({ state, openModal }) => {
     state.manager.exitInactive();
   };
   useEffect(() => {
-    if(state.apy) {
+    if(state.usdValue) {
       setDisplay(true)
     }
-  },[state.apy])
+  },[state.usdValue])
 
   const stakeChangeHandler =(e) => {
     setStakeAmount(e.target.value)
