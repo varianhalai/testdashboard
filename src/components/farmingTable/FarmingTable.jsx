@@ -27,6 +27,8 @@ const TableContainer = styled.div`
     ::-webkit-scrollbar {
       width: .1rem;
     }
+    -ms-overflow-style: none; /* IE 11 */
+    scrollbar-width: none; /* Firefox 64 */
   }
 
   .rdt_TableHeadRow {

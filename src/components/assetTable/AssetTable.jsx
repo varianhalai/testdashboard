@@ -7,9 +7,13 @@ import harvest from "../../lib/index.js";
 const { ethers } = harvest;
 
 const TableContainer = styled.div`
+
   ::-webkit-scrollbar {
     width: .1rem;
   };
+  overflow: -moz-scrollbars-none;
+  scrollbar-color: transparent;
+  scrollbar-width: none;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,6 +38,8 @@ const TableContainer = styled.div`
     ::-webkit-scrollbar {
       width: .1rem;
     }
+    scrollbar-width: none; /* Firefox 64 */
+    -ms-overflow-style: none; /* IE 11 */
     
     
   }

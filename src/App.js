@@ -26,7 +26,8 @@ import WelcomeText from './components/WelcomeText';
 const { ethers } = harvest;
 const GlobalStyle = createGlobalStyle`
   ${reset}
-
+ 
+  
   html {
     /* 1rem = 10px */
     font-size: 62.5%;
