@@ -11,19 +11,17 @@ import { darkTheme, lightTheme, fonts } from "./styles/appStyles";
 // images
 import logo from "./assets/gif_tractor.gif";
 
-// fonts
-import DDIN from "./assets/fonts/DDIN-Bold.ttf";
-import TechnaSans from "./assets/fonts/TechnaSans-Regular.otf";
 
 // components
 import Wallet from "./components/Wallet";
-import FarmingTable from "./components/FarmingTable";
-import AssetTable from "./components/AssetTable";
-import Harvest from "./components/Harvest";
-import StakePanel from "./components/StakePanel";
-import Balance from "./components/Balance";
-import APY from "./components/APY";
-import AddTokens from "./components/AddTokens";
+import FarmingTable from "./components/farmingTable/FarmingTable";
+import AssetTable from "./components/assetTable/AssetTable";
+import Harvest from "./components/harvest/Harvest";
+import StakePanel from "./components/stakePanel/StakePanel";
+import Balance from "./components/balance/Balance";
+import APY from "./components/apy/APY";
+import AddTokens from "./components/addTokens/AddTokens";
+import WelcomeText from './components/WelcomeText';
 
 const { ethers } = harvest;
 const GlobalStyle = createGlobalStyle`
@@ -32,14 +30,19 @@ const GlobalStyle = createGlobalStyle`
   html {
     /* 1rem = 10px */
     font-size: 62.5%;
+    height: 100%;
   }
 
 
 
   body {
-    margin: 0;
+    height: 100%;
     background-color: ${(props) => props.theme.style.bodyBackground};
+    ::-webkit-scrollbar {
+      width: .1rem;
+    }
   }
+
 
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -52,6 +55,11 @@ const GlobalStyle = createGlobalStyle`
     display: inline-block;
     width: 6rem;
     height: 2.6rem;
+    @media(max-width: 500px) {
+      height: 2.4rem;
+      width: 5.5rem;
+    }
+    
   }
 
   /* Hide default HTML checkbox */
@@ -84,6 +92,10 @@ const GlobalStyle = createGlobalStyle`
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
+    @media(max-width: 500px) {
+      height: 1.7rem;
+      width: 1.7rem;
+    }
   }
 
   input:checked + .slider {
@@ -195,7 +207,7 @@ const Brand = styled.div`
 
 const Panel = styled.div`
   position: relative;
-  padding: 2.5rem 2rem;
+  padding: 2.5rem 2.5rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: 1rem;
   border-top-left-radius: 0rem;
@@ -204,6 +216,7 @@ const Panel = styled.div`
   z-index: 1;
   box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
+  
 
   &.four-corner {
     border-top-left-radius: 1rem;
@@ -212,6 +225,46 @@ const Panel = styled.div`
     font-size: 1.6rem;
     font-family: TechnaSans;
   }
+
+
+  .welcome-text {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 0.5rem;
+    h1 {
+      font-size: 2.5rem;
+      font-family: ${fonts.headerFont};
+      margin: 1rem 0;
+    }
+    h4 {
+      font-size: 2rem;
+      font-family: ${fonts.contentFont};
+      margin: 1rem 0;
+    } h6 {
+      font-family: ${fonts.headerFont};
+      width: 60%;
+      margin: 1rem auto;
+      font-family: ${fonts.contentFont};
+      font-size: 1.2rem;
+      line-height: 1.5rem;
+    }
+    button {
+      font-size: 1.5rem;
+      font-family: ${fonts.headerFont};
+      margin: 1rem 0;
+      position: relative;
+      &:hover {
+        top: 1.5px;
+      }
+    }
+  }
+
+  
+  
 `;
 
 const PanelTab = styled.div`
@@ -224,21 +277,49 @@ const PanelTab = styled.div`
   background-color: ${(props) => props.theme.style.highlight};
   box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelTabBoxShadow};
-  font-size: 2.6rem;
+  
   cursor: pointer;
   color: ${(props) => props.theme.style.buttonFontColor};
+
+  
+  
 
   a {
     color: ${(props) => props.theme.style.panelTabLinkColor};
     text-decoration: none;
     font-family: ${fonts.contentFont};
+    font-size: 2.4rem;
+    position: relative;
+    top: .1rem;
+    @media(max-width: 500px) {
+      font-size: 1.8rem;
+    }
+   
+  }
+  @media(max-width: 500px) {
+    font-size: 1.9rem;
+    padding: 0.75rem 1rem 2.4rem 1rem;
+    position: relative;
+    top: .1rem;
+    a {
+      top: .4rem;
+    }
+  }
+  @media(max-width: 330px) {
+    font-size: 1.7rem;
+    padding: 0.75rem .75rem 2.4rem .75rem;
+    position: relative;
+    top: .1rem;
+    a {
+      top: .4rem;
+    }
   }
 
   &.wiki-tab {
     position: relative;
     background-color: ${(props) => props.theme.style.wikiTabBackground};
-    top: 0.8rem;
-    font-size: 1.8rem;
+    top: 0.4rem;
+    
 
     &:hover {
       top: 0rem;
@@ -246,15 +327,28 @@ const PanelTab = styled.div`
 
     a {
       color: ${(props) => props.theme.style.primaryFontColor};
+      font-size: 1.9rem;
       position: relative;
       top: .1rem;
+    }
+    @media(max-width: 500px) {
+      top: 0.9rem;
+      a {
+        font-size: 1.7rem;
+      }
+      
     }
   }
     &.switch-panel {
       margin-right: 1.2rem;
       position: relative;
-      top: .9rem;
+      top: .6rem;
       padding: 0.4rem .5rem 1rem .5rem;
+
+      @media(max-width: 500px) {
+        top: 1.2rem;
+        padding: 0.4rem .5rem 3rem .5rem;
+      }
       
     }
   
@@ -278,11 +372,16 @@ const PanelTabContainerRight = styled.div`
 const Container = styled.div`
   width: 80%;
   margin: 0 auto;
-  
-
-  @media(min-width: 1500px) {
-    width: 55%;
+  @media(min-width: 1800px) {
+    width: 75%;
   }
+  @media(max-width: 1300px) {
+    width: 85%;
+  }
+  @media(max-width: 1250px) {
+    width: 90%;
+  }
+  
 `;
 
 function App() {
@@ -377,6 +476,7 @@ function App() {
           summaries: summaries,
           usdValue: total,
         }));
+        
         return summaries;
       });
   };
@@ -454,15 +554,18 @@ function App() {
                   </Col>
                 </Row>
 
-                {state.provider && (
+                 
+                
+                {state.provider ? (
                   <div className='main-content'>
-                    <Row>
-                      <Col>
+                    <Row >
+                      <Col >
                         <FarmingTable state={state} />
                       </Col>
                     </Row>
 
-                    <Row>
+                    <Row style={{marginTop:"15px"}}>
+                      {/* Git hub pages would not recognize the margin from the bootstrap grid */}
                       <Col lg="6">
                         <Harvest state={state} />
                       </Col>
@@ -475,7 +578,8 @@ function App() {
                       
                       
                       </Row>
-                      <Row>
+                      <Row style={{marginTop:"15px"}}>
+                        {/* Git hub pages would not recognize the margin from the bootstrap grid */}
                       <Col lg ="6">
                         <AddTokens state={state} />
                       </Col>
@@ -489,7 +593,20 @@ function App() {
                       
                     
                   </div>
-                )} 
+                ) :
+                <Row >
+                  <Col >
+                    <WelcomeText 
+                      state={state}
+                      openModal={openModal}
+                      disconnect={disconnect}
+                      setConnection={setConnection}
+                      setAddress={setAddress}
+                      refresh={refresh}
+                     />
+                  </Col>
+                  
+                  </Row>} 
               </Panel>
             </Col>
           </Row>

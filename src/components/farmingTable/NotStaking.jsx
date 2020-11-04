@@ -1,31 +1,28 @@
 import React from "react";
 import DataTable from "react-data-table-component";
 import styled, { ThemeProvider } from "styled-components";
-import { darkTheme, lightTheme, fonts,table } from "../styles/appStyles";
+import harvest from "../../lib/index";
+import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 
-import harvest from "../lib/index.js";
-const { ethers } = harvest;
+
 
 const TableContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 102%;
-  
- 
-  
+  width: 80vw;
+  padding-bottom: 3rem;
+
+
 
   div[role="table"] {
+      width: 100%;
     background-color: ${(props) => props.theme.table.tableBackground};
-    padding-bottom: 1rem;
-    padding-right: .5rem;
+    padding: .35rem;
     overflow-y: scroll;
-    max-height: 18rem;
     ::-webkit-scrollbar {
       width: .1rem;
     }
-    
-    
   }
 
   .rdt_TableHeadRow {
@@ -38,7 +35,7 @@ const TableContainer = styled.div`
   }
 
   .rdt_TableBody {
-   
+    background: #1d1d1d;
     border-left: ${(props) => props.theme.style.mainBorder};
     border-right: ${(props) => props.theme.style.mainBorder};
     border-bottom: ${(props) => props.theme.style.mainBorder};
@@ -49,23 +46,47 @@ const TableContainer = styled.div`
     border-bottom-left-radius: .5rem;
     border-bottom-right-radius: .5rem;
     
+    
   }
 
   .rdt_TableRow {
     background-color: ${(props) => props.theme.table.tableRowBackground};
     font-family: ${fonts.contentFont};
     color: ${(props) => props.theme.style.primaryFontColor};
-    padding: 1rem 2rem;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
+    
+    @media(max-width: 1090px) {
+      font-size: 1.2rem;
+      
+    }
+    @media(max-width: 760px) {
+      font-size: 1.5rem;
+      
+    }
+    @media(max-width: 330px) {
+      font-size: .9rem;
+    }
   }
 
   div[role="columnheader"] {
     color: ${(props) => props.theme.style.primaryFontColor};
     background-color: ${(props) => props.theme.table.tableHeadBackground};
     font-family: ${fonts.headerFont};
-    font-size: 1.6rem;
-    padding: 1rem 2rem;
-    letter-spacing: -1px;
+    font-size: 1.7rem;
+    letter-spacing: -1.5px;
+    @media(max-width: 1400px) {
+      font-size: 1.6rem;
+      
+    }
+    @media(max-width: 1090px) {
+      font-size: 1.4rem;
+      
+    }
+    media(max-width: 760px) {
+      font-size: 1.7rem;
+      
+    }
+    
     
 
     &:hover,
@@ -77,63 +98,43 @@ const TableContainer = styled.div`
   }
 `;
 
-
-
 const noAssetColumns = [
-  {
-    name: "You currently have no assets",
-    // selector: (data) => data.asset.name,
-    selector: "asset",
-    center: true
-  },
-]
-const noAssetData = [
-  {
-    id:0,
-    asset: 'Add assets to get started'
-  },
-]
-const columns = [
-  {
-    name: "Asset",
-    selector: (data) => data.asset.name,
-    compact: true
-    
-    
-  },
-  {
-    name: "Underlying Balance",
-    selector: (data) =>
-      ethers.utils.formatUnits(data.balance, data.asset.decimals),
-    grow: 2,
-    compact: true,
-    
-    
-  },
-];
+    {
+      name: "You currently are not staking any assets",
+      // selector: (data) => data.asset.name,
+      selector: "asset",
+      center: true
+    },
+  ]
+  const noAssetData = [
+    {
+      id:0,
+      asset: 'Add assets to get started',
+      center: true
+    },
+  ]
 
-const AssetTable = ({ state }) => {
+
+
+const NotStaking = ({ state }) => {
+
+
   return (
-    <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
+      <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
+        
         <TableContainer>
-          {state.underlyings.length ? <DataTable
-            noHeader={true}
-            noDivider={true}
-            columns={columns}
-            noDataComponent={false}
-            data={state.underlyings}
-          /> : 
           <DataTable
-            noHeader={true}
-            noDivider={true}
-            columns={noAssetColumns}
-            noDataComponent={false}
-            data={noAssetData}
-          />}
-        </TableContainer>
-      
+          noHeader={true}
+          noDivider={true}
+          columns={noAssetColumns}
+          noDataComponent={false}
+          data={noAssetData}
+          />
+
+        </TableContainer>    
     </ThemeProvider>
+    
   );
 };
 
-export default AssetTable;
+export default NotStaking;
