@@ -4,24 +4,24 @@ import { Row, Col } from "styled-bootstrap-grid";
 import { createGlobalStyle } from "styled-components";
 import { reset } from "styled-reset";
 import harvest from "./lib/index.js";
-import ErrorModal from "./components/ErrorModal";
+import ErrorModal from "./components/ErrorModal.jsx";
 
-import { darkTheme, lightTheme, fonts } from "./styles/appStyles";
+import { darkTheme, lightTheme, fonts } from "./styles/appStyles.js";
 
 // images
 import logo from "./assets/logo.png";
 
 
 // components
-import Wallet from "./components/Wallet";
-import FarmingTable from "./components/farmingTable/FarmingTable";
-import AssetTable from "./components/assetTable/AssetTable";
-import Harvest from "./components/harvest/Harvest";
-import StakePanel from "./components/stakePanel/StakePanel";
-import Balance from "./components/balance/Balance";
-import APY from "./components/apy/APY";
-import AddTokens from "./components/addTokens/AddTokens";
-import WelcomeText from './components/WelcomeText';
+import Wallet from "./components/Wallet.jsx";
+import FarmingTable from "./components/farmingTable/FarmingTable.jsx";
+import AssetTable from "./components/assetTable/AssetTable.jsx";
+import Harvest from "./components/harvest/Harvest.jsx";
+import StakePanel from "./components/stakePanel/StakePanel.jsx";
+import Balance from "./components/balance/Balance.jsx";
+import APY from "./components/apy/APY.jsx";
+import AddTokens from "./components/addTokens/AddTokens.jsx";
+import WelcomeText from './components/WelcomeText.jsx';
 
 const { ethers } = harvest;
 const GlobalStyle = createGlobalStyle`

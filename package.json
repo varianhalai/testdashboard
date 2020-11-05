@@ -4,31 +4,37 @@
   "type": "module",
   "homepage": "https://varianhalai.github.io/testdashboard",
   "dependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.5",
     "@metamask/detect-provider": "^1.1.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.20.0",
+    "babel-loader": "^8.1.0",
     "browserify": "^16.5.2",
     "ethers": "^5.0.11",
+    "file-loader": "^6.2.0",
     "gh-pages": "^3.1.0",
     "prettier": "^2.1.2",
     "react": "^16.13.1",
     "react-data-table-component": "^6.11.5",
     "react-dom": "^16.13.1",
-    "react-lazyload": "^3.1.0",
-    "react-loader-spinner": "^3.1.14",
     "react-loading-skeleton": "^2.1.1",
     "react-multi-carousel": "^2.5.5",
     "react-placeholder": "^4.0.3",
     "react-scripts": "3.4.3",
     "styled-bootstrap-grid": "^3.1.0",
     "styled-components": "^5.2.0",
-    "styled-reset": "^4.2.3"
+    "styled-reset": "^4.2.3",
+    "terser": "^5.3.8",
+    "terser-webpack-plugin": "^5.0.3",
+    "webpack-split-chunks": "^0.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "webpack --mode production",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "yarn run build",
@@ -49,5 +55,8 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "webpack": "^5.4.0",
+    "webpack-cli": "^4.2.0"
+  }
 }
