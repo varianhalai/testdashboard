@@ -136,7 +136,7 @@ const Harvest = ({ state }) => {
   },[state.usdValue])
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-      {display ? <Panel>
+       <Panel>
         <div className='panel-text'>
           <p>
             Harvest all farms with at least
@@ -160,8 +160,7 @@ const Harvest = ({ state }) => {
             harvest all
           </button>
         </ButtonContainer>
-      </Panel> : 
-      <HarvestSkeleton state={state} />}
+      </Panel> 
     </ThemeProvider>
   );
 };

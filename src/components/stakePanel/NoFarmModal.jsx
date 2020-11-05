@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { css, ThemeProvider } from "styled-components";
-import { darkTheme, lightTheme, fonts } from "../styles/appStyles";
+import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 
 const Container = styled.div`
   ${({ isOpen }) => {
@@ -8,11 +8,12 @@ const Container = styled.div`
       return css`
         display: flex;
         position: fixed;
-        width: 100%;
+        width: 100vw;
         height: 100vh;
         background-color: #07070767;
-        top: 50%;
-        transform: translateY(-50%);
+        top: 1%;
+        transform: translateY(50%);
+        transform: translateX(-50%);
         z-index: 100;
         align-items: center;
         justify-content: center;
@@ -39,15 +40,32 @@ const Inner = styled.div`
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
   .error-title {
     font-family: ${fonts.headerFont};
-    font-size: 1.8rem;
+    font-size: 2.6rem;
     margin: 1rem 0;
   }
 
   p {
-    font-size: 16px;
+    font-size: 2.1rem;
     line-height: 24px;
     color: ${(props) => props.theme.style.primaryFontColor};
     margin-bottom: 0;
+  }
+
+  a {
+    text-decoration: none;
+    color: ${(props) => props.theme.style.primaryFontColor};
+    font-family: ${fonts.headerFont};
+    
+  }
+
+  button {
+      margin-top: 1rem;
+      font-size: 1.9rem;
+      position: relative;
+      &:hover {
+          top: 1.5px;
+      }
+      
   }
 `;
 
@@ -68,12 +86,19 @@ const CloseIcon = styled.span`
   }
 `;
 
-const ErrorModal = ({ state, onClose }) => (
+const NoFarmModal = ({ state,modal,onClose }) => (
   <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-    <Container isOpen={state.error.display}>
+    <Container isOpen={modal}>
       <Inner>
-        <h4 className="error-title">Whoa, partner!</h4>
-        <p>{state.error.message}</p>
+        <h4 className="error-title">Hold up, partner!</h4>
+        <p>You don't have any farm to stake!</p>
+        <button className="button">
+            <a 
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://app.uniswap.org/#/swap?inputCurrency=0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48&outputCurrency=0xa0246c9032bC3A600820415aE600c6388619A14D">Buy Farm!</a>
+        </button>
+        
         <CloseIcon onClick={onClose}><i className="fas fa-times-circle fa-2x"></i></CloseIcon>
         
       </Inner>
@@ -81,4 +106,4 @@ const ErrorModal = ({ state, onClose }) => (
   </ThemeProvider>
 );
 
-export default ErrorModal;
+export default NoFarmModal;

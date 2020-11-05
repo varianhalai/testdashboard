@@ -373,7 +373,7 @@ function App() {
   });
   useEffect(() => {
     if (state.address !== "") {
-      refresh(state);
+      refresh();
     }
   }, [state.address]);
 
@@ -453,6 +453,8 @@ function App() {
         }));
         
         return summaries;
+      }).catch(err => {
+        openModal("There was an error retrieving your data.", 'error')
       });
   };
 

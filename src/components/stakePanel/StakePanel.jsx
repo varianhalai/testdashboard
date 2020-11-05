@@ -2,7 +2,10 @@ import React, { useState,useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 import harvest from "../../lib/index.js";
+
+//components
 import StakePanelSkeleton from './StakePanelSkeleton';
+import NoFarmModal from './NoFarmModal';
 
 const { ethers } = harvest;
 
@@ -114,7 +117,7 @@ const ButtonContainer = styled.div`
 const StakePanel = ({ state, openModal }) => {
   const [display,setDisplay]=useState(false);
   const [maximum,setMaximum] = useState(0)
-  const [delay,setDelay] = useState(2200);
+  const [modal,setModal] = useState(false)
   const [stakeAmount, setStakeAmount] = useState(0);
   const pool = state.manager.pools.find((pool) => {
     return pool.address === "0x25550Cccbd68533Fa04bFD3e3AC4D09f9e00Fc50";
@@ -122,6 +125,18 @@ const StakePanel = ({ state, openModal }) => {
   const inactivePools = state.summaries.filter(
     (sum) => sum.stakedBalance && !sum.isActive,
   );
+
+  const checkForFarm = (amount) => {
+    if(stakeAmount === 0) {
+      setModal(true)
+    }else {
+      setStakeAmount(ethers.utils.formatEther(amount))
+    }
+  }
+
+  const closeErrorModal = () => {
+    setModal(false);
+  };
 
   const stake = async () => {
     const allowance = await pool.lptoken.allowance(state.address, pool.address);
@@ -153,7 +168,8 @@ const StakePanel = ({ state, openModal }) => {
         ? ethers.utils.parseUnits(stakeAmount.toString(), 18)
         : await pool.unstakedBalance(state.address);
         
-        setStakeAmount(ethers.utils.formatEther(amount))
+        // setStakeAmount(ethers.utils.formatEther(amount))
+        checkForFarm(amount)
         
 
   }
@@ -178,7 +194,7 @@ const StakePanel = ({ state, openModal }) => {
 
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-      {display ? <Panel>
+      <Panel>
         <div className='panel-text'>
           <p>
             Stake
@@ -222,9 +238,8 @@ const StakePanel = ({ state, openModal }) => {
             </button>
           )}
         </ButtonContainer>
-      </Panel> :
-        <StakePanelSkeleton state={state} />}
-      
+      </Panel>
+      <NoFarmModal state={state} modal={modal} onClose={() => closeErrorModal()} />
     </ThemeProvider>
   );
 };

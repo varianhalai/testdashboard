@@ -22,7 +22,7 @@ const TableContainer = styled.div`
   div[role="table"] {
     background-color: ${(props) => props.theme.table.tableBackground};
     padding: .35rem;
-    max-height: 23.2rem;
+    max-height: 28.2rem;
     overflow-y: scroll;
     ::-webkit-scrollbar {
       width: .1rem;

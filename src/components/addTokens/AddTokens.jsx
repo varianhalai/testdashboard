@@ -19,8 +19,8 @@ import yearn from '../../assets/yearn.png'
 
 const Header = styled.h1`
   font-family: ${fonts.headerFont};
-  margin-bottom: 2.4rem;
-  font-size: 2.6rem;
+  margin-bottom: 2.2rem;
+  font-size: 2.4rem;
 `;
 const Panel = styled.div`
   position: relative;
@@ -39,7 +39,7 @@ const Panel = styled.div`
     
   }
   .carousel-container {
-    width: 90%;
+    width: 95%;
     margin-left: 5rem;
     padding: 0;
     @media(max-width: 1487px) {
@@ -227,7 +227,7 @@ const AddTokens = (props) => {
   },[props.state.usdValue])
   return (
     <ThemeProvider theme={props.state.theme === "dark" ? darkTheme : lightTheme}>
-      {display ? <Panel>
+      <Panel>
         <Header>Add assets to wallet</Header>
 
         <Carousel 
@@ -251,8 +251,7 @@ const AddTokens = (props) => {
             <StyledToken key={t.name} {...t} />
           ))}
         </Carousel>
-      </Panel> :
-      <AddTokenSkeleton state={props.state} />}
+      </Panel>
       
     </ThemeProvider>
   );
