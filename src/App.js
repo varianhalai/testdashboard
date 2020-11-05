@@ -9,7 +9,7 @@ import ErrorModal from "./components/ErrorModal";
 import { darkTheme, lightTheme, fonts } from "./styles/appStyles";
 
 // images
-import logo from "./assets/gif_tractor.gif";
+import logo from "./assets/logo.png";
 
 
 // components

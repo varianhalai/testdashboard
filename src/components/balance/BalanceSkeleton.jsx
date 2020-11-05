@@ -31,7 +31,7 @@ overflow: hidden;
         top: 0;
         height: 100%;
         width: 100%;
-        background: linear-gradient(to right, transparent 10%, rgba(162, 231, 219, .4) 50%, transparent 100%);
+        background: linear-gradient(to right, transparent 10%, rgba(162, 231, 219, .3) 50%, transparent 100%);
         animation: load 1.8s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
     }
 
@@ -52,7 +52,7 @@ overflow: hidden;
 const BalanceSkeleton = ({state}) => {
     return (
         <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-            <SkeletonPanel className='harvest-skeleton'>
+            <SkeletonPanel>
                 
                 
             </SkeletonPanel>

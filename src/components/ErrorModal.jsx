@@ -8,15 +8,16 @@ const Container = styled.div`
       return css`
       display: flex;
       position: fixed;
-      width: 100vw;
-      height: 100vh;
+      width: 110vw;
+      height: 110vh;
       background-color: #07070767;
       top: 0%;
-      transform: translateY(52%);
-      transform: translateX(-52%);
+      transform: translateY(50%);
+      transform: translateX(-50%);
       z-index: 200;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
       `;
     } else {
       return css`

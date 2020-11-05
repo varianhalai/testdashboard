@@ -56,11 +56,15 @@ const APY = ({ state,setState }) => {
   useEffect(() => {
     getPools();
     setSummaries(state.summaries);
-  }, [state.summaries]);
+    
+  }, []);
 
   useEffect(() => {
-    calcApy();
-  }, [summaries]);
+    if(pools.length > 0) {
+      calcApy();
+    }
+    
+  }, []);
   
 
   const getPools = async () => {
@@ -68,14 +72,13 @@ const APY = ({ state,setState }) => {
       "https://api-ui.harvest.finance/pools?key=41e90ced-d559-4433-b390-af424fdc76d6",
     );
     setPools(await poolsData.json());
+    
+    
   };
 
   const calcApy = () => {
-    for (let i = 0; i < pools.length; i++) {
-      if (pools[i].id === "profit-sharing-farm") {
-        setState({...state,apy: pools[i].rewardAPY})
-      }
-    }
+    setState({...state,apy: pools[0].rewardAPY})
+    
   };
   
 
