@@ -228,41 +228,7 @@ const Panel = styled.div`
   }
 
 
-  .welcome-text {
-    width: 60%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    border-radius: 0.5rem;
-    h1 {
-      font-size: 2.5rem;
-      font-family: ${fonts.headerFont};
-      margin: 1rem 0;
-    }
-    h4 {
-      font-size: 2rem;
-      font-family: ${fonts.contentFont};
-      margin: 1rem 0;
-    } h6 {
-      font-family: ${fonts.headerFont};
-      width: 60%;
-      margin: 1rem auto;
-      font-family: ${fonts.contentFont};
-      font-size: 1.2rem;
-      line-height: 1.5rem;
-    }
-    button {
-      font-size: 1.5rem;
-      font-family: ${fonts.headerFont};
-      margin: 1rem 0;
-      position: relative;
-      &:hover {
-        top: 1.5px;
-      }
-    }
-  }
+  
 
   
   
@@ -373,6 +339,7 @@ const PanelTabContainerRight = styled.div`
 const Container = styled.div`
   width: 80%;
   margin: 0 auto;
+ 
   @media(min-width: 1800px) {
     width: 75%;
   }
@@ -404,6 +371,11 @@ function App() {
     }, 60000);
     return () => clearTimeout(timer);
   });
+  useEffect(() => {
+    if (state.address !== "") {
+      refresh(state);
+    }
+  }, [state.address]);
 
   const disconnect = () => {
     setState({
@@ -455,6 +427,8 @@ function App() {
       })
       .then((underlyings) => {
         setState({ ...state, underlyings: underlyings });
+      }).catch(err => {
+        openModal("There was an error retrieving your data.", 'error')
       });
 
     state.manager
@@ -542,7 +516,7 @@ function App() {
               </PanelTabContainer>
 
               <Panel>
-                <Row>
+                 {state.usdValue? <Row>
                   <Col>
                     <Wallet
                       state={state}
@@ -553,7 +527,8 @@ function App() {
                       refresh={refresh}
                     />
                   </Col>
-                </Row>
+                </Row> : null}
+                
 
                  
                 

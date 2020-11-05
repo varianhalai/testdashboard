@@ -10,7 +10,6 @@ const Container = styled.div`
         position: fixed;
         width: 100%;
         height: 100vh;
-        transform: translate(-50%, -50%);
         background-color: #07070767;
         top: 50%;
         transform: translateY(-50%);
@@ -38,6 +37,11 @@ const Inner = styled.div`
   font-family: ${fonts.contentFont};
   border: ${(props) => props.theme.style.mainBorder};
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
+  .error-title {
+    font-family: ${fonts.headerFont};
+    font-size: 1.8rem;
+    margin: 1rem 0;
+  }
 
   p {
     font-size: 16px;
@@ -61,8 +65,10 @@ const ErrorModal = ({ state, onClose }) => (
   <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
     <Container isOpen={state.error.display}>
       <Inner>
-        <CloseIcon onClick={onClose}>X</CloseIcon>
+        <h4 className="error-title">Whoa, partner!</h4>
         <p>{state.error.message}</p>
+        <CloseIcon onClick={onClose}>X</CloseIcon>
+        
       </Inner>
     </Container>
   </ThemeProvider>

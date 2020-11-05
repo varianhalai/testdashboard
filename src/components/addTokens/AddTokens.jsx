@@ -28,7 +28,7 @@ const Panel = styled.div`
   color: ${(props) => props.theme.style.primaryFontColor};
   font-size: 1.4rem;
   font-family: ${fonts.contentFont};
-  padding: 1.5rem;
+  padding:  1rem 1.5rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: 0.5rem;
   box-sizing: border-box;
@@ -38,21 +38,49 @@ const Panel = styled.div`
     margin-bottom: 1.5rem;
     
   }
-`;
-
-const TokenList = styled.div`
-  display: flex;
-  justify-content: space-between;
-  overflow-x: scroll;
-  ::-webkit-scrollbar {
-    width: 100%;
-    height: 1px;
+  .carousel-container {
+    width: 90%;
+    margin-left: 5rem;
+    padding: 0;
+    @media(max-width: 1487px) {
+      margin-left: 2rem;
+    }
+    @media(max-width: 850px) {
+      margin-left: 5rem;
+    }
+    @media(max-width: 500px) {
+      margin-left: 1rem;
+    }
+    
   }
-  scrollbar-width: none; /* Firefox 64 */
-  -ms-overflow-style: none; /* IE 11 */
 
- 
+  .carousel-button-group {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    z-index: 100;
+    bottom: 5.5rem;
+    pointer-events: none;
+    
+    
+    .fa-2x {
+        cursor: pointer;
+        border:none;
+        pointer-events: auto;
+        border-radius: 8px;
+        background-color: transparent;
+        &:hover {
+            background-color:rgb(232, 232, 232);
+            box-shadow: 2px 1px 1px #ddd;
+        };
+    }
+}
+
+  
 `;
+
+
 
 const tokens = [
   {
@@ -85,11 +113,11 @@ const tokens = [
     url: "https://harvestfi.github.io/add-frenbtc/",
     image: frenbtcIcon,
   },
-  {
-    name: "fcrvRenWBTC",
-    url: "https://harvestfi.github.io/add-fcrvrenwbtc/",
-    image: crvrenwbtcIcon,
-  },
+  // {
+  //   name: "fcrvRenWBTC",
+  //   url: "https://harvestfi.github.io/add-fcrvrenwbtc/",
+  //   image: crvrenwbtcIcon,
+  // },
   {
     name: "SUSHI",
     url: "https://varianhalai.github.io/add-sushi/",
@@ -111,7 +139,7 @@ const Token = ({ className, name, url, image }) => (
   <div className={className}>
     <a target="_blank" rel="noopener noreferrer" href={url}>
       <img alt={name} src={image}></img>
-      {name}
+      <span>{name}</span> 
     </a>
   </div>
 );
@@ -135,47 +163,96 @@ const StyledToken = styled(Token)`
     color: ${(props) => props.theme.style.primaryFontColor};
     font-family: ${fonts.contentFont}
     font-size: 1.5rem;
-    margin-bottom: 1.6rem;
   }
 
   img {
-    height: 3.5rem;
-    width: 3.5rem;
+    height: 3.7rem;
+    width: 3.7rem;
     margin-bottom: 0.5rem;
   }
 
   @media(max-width: 1450px) {
-    margin: 0 1rem;
+    margin: 0 2rem;
   }
 
   @media only screen and (max-width: 768px) {
     display: block;
     width: 25%;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.7rem;
   }
 `;
 
-const AddTokens = ({ state }) => {
+const responsive = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 10
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 6
+  },
+  tablet: {
+    breakpoint: { max: 1000, min: 464 },
+    items: 5
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 4
+  }
+};
+
+const ButtonGroup = ({ next, previous, ...rest }) => {
+  const {
+      carouselState: { currentSlide, totalItems, slidesToShow }
+  } = rest;
+
+  return (
+      <div className="carousel-button-group">
+          <i className="fas fa-caret-left fa-2x" 
+          onClick={() => previous()}></i>
+          <i className="fas fa-caret-right fa-2x" 
+          onClick={() => next()}></i>
+      </div>
+  );
+};
+
+const AddTokens = (props) => {
 
   const [display,setDisplay]=useState(false);
-  const [delay,setDelay] = useState(2200);
   useEffect(() => {
-    if(state.usdValue) {
+    if(props.state.usdValue) {
       setDisplay(true)
     }
-  },[state.usdValue])
+  },[props.state.usdValue])
   return (
-    <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
+    <ThemeProvider theme={props.state.theme === "dark" ? darkTheme : lightTheme}>
       {display ? <Panel>
         <Header>Add assets to wallet</Header>
 
-        <TokenList>
+        <Carousel 
+        responsive={responsive}
+        keyBoardControl={true}
+        customTransition="all .5"
+        transitionDuration={500}
+        infinite={true}
+        containerClass="carousel-container"
+        renderButtonGroupOutside={true}
+        arrows={false}
+        containerClass="carousel-container"
+        removeArrowOnDeviceType={["tablet", "mobile"]}
+        customButtonGroup={<ButtonGroup
+          next={props.next}
+          previous={props.previous}
+          rest={props.rest}
+      />}
+        >
           {tokens.map((t) => (
             <StyledToken key={t.name} {...t} />
           ))}
-        </TokenList>
+        </Carousel>
       </Panel> :
-      <AddTokenSkeleton state={state} />}
+      <AddTokenSkeleton state={props.state} />}
       
     </ThemeProvider>
   );
