@@ -11,10 +11,10 @@ const Container = styled.div`
         width: 100vw;
         height: 100vh;
         background-color: #07070767;
-        top: 1%;
-        transform: translateY(50%);
-        transform: translateX(-50%);
-        z-index: 100;
+        top: 0%;
+        transform: translateY(52%);
+        transform: translateX(-52%);
+        z-index: 200;
         align-items: center;
         justify-content: center;
       `;
@@ -35,7 +35,6 @@ const Inner = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 4rem 0;
-  font-family: ${fonts.contentFont};
   border: ${(props) => props.theme.style.mainBorder};
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
   .error-title {
@@ -48,6 +47,7 @@ const Inner = styled.div`
     font-size: 2.1rem;
     line-height: 24px;
     color: ${(props) => props.theme.style.primaryFontColor};
+    font-family: ${fonts.contentFont};
     margin-bottom: 0;
   }
 

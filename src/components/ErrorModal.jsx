@@ -6,16 +6,17 @@ const Container = styled.div`
   ${({ isOpen }) => {
     if (isOpen) {
       return css`
-        display: flex;
-        position: fixed;
-        width: 100%;
-        height: 100vh;
-        background-color: #07070767;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 100;
-        align-items: center;
-        justify-content: center;
+      display: flex;
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      background-color: #07070767;
+      top: 0%;
+      transform: translateY(52%);
+      transform: translateX(-52%);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
       `;
     } else {
       return css`
@@ -34,7 +35,6 @@ const Inner = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 4rem 0;
-  font-family: ${fonts.contentFont};
   border: ${(props) => props.theme.style.mainBorder};
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
   .error-title {
@@ -47,6 +47,7 @@ const Inner = styled.div`
     font-size: 16px;
     line-height: 24px;
     color: ${(props) => props.theme.style.primaryFontColor};
+    font-family: ${fonts.contentFont};
     margin-bottom: 0;
   }
 `;
@@ -56,7 +57,6 @@ const CloseIcon = styled.span`
   right: 2rem;
   top: 2rem;
   font-size: 1.2rem;
-  font-family: ${fonts.headerFont};
   cursor: pointer;
   color: ${(props) => props.theme.style.primaryFontColor};
 

@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 import harvest from "../../lib/index.js";
@@ -115,8 +115,7 @@ const ButtonContainer = styled.div`
 `;
 
 const StakePanel = ({ state, openModal }) => {
-  const [display,setDisplay]=useState(false);
-  const [maximum,setMaximum] = useState(0)
+
   const [modal,setModal] = useState(false)
   const [stakeAmount, setStakeAmount] = useState(0);
   const pool = state.manager.pools.find((pool) => {
@@ -182,11 +181,7 @@ const StakePanel = ({ state, openModal }) => {
   const exitInactivePools = () => {
     state.manager.exitInactive();
   };
-  useEffect(() => {
-    if(state.usdValue) {
-      setDisplay(true)
-    }
-  },[state.usdValue])
+ 
 
   const stakeChangeHandler =(e) => {
     setStakeAmount(e.target.value)
@@ -194,7 +189,7 @@ const StakePanel = ({ state, openModal }) => {
 
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-      <Panel>
+      {state.display ? <Panel>
         <div className='panel-text'>
           <p>
             Stake
@@ -239,7 +234,8 @@ const StakePanel = ({ state, openModal }) => {
           )}
         </ButtonContainer>
       </Panel>
-      <NoFarmModal state={state} modal={modal} onClose={() => closeErrorModal()} />
+       : <StakePanelSkeleton state={state} />}
+       <NoFarmModal state={state} modal={modal} onClose={() => closeErrorModal()} />
     </ThemeProvider>
   );
 };

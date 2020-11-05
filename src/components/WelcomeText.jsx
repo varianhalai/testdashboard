@@ -1,6 +1,6 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { darkTheme, lightTheme, fonts } from "../styles/appStyles";
+import { fonts } from "../styles/appStyles";
 import harvest from "../lib/index";
 import detectEthereumProvider from "@metamask/detect-provider"
 
@@ -15,8 +15,6 @@ const WelcomeTextPanel = styled.div`
   border-radius: 1rem;
   border-top-left-radius: .5rem;
   background-color: ${(props) => props.theme.style.panelBackground};
-  z-index: 1;
-  box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
   display: flex;
   flex-direction: column;
@@ -24,11 +22,13 @@ const WelcomeTextPanel = styled.div`
   align-items: center;
   text-align: center;
   margin-top: 1.6rem;
+  color: ${(props) => props.theme.style.primaryFontColor};
   
   h1 {
     font-size: 2.8rem;
     font-family: ${fonts.headerFont};
     margin: 1rem 0;
+    
   }
   h4 {
     font-size: 2rem;
@@ -40,7 +40,6 @@ const WelcomeTextPanel = styled.div`
     margin: 1rem auto;
     font-family: ${fonts.contentFont};
     font-size: 1.2rem;
-    line-height: 1.5rem;
   }
   button {
     font-size: 2.2rem;
@@ -68,18 +67,11 @@ const WelcomeTextPanel = styled.div`
 const WelcomeText = 
     ({
         disconnect,
-        refresh,
         setAddress,
         setConnection,
         openModal,
         state,
     }) => {
-
-        useEffect(() => {
-            if (state.address !== "") {
-              refresh();
-            }
-          }, [state.address]);
 
     const connectMetamask = (signer, manager) => {
         detectEthereumProvider().then((provider) => {

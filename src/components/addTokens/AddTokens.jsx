@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 import AddTokenSkeleton from './AddTokenSkeleton';
@@ -219,15 +219,10 @@ const ButtonGroup = ({ next, previous, ...rest }) => {
 
 const AddTokens = (props) => {
 
-  const [display,setDisplay]=useState(false);
-  useEffect(() => {
-    if(props.state.usdValue) {
-      setDisplay(true)
-    }
-  },[props.state.usdValue])
+ 
   return (
     <ThemeProvider theme={props.state.theme === "dark" ? darkTheme : lightTheme}>
-      <Panel>
+      {props.state.display ? <Panel>
         <Header>Add assets to wallet</Header>
 
         <Carousel 
@@ -251,7 +246,7 @@ const AddTokens = (props) => {
             <StyledToken key={t.name} {...t} />
           ))}
         </Carousel>
-      </Panel>
+      </Panel> : <AddTokenSkeleton state={props.state} />}
       
     </ThemeProvider>
   );

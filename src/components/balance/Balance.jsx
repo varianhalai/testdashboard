@@ -62,17 +62,10 @@ const Balance = ({ state }) => {
     }
   };
 
-  const [display,setDisplay]=useState(false);
-  const [delay,setDelay] = useState(2200);
-  useEffect(() => {
-    if(state.usdValue) {
-      setDisplay(true)
-    }
-  },[state.usdValue])
 
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-      {display ? <BluePanel>
+      {state.display ? <BluePanel>
         <h1>{utils.prettyMoney(userBalance)}</h1>
         <span>Staked Balance</span>
       </BluePanel> :

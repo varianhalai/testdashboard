@@ -1,10 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled, { ThemeProvider } from "styled-components";
-import harvest from "../lib/index.js";
-import detectEthereumProvider from "@metamask/detect-provider";
 import { darkTheme, lightTheme, fonts } from "../styles/appStyles";
 
-const { ethers } = harvest;
 
 const WalletConnection = styled.div`
   border: ${(props) => props.theme.style.mainBorder};
@@ -76,47 +73,11 @@ const WalletTab = styled.div`
 `;
 
 const Wallet = ({
-  disconnect,
-  refresh,
-  setAddress,
-  setConnection,
-  openModal,
   state,
 }) => {
-  useEffect(() => {
-    if (state.address !== "") {
-      refresh(state);
-    }
-  }, [state.address]);
-
-  const connectMetamask = (signer, manager) => {
-    detectEthereumProvider().then((provider) => {
-      if (!provider) {
-        openModal(
-          "No provider, please install a supported Web3 wallet.",
-          "error",
-        );
-      } else {
-        window.ethereum.enable().then(() => {
-          setProvider(provider);
-        });
-      }
-    });
-  };
-
+  
   const renderConnectStatus = (provider, address) => {
-    if (!provider) {
-      return (
-        <div>
-          <button
-            className="button ghost"
-            onClick={() => connectMetamask(provider)}
-          >
-            connect wallet to get started
-          </button>
-        </div>
-      );
-    }
+    
     return (
       <p>
         <span id="address">
@@ -132,28 +93,7 @@ const Wallet = ({
     );
   };
 
-  const setProvider = async (provider) => {
-    const ethersProvider = new ethers.providers.Web3Provider(provider);
-
-    const signer = ethersProvider.getSigner();
-
-    const manager = harvest.manager.PoolManager.allPastPools(
-      signer ? signer : provider,
-    );
-
-    setConnection(provider, signer, manager);
-
-    window.ethereum.on("accountsChanged", () => {
-      disconnect();
-    });
-
-    // get the user address
-    signer
-      .getAddress() // refreshButtonAction called initially to load table
-      .then((address) => {
-        setAddress(address);
-      });
-  };
+  
 
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>

@@ -39,9 +39,6 @@ const GlobalStyle = createGlobalStyle`
   body {
     height: 100%;
     background-color: ${(props) => props.theme.style.bodyBackground};
-    ::-webkit-scrollbar {
-      width: .1rem;
-    }
   }
 
 
@@ -132,7 +129,7 @@ const GlobalStyle = createGlobalStyle`
     background-color: ${(props) => props.theme.style.lightBackground};
     border: 0.2rem solid #363636;
     font-size: 1.4rem;
-    color: ${(props) => props.theme.style.primaryFontColor};;
+    color: ${(props) => props.theme.style.primaryFontColor};
     width: 60px;
     text-align: center;
     border-radius: 0.5rem;
@@ -363,6 +360,7 @@ function App() {
     usdValue: 0,
     error: { message: null, type: null, display: false },
     theme: window.localStorage.getItem("HarvestFinance:Theme") || "light",
+    display: false
   });
 
   useEffect(() => {
@@ -374,8 +372,15 @@ function App() {
   useEffect(() => {
     if (state.address !== "") {
       refresh();
+      
     }
+   
   }, [state.address]);
+  useEffect(() => {
+    if(state.usdValue) {
+      setState({...state,display: true})
+    }
+  },[state.usdValue])
 
   const disconnect = () => {
     setState({
@@ -389,6 +394,8 @@ function App() {
       apy: 0,
       error: { message: null, type: null, display: false },
       theme: window.localStorage.getItem("HarvestFinance:Theme") || "light",
+      
+      
     });
   };
 

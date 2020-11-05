@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React from "react";
 import DataTable from "react-data-table-component";
 import styled, { ThemeProvider } from "styled-components";
 import harvest from "../../lib/index";
@@ -60,15 +60,6 @@ const TableContainer = styled.div`
     font-family: ${fonts.contentFont};
     color: ${(props) => props.theme.style.primaryFontColor};
     font-size: 1.5rem;
-    
-    // @media(max-width: 1090px) {
-    //   font-size: 1.2rem;
-      
-    // }
-    @media(max-width: 760px) {
-      font-size: 1.5rem;
-      
-    }
     @media(max-width: 330px) {
       font-size: .9rem;
     }
@@ -143,20 +134,10 @@ const columns = [
 
 const FarmingTable = ({ state }) => {
 
-  
-
-  const [displayTable,setDisplay]=useState(false);
-
-  useEffect(() => {
-    if(state.usdValue) {
-      setDisplay(true)
-    }
-  },[state.usdValue])
-
   return (
       <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
         
-        {displayTable ? 
+        {state.display ? 
         <TableContainer>
           {state.summaries.length === 0 ? <NotStaking state={state} />:
           <DataTable

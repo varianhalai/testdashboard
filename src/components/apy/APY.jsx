@@ -77,17 +77,11 @@ const APY = ({ state,setState }) => {
       }
     }
   };
-  const [display,setDisplay]=useState(false);
-  const [delay,setDelay] = useState(2200);
-  useEffect(() => {
-    if(state.usdValue) {
-      setDisplay(true)
-    }
-  },[state.usdValue])
+  
 
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-      {display ? <BluePanel>
+      {state.display ? <BluePanel>
         <h1>{state.apy} %</h1>
         <span>Profit Share APY</span>
       </BluePanel> :

@@ -14,7 +14,6 @@ background: none;
 border: ${(props) => props.theme.style.mainBorder};
 border-radius: .5rem;
 overflow: hidden;
-box-shadow: ${(props) => props.theme.style.panelBoxShadow};
 
     .skeleton-header {
         margin: 0;
@@ -31,7 +30,7 @@ box-shadow: ${(props) => props.theme.style.panelBoxShadow};
         top: 0;
         height: 100%;
         width: 100%;
-        background: linear-gradient(to right, transparent 10%, #A2E7DB 50%, transparent 100%);
+        background: linear-gradient(to right, transparent 10%, rgba(162, 231, 219, .4) 50%, transparent 100%);
         animation: load 1.8s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
     }
 
