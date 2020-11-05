@@ -78,7 +78,7 @@ const WelcomeText =
 
         useEffect(() => {
             if (state.address !== "") {
-              refresh(state);
+              refresh();
             }
           }, [state.address]);
 
@@ -92,9 +92,15 @@ const WelcomeText =
           } else {
             window.ethereum.enable().then(() => {
               setProvider(provider);
-            });
+            })
+            .catch(err => {
+              openModal("Something has gone wrong, retrying...","error")
+            })
           }
         });
+     
+       
+        
       };
 
       const setProvider = async (provider) => {
@@ -117,7 +123,11 @@ const WelcomeText =
           .getAddress() // refreshButtonAction called initially to load table
           .then((address) => {
             setAddress(address);
-          });
+          })
+          .catch(error => {
+            openModal("Something has gone wrong, retrying...","error")
+          })
+          
       };
     return (
         <Panel className='welcome-text'>

@@ -2,6 +2,8 @@ import React,{useState,useEffect} from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 import AddTokenSkeleton from './AddTokenSkeleton';
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 // images
 import logo from "../../assets/logo.png";
@@ -41,7 +43,14 @@ const Panel = styled.div`
 const TokenList = styled.div`
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
+  overflow-x: scroll;
+  ::-webkit-scrollbar {
+    width: 100%;
+    height: 1px;
+  }
+  scrollbar-width: none; /* Firefox 64 */
+  -ms-overflow-style: none; /* IE 11 */
+
  
 `;
 
