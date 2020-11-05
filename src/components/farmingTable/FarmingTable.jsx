@@ -1,8 +1,9 @@
-import React,{useState,useEffect} from "react";
+import React from "react";
 import DataTable from "react-data-table-component";
 import styled, { ThemeProvider } from "styled-components";
 import harvest from "../../lib/index";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
+
 
 import FarmTableSkeleton from './FarmTableSkeleton';
 import NotStaking from './NotStaking';
@@ -22,7 +23,7 @@ const TableContainer = styled.div`
   div[role="table"] {
     background-color: ${(props) => props.theme.table.tableBackground};
     padding: .35rem;
-    max-height: 23.2rem;
+    max-height: 28.2rem;
     overflow-y: scroll;
     ::-webkit-scrollbar {
       width: .1rem;
@@ -60,15 +61,6 @@ const TableContainer = styled.div`
     font-family: ${fonts.contentFont};
     color: ${(props) => props.theme.style.primaryFontColor};
     font-size: 1.5rem;
-    
-    @media(max-width: 1090px) {
-      font-size: 1.2rem;
-      
-    }
-    @media(max-width: 760px) {
-      font-size: 1.5rem;
-      
-    }
     @media(max-width: 330px) {
       font-size: .9rem;
     }
@@ -84,17 +76,10 @@ const TableContainer = styled.div`
       font-size: 1.6rem;
       
     }
-    @media(max-width: 1090px) {
-      font-size: 1.4rem;
-      
-    }
     media(max-width: 760px) {
-      font-size: 1.7rem;
-      
+      font-size: 1.7rem; 
     }
-    
-    
-
+  
     &:hover,
     &:visited,
     &:active,
@@ -150,20 +135,10 @@ const columns = [
 
 const FarmingTable = ({ state }) => {
 
-  
-
-  const [displayTable,setDisplay]=useState(false);
-
-  useEffect(() => {
-    if(state.usdValue) {
-      setDisplay(true)
-    }
-  },[state.usdValue])
-
   return (
       <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
         
-        {displayTable ? 
+        {state.display ? 
         <TableContainer>
           {state.summaries.length === 0 ? <NotStaking state={state} />:
           <DataTable

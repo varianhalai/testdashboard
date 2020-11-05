@@ -1,63 +1,64 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { darkTheme, lightTheme, fonts } from "../styles/appStyles";
+import { fonts } from "../styles/appStyles";
 import harvest from "../lib/index";
 import detectEthereumProvider from "@metamask/detect-provider"
 
 const { ethers } = harvest;
 
-const Panel = styled.div`
+const WelcomeTextPanel = styled.div`
+  width: 98%;
+  margin: 0 auto;
   position: relative;
   padding: 2.5rem 2.5rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: 1rem;
-  border-top-left-radius: 0rem;
-  margin-top: -1.5rem;
+  border-top-left-radius: .5rem;
   background-color: ${(props) => props.theme.style.panelBackground};
-  z-index: 1;
-  box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 1.6rem;
+  color: ${(props) => props.theme.style.primaryFontColor};
   
-  &.welcome-text {
-    width: 60%;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    border-radius: 0.5rem;
-    h1 {
-      font-size: 2.5rem;
-      font-family: ${fonts.headerFont};
-      margin: 1rem 0;
-    }
-    h4 {
-      font-size: 2rem;
-      font-family: ${fonts.contentFont};
-      margin: 1rem 0;
-    } h6 {
-      font-family: ${fonts.headerFont};
-      width: 60%;
-      margin: 1rem auto;
-      font-family: ${fonts.contentFont};
-      font-size: 1.2rem;
-      line-height: 1.5rem;
-    }
-    button {
-      font-size: 1.5rem;
-      font-family: ${fonts.headerFont};
-      margin: 1rem 0;
-      position: relative;
-      &:hover {
-        top: 1.5px;
-      }
-
-      .foot-note {
-        font-family: font-family: ${fonts.contentFont};
-      }
-    }
+  h1 {
+    font-size: 2.8rem;
+    font-family: ${fonts.headerFont};
+    margin: 1rem 0;
+    
   }
+  h4 {
+    font-size: 2rem;
+    font-family: ${fonts.contentFont};
+    margin: 1rem 0;
+  } h6 {
+    font-family: ${fonts.headerFont};
+    width: 60%;
+    margin: 1rem auto;
+    font-family: ${fonts.contentFont};
+    font-size: 1.2rem;
+  }
+  button {
+    font-size: 2.2rem;
+    font-family: ${fonts.headerFont};
+    margin: 1rem 0;
+    position: relative;
+    &:hover {
+      top: 1.5px;
+    }
+
+    
+  }
+  .foot-note {
+    font-family: font-family: ${fonts.contentFont};
+    width: 25rem;
+    margin: 1rem auto;
+    font-size: 1.1rem;
+  }
+}
 
   
   
@@ -66,18 +67,11 @@ const Panel = styled.div`
 const WelcomeText = 
     ({
         disconnect,
-        refresh,
         setAddress,
         setConnection,
         openModal,
         state,
     }) => {
-
-        useEffect(() => {
-            if (state.address !== "") {
-              refresh(state);
-            }
-          }, [state.address]);
 
     const connectMetamask = (signer, manager) => {
         detectEthereumProvider().then((provider) => {
@@ -89,9 +83,15 @@ const WelcomeText =
           } else {
             window.ethereum.enable().then(() => {
               setProvider(provider);
-            });
+            })
+            .catch(err => {
+              openModal("Something has gone wrong, retrying...","error")
+            })
           }
         });
+     
+       
+        
       };
 
       const setProvider = async (provider) => {
@@ -114,10 +114,14 @@ const WelcomeText =
           .getAddress() // refreshButtonAction called initially to load table
           .then((address) => {
             setAddress(address);
-          });
+          })
+          .catch(error => {
+            openModal("Something has gone wrong, retrying...","error")
+          })
+          
       };
     return (
-        <Panel className='welcome-text'>
+        <WelcomeTextPanel>
                     
             <h1>Harvest Finance Dashboard</h1>
             <h4>Connect a wallet to get started</h4>
@@ -127,7 +131,7 @@ const WelcomeText =
             >Connect Wallet</button>
             <h6 className='foot-note'>You will need a web3 wallet such as metamask to access this application.</h6>
             
-        </Panel>
+        </WelcomeTextPanel>
     );
 }
 

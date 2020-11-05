@@ -4,24 +4,24 @@ import { Row, Col } from "styled-bootstrap-grid";
 import { createGlobalStyle } from "styled-components";
 import { reset } from "styled-reset";
 import harvest from "./lib/index.js";
-import ErrorModal from "./components/ErrorModal";
+import ErrorModal from "./components/ErrorModal.jsx";
 
-import { darkTheme, lightTheme, fonts } from "./styles/appStyles";
+import { darkTheme, lightTheme, fonts } from "./styles/appStyles.js";
 
 // images
-import logo from "./assets/gif_tractor.gif";
+import logo from "./assets/logo.png";
 
 
 // components
-import Wallet from "./components/Wallet";
-import FarmingTable from "./components/farmingTable/FarmingTable";
-import AssetTable from "./components/assetTable/AssetTable";
-import Harvest from "./components/harvest/Harvest";
-import StakePanel from "./components/stakePanel/StakePanel";
-import Balance from "./components/balance/Balance";
-import APY from "./components/apy/APY";
-import AddTokens from "./components/addTokens/AddTokens";
-import WelcomeText from './components/WelcomeText';
+import Wallet from "./components/Wallet.jsx";
+import FarmingTable from "./components/farmingTable/FarmingTable.jsx";
+import AssetTable from "./components/assetTable/AssetTable.jsx";
+import Harvest from "./components/harvest/Harvest.jsx";
+import StakePanel from "./components/stakePanel/StakePanel.jsx";
+import Balance from "./components/balance/Balance.jsx";
+import APY from "./components/apy/APY.jsx";
+import AddTokens from "./components/addTokens/AddTokens.jsx";
+import WelcomeText from './components/WelcomeText.jsx';
 
 const { ethers } = harvest;
 const GlobalStyle = createGlobalStyle`
@@ -39,9 +39,6 @@ const GlobalStyle = createGlobalStyle`
   body {
     height: 100%;
     background-color: ${(props) => props.theme.style.bodyBackground};
-    ::-webkit-scrollbar {
-      width: .1rem;
-    }
   }
 
 
@@ -132,7 +129,7 @@ const GlobalStyle = createGlobalStyle`
     background-color: ${(props) => props.theme.style.lightBackground};
     border: 0.2rem solid #363636;
     font-size: 1.4rem;
-    color: ${(props) => props.theme.style.primaryFontColor};;
+    color: ${(props) => props.theme.style.primaryFontColor};
     width: 60px;
     text-align: center;
     border-radius: 0.5rem;
@@ -228,41 +225,7 @@ const Panel = styled.div`
   }
 
 
-  .welcome-text {
-    width: 60%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    border-radius: 0.5rem;
-    h1 {
-      font-size: 2.5rem;
-      font-family: ${fonts.headerFont};
-      margin: 1rem 0;
-    }
-    h4 {
-      font-size: 2rem;
-      font-family: ${fonts.contentFont};
-      margin: 1rem 0;
-    } h6 {
-      font-family: ${fonts.headerFont};
-      width: 60%;
-      margin: 1rem auto;
-      font-family: ${fonts.contentFont};
-      font-size: 1.2rem;
-      line-height: 1.5rem;
-    }
-    button {
-      font-size: 1.5rem;
-      font-family: ${fonts.headerFont};
-      margin: 1rem 0;
-      position: relative;
-      &:hover {
-        top: 1.5px;
-      }
-    }
-  }
+  
 
   
   
@@ -373,6 +336,7 @@ const PanelTabContainerRight = styled.div`
 const Container = styled.div`
   width: 80%;
   margin: 0 auto;
+ 
   @media(min-width: 1800px) {
     width: 75%;
   }
@@ -396,6 +360,7 @@ function App() {
     usdValue: 0,
     error: { message: null, type: null, display: false },
     theme: window.localStorage.getItem("HarvestFinance:Theme") || "light",
+    display: false
   });
 
   useEffect(() => {
@@ -404,6 +369,18 @@ function App() {
     }, 60000);
     return () => clearTimeout(timer);
   });
+  useEffect(() => {
+    if (state.address !== "") {
+      refresh();
+      
+    }
+   
+  }, [state.address]);
+  useEffect(() => {
+    if(state.usdValue) {
+      setState({...state,display: true})
+    }
+  },[state.usdValue])
 
   const disconnect = () => {
     setState({
@@ -417,6 +394,8 @@ function App() {
       apy: 0,
       error: { message: null, type: null, display: false },
       theme: window.localStorage.getItem("HarvestFinance:Theme") || "light",
+      
+      
     });
   };
 
@@ -455,6 +434,8 @@ function App() {
       })
       .then((underlyings) => {
         setState({ ...state, underlyings: underlyings });
+      }).catch(err => {
+        openModal("There was an error retrieving your data.", 'error')
       });
 
     state.manager
@@ -479,6 +460,8 @@ function App() {
         }));
         
         return summaries;
+      }).catch(err => {
+        openModal("There was an error retrieving your data.", 'error')
       });
   };
 
@@ -542,7 +525,7 @@ function App() {
               </PanelTabContainer>
 
               <Panel>
-                <Row>
+                 {state.usdValue? <Row>
                   <Col>
                     <Wallet
                       state={state}
@@ -553,7 +536,8 @@ function App() {
                       refresh={refresh}
                     />
                   </Col>
-                </Row>
+                </Row> : null}
+                
 
                  
                 

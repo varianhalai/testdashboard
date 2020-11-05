@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
+import axios from 'axios';
 import APYSkeleton from "./APYSkeleton";
 
 const BluePanel = styled.div`
@@ -54,40 +55,53 @@ const APY = ({ state,setState }) => {
   
 
   useEffect(() => {
-    getPools();
-    setSummaries(state.summaries);
-  }, [state.summaries]);
+    if(pools.length === 0) {
+      getPools();
+      setSummaries(state.summaries);
+    } 
+    if(pools.length > 0) {
+      calcApy()
+    }
+    
+    
+  }, [state.usdValue]);
 
   useEffect(() => {
-    calcApy();
-  }, [summaries]);
+    if(pools.length > 0) {
+      calcApy()
+    }
+    
+    
+  }, [state.display]);
   
 
   const getPools = async () => {
-    const poolsData = await fetch(
+    const poolsData = await axios.get(
       "https://api-ui.harvest.finance/pools?key=41e90ced-d559-4433-b390-af424fdc76d6",
-    );
-    setPools(await poolsData.json());
+    ).then(res => {
+      console.log(res.data)
+      setPools(res.data);
+    })
+    .catch(err => {
+      console.log(err)
+    })
+    
+    
+    
   };
 
   const calcApy = () => {
-    for (let i = 0; i < pools.length; i++) {
-      if (pools[i].id === "profit-sharing-farm") {
-        setState({...state,apy: pools[i].rewardAPY})
-      }
-    }
+    
+      setState((state) => ({ ...state,apy: pools[0].rewardAPY}));
+    
+    
+    
   };
-  const [display,setDisplay]=useState(false);
-  const [delay,setDelay] = useState(2200);
-  useEffect(() => {
-    if(state.usdValue) {
-      setDisplay(true)
-    }
-  },[state.usdValue])
+  
 
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-      {display ? <BluePanel>
+      {state.display ? <BluePanel>
         <h1>{state.apy} %</h1>
         <span>Profit Share APY</span>
       </BluePanel> :

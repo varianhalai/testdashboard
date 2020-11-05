@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 import HarvestSkeleton from './HarvestSkeleton'
@@ -129,39 +129,37 @@ const Harvest = ({ state }) => {
       }
     }
   };
-  useEffect(() => {
-    if(state.usdValue) {
-      setDisplay(true)
-    }
-  },[state.usdValue])
+
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-      {display ? <Panel>
-        <div className='panel-text'>
-          <p>
-            Harvest all farms with at least
-            <input
-              type="number"
-              onChange={(event) => setMinimumHarvestAmount(event.target.value)}
-              placeholder="min"
-              step="any"
-            />
-            FARM rewards
-          </p>
-        </div>
-        
+      {state.display ?
+      <Panel>
+         
+      <div className='panel-text'>
+        <p>
+          Harvest all farms with at least
+          <input
+            type="number"
+            onChange={(event) => setMinimumHarvestAmount(event.target.value)}
+            placeholder="min"
+            step="any"
+          />
+          FARM rewards
+        </p>
+      </div>
+      
 
-        <ButtonContainer>
-          <button
-            className="button"
-            disabled={!state.provider || minimumHarvestAmount === 0}
-            onClick={harvest}
-          >
-            harvest all
-          </button>
-        </ButtonContainer>
-      </Panel> : 
-      <HarvestSkeleton state={state} />}
+      <ButtonContainer>
+        <button
+          className="button"
+          disabled={!state.provider || minimumHarvestAmount === 0}
+          onClick={harvest}
+        >
+          harvest all
+        </button>
+      </ButtonContainer>
+    </Panel>  : <HarvestSkeleton state={state} /> }
+       
     </ThemeProvider>
   );
 };
