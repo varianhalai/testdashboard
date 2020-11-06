@@ -126,7 +126,7 @@ const StakePanel = ({ state, openModal }) => {
   );
 
   const checkForFarm = (amount) => {
-    if(amount === 0 && stakeAmount === 0) {
+    if(amount <= 0) {
       setModal(true)
     }else {
       setStakeAmount(ethers.utils.formatEther(amount))
