@@ -360,7 +360,8 @@ function App() {
     usdValue: 0,
     error: { message: null, type: null, display: false },
     theme: window.localStorage.getItem("HarvestFinance:Theme") || "light",
-    display: false
+    display: false,
+    minimumHarvestAmount: 0
   });
 
   useEffect(() => {
@@ -546,14 +547,14 @@ function App() {
                   <div className='main-content'>
                     <Row >
                       <Col >
-                        <FarmingTable state={state} />
+                        <FarmingTable state={state} setState={setState} />
                       </Col>
                     </Row>
 
                     <Row style={{marginTop:"15px"}}>
                       {/* Git hub pages would not recognize the margin from the bootstrap grid */}
                       <Col lg="6">
-                        <Harvest state={state} />
+                        <Harvest state={state} setState={setState} />
                       </Col>
                       <Col lg="4">
                         <StakePanel state={state} openModal={openModal} />

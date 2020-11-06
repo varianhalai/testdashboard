@@ -105,7 +105,8 @@ const columns = [
     name: "Rewards",
     selector: "earnedRewards",
     compact: true,
-    hide: 'md'
+    hide: 'md',
+    
   },
   {
     name: "Staked",
@@ -134,7 +135,21 @@ const columns = [
 
 
 
-const FarmingTable = ({ state }) => {
+
+
+const FarmingTable = ({ state,setState }) => {
+
+  const getRewards= () => {
+    let result = state.summaries.map(utils.prettyPosition)
+    let min = 10;
+    for(let i = 0; i < result.length; i++) {
+         if (result[i].earnedRewards > 0 && result[i].earnedRewards < min ) {
+           min = result[i].earnedRewards
+         }
+    }
+    console.log(min)
+    setState({...state,minimumHarvestAmount: min})
+ }
 
   return (
       <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
@@ -148,6 +163,7 @@ const FarmingTable = ({ state }) => {
           columns={columns}
           noDataComponent={false}
           data={state.summaries.map(utils.prettyPosition)}
+          onRowClicked={getRewards}
         />  }
         </TableContainer> 
         : <FarmTableSkeleton state={state} />}

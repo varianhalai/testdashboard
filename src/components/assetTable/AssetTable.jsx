@@ -17,13 +17,17 @@ const TableContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 102%;
+  width: 101.5%;
 
-  @media(max-width: 1100px) {
+  @media(max-width: 1050px) {
+    width: 103%;
+  }
+  @media(max-width: 990px) {
     width: 101%;
   }
-  @media(max-width: 600px) {
+  @media(max-width: 370px) {
     margin-top: 1rem;
+    
   }
   
  
@@ -85,7 +89,7 @@ const TableContainer = styled.div`
       
     }
     @media(max-width: 330px) {
-      font-size: .9rem;
+      font-size: .8rem;
     }
   }
 
@@ -109,6 +113,7 @@ const TableContainer = styled.div`
       font-size: 1.7rem;
       
     }
+    
     
     
     
@@ -137,6 +142,7 @@ const noAssetData = [
     id:0,
     asset: 'Add assets to get started'
   },
+  
 ]
 const columns = [
   {

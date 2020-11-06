@@ -39,19 +39,30 @@ const Panel = styled.div`
     
   }
   .carousel-container {
-    width: 95%;
+    width: 98%;
     margin-left: 5rem;
     padding: 0;
-    @media(max-width: 1487px) {
+    @media(max-width: 1550px) {
       margin-left: 2rem;
     }
+    @media(max-width: 1487px) {
+      margin-left: 1rem;
+    }
+    @media(max-width: 1100px) {
+      margin-left: 0rem;
+      margin-right: .5rem;
+    }
     @media(max-width: 850px) {
-      margin-left: 5rem;
+      margin-left: 2rem;
     }
     @media(max-width: 500px) {
       margin-left: 1rem;
     }
     
+  }
+  li {
+    margin: 0 auto;
+    padding: 0;
   }
 
   .carousel-button-group {
@@ -148,6 +159,7 @@ const StyledToken = styled(Token)`
   display: flex;
   justify-content: space-between;
   position: relative;
+  padding: 0 1rem;
   
 
   &:hover {
@@ -172,7 +184,7 @@ const StyledToken = styled(Token)`
   }
 
   @media(max-width: 1450px) {
-    margin: 0 2rem;
+    margin: 0 2.3rem;
   }
 
   @media only screen and (max-width: 768px) {
@@ -190,7 +202,7 @@ const responsive = {
   },
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 6
+    items: 5
   },
   tablet: {
     breakpoint: { max: 1000, min: 464 },
@@ -198,7 +210,7 @@ const responsive = {
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
-    items: 4
+    items: 3
   }
 };
 
