@@ -7,13 +7,13 @@ const Container = styled.div`
     if (isOpen) {
       return css`
       display: flex;
+      flex-direction: column;
       position: fixed;
-      width: 110vw;
-      height: 110vh;
+      width: 100vw;
+      height: 150vh;
       background-color: #07070767;
-      top: 0%;
+      bottom: 70%;
       transform: translateY(50%);
-      transform: translateX(-50%);
       z-index: 200;
       align-items: center;
       justify-content: center;
