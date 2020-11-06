@@ -59,20 +59,20 @@ const APY = ({ state,setState }) => {
       getPools();
       setSummaries(state.summaries);
     } 
-    if(pools.length > 0) {
-      calcApy()
-    }
+    // if(pools.length > 0) {
+    //   calcApy()
+    // }
     
     
   }, [state.usdValue]);
 
-  useEffect(() => {
-    if(pools.length > 0) {
-      calcApy()
-    }
+  // useEffect(() => {
+  //   if(pools.length > 0) {
+  //     calcApy()
+  //   }
     
     
-  }, [state.display]);
+  // }, [state.display]);
   
 
   const getPools = async () => {
@@ -90,13 +90,13 @@ const APY = ({ state,setState }) => {
     
   };
 
-  const calcApy = () => {
+  // const calcApy = () => {
     
-      setState((state) => ({ ...state,apy: pools[0].rewardAPY}));
+  //     setState((state) => ({ ...state,apy: pools[0].rewardAPY}));
     
     
     
-  };
+  // };
   
 
   return (
