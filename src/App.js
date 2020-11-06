@@ -379,6 +379,7 @@ function App() {
   useEffect(() => {
     if(state.usdValue) {
       setState({...state,display: true})
+      console.log(state.summaries)
     }
   },[state.usdValue])
 
@@ -435,7 +436,7 @@ function App() {
       .then((underlyings) => {
         setState({ ...state, underlyings: underlyings });
       }).catch(err => {
-        openModal("There was an error retrieving your data.", 'error')
+        console.log(err)
       });
 
     state.manager
@@ -461,7 +462,7 @@ function App() {
         
         return summaries;
       }).catch(err => {
-        openModal("There was an error retrieving your data.", 'error')
+        console.log(err)
       });
   };
 

@@ -33,13 +33,7 @@ const TableContainer = styled.div`
     background-color: ${(props) => props.theme.table.tableBackground};
     padding-bottom: 1rem;
     padding-right: .5rem;
-    overflow-y: scroll;
-    max-height: 18rem;
-    ::-webkit-scrollbar {
-      width: .1rem;
-    }
-    scrollbar-width: none; /* Firefox 64 */
-    -ms-overflow-style: none; /* IE 11 */
+    
     
     
   }
@@ -64,6 +58,13 @@ const TableContainer = styled.div`
     border-top-right-radius: 0;
     border-bottom-left-radius: .5rem;
     border-bottom-right-radius: .5rem;
+    overflow-y: scroll;
+    max-height: 10rem;
+    ::-webkit-scrollbar {
+      width: .1rem;
+    }
+    scrollbar-width: none; /* Firefox 64 */
+    -ms-overflow-style: none; /* IE 11 */
     
     
   }
@@ -167,6 +168,7 @@ const AssetTable = ({ state }) => {
             columns={columns}
             noDataComponent={false}
             data={state.underlyings}
+            overflowY={true}
           /> : 
           <DataTable
             noHeader={true}
