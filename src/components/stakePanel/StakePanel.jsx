@@ -126,7 +126,7 @@ const StakePanel = ({ state, openModal }) => {
   );
 
   const checkForFarm = (amount) => {
-    if(stakeAmount === 0) {
+    if(amount === 0 && stakeAmount === 0) {
       setModal(true)
     }else {
       setStakeAmount(ethers.utils.formatEther(amount))
@@ -161,13 +161,11 @@ const StakePanel = ({ state, openModal }) => {
     }
   };
   const setMax = async () => {
-    const allowance = await pool.lptoken.allowance(state.address, pool.address);
     const amount =
       stakeAmount > 0
         ? ethers.utils.parseUnits(stakeAmount.toString(), 18)
         : await pool.unstakedBalance(state.address);
         
-        // setStakeAmount(ethers.utils.formatEther(amount))
         checkForFarm(amount)
         
 

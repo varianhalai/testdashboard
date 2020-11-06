@@ -80,15 +80,25 @@ const ButtonContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  margin-top: 1.6rem;
+  margin-top: 1.5rem;
+
+ 
   button {
+    font-size: 1.9rem;
     font-family: ${fonts.headerFont};
-    font-size: 1.9em;
     position: relative;
     margin-top: 4px;
+    margin-right: .5rem;
+    
     &:hover {
       top: 1.5px;
     }
+
+    .button.clear {
+      margin-left: 1rem;
+    }
+
+    
   }
   @media(max-width: 960px) {
     justify-content: center;
@@ -97,22 +107,18 @@ const ButtonContainer = styled.div`
     }
     
   }
-
   @media(max-width: 680px) {
     button {
       font-size: 1.3rem;
     }
+    
   }
 `;
 
-const Harvest = ({ state }) => {
-  const [minimumHarvestAmount, setMinimumHarvestAmount] = useState(0);
-  const [display,setDisplay]=useState(false);
-  const [delay,setDelay] = useState(2200);
-
+const Harvest = ({ state,setState }) => {
   const harvest = async () => {
     const minHarvest = ethers.utils.parseUnits(
-      minimumHarvestAmount.toString(),
+      state.minimumHarvestAmount.toString(),
       18,
     );
     const activePools = state.manager.pools.filter((pool) => {
@@ -140,8 +146,9 @@ const Harvest = ({ state }) => {
           Harvest all farms with at least
           <input
             type="number"
-            onChange={(event) => setMinimumHarvestAmount(event.target.value)}
+            onChange={(event) => setState({...state,minimumHarvestAmount :event.target.value})}
             placeholder="min"
+            value={state.minimumHarvestAmount}
             step="any"
           />
           FARM rewards
@@ -152,12 +159,21 @@ const Harvest = ({ state }) => {
       <ButtonContainer>
         <button
           className="button"
-          disabled={!state.provider || minimumHarvestAmount === 0}
+          disabled={!state.provider || state.minimumHarvestAmount === 0}
           onClick={harvest}
         >
           harvest all
         </button>
+
+       {state.minimumHarvestAmount === 0 ? "" :  <button
+          className="button clear"
+          onClick={(event) => setState({...state,minimumHarvestAmount :0})}
+        >
+          clear
+        </button>}
       </ButtonContainer>
+      
+      
     </Panel>  : <HarvestSkeleton state={state} /> }
        
     </ThemeProvider>
