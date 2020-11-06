@@ -54,17 +54,17 @@ const APY = ({ state,setState }) => {
 
   
 
-  useEffect(() => {
-    if(pools.length === 0) {
-      getPools();
-      setSummaries(state.summaries);
-    } 
-    // if(pools.length > 0) {
-    //   calcApy()
-    // }
+  // useEffect(() => {
+  //   if(pools.length === 0) {
+  //     getPools();
+  //     setSummaries(state.summaries);
+  //   } 
+  //   if(pools.length > 0) {
+  //     calcApy()
+  //   }
     
     
-  }, [state.usdValue]);
+  // }, [state.usdValue]);
 
   // useEffect(() => {
   //   if(pools.length > 0) {
@@ -75,20 +75,20 @@ const APY = ({ state,setState }) => {
   // }, [state.display]);
   
 
-  const getPools = async () => {
-    const poolsData = await axios.get(
-      "https://api-ui.harvest.finance/pools?key=41e90ced-d559-4433-b390-af424fdc76d6",
-    ).then(res => {
-      console.log(res.data)
-      setPools(res.data);
-    })
-    .catch(err => {
-      console.log(err)
-    })
+  // const getPools = async () => {
+  //   const poolsData = await axios.get(
+  //     "https://api-ui.harvest.finance/pools?key=41e90ced-d559-4433-b390-af424fdc76d6",
+  //   ).then(res => {
+  //     console.log(res.data)
+  //     setPools(res.data);
+  //   })
+  //   .catch(err => {
+  //     console.log(err)
+  //   })
     
     
     
-  };
+  // };
 
   // const calcApy = () => {
     
