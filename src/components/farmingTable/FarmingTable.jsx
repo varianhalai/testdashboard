@@ -23,13 +23,7 @@ const TableContainer = styled.div`
   div[role="table"] {
     background-color: ${(props) => props.theme.table.tableBackground};
     padding: .35rem;
-    max-height: 28.2rem;
-    overflow-y: scroll;
-    ::-webkit-scrollbar {
-      width: .1rem;
-    }
-    -ms-overflow-style: none; /* IE 11 */
-    scrollbar-width: none; /* Firefox 64 */
+    
   }
 
   .rdt_TableHeadRow {
@@ -52,6 +46,13 @@ const TableContainer = styled.div`
     border-top-right-radius: 0;
     border-bottom-left-radius: .5rem;
     border-bottom-right-radius: .5rem;
+    max-height: 15rem;
+    overflow-y: scroll;
+    ::-webkit-scrollbar {
+      width: .1rem;
+    }
+    -ms-overflow-style: none; /* IE 11 */
+    scrollbar-width: none; /* Firefox 64 */
     
     
   }

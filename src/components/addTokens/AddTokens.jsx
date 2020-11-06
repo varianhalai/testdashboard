@@ -113,11 +113,11 @@ const tokens = [
     url: "https://harvestfi.github.io/add-frenbtc/",
     image: frenbtcIcon,
   },
-  // {
-  //   name: "fcrvRenWBTC",
-  //   url: "https://harvestfi.github.io/add-fcrvrenwbtc/",
-  //   image: crvrenwbtcIcon,
-  // },
+  {
+    name: "fcrvRenWBTC",
+    url: "https://harvestfi.github.io/add-fcrvrenwbtc/",
+    image: crvrenwbtcIcon,
+  },
   {
     name: "SUSHI",
     url: "https://varianhalai.github.io/add-sushi/",
