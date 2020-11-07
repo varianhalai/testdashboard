@@ -65,7 +65,7 @@ const MainContent = ({state, setState,openModal}) => {
                 
                 </Col>
                 </Row>
-                <Row>
+                <Row style={{marginTop:"15px"}}>
                     <Col lg ="12">
                         <AssetTable state={state} />
                     </Col>
