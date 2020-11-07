@@ -10,8 +10,8 @@ export const screen = {
 };
 
 export const fonts = {
-  headerFont: '"DDIN"',
-  contentFont: "TechnaSans",
+  headerFont: 'Open Sans',
+  contentFont: "Roboto",
 };
 
 export const darkThemeColors = {
@@ -19,7 +19,7 @@ export const darkThemeColors = {
   grey: "#252525",
   darkGrey: "#212121",
   darkerGrey: "#1d1d1d",
-  blue: "#A2E7DB",
+  blue: "#42857D",
   orange: "#FFCD8D",
   black: "#000000",
 };
@@ -28,12 +28,12 @@ export const darkTheme = {
   style: {
     mainBorder: `0.2rem solid ${darkThemeColors.lightGrey}`,
     smallBorder: `0.1rem solid ${darkThemeColors.lightGrey}`,
-    buttonBoxShadow: `0rem 0.2rem 0px ${darkThemeColors.lightGrey}`,
-    buttonFontColor: `${darkThemeColors.lightGrey}`,
+    buttonBoxShadow: `.35rem 0.35rem 0px ${darkThemeColors.lightGrey}`,
+    buttonFontColor: `${darkThemeColors.black}`,
     panelBackground: "#000",
-    panelBoxShadow: `0.2rem 0.2rem 0px ${darkThemeColors.lightGrey}`,
+    panelBoxShadow: `0.35rem 0.2rem 0px ${darkThemeColors.lightGrey}`,
     panelTabBackground: `${darkThemeColors.blue}`,
-    panelTabBoxShadow: `0.2rem 0.2rem 0px ${darkThemeColors.lightGrey}`,
+    panelTabBoxShadow: `0.35rem 0.35rem 0px ${darkThemeColors.lightGrey}`,
     panelTabLinkColor: `${darkThemeColors.lightGrey}`,
     wikiTabBackground: `${darkThemeColors.darkGrey}`,
     lightBackground: `${darkThemeColors.darkGrey}`,
@@ -45,12 +45,13 @@ export const darkTheme = {
     linkColor: `${darkThemeColors.blue}`,
     headerColor: `${darkThemeColors.darkBlue}`,
     alertColor: `${darkThemeColors.blue}`,
+    themeSwitchBackground: `${darkThemeColors.blueBackground}`
   },
 
   table: {
     tableBackground: "#000",
     tableHeadBackground: `${darkThemeColors.grey}`,
-    tableItemBoxShadow: `0.3rem 0.3rem 0px ${darkThemeColors.lightGrey}`,
+    tableItemBoxShadow: `0.35rem 0.35rem 0px ${darkThemeColors.lightGrey}`,
     tableRowBackground: `${darkThemeColors.darkerGrey}`,
   },
 };
@@ -67,12 +68,12 @@ export const lightTheme = {
   style: {
     mainBorder: `0.2rem solid ${lightThemeColors.black}`,
     smallBorder: `0.1rem solid ${lightThemeColors.black}`,
-    buttonBoxShadow: `0rem 0.2rem 0px ${lightThemeColors.black}`,
+    buttonBoxShadow: `.35rem 0.35rem 0px ${lightThemeColors.black}`,
     buttonFontColor: `${lightThemeColors.black}`,
     panelBackground: `${lightThemeColors.offwhite}`,
-    panelBoxShadow: `0.2rem 0.2rem 0px ${lightThemeColors.black}`,
+    panelBoxShadow: `0.35rem 0.35rem 0px ${lightThemeColors.black}`,
     panelTabBackground: `${lightThemeColors.darkBlue}`,
-    panelTabBoxShadow: `0.2rem 0.2rem 0px ${lightThemeColors.black}`,
+    panelTabBoxShadow: `0.35rem 0.35rem 0px ${lightThemeColors.black}`,
     panelTabLinkColor: `${lightThemeColors.black}`,
     wikiTabBackground: `${lightThemeColors.offwhite}`,
     lightBackground: `${lightThemeColors.offwhite}`,
@@ -84,6 +85,7 @@ export const lightTheme = {
     linkColor: `${lightThemeColors.black}`,
     headerColor: `${lightThemeColors.black}`,
     alertColor: `${darkThemeColors.blue}`,
+    themeSwitchBackground: `${lightThemeColors.orange}`
   },
 
   table: {

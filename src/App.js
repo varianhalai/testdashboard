@@ -1,58 +1,46 @@
 import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { Container, Row, Col } from "styled-bootstrap-grid";
+import { Row, Col } from "styled-bootstrap-grid";
 import { createGlobalStyle } from "styled-components";
 import { reset } from "styled-reset";
 import harvest from "./lib/index.js";
-import ErrorModal from "./components/ErrorModal";
+import ErrorModal from "./components/ErrorModal.jsx";
 
-import { darkTheme, lightTheme, fonts } from "./styles/appStyles";
+import { darkTheme, lightTheme, fonts } from "./styles/appStyles.js";
 
 // images
 import logo from "./assets/logo.png";
 
-// fonts
-import DDIN from "./assets/fonts/DDIN-Bold.ttf";
-import TechnaSans from "./assets/fonts/TechnaSans-Regular.otf";
 
 // components
-import Wallet from "./components/Wallet";
-import FarmingTable from "./components/FarmingTable";
-import AssetTable from "./components/AssetTable";
-import Harvest from "./components/Harvest";
-import StakePanel from "./components/StakePanel";
-import Balance from "./components/Balance";
-import APY from "./components/APY";
-import AddTokens from "./components/AddTokens";
+import Wallet from "./components/Wallet.jsx";
+import FarmingTable from "./components/farmingTable/FarmingTable.jsx";
+import AssetTable from "./components/assetTable/AssetTable.jsx";
+import Harvest from "./components/harvest/Harvest.jsx";
+import StakePanel from "./components/stakePanel/StakePanel.jsx";
+import Balance from "./components/balance/Balance.jsx";
+import APY from "./components/apy/APY.jsx";
+import AddTokens from "./components/addTokens/AddTokens.jsx";
+import WelcomeText from './components/WelcomeText.jsx';
 
 const { ethers } = harvest;
 const GlobalStyle = createGlobalStyle`
   ${reset}
-
+ 
+  
   html {
     /* 1rem = 10px */
     font-size: 62.5%;
+    height: 100%;
   }
 
-  @font-face {
-    font-family: 'DDIN';
-    src: local('DDIN'), local('DDIN'),
-    url(${DDIN}) format('truetype');
-    font-weight: 700;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: 'TechnaSans';
-    src: local('TechnaSans'), local('TechnaSans'),
-    url(${TechnaSans}) format('opentype');
-    font-weight: 300;
-    font-style: normal;
-  }
+
 
   body {
-    margin: 0;
+    height: 100%;
     background-color: ${(props) => props.theme.style.bodyBackground};
   }
+
 
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -63,8 +51,13 @@ const GlobalStyle = createGlobalStyle`
   .switch {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 34px;
+    width: 6rem;
+    height: 2.6rem;
+    @media(max-width: 500px) {
+      height: 2.4rem;
+      width: 5.5rem;
+    }
+    
   }
 
   /* Hide default HTML checkbox */
@@ -82,7 +75,7 @@ const GlobalStyle = createGlobalStyle`
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: ${(props) => props.theme.style.highlight};
+    background-color: ${(props) => props.theme.style.blueBackground};
     -webkit-transition: .4s;
     transition: .4s;
   }
@@ -90,13 +83,17 @@ const GlobalStyle = createGlobalStyle`
   .slider:before {
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
+    height: 1.9rem;
+    width: 1.9rem;
     left: 4px;
     bottom: 4px;
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
+    @media(max-width: 500px) {
+      height: 1.7rem;
+      width: 1.7rem;
+    }
   }
 
   input:checked + .slider {
@@ -108,18 +105,18 @@ const GlobalStyle = createGlobalStyle`
   }
 
   input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
+    -webkit-transform: translateX(3.3rem);
+    -ms-transform: translateX(3.3rem);
+    transform: translateX(3.3rem);
   }
 
   /* Rounded sliders */
   .slider.round {
-    border-radius: 34px;
+    border-radius: .5rem;
   }
 
   .slider.round:before {
-    border-radius: 50%;
+    border-radius: .5rem;
   }
 
   input[type="button"]:focus, button:focus {
@@ -132,7 +129,7 @@ const GlobalStyle = createGlobalStyle`
     background-color: ${(props) => props.theme.style.lightBackground};
     border: 0.2rem solid #363636;
     font-size: 1.4rem;
-    color: ${(props) => props.theme.style.primaryFontColor};;
+    color: ${(props) => props.theme.style.primaryFontColor};
     width: 60px;
     text-align: center;
     border-radius: 0.5rem;
@@ -162,6 +159,7 @@ const GlobalStyle = createGlobalStyle`
       border: 0px;
       box-shadow: none;
       color: ${(props) => props.theme.style.linkColor};
+      font-family: ${fonts.headerFont};
       padding: 0px;
     }
 
@@ -185,23 +183,29 @@ const Brand = styled.div`
   padding-right: 1rem;
   display: flex;
   align-items: center;
+  margin-bottom: 1rem;
 
   img {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 3rem;
+    height: 3rem;
     margin-right: 1rem;
+    margin-left: .5rem;
   }
 
   span {
     color: ${(props) => props.theme.style.primaryFontColor};
-    font-family: ${(props) => fonts.headerFont};
-    font-size: 1.4rem;
+    font-family: ${fonts.contentFont};
+    font-size: 2.5rem;
+  }
+
+  @media(min-width: 1500px) {
+    margin: 2.5rem 0;
   }
 `;
 
 const Panel = styled.div`
   position: relative;
-  padding: 1.5rem;
+  padding: 2.5rem 2.5rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: 1rem;
   border-top-left-radius: 0rem;
@@ -210,6 +214,7 @@ const Panel = styled.div`
   z-index: 1;
   box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
+  
 
   &.four-corner {
     border-top-left-radius: 1rem;
@@ -218,34 +223,67 @@ const Panel = styled.div`
     font-size: 1.6rem;
     font-family: TechnaSans;
   }
+
+
+  
+
+  
+  
 `;
 
 const PanelTab = styled.div`
   margin-right: 0.75rem;
-  border-radius: 0.4rem;
+  border-radius: 1.2rem;
   border-top: ${(props) => props.theme.style.mainBorder};
   border-left: ${(props) => props.theme.style.mainBorder};
   border-right: ${(props) => props.theme.style.mainBorder};
-  padding: 0.75rem 1.25rem;
-  padding-bottom: 2.25rem;
+  padding: 0.75rem 2rem 2.25rem 2rem;
   background-color: ${(props) => props.theme.style.highlight};
   box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelTabBoxShadow};
-  font-size: 2rem;
-  font-weight: 700;
+  
   cursor: pointer;
   color: ${(props) => props.theme.style.buttonFontColor};
+
+  
+  
 
   a {
     color: ${(props) => props.theme.style.panelTabLinkColor};
     text-decoration: none;
-    font-family: ${fonts.headerFont};
+    font-family: ${fonts.contentFont};
+    font-size: 2.4rem;
+    position: relative;
+    top: .1rem;
+    @media(max-width: 500px) {
+      font-size: 1.8rem;
+    }
+   
+  }
+  @media(max-width: 500px) {
+    font-size: 1.9rem;
+    padding: 0.75rem 1rem 2.4rem 1rem;
+    position: relative;
+    top: .1rem;
+    a {
+      top: .4rem;
+    }
+  }
+  @media(max-width: 330px) {
+    font-size: 1.7rem;
+    padding: 0.75rem .75rem 2.4rem .75rem;
+    position: relative;
+    top: .1rem;
+    a {
+      top: .4rem;
+    }
   }
 
   &.wiki-tab {
     position: relative;
     background-color: ${(props) => props.theme.style.wikiTabBackground};
-    top: 0.5rem;
+    top: 0.4rem;
+    
 
     &:hover {
       top: 0rem;
@@ -253,10 +291,31 @@ const PanelTab = styled.div`
 
     a {
       color: ${(props) => props.theme.style.primaryFontColor};
+      font-size: 1.9rem;
       position: relative;
-      top: -0.2rem;
+      top: .1rem;
+    }
+    @media(max-width: 500px) {
+      top: 0.9rem;
+      a {
+        font-size: 1.7rem;
+      }
+      
     }
   }
+    &.switch-panel {
+      margin-right: 1.2rem;
+      position: relative;
+      top: .6rem;
+      padding: 0.4rem .5rem 1rem .5rem;
+
+      @media(max-width: 500px) {
+        top: 1.2rem;
+        padding: 0.4rem .5rem 3rem .5rem;
+      }
+      
+    }
+  
 `;
 
 const PanelTabContainer = styled.div`
@@ -274,6 +333,22 @@ const PanelTabContainerRight = styled.div`
   justify-content: flex-end;
 `;
 
+const Container = styled.div`
+  width: 80%;
+  margin: 0 auto;
+ 
+  @media(min-width: 1800px) {
+    width: 75%;
+  }
+  @media(max-width: 1300px) {
+    width: 85%;
+  }
+  @media(max-width: 1250px) {
+    width: 90%;
+  }
+  
+`;
+
 function App() {
   const [state, setState] = useState({
     provider: undefined,
@@ -285,6 +360,8 @@ function App() {
     usdValue: 0,
     error: { message: null, type: null, display: false },
     theme: window.localStorage.getItem("HarvestFinance:Theme") || "light",
+    display: false,
+    minimumHarvestAmount: 0
   });
 
   useEffect(() => {
@@ -293,6 +370,19 @@ function App() {
     }, 60000);
     return () => clearTimeout(timer);
   });
+  useEffect(() => {
+    if (state.address !== "") {
+      refresh();
+      
+    }
+   
+  }, [state.address]);
+  useEffect(() => {
+    if(state.usdValue) {
+      setState({...state,display: true})
+      console.log(state.summaries)
+    }
+  },[state.usdValue])
 
   const disconnect = () => {
     setState({
@@ -303,8 +393,11 @@ function App() {
       summaries: [],
       underlyings: [],
       usdValue: 0,
+      apy: 0,
       error: { message: null, type: null, display: false },
       theme: window.localStorage.getItem("HarvestFinance:Theme") || "light",
+      
+      
     });
   };
 
@@ -343,6 +436,8 @@ function App() {
       })
       .then((underlyings) => {
         setState({ ...state, underlyings: underlyings });
+      }).catch(err => {
+        console.log(err)
       });
 
     state.manager
@@ -365,7 +460,10 @@ function App() {
           summaries: summaries,
           usdValue: total,
         }));
+        
         return summaries;
+      }).catch(err => {
+        console.log(err)
       });
   };
 
@@ -377,112 +475,130 @@ function App() {
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       <GlobalStyle />
+        <Container>
+          <Row>
+            <Col col>
+              <Brand>
+                <img src={logo} alt="harvest finance logo" />{" "}
+                <span>harvest.dashboard</span>
+              </Brand>
+            </Col>
+          </Row>
 
-      <Container>
-        <Row>
-          <Col col>
-            <Brand>
-              <img src={logo} alt="harvest finance logo" />{" "}
-              <span>harvest.dashboard</span>
-            </Brand>
-          </Col>
-        </Row>
+          <Row>
+            <Col>
+              <PanelTabContainer>
+                <PanelTabContainerLeft>
+                  <PanelTab>
+                    <a
+                      href="https://harvest.finance"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      harvest.finance
+                    </a>
+                  </PanelTab>
+                  <PanelTab className="wiki-tab">
+                    <a
+                      href="https://farm.chainwiki.dev/en/home"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      wiki
+                    </a>
+                  </PanelTab>
+                </PanelTabContainerLeft>
 
-        <Row>
-          <Col>
-            <PanelTabContainer>
-              <PanelTabContainerLeft>
-                <PanelTab>
-                  <a
-                    href="https://harvest.finance"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    harvest.finance
-                  </a>
-                </PanelTab>
-                <PanelTab className="wiki-tab">
-                  <a
-                    href="https://farm.chainwiki.dev/en/home"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    wiki
-                  </a>
-                </PanelTab>
-              </PanelTabContainerLeft>
+                <PanelTabContainerRight>
+                  <PanelTab className='switch-panel'>
+                    <label className="switch">
+                      <input
+                        type="checkbox"
+                        checked={state.theme === "dark" ? true : false}
+                        onChange={() =>
+                          toggleTheme(state.theme === "dark" ? "light" : "dark")
+                        }
+                      />
+                      <span className="slider round"></span>
+                    </label>
+                  </PanelTab>
+                  
+                </PanelTabContainerRight>
+              </PanelTabContainer>
 
-              <PanelTabContainerRight>
-                <label className="switch">
-                  <input
-                    type="checkbox"
-                    checked={state.theme === "dark" ? true : false}
-                    onChange={() =>
-                      toggleTheme(state.theme === "dark" ? "light" : "dark")
-                    }
-                  />
-                  <span className="slider round"></span>
-                </label>
-              </PanelTabContainerRight>
-            </PanelTabContainer>
+              <Panel>
+                 {state.usdValue? <Row>
+                  <Col>
+                    <Wallet
+                      state={state}
+                      openModal={openModal}
+                      disconnect={disconnect}
+                      setConnection={setConnection}
+                      setAddress={setAddress}
+                      refresh={refresh}
+                    />
+                  </Col>
+                </Row> : null}
+                
 
-            <Panel>
-              <Row>
-                <Col>
-                  <Wallet
-                    state={state}
-                    openModal={openModal}
-                    disconnect={disconnect}
-                    setConnection={setConnection}
-                    setAddress={setAddress}
-                    refresh={refresh}
-                  />
-                </Col>
-              </Row>
+                 
+                
+                {state.provider ? (
+                  <div className='main-content'>
+                    <Row >
+                      <Col >
+                        <FarmingTable state={state} setState={setState} />
+                      </Col>
+                    </Row>
 
-              {state.provider && (
-                <div>
-                  <Row>
-                    <Col>
-                      <FarmingTable state={state} />
-                    </Col>
-                  </Row>
-
-                  <Row>
-                    <Col lg="6">
-                      <Harvest state={state} />
-                    </Col>
-                    <Col lg="3">
-                      <APY state={state} />
-                    </Col>
-                    <Col lg="3">
-                      <Balance state={state} />
-                    </Col>
-                  </Row>
-
-                  <Row className="spread-row">
-                    <Col lg="3">
-                      <StakePanel state={state} openModal={openModal} />
-                    </Col>
-
-                    <Col lg="6" xl="4">
-                      <AssetTable state={state} />
-                    </Col>
-                  </Row>
-                </div>
-              )}
-
-              <Row>
-                <Col>
-                  <AddTokens state={state} />
-                </Col>
-              </Row>
-            </Panel>
-          </Col>
-        </Row>
-      </Container>
-
-      <ErrorModal state={state} onClose={() => closeErrorModal()} />
+                    <Row style={{marginTop:"15px"}}>
+                      {/* Git hub pages would not recognize the margin from the bootstrap grid */}
+                      <Col lg="6">
+                        <Harvest state={state} setState={setState} />
+                      </Col>
+                      <Col lg="4">
+                        <StakePanel state={state} openModal={openModal} />
+                      </Col>
+                      <Col lg="2">
+                        <Balance state={state}/>  
+                      </Col>
+                      
+                      
+                      </Row>
+                      <Row style={{marginTop:"15px"}}>
+                        {/* Git hub pages would not recognize the margin from the bootstrap grid */}
+                      <Col lg ="6">
+                        <AddTokens state={state} />
+                      </Col>
+                      <Col lg="4">
+                        <AssetTable state={state} />
+                      </Col>
+                      <Col lg="2">
+                        <APY state={state} setState={setState} />
+                      </Col>
+                      </Row>
+                      
+                    
+                  </div>
+                ) :
+                <Row >
+                  <Col >
+                    <WelcomeText 
+                      state={state}
+                      openModal={openModal}
+                      disconnect={disconnect}
+                      setConnection={setConnection}
+                      setAddress={setAddress}
+                      refresh={refresh}
+                     />
+                  </Col>
+                  
+                  </Row>} 
+              </Panel>
+            </Col>
+          </Row>
+        </Container>
+        <ErrorModal state={state} onClose={() => closeErrorModal()} />
     </ThemeProvider>
   );
 }

@@ -1,5 +1,3 @@
-// This file is a mess
-
 const assets = [
   {
     name: 'BAL_95_USDC_5_FARM',
@@ -284,6 +282,16 @@ const assets = [
     decimals: 18,
     address: '0x8dAEBADE922dF735c38C80C7eBD708Af50815fAa',
   },
+/**  {
+    name: '3CRV',
+    decimals: 18,
+    address: '0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490',
+  },
+  {
+    name: 'YCRV',
+    decimals: 18,
+    address: '0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8',
+  },*/
 ];
 
 /**
@@ -318,6 +326,49 @@ assets.push({
     ],
   },
   address: '0x49849C98ae39Fff122806C06791Fa73784FB3675',
+});
+assets.push({
+  name: '3CRV',
+  decimals: 18,
+  type: 'curve',
+  curveInfo: {
+    poolAddress: '0xbEbc44782C7dB0a1A60Cb6fe97d0b483032FF1C7',
+    assets: [
+      assetByName('DAI'),
+      assetByName('USDC'),
+      assetByName('USDT'),
+    ],
+  },
+  address: '0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490',
+});
+assets.push({
+  name: 'YCRV',
+  decimals: 18,
+  type: 'curve',
+  curveInfo: {
+    poolAddress: '0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51',
+    assets: [
+      assetByName('DAI'),
+      assetByName('USDC'),
+      assetByName('USDT'),
+      assetByName('TUSD'),
+    ],
+  },
+  address: '0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8',
+});
+assets.push({
+  name: 'F3CRV',
+  type: 'ftoken',
+  underlyingAsset: assetByName('3CRV'),
+  decimals: 18,
+  address: '0x71B9eC42bB3CB40F017D8AD8011BE8e384a95fa5',
+});
+assets.push({
+  name: 'FYCRV',
+  type: 'ftoken',
+  underlyingAsset: assetByName('YCRV'),
+  decimals: 18,
+  address: '0x0FE4283e0216F94f5f9750a7a11AC54D3c9C38F3',
 });
 assets.push({
   name: 'FDAI',
@@ -1136,7 +1187,98 @@ const weekEightPools = [
   },
 ];
 
-const periods = [weekOnePools, weekTwoPools, weekThreePools, weekFourPools, weekFivePools, weekSixPools, weekSevenPools, weekEightPools];
+const weekTenPools = [
+  {
+    name: 'ProfitShare V3',
+    asset: assetByName('FARM'),
+    address: '0x25550Cccbd68533Fa04bFD3e3AC4D09f9e00Fc50',
+    rewardAsset: assetByName('FARM'),
+    type: 'autocompounding',
+  },
+  {
+    asset: assetByName('FARM_USDC_LP'),
+    address: '0x99b0d6641A63Ce173E6EB063b3d3AED9A35Cf9bf',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FWETH_USDT_LP'),
+    address: '0x75071F2653fBC902EBaff908d4c68712a5d1C960',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FWETH_USDC_LP'),
+    address: '0x156733b89Ac5C704F3217FEe2949A9D4A73764b5',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FWETH_DAI_LP'),
+    address: '0x7aeb36e22e60397098C2a5C51f0A5fB06e7b859c',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FWETH_WBTC_LP'),
+    address: '0xF1181A71CC331958AE2cA2aAD0784Acfc436CB93',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FWETHv1'),
+    address: '0x3DA9D911301f8144bdF5c3c67886e5373DCdff8e',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FDAIv1'),
+    address: '0x15d3A64B2d5ab9E152F16593Cdebc4bB165B5B4A',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FUSDCv1'),
+    address: '0x4F7c28cCb0F1Dbd1388209C67eEc234273C878Bd',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FUSDTv1'),
+    address: '0x6ac4a7ab91e6fd098e13b7d347c6d4d1494994a2',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FTUSD'),
+    address: '0xeC56a21CF0D7FeB93C25587C12bFfe094aa0eCdA',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FWBTCv1'),
+    address: '0x917d6480Ec60cBddd6CbD0C8EA317Bcc709EA77B',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FRENBTCv1'),
+    address: '0x7b8Ff8884590f44e10Ea8105730fe637Ce0cb4F6',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FCRVRENWBTCv1'),
+    address: '0xA3Cf8D1CEe996253FAD1F8e3d68BDCba7B3A3Db5',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FSLP_WBTC_TBTC'),
+    address: '0x9523FdC055F503F73FF40D7F66850F409D80EF34',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('F3CRV'),
+    address: '0x27F12d1a08454402175b9F0b53769783578Be7d9',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FYCRV'),
+    address: '0x6D1b6Ea108AA03c6993d8010690264BA96D349A8',
+    rewardAsset: assetByName('FARM'),
+  },
+];
+
+
+const periods = [weekOnePools, weekTwoPools, weekThreePools, weekFourPools, weekFivePools, weekSixPools, weekSevenPools, weekEightPools, weekTenPools];
 
 /**
  * @param {Set} setA
@@ -1254,4 +1396,5 @@ export default {
   weekSixPools,
   weekSevenPools,
   weekEightPools,
+  weekTenPools,
 };
