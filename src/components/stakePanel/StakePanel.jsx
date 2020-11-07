@@ -64,7 +64,7 @@ const Panel = styled.div`
       font-size: 2.25rem;
       
     }
-    @media(max-width: 960px) {
+    @media(max-width: 998px) {
       font-size: 2rem;
       justify-content: center;
       text-align: center;
@@ -126,7 +126,7 @@ const StakePanel = ({ state, openModal }) => {
   );
 
   const checkForFarm = (amount) => {
-    if(amount === 0 && stakeAmount === 0) {
+    if(amount <= 0) {
       setModal(true)
     }else {
       setStakeAmount(ethers.utils.formatEther(amount))
@@ -187,7 +187,7 @@ const StakePanel = ({ state, openModal }) => {
 
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-      {state.display ? <Panel>
+      <Panel>
         <div className='panel-text'>
           <p>
             Stake
@@ -232,7 +232,6 @@ const StakePanel = ({ state, openModal }) => {
           )}
         </ButtonContainer>
       </Panel>
-       : <StakePanelSkeleton state={state} />}
        <NoFarmModal state={state} modal={modal} onClose={() => closeErrorModal()} />
     </ThemeProvider>
   );

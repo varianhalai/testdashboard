@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import DataTable from "react-data-table-component";
 import styled, { ThemeProvider } from "styled-components";
 import harvest from "../../lib/index";
@@ -29,7 +29,6 @@ const TableContainer = styled.div`
   .rdt_TableHeadRow {
     background: ${(props) => props.theme.table.tableHeadBackground};
     border: ${(props) => props.theme.style.mainBorder};
-    box-sizing: border-box;
     box-shadow: ${(props) => props.theme.style.panelBoxShadow};
     border-top-right-radius: 0.5rem;
     border-top-left-radius: 0.5rem;
@@ -40,7 +39,6 @@ const TableContainer = styled.div`
     border-left: ${(props) => props.theme.style.mainBorder};
     border-right: ${(props) => props.theme.style.mainBorder};
     border-bottom: ${(props) => props.theme.style.mainBorder};
-    box-sizing: border-box;
     box-shadow: ${(props) => props.theme.style.panelBoxShadow};
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -150,6 +148,7 @@ const FarmingTable = ({ state,setState }) => {
     console.log(min)
     setState({...state,minimumHarvestAmount: min})
  }
+
 
   return (
       <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>

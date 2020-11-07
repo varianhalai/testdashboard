@@ -234,7 +234,7 @@ const AddTokens = (props) => {
  
   return (
     <ThemeProvider theme={props.state.theme === "dark" ? darkTheme : lightTheme}>
-      {props.state.display ? <Panel>
+       <Panel>
         <Header>Add assets to wallet</Header>
 
         <Carousel 
@@ -258,7 +258,7 @@ const AddTokens = (props) => {
             <StyledToken key={t.name} {...t} />
           ))}
         </Carousel>
-      </Panel> : <AddTokenSkeleton state={props.state} />}
+      </Panel> 
       
     </ThemeProvider>
   );

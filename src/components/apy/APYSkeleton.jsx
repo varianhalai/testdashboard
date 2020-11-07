@@ -12,6 +12,7 @@ width: 100%;
 height: 15rem;
 background: none;
 border: ${(props) => props.theme.style.mainBorder};
+box-shadow: ${(props) => props.theme.style.panelBoxShadow};
 border-radius: .5rem;
 overflow: hidden;
 
