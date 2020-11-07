@@ -10,18 +10,8 @@ const TableContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 101.5%;
-
-  @media(max-width: 1050px) {
-    width: 103%;
-  }
-  @media(max-width: 990px) {
-    width: 101%;
-  }
-  @media(max-width: 370px) {
-    margin-top: 1rem;
-    
-  }
+  
+  
   
  
   
@@ -53,13 +43,7 @@ const TableContainer = styled.div`
     border-top-right-radius: 0;
     border-bottom-left-radius: .5rem;
     border-bottom-right-radius: .5rem;
-    overflow-y: scroll;
-    max-height: 10rem;
-    ::-webkit-scrollbar {
-      width: .1rem;
-    }
-    scrollbar-width: none; /* Firefox 64 */
-    -ms-overflow-style: none; /* IE 11 */
+    
     
     
   }
@@ -71,17 +55,7 @@ const TableContainer = styled.div`
     padding: 1rem ;
     font-size: 1.4rem;
     
-    @media(max-width: 1090px) {
-      font-size: 1.2rem;
-      
-    }
-    @media(max-width: 760px) {
-      font-size: 1.5rem;
-      
-    }
-    @media(max-width: 330px) {
-      font-size: .8rem;
-    }
+   
   }
 
   div[role="columnheader"] {
@@ -139,7 +113,7 @@ const columns = [
   {
     name: "Asset",
     selector: (data) => data.asset.name,
-    compact: true
+    center: true
     
     
   },
@@ -147,7 +121,7 @@ const columns = [
     name: "Underlying Balance",
     selector: (data) =>
       ethers.utils.formatUnits(data.balance, data.asset.decimals),
-    compact: true,
+    center: true,
   },
 ];
 

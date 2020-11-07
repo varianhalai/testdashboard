@@ -8,7 +8,7 @@ import Loadable from 'react-loadable';
 import { darkTheme, lightTheme, fonts } from "./styles/appStyles.js";
 
 // images
-import logo from "./assets/logo.png";
+import logo from "./assets/gif_tractor.gif";
 
 
 // components
@@ -173,11 +173,13 @@ const GlobalStyle = createGlobalStyle`
 
 // App
 const Brand = styled.div`
-  padding-top: 1.5rem;
+
   padding-right: 1rem;
   display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  height: 2.5rem;
+  
 
   img {
     width: 3rem;
@@ -276,6 +278,7 @@ const PanelTab = styled.div`
     position: relative;
     background-color: ${(props) => props.theme.style.wikiTabBackground};
     top: 0.4rem;
+    margin-left: 2.5rem;
     
 
     &:hover {
@@ -327,18 +330,9 @@ const PanelTabContainerRight = styled.div`
 `;
 
 const Container = styled.div`
-  width: 80%;
+  width: 85%;
   margin: 0 auto;
  
-  @media(min-width: 1800px) {
-    width: 75%;
-  }
-  @media(max-width: 1300px) {
-    width: 85%;
-  }
-  @media(max-width: 1250px) {
-    width: 90%;
-  }
   
 `;
 
@@ -381,7 +375,6 @@ function App() {
   useEffect(() => {
     if(state.usdValue) {
       setState({...state,display: true})
-      console.log(state.summaries)
     }
   },[state.usdValue])
 

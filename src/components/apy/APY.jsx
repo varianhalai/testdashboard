@@ -9,7 +9,7 @@ const BluePanel = styled.div`
   background-color: ${(props) => props.theme.style.blueBackground};
   color: ${(props) => props.theme.style.primaryFontColor};
   font-family: ${fonts.headerFont};
-  padding: 5.3rem .7rem 5.5rem .7rem;
+  padding: 2.5rem .7rem 2rem .7rem;
   margin-right: .5rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: .5rem;
@@ -33,7 +33,7 @@ const BluePanel = styled.div`
   }
 
   @media(max-width: 1107px) {
-    padding: 3.65rem .7rem 6.6rem 1.5rem;
+    padding: 3.65rem .7rem 7.2rem 1.5rem;
     margin-right: 0px;
     h1 {
       font-size:2.2rem;
@@ -54,49 +54,49 @@ const APY = ({ state,setState }) => {
 
   
 
-  // useEffect(() => {
-  //   if(pools.length === 0) {
-  //     getPools();
-  //     setSummaries(state.summaries);
-  //   } 
-  //   if(pools.length > 0) {
-  //     calcApy()
-  //   }
+  useEffect(() => {
+    if(pools.length === 0) {
+      getPools();
+      setSummaries(state.summaries);
+    } 
+    if(pools.length > 0) {
+      calcApy()
+    }
     
     
-  // }, [state.usdValue]);
+  }, [state.usdValue]);
 
-  // useEffect(() => {
-  //   if(pools.length > 0) {
-  //     calcApy()
-  //   }
+  useEffect(() => {
+    if(pools.length > 0) {
+      calcApy()
+    }
     
     
-  // }, [state.display]);
+  }, [state.display]);
   
 
-  // const getPools = async () => {
-  //   const poolsData = await axios.get(
-  //     "https://api-ui.harvest.finance/pools?key=41e90ced-d559-4433-b390-af424fdc76d6",
-  //   ).then(res => {
-  //     console.log(res.data)
-  //     setPools(res.data);
-  //   })
-  //   .catch(err => {
-  //     console.log(err)
-  //   })
+  const getPools = async () => {
+    const poolsData = await axios.get(
+      "https://api-ui.harvest.finance/pools?key=41e90ced-d559-4433-b390-af424fdc76d6",
+    ).then(res => {
+      console.log(res.data)
+      setPools(res.data);
+    })
+    .catch(err => {
+      console.log(err)
+    })
     
     
     
-  // };
+  };
 
-  // const calcApy = () => {
+  const calcApy = () => {
     
-  //     setState((state) => ({ ...state,apy: pools[0].rewardAPY}));
+      setState((state) => ({ ...state,apy: pools[0].rewardAPY}));
     
     
     
-  // };
+  };
   
 
   return (

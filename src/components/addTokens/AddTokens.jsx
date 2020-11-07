@@ -39,7 +39,7 @@ const Panel = styled.div`
     
   }
   .carousel-container {
-    width: 98%;
+    width: 100%;
     margin-left: 5rem;
     padding: 0;
     @media(max-width: 1550px) {
@@ -198,19 +198,23 @@ const responsive = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
     breakpoint: { max: 4000, min: 3000 },
-    items: 10
+    items: 10,
+    slidesToSlide: 5 
   },
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 5
+    items: 10,
+    slidesToSlide: 5 
   },
   tablet: {
     breakpoint: { max: 1000, min: 464 },
-    items: 5
+    items: 5,
+    slidesToSlide: 5 
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
-    items: 3
+    items: 3,
+    slidesToSlide: 3 
   }
 };
 
