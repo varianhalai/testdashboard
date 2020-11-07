@@ -7,6 +7,7 @@ import Harvest from "../components/harvest/Harvest.jsx";
 import StakePanel from "../components/stakePanel/StakePanel.jsx";
 import Balance from "../components/balance/Balance.jsx";
 import APY from "../components/apy/APY.jsx";
+import FarmPrice from '../components/farmPrice/FarmPrice';
 import AddTokens from "../components/addTokens/AddTokens";
 
 import Loadable from 'react-loadable';
@@ -46,15 +47,28 @@ const MainContent = ({state, setState,openModal}) => {
                 </Row>
                 <Row style={{marginTop:"15px"}}>
                 {/* Git hub pages would not recognize the margin from the bootstrap grid */}
-                <Col lg ="6">
+                
+                <Col lg="10">
+                
                 <AddTokens state={state} />
                 </Col>
-                <Col lg="4">
-                <AssetTable state={state} />
-                </Col>
                 <Col lg="2">
-                <APY state={state} setState={setState} />
+                <APY apy={state.apy}
+                    display={state.display}
+                    theme={state.theme} 
+                    />
+                <FarmPrice  
+                    price={state.farmPrice}
+                    display={state.display}
+                    theme={state.theme}
+                    />
+                
                 </Col>
+                </Row>
+                <Row>
+                    <Col lg ="12">
+                        <AssetTable state={state} />
+                    </Col>
                 </Row>
                 
             

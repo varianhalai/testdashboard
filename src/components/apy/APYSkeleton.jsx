@@ -9,7 +9,7 @@ display: flex;
 flex-direction: column;
 align-items: center;
 width: 100%;
-height: 15rem;
+height: 10rem;
 background: none;
 border: ${(props) => props.theme.style.mainBorder};
 box-shadow: ${(props) => props.theme.style.panelBoxShadow};
@@ -49,10 +49,10 @@ overflow: hidden;
 
 `;
 
-const APYSkeleton = ({state}) => {
+const APYSkeleton = ({theme}) => {
     return (
-        <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-            <SkeletonPanel className='harvest-skeleton'>
+        <ThemeProvider theme={theme === "dark" ? darkTheme : lightTheme}>
+            <SkeletonPanel>
                 
                 
             </SkeletonPanel>

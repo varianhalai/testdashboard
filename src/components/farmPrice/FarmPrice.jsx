@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
-import axios from 'axios';
-import APYSkeleton from "./APYSkeleton";
+
+import PriceSkeleton from './FarmPriceSkeleton';
+
 
 const BluePanel = styled.div`
   position: relative;
   background-color: ${(props) => props.theme.style.blueBackground};
   color: ${(props) => props.theme.style.primaryFontColor};
   font-family: ${fonts.headerFont};
-  padding: 2.5rem .7rem 2rem .7rem;
+  padding: 2.5rem .7rem 2.5rem .7rem;
   margin-right: .5rem;
+  margin-top: 1.2rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: .5rem;
   box-sizing: border-box;
@@ -48,23 +50,19 @@ const BluePanel = styled.div`
   }
 `;
 
-const APY = ({ apy,display,theme }) => {
-  
-  
-
-  
-
-  
-
-  return (
+const FarmPrice = ({ price, display, theme }) => {
+    return (
+        
     <ThemeProvider theme={theme === "dark" ? darkTheme : lightTheme}>
       {display ? <BluePanel>
-        <h1>{apy} %</h1>
-        <span>Profit Share APY</span>
+        <h1>${price}</h1>
+        <span>FARM price</span>
       </BluePanel> :
-        <APYSkeleton theme={theme} />}
+        <PriceSkeleton theme={theme} />}
     </ThemeProvider>
-  );
-};
+            
+        
+    );
+}
 
-export default APY;
+export default FarmPrice;

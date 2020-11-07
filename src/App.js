@@ -6,9 +6,10 @@ import { reset } from "styled-reset";
 import harvest from "./lib/index.js";
 import Loadable from 'react-loadable';
 import { darkTheme, lightTheme, fonts } from "./styles/appStyles.js";
+import axios from 'axios';
 
 // images
-import logo from "./assets/logo.png";
+import logo from "./assets/gif_tractor.gif";
 
 
 // components
@@ -173,11 +174,13 @@ const GlobalStyle = createGlobalStyle`
 
 // App
 const Brand = styled.div`
-  padding-top: 1.5rem;
+
   padding-right: 1rem;
   display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  height: 2.5rem;
+  
 
   img {
     width: 3rem;
@@ -276,6 +279,7 @@ const PanelTab = styled.div`
     position: relative;
     background-color: ${(props) => props.theme.style.wikiTabBackground};
     top: 0.4rem;
+    margin-left: 2.5rem;
     
 
     &:hover {
@@ -327,18 +331,9 @@ const PanelTabContainerRight = styled.div`
 `;
 
 const Container = styled.div`
-  width: 80%;
+  width: 85%;
   margin: 0 auto;
  
-  @media(min-width: 1800px) {
-    width: 75%;
-  }
-  @media(max-width: 1300px) {
-    width: 85%;
-  }
-  @media(max-width: 1250px) {
-    width: 90%;
-  }
   
 `;
 
@@ -362,15 +357,52 @@ function App() {
     error: { message: null, type: null, display: false },
     theme: window.localStorage.getItem("HarvestFinance:Theme") || "light",
     display: false,
-    minimumHarvestAmount: 0
+    minimumHarvestAmount: 0,
+    apy: 0,
+    farmPrice: 0
   });
 
+  const getPools = async () => {
+    const poolsData = await axios.get(
+      "https://api-ui.harvest.finance/pools?key=41e90ced-d559-4433-b390-af424fdc76d6",
+    ).then(res => {
+      let currentAPY = res.data[0].rewardAPY;
+      let currentPrice = res.data[0].lpTokenData.price;
+      
+      setState({...state,apy: currentAPY, farmPrice: currentPrice})
+      
+    })
+    .catch(err => {
+      console.log(err)
+    })
+    
+    
+    
+  };
+  
+ 
+
+
   useEffect(() => {
+  
     const timer = setTimeout(() => {
       state.manager && refresh();
     }, 60000);
     return () => clearTimeout(timer);
   });
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      state.manager && getPools();
+    }, 60000);
+    return () => clearTimeout(timer);
+  });
+  useEffect(() => {
+    getPools()
+  },[])
+
+
+
   useEffect(() => {
     if (state.address !== "") {
       refresh();
@@ -381,7 +413,6 @@ function App() {
   useEffect(() => {
     if(state.usdValue) {
       setState({...state,display: true})
-      console.log(state.summaries)
     }
   },[state.usdValue])
 
@@ -472,6 +503,8 @@ function App() {
     setState({ ...state, theme: theme });
     window.localStorage.setItem("HarvestFinance:Theme", theme);
   };
+
+ 
 
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
