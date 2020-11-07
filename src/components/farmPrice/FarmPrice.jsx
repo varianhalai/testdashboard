@@ -50,15 +50,15 @@ const BluePanel = styled.div`
   }
 `;
 
-const FarmPrice = ({state}) => {
+const FarmPrice = ({ price, display, theme }) => {
     return (
         
-    <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-      {state.display ? <BluePanel>
-        <h1>135.25 USD</h1>
+    <ThemeProvider theme={theme === "dark" ? darkTheme : lightTheme}>
+      {display ? <BluePanel>
+        <h1>${price}</h1>
         <span>FARM price</span>
       </BluePanel> :
-        <PriceSkeleton state={state} />}
+        <PriceSkeleton theme={theme} />}
     </ThemeProvider>
             
         

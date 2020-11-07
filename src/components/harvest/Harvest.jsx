@@ -26,7 +26,7 @@ const Panel = styled.div`
 
   .panel-text {
     width: 100%;
-    font-size: 2rem;
+    font-size: 1.7rem;
     display: flex;
     justify-content: center;
     font-family: ${fonts.contentFont};

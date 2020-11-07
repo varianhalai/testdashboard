@@ -48,64 +48,21 @@ const BluePanel = styled.div`
   }
 `;
 
-const APY = ({ state,setState }) => {
-  const [pools, setPools] = useState([]);
-  const [summaries, setSummaries] = useState([]);
+const APY = ({ apy,display,theme }) => {
+  
+  
 
   
 
-  useEffect(() => {
-    if(pools.length === 0) {
-      getPools();
-      setSummaries(state.summaries);
-    } 
-    if(pools.length > 0) {
-      calcApy()
-    }
-    
-    
-  }, [state.usdValue]);
-
-  useEffect(() => {
-    if(pools.length > 0) {
-      calcApy()
-    }
-    
-    
-  }, [state.display]);
-  
-
-  const getPools = async () => {
-    const poolsData = await axios.get(
-      "https://api-ui.harvest.finance/pools?key=41e90ced-d559-4433-b390-af424fdc76d6",
-    ).then(res => {
-      console.log(res.data)
-      setPools(res.data);
-    })
-    .catch(err => {
-      console.log(err)
-    })
-    
-    
-    
-  };
-
-  const calcApy = () => {
-    
-      setState((state) => ({ ...state,apy: pools[0].rewardAPY}));
-    
-    
-    
-  };
   
 
   return (
-    <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-      {state.display ? <BluePanel>
-        <h1>{state.apy} %</h1>
+    <ThemeProvider theme={theme === "dark" ? darkTheme : lightTheme}>
+      {display ? <BluePanel>
+        <h1>{apy} %</h1>
         <span>Profit Share APY</span>
       </BluePanel> :
-        <APYSkeleton state={state} />}
+        <APYSkeleton theme={theme} />}
     </ThemeProvider>
   );
 };

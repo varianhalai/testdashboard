@@ -49,9 +49,9 @@ overflow: hidden;
 
 `;
 
-const APYSkeleton = ({state}) => {
+const APYSkeleton = ({theme}) => {
     return (
-        <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
+        <ThemeProvider theme={theme === "dark" ? darkTheme : lightTheme}>
             <SkeletonPanel>
                 
                 

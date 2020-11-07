@@ -50,9 +50,9 @@ overflow: hidden;
 
 `;
 
-const PriceSkeleton = ({state}) => {
+const PriceSkeleton = ({theme}) => {
     return (
-        <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
+        <ThemeProvider theme={theme === "dark" ? darkTheme : lightTheme}>
             <SkeletonPanel>
                 
                 

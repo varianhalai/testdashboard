@@ -53,8 +53,15 @@ const MainContent = ({state, setState,openModal}) => {
                 <AddTokens state={state} />
                 </Col>
                 <Col lg="2">
-                <APY state={state} setState={setState} />
-                <FarmPrice state={state} setState={setState} />
+                <APY apy={state.apy}
+                    display={state.display}
+                    theme={state.theme} 
+                    />
+                <FarmPrice  
+                    price={state.farmPrice}
+                    display={state.display}
+                    theme={state.theme}
+                    />
                 
                 </Col>
                 </Row>
