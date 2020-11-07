@@ -53,7 +53,7 @@ const TableContainer = styled.div`
     font-family: ${fonts.contentFont};
     color: ${(props) => props.theme.style.primaryFontColor};
     padding: 1rem ;
-    font-size: 1.4rem;
+    font-size: 1.7rem;
     
    
   }
@@ -62,22 +62,11 @@ const TableContainer = styled.div`
     color: ${(props) => props.theme.style.primaryFontColor};
     background-color: ${(props) => props.theme.table.tableHeadBackground};
     font-family: ${fonts.headerFont};
-    font-size: 1.7rem;
+    font-size: 2rem;
     padding: 1rem .5rem;
     letter-spacing: -1px;
     
-    @media(max-width: 1330px) {
-      font-size: 1.4rem;
-      
-    }
-    @media(max-width: 1180px) {
-      font-size: 1.35rem;
-      
-    }
-    media(max-width: 760px) {
-      font-size: 1.7rem;
-      
-    }
+   
     
     
     

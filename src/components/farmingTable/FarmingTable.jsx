@@ -17,12 +17,14 @@ const TableContainer = styled.div`
   align-items: center;
   width: 100%:
   padding-bottom: 3rem;
+  
 
 
 
   div[role="table"] {
     background-color: ${(props) => props.theme.table.tableBackground};
     padding: .35rem;
+    
     
   }
 
@@ -47,13 +49,15 @@ const TableContainer = styled.div`
     
     
     
+    
   }
 
   .rdt_TableRow {
     background-color: ${(props) => props.theme.table.tableRowBackground};
     font-family: ${fonts.contentFont};
     color: ${(props) => props.theme.style.primaryFontColor};
-    font-size: 1.5rem;
+    font-size: 1.7rem;
+   
    
   }
 
@@ -61,7 +65,7 @@ const TableContainer = styled.div`
     color: ${(props) => props.theme.style.primaryFontColor};
     background-color: ${(props) => props.theme.table.tableHeadBackground};
     font-family: ${fonts.headerFont};
-    font-size: 1.7rem;
+    font-size: 2rem;
     letter-spacing: -1.5px;
     
   
@@ -95,6 +99,7 @@ const columns = [
   {
     name: "Staked",
     selector: "stakedBalance",
+    compact: true
     
     
   },
@@ -114,6 +119,7 @@ const columns = [
     name: "Value",
     selector: "usdValueOf",
     sortable: true,
+    compact: true
   },
 ];
 
@@ -149,6 +155,7 @@ const FarmingTable = ({ state,setState }) => {
           noDataComponent={false}
           data={state.summaries.map(utils.prettyPosition)}
           onRowClicked={getRewards}
+          
         />  }
         </TableContainer> 
         : <FarmTableSkeleton state={state} />}

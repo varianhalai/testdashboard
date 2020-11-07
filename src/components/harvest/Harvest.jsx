@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
-import HarvestSkeleton from './HarvestSkeleton'
 import harvest from "../../lib/index.js";
 const { ethers } = harvest;
 
@@ -27,9 +26,9 @@ const Panel = styled.div`
 
   .panel-text {
     width: 100%;
-    font-size: 2.7rem;
+    font-size: 2rem;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     font-family: ${fonts.contentFont};
 
    
@@ -38,12 +37,12 @@ const Panel = styled.div`
 const ButtonContainer = styled.div`
   width: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   margin-top: 1.5rem;
 
  
   button {
-    font-size: 1.9rem;
+    font-size: 2rem;
     font-family: ${fonts.headerFont};
     position: relative;
     margin-top: 4px;
