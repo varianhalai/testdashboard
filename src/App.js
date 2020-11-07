@@ -4,24 +4,18 @@ import { Row, Col } from "styled-bootstrap-grid";
 import { createGlobalStyle } from "styled-components";
 import { reset } from "styled-reset";
 import harvest from "./lib/index.js";
-import ErrorModal from "./components/ErrorModal.jsx";
-
+import Loadable from 'react-loadable';
 import { darkTheme, lightTheme, fonts } from "./styles/appStyles.js";
 
 // images
-import logo from "./assets/logo.png";
+import logo from "./assets/gif_tractor.gif";
 
 
 // components
 import Wallet from "./components/Wallet.jsx";
-import FarmingTable from "./components/farmingTable/FarmingTable.jsx";
-import AssetTable from "./components/assetTable/AssetTable.jsx";
-import Harvest from "./components/harvest/Harvest.jsx";
-import StakePanel from "./components/stakePanel/StakePanel.jsx";
-import Balance from "./components/balance/Balance.jsx";
-import APY from "./components/apy/APY.jsx";
-import AddTokens from "./components/addTokens/AddTokens.jsx";
-import WelcomeText from './components/WelcomeText.jsx';
+import MainContent from './components/MainContent';
+
+import WelcomeText from './components/WelcomeText';
 
 const { ethers } = harvest;
 const GlobalStyle = createGlobalStyle`
@@ -179,11 +173,13 @@ const GlobalStyle = createGlobalStyle`
 
 // App
 const Brand = styled.div`
-  padding-top: 1.5rem;
+
   padding-right: 1rem;
   display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  height: 2.5rem;
+  
 
   img {
     width: 3rem;
@@ -239,7 +235,6 @@ const PanelTab = styled.div`
   border-right: ${(props) => props.theme.style.mainBorder};
   padding: 0.75rem 2rem 2.25rem 2rem;
   background-color: ${(props) => props.theme.style.highlight};
-  box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelTabBoxShadow};
   
   cursor: pointer;
@@ -283,6 +278,7 @@ const PanelTab = styled.div`
     position: relative;
     background-color: ${(props) => props.theme.style.wikiTabBackground};
     top: 0.4rem;
+    margin-left: 2.5rem;
     
 
     &:hover {
@@ -334,20 +330,19 @@ const PanelTabContainerRight = styled.div`
 `;
 
 const Container = styled.div`
-  width: 80%;
+  width: 85%;
   margin: 0 auto;
  
-  @media(min-width: 1800px) {
-    width: 75%;
-  }
-  @media(max-width: 1300px) {
-    width: 85%;
-  }
-  @media(max-width: 1250px) {
-    width: 90%;
-  }
   
 `;
+
+
+const ErrorModal = Loadable({
+  loader: () => import('./components/ErrorModal'),
+  loading() {
+    return null
+  }
+})
 
 function App() {
   const [state, setState] = useState({
@@ -380,7 +375,6 @@ function App() {
   useEffect(() => {
     if(state.usdValue) {
       setState({...state,display: true})
-      console.log(state.summaries)
     }
   },[state.usdValue])
 
@@ -527,7 +521,7 @@ function App() {
               </PanelTabContainer>
 
               <Panel>
-                 {state.usdValue? <Row>
+                 {state.address? <Row>
                   <Col>
                     <Wallet
                       state={state}
@@ -544,42 +538,10 @@ function App() {
                  
                 
                 {state.provider ? (
-                  <div className='main-content'>
-                    <Row >
-                      <Col >
-                        <FarmingTable state={state} setState={setState} />
-                      </Col>
-                    </Row>
-
-                    <Row style={{marginTop:"15px"}}>
-                      {/* Git hub pages would not recognize the margin from the bootstrap grid */}
-                      <Col lg="6">
-                        <Harvest state={state} setState={setState} />
-                      </Col>
-                      <Col lg="4">
-                        <StakePanel state={state} openModal={openModal} />
-                      </Col>
-                      <Col lg="2">
-                        <Balance state={state}/>  
-                      </Col>
-                      
-                      
-                      </Row>
-                      <Row style={{marginTop:"15px"}}>
-                        {/* Git hub pages would not recognize the margin from the bootstrap grid */}
-                      <Col lg ="6">
-                        <AddTokens state={state} />
-                      </Col>
-                      <Col lg="4">
-                        <AssetTable state={state} />
-                      </Col>
-                      <Col lg="2">
-                        <APY state={state} setState={setState} />
-                      </Col>
-                      </Row>
-                      
-                    
-                  </div>
+                  <MainContent 
+                  state={state} 
+                  setState={setState}
+                  openModal={openModal}/>
                 ) :
                 <Row >
                   <Col >

@@ -9,12 +9,13 @@ display: flex;
 flex-direction: column;
 align-items: center;
 width: 100%;
-height: 11.3rem;
+height: 10rem;
+margin-top: 1.3rem;
 background: none;
 border: ${(props) => props.theme.style.mainBorder};
+box-shadow: ${(props) => props.theme.style.panelBoxShadow};
 border-radius: .5rem;
 overflow: hidden;
-
 
     .skeleton-header {
         margin: 0;
@@ -49,7 +50,7 @@ overflow: hidden;
 
 `;
 
-const HarvestSkeleton = ({state}) => {
+const PriceSkeleton = ({state}) => {
     return (
         <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
             <SkeletonPanel>
@@ -61,4 +62,4 @@ const HarvestSkeleton = ({state}) => {
     );
 }
 
-export default HarvestSkeleton;
+export default PriceSkeleton;

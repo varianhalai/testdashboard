@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
-import harvest from "../../lib/index.js";
-import BalanceSkeleton from './BalanceSkeleton';
-const { ethers, utils } = harvest;
+
+import PriceSkeleton from './FarmPriceSkeleton';
+
 
 const BluePanel = styled.div`
   position: relative;
   background-color: ${(props) => props.theme.style.blueBackground};
   color: ${(props) => props.theme.style.primaryFontColor};
   font-family: ${fonts.headerFont};
+  padding: 2.5rem .7rem 2.5rem .7rem;
   margin-right: .5rem;
-  padding: 3.65rem .7rem 3.59rem .7rem;
+  margin-top: 1.2rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: .5rem;
   box-sizing: border-box;
@@ -20,9 +21,10 @@ const BluePanel = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  
+  
+  
 
-  
-  
   h1 {
     font-size: 2.4rem;
     margin-bottom: 0.5rem;
@@ -33,45 +35,34 @@ const BluePanel = styled.div`
   }
 
   @media(max-width: 1107px) {
-    padding: 3.65rem .7rem 4rem 1.5rem;
+    padding: 3.65rem .7rem 7.2rem 1.5rem;
     margin-right: 0px;
     h1 {
       font-size:2.2rem;
+      position: relative;
+      top:1.2rem;
     }
     span {
       font-size:1.1rem;
+      position: relative;
+      top:1.2rem;
     }
   }
-  
 `;
 
-const Balance = ({ state }) => {
-  const [userBalance, setUserBalance] = useState(ethers.BigNumber.from(0));
-
-  useEffect(() => {
-    balance();
-  }, [state.summaries]);
-
-  const balance = () => {
-    let ub = ethers.BigNumber.from(0);
-
-    for (let i = 0; i < state.summaries.length; i++) {
-      ub = ub.add(state.summaries[i].summary.usdValueOf);
-
-      setUserBalance(ub);
-    }
-  };
-
-
-  return (
+const FarmPrice = ({state}) => {
+    return (
+        
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       {state.display ? <BluePanel>
-        <h1>{utils.prettyMoney(userBalance)}</h1>
-        <span>Staked Balance</span>
+        <h1>135.25 USD</h1>
+        <span>FARM price</span>
       </BluePanel> :
-      <BalanceSkeleton state={state} />}
+        <PriceSkeleton state={state} />}
     </ThemeProvider>
-  );
-};
+            
+        
+    );
+}
 
-export default Balance;
+export default FarmPrice;

@@ -9,7 +9,7 @@ const Container = styled.div`
         display: flex;
         position: fixed;
         width: 110vw;
-        height: 110vh;
+        height: 100vh;
         background-color: #07070767;
         top: 0%;
         transform: translateY(50%);
@@ -36,6 +36,7 @@ const Inner = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 4rem 0;
+  bottom: 10%;
   border: ${(props) => props.theme.style.mainBorder};
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
   .error-title {

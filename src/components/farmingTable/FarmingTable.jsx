@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import DataTable from "react-data-table-component";
 import styled, { ThemeProvider } from "styled-components";
 import harvest from "../../lib/index";
@@ -17,6 +17,7 @@ const TableContainer = styled.div`
   align-items: center;
   width: 100%:
   padding-bottom: 3rem;
+  
 
 
 
@@ -24,12 +25,12 @@ const TableContainer = styled.div`
     background-color: ${(props) => props.theme.table.tableBackground};
     padding: .35rem;
     
+    
   }
 
   .rdt_TableHeadRow {
     background: ${(props) => props.theme.table.tableHeadBackground};
     border: ${(props) => props.theme.style.mainBorder};
-    box-sizing: border-box;
     box-shadow: ${(props) => props.theme.style.panelBoxShadow};
     border-top-right-radius: 0.5rem;
     border-top-left-radius: 0.5rem;
@@ -40,19 +41,13 @@ const TableContainer = styled.div`
     border-left: ${(props) => props.theme.style.mainBorder};
     border-right: ${(props) => props.theme.style.mainBorder};
     border-bottom: ${(props) => props.theme.style.mainBorder};
-    box-sizing: border-box;
     box-shadow: ${(props) => props.theme.style.panelBoxShadow};
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-left-radius: .5rem;
     border-bottom-right-radius: .5rem;
-    max-height: 15rem;
-    overflow-y: scroll;
-    ::-webkit-scrollbar {
-      width: .1rem;
-    }
-    -ms-overflow-style: none; /* IE 11 */
-    scrollbar-width: none; /* Firefox 64 */
+    
+    
     
     
   }
@@ -61,25 +56,18 @@ const TableContainer = styled.div`
     background-color: ${(props) => props.theme.table.tableRowBackground};
     font-family: ${fonts.contentFont};
     color: ${(props) => props.theme.style.primaryFontColor};
-    font-size: 1.5rem;
-    @media(max-width: 330px) {
-      font-size: .9rem;
-    }
+    font-size: 1.7rem;
+   
+   
   }
 
   div[role="columnheader"] {
     color: ${(props) => props.theme.style.primaryFontColor};
     background-color: ${(props) => props.theme.table.tableHeadBackground};
     font-family: ${fonts.headerFont};
-    font-size: 1.7rem;
+    font-size: 2rem;
     letter-spacing: -1.5px;
-    @media(max-width: 1400px) {
-      font-size: 1.6rem;
-      
-    }
-    media(max-width: 760px) {
-      font-size: 1.7rem; 
-    }
+    
   
     &:hover,
     &:visited,
@@ -98,38 +86,40 @@ const columns = [
   {
     name: "Earning",
     selector: (data) => data.isActive.toString(),
-    compact: true,
-    hide: 'md'
+    compact: true
+    
   },
   {
     name: "Rewards",
     selector: "earnedRewards",
     compact: true,
-    hide: 'md',
+    
     
   },
   {
     name: "Staked",
     selector: "stakedBalance",
-    hide: 'sm'
+    compact: true
+    
     
   },
   {
     name: "% of Pool",
     selector: "percentOfPool",
     compact: true,
-    hide: 'md'
+    
   },
   {
     name: "Unstaked",
     selector: "unstakedBalance",
     compact: true,
-    hide: 'lg'
+    
   },
   {
     name: "Value",
     selector: "usdValueOf",
     sortable: true,
+    compact: true
   },
 ];
 
@@ -151,6 +141,7 @@ const FarmingTable = ({ state,setState }) => {
     setState({...state,minimumHarvestAmount: min})
  }
 
+
   return (
       <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
         
@@ -164,6 +155,7 @@ const FarmingTable = ({ state,setState }) => {
           noDataComponent={false}
           data={state.summaries.map(utils.prettyPosition)}
           onRowClicked={getRewards}
+          
         />  }
         </TableContainer> 
         : <FarmTableSkeleton state={state} />}

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
-import HarvestSkeleton from './HarvestSkeleton'
 import harvest from "../../lib/index.js";
 const { ethers } = harvest;
 
@@ -27,64 +26,23 @@ const Panel = styled.div`
 
   .panel-text {
     width: 100%;
-    font-size: 2.7rem;
+    font-size: 2rem;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     font-family: ${fonts.contentFont};
 
-    @media(max-width: 1964px) {
-      font-size: 2.5rem;
-    }
-    @media(max-width: 1716px) {
-      font-size: 2.45rem;
-    }
-    @media(max-width: 1590px) {
-      font-size: 2.25rem;
-    }
-    @media(max-width: 1498px) {
-      font-size: 2.0rem;
-    }
-    @media(max-width: 1384px) {
-      font-size: 1.80rem;
-    }
-    @media(max-width: 1134px) {
-      font-size: 1.5rem;
-    }
-    @media(max-width: 1002px) {
-      font-size: 2.25rem;
-      
-    }
-    @media(max-width: 960px) {
-      font-size: 2rem;
-      justify-content: center;
-      text-align: center;
-
-    }
-    @media(max-width: 680px) {
-      font-size: 2rem;
-    }
-    @media(max-width: 628px) {
-      font-size: 1.8rem;
-    }
-    @media(max-width: 580px) {
-      font-size: 1.5rem;
-    }
-    @media(max-width: 500px) {
-      font-size: 1.7rem;   
-    }
-    
-  }
+   
 `;
 
 const ButtonContainer = styled.div`
   width: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   margin-top: 1.5rem;
 
  
   button {
-    font-size: 1.9rem;
+    font-size: 2rem;
     font-family: ${fonts.headerFont};
     position: relative;
     margin-top: 4px;
@@ -100,17 +58,7 @@ const ButtonContainer = styled.div`
 
     
   }
-  @media(max-width: 960px) {
-    justify-content: center;
-    button {
-      font-size: 1.6rem;
-    }
-    
-  }
-  @media(max-width: 680px) {
-    button {
-      font-size: 1.3rem;
-    }
+  
     
   }
 `;
@@ -138,7 +86,6 @@ const Harvest = ({ state,setState }) => {
 
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-      {state.display ?
       <Panel>
          
       <div className='panel-text'>
@@ -174,7 +121,7 @@ const Harvest = ({ state,setState }) => {
       </ButtonContainer>
       
       
-    </Panel>  : <HarvestSkeleton state={state} /> }
+    </Panel>
        
     </ThemeProvider>
   );

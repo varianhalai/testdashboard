@@ -1,7 +1,6 @@
 import React from "react";
 import DataTable from "react-data-table-component";
 import styled, { ThemeProvider } from "styled-components";
-import harvest from "../../lib/index";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 
 
