@@ -4,8 +4,7 @@ import { Row, Col } from "styled-bootstrap-grid";
 import { createGlobalStyle } from "styled-components";
 import { reset } from "styled-reset";
 import harvest from "./lib/index.js";
-import ErrorModal from "./components/ErrorModal.jsx";
-
+import Loadable from 'react-loadable';
 import { darkTheme, lightTheme, fonts } from "./styles/appStyles.js";
 
 // images
@@ -14,14 +13,9 @@ import logo from "./assets/logo.png";
 
 // components
 import Wallet from "./components/Wallet.jsx";
-import FarmingTable from "./components/farmingTable/FarmingTable.jsx";
-import AssetTable from "./components/assetTable/AssetTable.jsx";
-import Harvest from "./components/harvest/Harvest.jsx";
-import StakePanel from "./components/stakePanel/StakePanel.jsx";
-import Balance from "./components/balance/Balance.jsx";
-import APY from "./components/apy/APY.jsx";
-import AddTokens from "./components/addTokens/AddTokens.jsx";
-import WelcomeText from './components/WelcomeText.jsx';
+import MainContent from './components/MainContent';
+
+import WelcomeText from './components/WelcomeText';
 
 const { ethers } = harvest;
 const GlobalStyle = createGlobalStyle`
@@ -239,7 +233,6 @@ const PanelTab = styled.div`
   border-right: ${(props) => props.theme.style.mainBorder};
   padding: 0.75rem 2rem 2.25rem 2rem;
   background-color: ${(props) => props.theme.style.highlight};
-  box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelTabBoxShadow};
   
   cursor: pointer;
@@ -348,6 +341,14 @@ const Container = styled.div`
   }
   
 `;
+
+
+const ErrorModal = Loadable({
+  loader: () => import('./components/ErrorModal'),
+  loading() {
+    return null
+  }
+})
 
 function App() {
   const [state, setState] = useState({
@@ -527,7 +528,7 @@ function App() {
               </PanelTabContainer>
 
               <Panel>
-                 {state.usdValue? <Row>
+                 {state.address? <Row>
                   <Col>
                     <Wallet
                       state={state}
@@ -544,42 +545,10 @@ function App() {
                  
                 
                 {state.provider ? (
-                  <div className='main-content'>
-                    <Row >
-                      <Col >
-                        <FarmingTable state={state} setState={setState} />
-                      </Col>
-                    </Row>
-
-                    <Row style={{marginTop:"15px"}}>
-                      {/* Git hub pages would not recognize the margin from the bootstrap grid */}
-                      <Col lg="6">
-                        <Harvest state={state} setState={setState} />
-                      </Col>
-                      <Col lg="4">
-                        <StakePanel state={state} openModal={openModal} />
-                      </Col>
-                      <Col lg="2">
-                        <Balance state={state}/>  
-                      </Col>
-                      
-                      
-                      </Row>
-                      <Row style={{marginTop:"15px"}}>
-                        {/* Git hub pages would not recognize the margin from the bootstrap grid */}
-                      <Col lg ="6">
-                        <AddTokens state={state} />
-                      </Col>
-                      <Col lg="4">
-                        <AssetTable state={state} />
-                      </Col>
-                      <Col lg="2">
-                        <APY state={state} setState={setState} />
-                      </Col>
-                      </Row>
-                      
-                    
-                  </div>
+                  <MainContent 
+                  state={state} 
+                  setState={setState}
+                  openModal={openModal}/>
                 ) :
                 <Row >
                   <Col >

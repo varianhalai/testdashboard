@@ -50,14 +50,17 @@ const Panel = styled.div`
     @media(max-width: 1134px) {
       font-size: 1.5rem;
     }
-    @media(max-width: 1002px) {
-      font-size: 2.25rem;
+    
+    
+    @media(max-width: 998px) {
+      font-size: 1.5rem;
+      justify-content: center;
+      text-align: center;
       
     }
     @media(max-width: 960px) {
       font-size: 2rem;
-      justify-content: center;
-      text-align: center;
+      
 
     }
     @media(max-width: 680px) {
@@ -100,6 +103,7 @@ const ButtonContainer = styled.div`
 
     
   }
+  
   @media(max-width: 960px) {
     justify-content: center;
     button {
@@ -138,7 +142,6 @@ const Harvest = ({ state,setState }) => {
 
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-      {state.display ?
       <Panel>
          
       <div className='panel-text'>
@@ -174,7 +177,7 @@ const Harvest = ({ state,setState }) => {
       </ButtonContainer>
       
       
-    </Panel>  : <HarvestSkeleton state={state} /> }
+    </Panel>
        
     </ThemeProvider>
   );

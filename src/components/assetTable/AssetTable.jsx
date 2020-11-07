@@ -7,13 +7,6 @@ import harvest from "../../lib/index.js";
 const { ethers } = harvest;
 
 const TableContainer = styled.div`
-
-  ::-webkit-scrollbar {
-    width: .1rem;
-  };
-  overflow: -moz-scrollbars-none;
-  scrollbar-color: transparent;
-  scrollbar-width: none;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,7 +38,6 @@ const TableContainer = styled.div`
   .rdt_TableHeadRow {
     background: ${(props) => props.theme.table.tableHeadBackground};
     border: ${(props) => props.theme.style.mainBorder};
-    box-sizing: border-box;
     box-shadow: ${(props) => props.theme.style.panelBoxShadow};
     border-top-right-radius: 0.5rem;
     border-top-left-radius: 0.5rem;
@@ -56,7 +48,6 @@ const TableContainer = styled.div`
     border-left: ${(props) => props.theme.style.mainBorder};
     border-right: ${(props) => props.theme.style.mainBorder};
     border-bottom: ${(props) => props.theme.style.mainBorder};
-    box-sizing: border-box;
     box-shadow: ${(props) => props.theme.style.panelBoxShadow};
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -182,7 +173,6 @@ const AssetTable = ({ state }) => {
             columns={noAssetColumns}
             noDataComponent={false}
             data={noAssetData}
-            responsive={true}
           />}
         </TableContainer> : <AssetTableSkeleton state={state} />}
       

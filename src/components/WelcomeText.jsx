@@ -54,8 +54,9 @@ const WelcomeTextPanel = styled.div`
   }
   .foot-note {
     font-family: font-family: ${fonts.contentFont};
-    width: 25rem;
+    width: 25%;
     margin: 1rem auto;
+    line-height: 1.8rem;
     font-size: 1.1rem;
   }
 }
