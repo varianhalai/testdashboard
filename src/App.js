@@ -7,6 +7,7 @@ import harvest from "./lib/index.js";
 import Loadable from 'react-loadable';
 import { darkTheme, lightTheme, fonts } from "./styles/appStyles.js";
 import axios from 'axios';
+import ReactModal from 'react-modal-resizable-draggable';
 
 // images
 import logo from "./assets/gif_tractor.gif";
@@ -15,6 +16,7 @@ import logo from "./assets/gif_tractor.gif";
 // components
 import Wallet from "./components/Wallet.jsx";
 import MainContent from './components/MainContent';
+import RadioPanel from './components/radioPanel/RadioPanel';
 
 import WelcomeText from './components/WelcomeText';
 
@@ -221,6 +223,30 @@ const Panel = styled.div`
     font-family: TechnaSans;
   }
 
+  .flexible-modal {
+    position: absolute;
+    z-index: 1;
+    background-color: #ddd;
+    height: 100%;
+    height: 12rem;
+    border: 1px solid black;
+    border-radius .5rem;
+    
+  }
+  
+  
+  
+  .flexible-modal-drag-area{
+    background-color: transparent;
+    position:absolute;
+    right:0;
+    top:0;
+    cursor:move;
+    height: 12rem;
+    
+    
+    
+  }
 
   
 
@@ -312,6 +338,18 @@ const PanelTab = styled.div`
       }
       
     }
+
+    &.radio-tab {
+      position: relative;
+      font-size: 1.9rem;
+      top: .5rem;
+      margin-left: 2.5rem;
+      font-family: ${fonts.contentFont};
+      &:hover {
+        top: 0rem;
+      }
+
+    }
   
 `;
 
@@ -337,6 +375,39 @@ const Container = styled.div`
   
 `;
 
+const RadioTitle=styled.div`
+display: flex;
+align-items: center;
+justify-content: center;
+text-align: center;
+font-family: ${fonts.headerFont};
+font-size: 1.7rem;
+position: relative:
+z-index: 400;
+pointer-events: auto;
+h4 {
+  margin-top: .2rem;
+}
+`;
+
+const CloseIcon = styled.span`
+  position: absolute;
+  right: 1.3rem;
+  top: .2rem;
+  font-size: 1.7rem;
+  cursor: pointer;
+  color: ${(props) => props.theme.style.primaryFontColor};
+
+  .fas {
+    position: relative;
+    z-index: 500;
+    &:hover {
+      top: 1.5px;
+    }
+  }
+`;
+
+
 
 const ErrorModal = Loadable({
   loader: () => import('./components/ErrorModal'),
@@ -346,6 +417,7 @@ const ErrorModal = Loadable({
 })
 
 function App() {
+  
   const [state, setState] = useState({
     provider: undefined,
     signer: undefined,
@@ -503,7 +575,12 @@ function App() {
     setState({ ...state, theme: theme });
     window.localStorage.setItem("HarvestFinance:Theme", theme);
   };
+  //Radio Modal
+  const[radio,setRadio] =useState(false)
 
+  const toggleRadio = () => {
+    setRadio(!radio)
+  }
  
 
   return (
@@ -541,6 +618,14 @@ function App() {
                       wiki
                     </a>
                   </PanelTab>
+
+                  <PanelTab 
+                  className="radio-tab"
+                  onClick={toggleRadio}
+                  >
+                    
+                    <p>radio</p>
+                  </PanelTab>
                 </PanelTabContainerLeft>
 
                 <PanelTabContainerRight>
@@ -561,8 +646,30 @@ function App() {
               </PanelTabContainer>
 
               <Panel>
+
+                        {/* RADIO MODAL */}
+              <ReactModal
+                isOpen={radio}
+                onRequestClose={toggleRadio}
+                onFocus={() => console.log("Modal is clicked")}
+                className={"my-modal-custom-class"}
+                initWidth={325} 
+                initHeight={100}
+                top={25}
+                left={50}
+                disableResize={true}
+                >
+                <RadioTitle>
+                  <h4>Harvest Radio</h4>
+                  <CloseIcon onClick={toggleRadio} ><i className="fas fa-times-circle "></i></CloseIcon>
+                </RadioTitle>
+                <RadioPanel toggleRadio={toggleRadio} />
+              </ReactModal>
+
+              {/* RADIO MODAL */}
                  {state.address? <Row>
-                  <Col>
+                   
+                  <Col >
                     <Wallet
                       state={state}
                       openModal={openModal}
