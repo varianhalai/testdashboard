@@ -25,20 +25,25 @@ width: 30rem;
 
 .player-inner {
     width: 100%;
-    padding-top: 2rem;
+    padding-top: 4rem;
+    padding-bottom: .5rem;
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: center;;
     
     #audio-canvas {
-        margin-top: -5rem;
+        margin-top: -4rem;
         margin-left: -2rem;
         
     }
 
     .player-controls {
         margin-left: 1rem;
-        margin-top: -1rem;
+        margin-top: -1.2rem;
+        .play-pause {
+            margin-top: .5rem;
+            color: ${(props) => props.theme.style.buttonFontColor};
+        }
     }
 }
 
@@ -46,8 +51,8 @@ width: 30rem;
 
 
 
-const RadioPanel = ({toggleRadio}) => {
-    const [playing,setPlaying] =useState(false)
+const RadioPanel = () => {
+    const [playing,setPlaying] =useState(true)
 
     const togglePlaying = () => {
         let audioElement = document.getElementById('audio-element')
@@ -64,26 +69,26 @@ const RadioPanel = ({toggleRadio}) => {
         
         <RadioPlayer>
             <div className="player-inner">
-                <audio id='audio-element' src={sample} ></audio>
+                <audio id='audio-element' loop autoPlay src={sample} ></audio>
                 <AudioSpectrum
                 id="audio-canvas"
-                height={60}
-                width={60}
+                height={50}
+                width={100}
                 audioId={'audio-element'}
                 capColor={'red'}
                 capHeight={2}
-                meterWidth={4}
+                meterWidth={8}
                 meterCount={8}
                 meterColor={[
                     {stop: 0, color: '#f00'},
                     {stop: 0.5, color: '#0CD7FD'},
                     {stop: 1, color: 'red'}
                     ]}
-                    gap={4}
+                    gap={6}
                     />
                 <div className="player-controls">
-                    {playing ? <button onClick={togglePlaying}><i className="fas fa-pause"></i></button> 
-                    : <button onClick={togglePlaying}><i className="fas fa-play"></i></button>}
+                    {playing ? <button className='play-pause' onClick={togglePlaying}><i className="fas fa-pause"></i></button> 
+                    : <button className='play-pause' onClick={togglePlaying}><i className="fas fa-play"></i></button>}
                 </div>
             </div>
             

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 import harvest from "../../lib/index.js";
@@ -39,8 +39,18 @@ const Panel = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.7rem;
+    font-size: 2rem;
     margin-right: 0.5rem;
+    .button {
+      margin-left: 1rem;
+      margin-top: -.9rem;
+      font-size: 1.5rem;
+      padding: .2rem .7rem;
+      font-family: ${fonts.headerFont};
+    }
+    @media(max-width:1340px) {
+      font-size: 1.6rem
+    }
    
     
   }
@@ -52,6 +62,7 @@ const ButtonContainer = styled.div`
   justify-content: center;
   margin-top: 1.5rem;
   button {
+    width: 14.5rem;
     font-size: 2rem;
     font-family: ${fonts.headerFont};
     position: relative;
@@ -76,7 +87,7 @@ const ButtonContainer = styled.div`
 `;
 
 const StakePanel = ({ state, openModal }) => {
-
+  const [noFarm,setNoFarm] =useState(true)
   const [modal,setModal] = useState(false)
   const [stakeAmount, setStakeAmount] = useState(0);
   const pool = state.manager.pools.find((pool) => {
@@ -146,6 +157,10 @@ const StakePanel = ({ state, openModal }) => {
     setStakeAmount(e.target.value)
   }
 
+  useEffect(() => {
+
+  },[])
+
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       <Panel>
@@ -161,6 +176,13 @@ const StakePanel = ({ state, openModal }) => {
             />
             FARM 
           </p>
+          <button
+            className="button"
+            disabled={!state.provider}
+            onClick={setMax}
+          >
+            max
+          </button>
         </div> 
         
 
@@ -175,13 +197,7 @@ const StakePanel = ({ state, openModal }) => {
           >
             unstake
           </button> */}
-          <button
-            className="button"
-            disabled={!state.provider}
-            onClick={setMax}
-          >
-            max
-          </button>
+          
           {inactivePools.length > 0 && (
             <button
               className="button alert"

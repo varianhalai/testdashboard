@@ -25,11 +25,24 @@ const Panel = styled.div`
   }
 
   .panel-text {
-    width: 100%;
-    font-size: 1.7rem;
     display: flex;
     justify-content: center;
+    align-items: center;
+    width: 100%;
+    font-size: 2rem;
     font-family: ${fonts.contentFont};
+    .button {
+      margin-left: 1rem;
+      font-size: 1.5rem;
+      padding: .3rem 1rem;
+      font-family: ${fonts.headerFont};
+    }
+    @media(max-width:1340px) {
+      font-size: 1.6rem
+    }
+    @media(1340px) {
+      font-size: 1.6rem
+    }
 
    
 `;
@@ -42,6 +55,7 @@ const ButtonContainer = styled.div`
 
  
   button {
+    width: 14.5rem;
     font-size: 2rem;
     font-family: ${fonts.headerFont};
     position: relative;
@@ -100,6 +114,12 @@ const Harvest = ({ state,setState }) => {
           />
           FARM rewards
         </p>
+        {state.minimumHarvestAmount === 0 ? "" :  <button
+          className="button clear"
+          onClick={(event) => setState({...state,minimumHarvestAmount :0})}
+        >
+          clear
+        </button>}
       </div>
       
 
@@ -112,12 +132,7 @@ const Harvest = ({ state,setState }) => {
           harvest all
         </button>
 
-       {state.minimumHarvestAmount === 0 ? "" :  <button
-          className="button clear"
-          onClick={(event) => setState({...state,minimumHarvestAmount :0})}
-        >
-          clear
-        </button>}
+       
       </ButtonContainer>
       
       

@@ -127,10 +127,16 @@ const GlobalStyle = createGlobalStyle`
     border: 0.2rem solid #363636;
     font-size: 1.4rem;
     color: ${(props) => props.theme.style.primaryFontColor};
-    width: 60px;
+    width: 8rem;
     text-align: center;
     border-radius: 0.5rem;
     padding: 0.3rem 0.7rem;
+    @media(max-width: 1400px) {
+      width: 6rem;
+    }
+    @media(max-width: 1280px) {
+      width: 5rem;
+    }
   }
 
   input[type="number"]::-webkit-inner-spin-button,
@@ -231,6 +237,8 @@ const Panel = styled.div`
     height: 12rem;
     border: 1px solid black;
     border-radius .5rem;
+    background-color: ${(props) => props.theme.style.highlight};
+    box-shadow: ${(props) => props.theme.style.panelTabBoxShadow};
     
   }
   
@@ -241,7 +249,7 @@ const Panel = styled.div`
     position:absolute;
     right:0;
     top:0;
-    cursor:move;
+    cursor:grab;
     height: 12rem;
     
     
@@ -396,7 +404,7 @@ const CloseIcon = styled.span`
   top: .2rem;
   font-size: 1.7rem;
   cursor: pointer;
-  color: ${(props) => props.theme.style.primaryFontColor};
+  color: ${(props) => props.theme.style.buttonFontColor};
 
   .fas {
     position: relative;
@@ -567,7 +575,8 @@ function App() {
         
         return summaries;
       }).catch(err => {
-        console.log(err)
+        refresh()
+        
       });
   };
 
@@ -647,7 +656,7 @@ function App() {
 
               <Panel>
 
-                        {/* RADIO MODAL */}
+              {/* RADIO MODAL */}
               <ReactModal
                 isOpen={radio}
                 onRequestClose={toggleRadio}
@@ -655,7 +664,7 @@ function App() {
                 className={"my-modal-custom-class"}
                 initWidth={325} 
                 initHeight={100}
-                top={25}
+                top={15}
                 left={50}
                 disableResize={true}
                 >
@@ -667,6 +676,8 @@ function App() {
               </ReactModal>
 
               {/* RADIO MODAL */}
+
+
                  {state.address? <Row>
                    
                   <Col >
