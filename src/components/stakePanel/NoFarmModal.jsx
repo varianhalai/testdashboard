@@ -29,6 +29,7 @@ const Container = styled.div`
 
 const Inner = styled.div`
   background-color: ${(props) => props.theme.style.wikiTabBackground};
+  color: ${(props) => props.theme.style.primaryFontColor};
   border-radius: 1.2rem;
   width: 56rem;
   display: flex;
@@ -48,14 +49,14 @@ const Inner = styled.div`
   p {
     font-size: 2.1rem;
     line-height: 24px;
-    color: ${(props) => props.theme.style.primaryFontColor};
+    
     font-family: ${fonts.contentFont};
     margin-bottom: 0;
   }
 
   a {
     text-decoration: none;
-    color: ${(props) => props.theme.style.primaryFontColor};
+    color: ${(props) => props.theme.style.buttonFontColor};
     font-family: ${fonts.headerFont};
     
   }
@@ -64,6 +65,7 @@ const Inner = styled.div`
       margin-top: 1rem;
       font-size: 1.9rem;
       position: relative;
+      
       &:hover {
           top: 1.5px;
       }
@@ -78,9 +80,10 @@ const CloseIcon = styled.span`
   font-size: 1.2rem;
   font-family: ${fonts.headerFont};
   cursor: pointer;
-  color: ${(props) => props.theme.style.primaryFontColor};
+  
 
   .fas {
+    color: ${(props) => props.theme.style.primaryFontColor};
     position: relative;
     &:hover {
       top: 1.5px;

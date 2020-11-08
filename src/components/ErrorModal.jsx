@@ -59,7 +59,7 @@ const CloseIcon = styled.span`
   top: 2rem;
   font-size: 1.2rem;
   cursor: pointer;
-  color: ${(props) => props.theme.style.primaryFontColor};
+  color: ${(props) => props.theme.style.buttonFontColor};
 
   .fas {
     position: relative;

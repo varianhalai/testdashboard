@@ -7,6 +7,7 @@ import harvest from "./lib/index.js";
 import Loadable from 'react-loadable';
 import { darkTheme, lightTheme, fonts } from "./styles/appStyles.js";
 import axios from 'axios';
+import ReactModal from 'react-modal-resizable-draggable';
 
 // images
 import logo from "./assets/gif_tractor.gif";
@@ -15,6 +16,7 @@ import logo from "./assets/gif_tractor.gif";
 // components
 import Wallet from "./components/Wallet.jsx";
 import MainContent from './components/MainContent';
+import RadioPanel from './components/radioPanel/RadioPanel';
 
 import WelcomeText from './components/WelcomeText';
 
@@ -125,10 +127,16 @@ const GlobalStyle = createGlobalStyle`
     border: 0.2rem solid #363636;
     font-size: 1.4rem;
     color: ${(props) => props.theme.style.primaryFontColor};
-    width: 60px;
+    width: 8rem;
     text-align: center;
     border-radius: 0.5rem;
     padding: 0.3rem 0.7rem;
+    @media(max-width: 1400px) {
+      width: 6rem;
+    }
+    @media(max-width: 1280px) {
+      width: 5rem;
+    }
   }
 
   input[type="number"]::-webkit-inner-spin-button,
@@ -221,6 +229,32 @@ const Panel = styled.div`
     font-family: TechnaSans;
   }
 
+  .flexible-modal {
+    position: absolute;
+    z-index: 1;
+    background-color: #ddd;
+    height: 100%;
+    height: 12rem;
+    border: 1px solid black;
+    border-radius .5rem;
+    background-color: ${(props) => props.theme.style.highlight};
+    box-shadow: ${(props) => props.theme.style.panelTabBoxShadow};
+    
+  }
+  
+  
+  
+  .flexible-modal-drag-area{
+    background-color: transparent;
+    position:absolute;
+    right:0;
+    top:0;
+    cursor:grab;
+    height: 12rem;
+    
+    
+    
+  }
 
   
 
@@ -312,6 +346,18 @@ const PanelTab = styled.div`
       }
       
     }
+
+    &.radio-tab {
+      position: relative;
+      font-size: 1.9rem;
+      top: .5rem;
+      margin-left: 2.5rem;
+      font-family: ${fonts.contentFont};
+      &:hover {
+        top: 0rem;
+      }
+
+    }
   
 `;
 
@@ -337,6 +383,39 @@ const Container = styled.div`
   
 `;
 
+const RadioTitle=styled.div`
+display: flex;
+align-items: center;
+justify-content: center;
+text-align: center;
+font-family: ${fonts.headerFont};
+font-size: 1.7rem;
+position: relative:
+z-index: 400;
+pointer-events: auto;
+h4 {
+  margin-top: .2rem;
+}
+`;
+
+const CloseIcon = styled.span`
+  position: absolute;
+  right: 1.3rem;
+  top: .2rem;
+  font-size: 1.7rem;
+  cursor: pointer;
+  color: ${(props) => props.theme.style.buttonFontColor};
+
+  .fas {
+    position: relative;
+    z-index: 500;
+    &:hover {
+      top: 1.5px;
+    }
+  }
+`;
+
+
 
 const ErrorModal = Loadable({
   loader: () => import('./components/ErrorModal'),
@@ -346,6 +425,7 @@ const ErrorModal = Loadable({
 })
 
 function App() {
+  
   const [state, setState] = useState({
     provider: undefined,
     signer: undefined,
@@ -495,7 +575,8 @@ function App() {
         
         return summaries;
       }).catch(err => {
-        console.log(err)
+        refresh()
+        
       });
   };
 
@@ -503,7 +584,12 @@ function App() {
     setState({ ...state, theme: theme });
     window.localStorage.setItem("HarvestFinance:Theme", theme);
   };
+  //Radio Modal
+  const[radio,setRadio] =useState(false)
 
+  const toggleRadio = () => {
+    setRadio(!radio)
+  }
  
 
   return (
@@ -541,6 +627,14 @@ function App() {
                       wiki
                     </a>
                   </PanelTab>
+
+                  <PanelTab 
+                  className="radio-tab"
+                  onClick={toggleRadio}
+                  >
+                    
+                    <p>radio</p>
+                  </PanelTab>
                 </PanelTabContainerLeft>
 
                 <PanelTabContainerRight>
@@ -561,8 +655,32 @@ function App() {
               </PanelTabContainer>
 
               <Panel>
+
+              {/* RADIO MODAL */}
+              <ReactModal
+                isOpen={radio}
+                onRequestClose={toggleRadio}
+                onFocus={() => console.log("Modal is clicked")}
+                className={"my-modal-custom-class"}
+                initWidth={325} 
+                initHeight={100}
+                top={15}
+                left={50}
+                disableResize={true}
+                >
+                <RadioTitle>
+                  <h4>Harvest Radio</h4>
+                  <CloseIcon onClick={toggleRadio} ><i className="fas fa-times-circle "></i></CloseIcon>
+                </RadioTitle>
+                <RadioPanel toggleRadio={toggleRadio} />
+              </ReactModal>
+
+              {/* RADIO MODAL */}
+
+
                  {state.address? <Row>
-                  <Col>
+                   
+                  <Col >
                     <Wallet
                       state={state}
                       openModal={openModal}
