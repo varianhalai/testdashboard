@@ -14,7 +14,6 @@ font-family: ${fonts.contentFont};
 font-size: 1.7rem;
 background-color: ${(props) => props.theme.style.lightBackground};
 border: ${(props) => props.theme.style.mainBorder};
-width: 40%;
 border-radius: .5rem;
 margin-left: 1.2rem;
 margin-top: .9rem;
@@ -45,6 +44,11 @@ width: 30rem;
             color: ${(props) => props.theme.style.buttonFontColor};
         }
     }
+}
+
+@media(maxwidth: 500px) {
+    width: 10rem;
+    height:
 }
 
 `

@@ -54,6 +54,10 @@ const GlobalStyle = createGlobalStyle`
       height: 2.4rem;
       width: 5.5rem;
     }
+    @media(max-width: 380px) {
+      height: 2rem;
+      width: 5rem;
+    }
     
   }
 
@@ -90,6 +94,12 @@ const GlobalStyle = createGlobalStyle`
     @media(max-width: 500px) {
       height: 1.7rem;
       width: 1.7rem;
+    }
+    @media(max-width: 380px) {
+      height: 1.5rem;
+      width: 1.5rem;
+      top: .22rem;
+      left: -.2rem;
     }
   }
 
@@ -229,31 +239,57 @@ const Panel = styled.div`
     font-family: TechnaSans;
   }
 
+  //Radio Modal
   .flexible-modal {
     position: absolute;
     z-index: 1;
     background-color: #ddd;
-    height: 100%;
-    height: 12rem;
+    height: 2rem;
     border: 1px solid black;
     border-radius .5rem;
     background-color: ${(props) => props.theme.style.highlight};
     box-shadow: ${(props) => props.theme.style.panelTabBoxShadow};
-    
+    margin-bottom: 0;
   }
   
+  .flexible-modal-mask {
+    display: none;
+    
+  }
+  .flexible-modal-resizer {
+    height: 2rem;
+  }
   
   
   .flexible-modal-drag-area{
     background-color: transparent;
     position:absolute;
+    cursor:grab;
+    height: 2rem;
     right:0;
     top:0;
+  }
+  .flexible-modal-drag-area-bottom{
+    height: 3rem;
     cursor:grab;
-    height: 12rem;
-    
-    
-    
+    position:absolute;
+    bottom: 0;
+  }
+  .flexible-modal-drag-area-right{
+    position:absolute;
+    height: 5rem;
+    width: 2rem;
+    top: 0;
+    right: 0;
+    cursor:grab;
+  }
+  .flexible-modal-drag-area-left{
+    position:absolute;
+    height: 5rem;
+    width: 2rem;
+    top: 0;
+    left: 0;
+    cursor:grab;
   }
 
   
@@ -286,24 +322,24 @@ const PanelTab = styled.div`
     position: relative;
     top: .1rem;
     @media(max-width: 500px) {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
+      top: .3rem;
     }
    
   }
-  @media(max-width: 500px) {
+  @media(max-width: 600px) {
     font-size: 1.9rem;
-    padding: 0.75rem 1rem 2.4rem 1rem;
+    padding: 0.75rem 1rem 2.2rem 1rem;
     position: relative;
     top: .1rem;
-    a {
-      top: .4rem;
-    }
+    
   }
-  @media(max-width: 330px) {
-    font-size: 1.7rem;
-    padding: 0.75rem .75rem 2.4rem .75rem;
+  @media(max-width: 360px) {
+    font-size: 1.5rem;
+    padding: 0.75rem .75rem 2rem .75rem;
     position: relative;
-    top: .1rem;
+    top: .5rem;
+    margin-right: .25rem;
     a {
       top: .4rem;
     }
@@ -326,13 +362,22 @@ const PanelTab = styled.div`
       position: relative;
       top: .1rem;
     }
+   
     @media(max-width: 500px) {
-      top: 0.9rem;
+      top: 1.2rem;
+      margin-left: 0rem;
       a {
-        font-size: 1.7rem;
+        font-size: 1.5rem;
       }
       
-    }
+    };
+    @media(max-width: 380px) {
+       
+      a {
+        font-size: 1.4rem;
+      }
+      
+    };
   }
     &.switch-panel {
       margin-right: 1.2rem;
@@ -344,20 +389,39 @@ const PanelTab = styled.div`
         top: 1.2rem;
         padding: 0.4rem .5rem 3rem .5rem;
       }
+      @media(max-width: 380px) {
+        top: 1.4rem;
+        margin-right: 3rem;
+      }
       
     }
 
     &.radio-tab {
       position: relative;
       font-size: 1.9rem;
-      top: .5rem;
+      top: .6rem;
       margin-left: 2.5rem;
       font-family: ${fonts.contentFont};
       &:hover {
         top: 0rem;
       }
 
-    }
+
+      @media(max-width: 500px) {
+        top: 1.4rem;
+        margin-left: 0rem;
+        p {
+          font-size: 1.5rem;
+        }
+        
+      }
+      @media(max-width: 380px) {
+       
+        p {
+          font-size: 1.4rem;
+        }
+        
+      }
   
 `;
 
@@ -379,6 +443,9 @@ const PanelTabContainerRight = styled.div`
 const Container = styled.div`
   width: 85%;
   margin: 0 auto;
+  @media(max-width: 360px) {
+    width: 95%;
+  }
  
   
 `;
@@ -660,12 +727,11 @@ function App() {
               <ReactModal
                 isOpen={radio}
                 onRequestClose={toggleRadio}
-                onFocus={() => console.log("Modal is clicked")}
                 className={"my-modal-custom-class"}
                 initWidth={325} 
                 initHeight={100}
-                top={15}
-                left={50}
+                top={0}
+                left={0}
                 disableResize={true}
                 >
                 <RadioTitle>

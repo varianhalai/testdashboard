@@ -12,7 +12,7 @@ const BluePanel = styled.div`
   font-family: ${fonts.headerFont};
   padding: 2.5rem .7rem 2.5rem .7rem;
   margin-right: .5rem;
-  margin-top: 1.2rem;
+  margin-top: 1.5rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: .5rem;
   box-sizing: border-box;
