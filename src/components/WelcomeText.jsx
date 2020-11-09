@@ -14,7 +14,18 @@ const web3Modal = new Web3Modal({
     walletconnect: {
       package: WalletConnectProvider, // required
       options: {
-        infuraId: "27e484dcd9e3efcfd25a83a78777cdf1" // required
+        infuraId: "27e484dcd9e3efcfd25a83a78777cdf1", // required
+        qrcodeModalOptions: {
+          mobileLinks: [
+            "rainbow",
+            "metamask",
+            "argent",
+            "coinomi",
+            "trust",
+            "imtoken",
+            "pillar"
+          ]
+        }
       }
     }
   }
@@ -88,7 +99,7 @@ const WelcomeText =
         state,
     }) => {
 
-    const connectMetamask = (signer, manager) => {
+    const connectMetamask = () => {
       web3Modal.connect().then((provider) => {
           if (!provider) {
             openModal(
