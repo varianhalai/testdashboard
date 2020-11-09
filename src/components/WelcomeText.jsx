@@ -2,9 +2,23 @@ import React from 'react';
 import styled from 'styled-components';
 import { fonts } from "../styles/appStyles";
 import harvest from "../lib/index";
-import detectEthereumProvider from "@metamask/detect-provider"
+import Web3Modal from "web3modal";
+import WalletConnectProvider from "@walletconnect/web3-provider";
 
 const { ethers } = harvest;
+
+const web3Modal = new Web3Modal({
+  network: "mainnet",  // optional
+  cacheProvider: true, // optional
+  providerOptions: {
+    walletconnect: {
+      package: WalletConnectProvider, // required
+      options: {
+        infuraId: "27e484dcd9e3efcfd25a83a78777cdf1" // required
+      }
+    }
+  }
+});
 
 const WelcomeTextPanel = styled.div`
   width: 98%;
@@ -75,7 +89,7 @@ const WelcomeText =
     }) => {
 
     const connectMetamask = (signer, manager) => {
-        detectEthereumProvider().then((provider) => {
+      web3Modal.connect().then((provider) => {
           if (!provider) {
             openModal(
               "No provider, please install a supported Web3 wallet.",

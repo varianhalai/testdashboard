@@ -99,7 +99,8 @@ const GlobalStyle = createGlobalStyle`
       height: 1.5rem;
       width: 1.5rem;
       top: .22rem;
-      left: -.2rem;
+      right: .1rem;
+      left: .1rem;
     }
   }
 
@@ -325,6 +326,7 @@ const PanelTab = styled.div`
       font-size: 1.5rem;
       top: .3rem;
     }
+    
    
   }
   @media(max-width: 600px) {
@@ -334,15 +336,18 @@ const PanelTab = styled.div`
     top: .1rem;
     
   }
-  @media(max-width: 360px) {
+  @media(max-width: 380px) {
     font-size: 1.5rem;
     padding: 0.75rem .75rem 2rem .75rem;
     position: relative;
+    margin-right: .5rem;
     top: .5rem;
-    margin-right: .25rem;
     a {
       top: .4rem;
     }
+  }
+  @media(max-width: 320px) {
+    margin-right: .25rem;
   }
 
   &.wiki-tab {
@@ -365,14 +370,13 @@ const PanelTab = styled.div`
    
     @media(max-width: 500px) {
       top: 1.2rem;
-      margin-left: 0rem;
+      margin-left: .5rem;
       a {
         font-size: 1.5rem;
       }
       
-    };
+    }
     @media(max-width: 380px) {
-       
       a {
         font-size: 1.4rem;
       }
@@ -387,11 +391,15 @@ const PanelTab = styled.div`
 
       @media(max-width: 500px) {
         top: 1.2rem;
+        margin-left: 1rem;
         padding: 0.4rem .5rem 3rem .5rem;
       }
       @media(max-width: 380px) {
         top: 1.4rem;
-        margin-right: 3rem;
+      }
+      @media(max-width: 380px) {
+        top: 1.4rem;
+        margin-left: .5rem;
       }
       
     }
@@ -409,14 +417,13 @@ const PanelTab = styled.div`
 
       @media(max-width: 500px) {
         top: 1.4rem;
-        margin-left: 0rem;
+        margin-left: .5rem;
         p {
           font-size: 1.5rem;
         }
         
       }
       @media(max-width: 380px) {
-       
         p {
           font-size: 1.4rem;
         }
