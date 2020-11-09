@@ -26,6 +26,7 @@ const TableContainer = styled.div`
     padding: .35rem;
     
     
+    
   }
 
   .rdt_TableHeadRow {
@@ -50,6 +51,7 @@ const TableContainer = styled.div`
     
     
     
+    
   }
 
   .rdt_TableRow {
@@ -57,6 +59,7 @@ const TableContainer = styled.div`
     font-family: ${fonts.contentFont};
     color: ${(props) => props.theme.style.primaryFontColor};
     font-size: 1.7rem;
+    
    
    
   }
@@ -137,7 +140,6 @@ const FarmingTable = ({ state,setState }) => {
            min = result[i].earnedRewards
          }
     }
-    console.log(min)
     setState({...state,minimumHarvestAmount: min})
  }
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Row, Col } from "styled-bootstrap-grid";
+import styled from 'styled-components'
 
 import FarmTableSkeleton from "../components/farmingTable/FarmTableSkeleton.jsx";
 import AssetTable from "../components/assetTable/AssetTable.jsx";
@@ -11,6 +12,15 @@ import FarmPrice from '../components/farmPrice/FarmPrice';
 import AddTokens from "../components/addTokens/AddTokens";
 
 import Loadable from 'react-loadable';
+
+const Main = styled.div`
+    .farm-column {
+        ::-webkit-scrollbar {
+            height: 20rem;
+          }
+    }
+
+`
 
 
 
@@ -24,9 +34,9 @@ const MainContent = ({state, setState,openModal}) => {
         }
       })
     return (
-        <div className='main-content'>
-            <Row >
-                <Col >
+        <Main className='main-content'>
+            <Row className='farm-column' >
+                <Col  >
                 <FarmingTable state={state} setState={setState} />
                 </Col>
             </Row>
@@ -72,7 +82,7 @@ const MainContent = ({state, setState,openModal}) => {
                 </Row>
                 
             
-        </div>
+        </Main>
     );
 }
 
