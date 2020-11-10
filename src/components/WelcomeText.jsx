@@ -10,11 +10,12 @@ const { ethers } = harvest;
 const web3Modal = new Web3Modal({
   network: "mainnet",  // optional
   cacheProvider: true, // optional
+  disableInjectedProvider: true,
   providerOptions: {
     walletconnect: {
       package: WalletConnectProvider, // required
       options: {
-        infuraId: "27e484dcd9e3efcfd25a83a78777cdf1", // required
+        infuraId: "eccb6fa1fa2941bf82abe2b9c543bb14", // required
         qrcodeModalOptions: {
           mobileLinks: [
             "rainbow",
@@ -111,6 +112,7 @@ const WelcomeText =
               setProvider(provider);
             })
             .catch(err => {
+              console.log(err)
               openModal("Something has gone wrong, retrying...","error")
             })
           }
