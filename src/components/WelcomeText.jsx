@@ -9,7 +9,7 @@ const { ethers } = harvest;
 
 const web3Modal = new Web3Modal({
   network: "mainnet",  // optional
-  cacheProvider: true, // optional
+  cacheProvider: false, // optional
   disableInjectedProvider: true,
   providerOptions: {
     walletconnect: {
