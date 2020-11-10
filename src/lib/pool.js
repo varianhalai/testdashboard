@@ -162,6 +162,7 @@ export class RewardsPool extends ethers.Contract {
       underlyingBalanceOf,
       percentageOwnership,
       usdValueOf,
+      historicalRewards,
     ] = await Promise.all([
       this.stakedBalance(address),
       this.unstakedBalance(address),
@@ -169,6 +170,7 @@ export class RewardsPool extends ethers.Contract {
       underlying(address),
       this.percentageOwnership(address),
       this.usdValueOf(address),
+      this.historicalRewards(address),
     ]);
 
     const output = {
@@ -181,6 +183,7 @@ export class RewardsPool extends ethers.Contract {
       earnedRewards,
       percentageOwnership,
       usdValueOf,
+      historicalRewards,
     };
     if (underlyingBalanceOf) output.underlyingBalanceOf = underlyingBalanceOf;
     return output;

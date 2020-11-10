@@ -35,7 +35,7 @@ const StyledTableHeader = styled(TableHeader)`
 `;
 
 const MainTableHeader = styled(StyledTableHeader)`
-  grid-template-columns: 1.5fr 1fr 2fr 2fr 1fr 1fr 1fr;
+  grid-template-columns: 1.5fr 1fr 2fr 2fr 1fr 1fr 1.5fr 1fr;
 `;
 
 const TableRow = styled.div`
@@ -47,7 +47,7 @@ const TableRow = styled.div`
 `;
 
 const MainTableRow = styled(TableRow)`
-  grid-template-columns: 1.5fr 1fr 2fr 2fr 1fr 1fr 1fr;
+  grid-template-columns: 1.5fr 1fr 2fr 2fr 1fr 1fr 1.5fr 1fr;
 `;
 
 const UnderlyingTableHeader = styled(StyledTableHeader)`
@@ -73,6 +73,7 @@ export const MainTable = ({ data, usdValue }) => {
     "% of Pool",
     "Value",
     "Unstaked Balance",
+    "Rewards to Date",
   ];
 
   return (
@@ -88,6 +89,7 @@ export const MainTable = ({ data, usdValue }) => {
             <div>{summary.percentOfPool}</div>
             <div>{summary.usdValueOf}</div>
             <div>{summary.unstakedBalance}</div>
+            <div>{summary.historicalRewards}</div>
           </MainTableRow>
         ))}
       </MainTableInner>
