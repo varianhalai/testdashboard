@@ -7,10 +7,10 @@ import * as serviceWorker from "./serviceWorker.js";
 import { BaseCSS } from "styled-bootstrap-grid";
 
 ReactDOM.render(
-  <>
+  <React.StrictMode>
     <BaseCSS />
     <App />
-    </>
+    </React.StrictMode>
  ,
   document.getElementById("root"),
 );

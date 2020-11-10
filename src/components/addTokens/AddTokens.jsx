@@ -11,52 +11,87 @@ import daiIcon from "../../assets/png_dai_56px@3x.png";
 import wbtcIcon from "../../assets/png_wbtc_56px@3x.png";
 import frenbtcIcon from "../../assets/png_frenbtc_56px@3x.png";
 import crvrenwbtcIcon from "../../assets/png_crvrenwbtc_56px@3x.png";
-import sushi from '../../assets/sushi.png'
-import uni from '../../assets/uni.png'
+import sushi from '../../assets/sushi_wbtc.svg'
 import yearn from '../../assets/yearn.png'
+import crv3 from '../../assets/3CRV.png'
+import wbtc from '../../assets/eth_wbtc.svg';
+import usdt from '../../assets/eth_usdt.svg';
+import usdc from '../../assets/eth_usdc.svg';
+import ethDai from '../../assets/eth_dai.svg';
 
 
 const Panel = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 100%;
+  
   background-color: ${(props) => props.theme.style.lightBackground};
   color: ${(props) => props.theme.style.primaryFontColor};
   font-size: 1.7rem;
   font-family: ${fonts.contentFont};
-  padding:  1rem 1.5rem;
+  padding:  1rem 1.5rem 0rem; 1.5rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: 0.5rem;
   box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
+ 
+  
 
-  @media(max-width: 1002px) {
-    margin-bottom: 1.5rem;
-    
-  }
+  .inner {
+    overflow-x: scroll;
+    height: 15rem;
+    scrollbar-color: ${(props) => props.theme.style.blueBackground} ${(props) => props.theme.style.lightBackground} ;
+    scrollbar-width: thin;
+
+    ::-webkit-scrollbar {
+      width: 100%;
+      height: .8rem;
+      margin-top: -1.8rem
+      
+    }
+    ::-webkit-scrollbar-track:no-button { 
+      width: 100%;
+      border-radius: .5rem;
+      background-color: ${(props) => props.theme.style.lightBackground};
+    }
+    ::-webkit-scrollbar-button {
+      color: ${(props) => props.theme.style.primaryFontColor};
+      
+    }
+    ::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-color: black;
+      background-color: ${(props) => props.theme.style.blueBackground};
+   }
+
+    .token-container {
+      width: 180rem;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+
+      &.first {
+        margin-bottom: 2rem;
+      }
+    }
+    }
+  
 
   h1 {
     font-family: ${fonts.headerFont};
     margin-bottom: 2.2rem;
     font-size: 2rem;
     text-align: center;
+    position: relative;
   }
 
-  .token-container {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 100%;
-
-    &.first {
-      margin-bottom: 2rem;
-    }
-  }
+  
   
 
   
-
+@media(max-width: 1002px) {
+  margin-bottom: 1.5rem;
+}
   
 `;
 
@@ -88,6 +123,16 @@ const tokens = [
     url: "https://harvestfi.github.io/add-fwbtc/",
     image: wbtcIcon,
   },
+  {
+    name: "YCRV",
+    url: "https://varianhalai.github.io/add-ycrv/",
+    image: yearn,
+  },
+  {
+    name: "3CRV",
+    url: "https://varianhalai.github.io/add-3crv/",
+    image: crv3,
+  },
   
 ];
 const tokens2 = [
@@ -102,20 +147,31 @@ const tokens2 = [
     image: crvrenwbtcIcon,
   },
   {
-    name: "SUSHI",
+    name: "SUSHI:WBTC-TBTC",
     url: "https://varianhalai.github.io/add-sushi/",
     image: sushi,
   },
   {
-    name: "Uni",
-    url: "https://varianhalai.github.io/add-uni/",
-    image: uni,
+    name: "UNI:ETH-WBTC",
+    url: "https://varianhalai.github.io/add-eth-wbtc/",
+    image: wbtc,
   },
   {
-    name: "YCRV",
-    url: "https://varianhalai.github.io/add-ycrv/",
-    image: yearn,
+    name: "UNI:ETH-USDT",
+    url: "https://varianhalai.github.io/add-eth-usdt/",
+    image: usdt,
   },
+  {
+    name: "UNI:ETH-USDCT",
+    url: "https://varianhalai.github.io/add-eth-usdc/",
+    image: usdc,
+  },
+  {
+    name: "UNI:ETH-DAI",
+    url: "https://varianhalai.github.io/add-eth-dai/",
+    image: ethDai,
+  },
+  
 ]
 
 const Token = ({ className,name, url, image }) => (
@@ -176,16 +232,22 @@ const AddTokens = (props) => {
     <ThemeProvider theme={props.state.theme === "dark" ? darkTheme : lightTheme}>
        <Panel>
         <h1>Add assets to wallet</h1>
+        <div className="inner">
         <div className="token-container first">
-        {tokens.map((t) => (
-            <StyledToken key={t.name} {...t} />
-          ))}
+          {tokens.map((t) => (
+              <StyledToken key={t.name} {...t} />
+            ))}
+          </div>
+          <div className="token-container">
+          {tokens2.map((t) => (
+              <StyledToken key={t.name} {...t} />
+            ))}
+          </div>
         </div>
-        <div className="token-container">
-        {tokens2.map((t) => (
-            <StyledToken key={t.name} {...t} />
-          ))}
-        </div>
+        
+          
+        
+        
       </Panel> 
       
     </ThemeProvider>

@@ -97,7 +97,8 @@ const WelcomeText =
               "error",
             );
           } else {
-            window.ethereum.enable().then(() => {
+            window.ethereum.enable().then((res) => {
+              console.log(res)
               setProvider(provider);
             })
             .catch(err => {

@@ -282,7 +282,7 @@ const assets = [
     decimals: 18,
     address: '0x8dAEBADE922dF735c38C80C7eBD708Af50815fAa',
   },
-/**  {
+ {
     name: '3CRV',
     decimals: 18,
     address: '0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490',
@@ -291,7 +291,7 @@ const assets = [
     name: 'YCRV',
     decimals: 18,
     address: '0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8',
-  },*/
+  },
 ];
 
 /**

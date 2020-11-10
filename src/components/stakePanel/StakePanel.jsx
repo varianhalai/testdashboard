@@ -151,6 +151,10 @@ const StakePanel = ({ state, openModal }) => {
   const exitInactivePools = () => {
     state.manager.exitInactive();
   };
+
+  const clearStakeAmount = () => {
+    setStakeAmount(stakeAmount => 0)
+  }
  
 
   const stakeChangeHandler =(e) => {
@@ -176,13 +180,17 @@ const StakePanel = ({ state, openModal }) => {
             />
             FARM 
           </p>
-          <button
+          {stakeAmount > 0 ? <button
             className="button"
             disabled={!state.provider}
-            onClick={setMax}
-          >
-            max
-          </button>
+            onClick={clearStakeAmount} >clear</button> :
+            <button
+            className="button"
+            disabled={!state.provider}
+            onClick={setMax} >max</button>
+            }
+          
+          
         </div> 
         
 
