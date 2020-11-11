@@ -104,7 +104,7 @@ const Harvest = ({ state,setState }) => {
          
       <div className='panel-text'>
         <p>
-          Harvest all farms with at least
+          Harvest all with at least
           <input
             type="number"
             onChange={(event) => setState({...state,minimumHarvestAmount :event.target.value})}
@@ -112,7 +112,7 @@ const Harvest = ({ state,setState }) => {
             value={state.minimumHarvestAmount}
             step="any"
           />
-          FARM rewards
+          FARM 
         </p>
         {state.minimumHarvestAmount === 0 ? "" :  <button
           className="button clear"

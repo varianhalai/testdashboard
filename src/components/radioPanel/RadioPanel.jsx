@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 import AudioSpectrum from 'react-audio-spectrum';
-import sample from '../../assets/audio/sample.mp3';
+import sample from '../../assets/audio/HarvestRadio.mp3';
 
 
 const RadioPlayer = styled.div`
@@ -32,7 +32,7 @@ width: 30rem;
     
     #audio-canvas {
         margin-top: -4rem;
-        margin-left: -2rem;
+        margin-left: -8rem;
         
     }
 
@@ -41,7 +41,7 @@ width: 30rem;
         margin-top: -1.2rem;
         .play-pause {
             margin-top: .5rem;
-            color: ${(props) => props.theme.style.buttonFontColor};
+            background-color: ${(props) => props.theme.style.highlight};
         }
     }
 }
@@ -68,12 +68,14 @@ const RadioPanel = () => {
             setPlaying(true)
         }
     }
+
+    
     return (
 
         
         <RadioPlayer>
             <div className="player-inner">
-                <audio id='audio-element' loop autoPlay src={sample} ></audio>
+                <audio id='audio-element' loop  autoPlay src={sample} ></audio>
                 <AudioSpectrum
                 id="audio-canvas"
                 height={50}
@@ -94,6 +96,8 @@ const RadioPanel = () => {
                     {playing ? <button className='play-pause' onClick={togglePlaying}><i className="fas fa-pause"></i></button> 
                     : <button className='play-pause' onClick={togglePlaying}><i className="fas fa-play"></i></button>}
                 </div>
+                
+               
             </div>
             
             

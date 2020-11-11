@@ -20,6 +20,7 @@ const TableContainer = styled.div`
   border: ${(props) => props.theme.style.mainBorder};
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
   color: ${(props) => props.theme.style.primaryFontColor};
+  background-color: ${(props) => props.theme.style.lightBackground};
   border-radius: .5rem;
   
 

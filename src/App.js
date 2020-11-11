@@ -741,7 +741,7 @@ function App() {
                 disableResize={true}
                 >
                 <RadioTitle>
-                  <h4>Harvest Radio</h4>
+                  <h4>harvest radio</h4>
                   <CloseIcon onClick={toggleRadio} ><i className="fas fa-times-circle "></i></CloseIcon>
                 </RadioTitle>
                 <RadioPanel toggleRadio={toggleRadio} />

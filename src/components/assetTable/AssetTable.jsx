@@ -10,6 +10,7 @@ const TableContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: ${(props) => props.theme.style.lightBackground};
   
   
   
@@ -17,8 +18,8 @@ const TableContainer = styled.div`
   
 
   div[role="table"] {
-    background-color: ${(props) => props.theme.table.tableBackground};
-    padding-bottom: 1rem;
+    background-color: ${(props) => props.theme.style.lightBackground};
+
     padding-right: .5rem;
     
     
@@ -26,9 +27,10 @@ const TableContainer = styled.div`
   }
 
   .rdt_TableHeadRow {
-    background: ${(props) => props.theme.table.tableHeadBackground};
+    
     border: ${(props) => props.theme.style.mainBorder};
     box-shadow: ${(props) => props.theme.style.panelBoxShadow};
+    background-color: ${(props) => props.theme.style.lightBackground};
     border-top-right-radius: 0.5rem;
     border-top-left-radius: 0.5rem;
   }
@@ -49,9 +51,10 @@ const TableContainer = styled.div`
   }
 
   .rdt_TableRow {
-    background-color: ${(props) => props.theme.table.tableRowBackground};
+    
     font-family: ${fonts.contentFont};
     color: ${(props) => props.theme.style.primaryFontColor};
+    background-color: ${(props) => props.theme.style.lightBackground};
     padding: 1rem ;
     font-size: 1.7rem;
     
@@ -60,7 +63,6 @@ const TableContainer = styled.div`
 
   div[role="columnheader"] {
     color: ${(props) => props.theme.style.primaryFontColor};
-    background-color: ${(props) => props.theme.table.tableHeadBackground};
     font-family: ${fonts.headerFont};
     font-size: 2rem;
     padding: 1rem .5rem;
