@@ -73,9 +73,23 @@ const Panel = styled.div`
       &.first {
         margin-bottom: 2rem;
       }
+      
+      @media(max-width: 760px) {
+        width: 90rem;
+        
+        
+      }
+      
+      
     }
+    @media(max-width: 760px) {
+      height: 20rem;
+      
+      
     }
-  
+    
+    }
+    
 
   h1 {
     font-family: ${fonts.headerFont};
@@ -89,9 +103,14 @@ const Panel = styled.div`
   
 
   
-@media(max-width: 1002px) {
-  margin-bottom: 1.5rem;
-}
+  @media(max-width: 1002px) {
+    margin-bottom: 1.5rem;
+    height: 20rem;
+  }
+  @media(max-width: 760px) {
+    margin-bottom: 1.5rem;
+    height: 40rem;
+  }
   
 `;
 
@@ -217,7 +236,7 @@ const StyledToken = styled(Token)`
 
   @media only screen and (max-width: 768px) {
     display: block;
-    width: 25%;
+    width: 50%;
     margin-bottom: 1.7rem;
   }
 `;

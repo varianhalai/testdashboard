@@ -61,42 +61,60 @@ const MainTableInner = styled.div`
 `;
 const MainTableRow = styled.div`
   display: grid;
-  grid-template-columns: 3fr 3fr 3fr 3fr 3fr 3fr 3fr ;
-  grid-gap: 2rem;
-  font-size: 2rem;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr ;
+  font-size: 1.7rem;
   font-family: ${fonts.contentFont};
   padding: 1.5rem 1rem;
-  width: 180rem;
-  @media(min-width: 2000px) {
-    width: 220rem;
-  }
-  @media(max-width: 1200px) {
-    width: 160rem;
-  }
-  div {
-    margin: 0 1rem;
-    min-width: 10rem;
-  }
+  width: 100%;
   border-bottom: 1px solid black;
+  @media(max-width: 1100px) {
+    width: 120%;
+  }
+  @media(max-width: 700px) {
+    width: 300%;
+  }
+  
+  
+  div {
+    
+    min-width: 5rem;
+  }
+  .active {
+    margin-left: 2rem;
+  }
+  .rewards {
+    cursor: pointer;
+  }
+  .pool {
+    margin-left: 2rem;
+  }
+  .unstaked {
+    margin-left: 1rem;
+  }
+  .value {
+    margin-left: 2rem;
+  }
 `;
 const MainTableHeader = styled.div`
   display: grid;
-  grid-template-columns: 3fr 3fr 3fr 3fr 3fr 3fr 3fr ;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr ;
   grid-gap: 20px;
   font-size: 2rem;
   font-family: ${fonts.headerFont};
   padding: 1.5rem 1rem;
   border-bottom: 2px black solid;
-  width: 180rem;
-  @media(min-width: 2000px) {
-    width: 220rem;
+  width: 100%;
+  @media(max-width: 1100px) {
+    width: 120%;
   }
-  @media(max-width: 1200px) {
-    width: 160rem;
+  @media(max-width: 700px) {
+    width: 300%;
   }
+ 
+  
   p {
-    margin: 0 1rem;
-    min-width: 10rem;
+   
+    min-width: 5rem;
   }
 
 `;
@@ -176,6 +194,7 @@ const FarmingTable = ({ state,setState }) => {
 
 
 
+
   return (
       <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
         
@@ -191,12 +210,12 @@ const FarmingTable = ({ state,setState }) => {
           {state.summaries.map(utils.prettyPosition).map((summary, index) => (
           <MainTableRow key={summary.address}>
             <div>{summary.name}</div>
-            <div>{String(summary.isActive)}</div>
-            <div>{parseFloat(summary.earnedRewards).toFixed(10)}</div>
+            <div className='active'>{String(summary.isActive)}</div>
+            <div className='rewards' onClick={getRewards}>{parseFloat(summary.earnedRewards).toFixed(10)}</div>
             <div>{parseFloat(summary.stakedBalance).toFixed(10)}</div>
-            <div>{summary.percentOfPool}</div>
-            <div>{parseFloat(summary.unstakedBalance).toFixed(10)}</div>
-            <div>{summary.usdValueOf}</div>
+            <div className='pool'>{summary.percentOfPool}</div>
+            <div className='unstaked'>{parseFloat(summary.unstakedBalance).toFixed(10)}</div>
+            <div className='value'>{summary.usdValueOf}</div>
             
           </MainTableRow>
         ))}
