@@ -67,6 +67,12 @@ const MainTableRow = styled.div`
   font-family: ${fonts.contentFont};
   padding: 1.5rem 1rem;
   width: 180rem;
+  @media(min-width: 2000px) {
+    width: 200rem;
+  }
+  @media(max-width: 1200px) {
+    width: 160rem;
+  }
   div {
     margin: 0 1rem;
     min-width: 10rem;
@@ -82,6 +88,12 @@ const MainTableHeader = styled.div`
   padding: 1.5rem 1rem;
   border-bottom: 2px black solid;
   width: 180rem;
+  @media(min-width: 2000px) {
+    width: 200rem;
+  }
+  @media(max-width: 1200px) {
+    width: 160rem;
+  }
   p {
     margin: 0 1rem;
     min-width: 10rem;
