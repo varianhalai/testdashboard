@@ -62,13 +62,13 @@ const MainTableInner = styled.div`
 const MainTableRow = styled.div`
   display: grid;
   grid-template-columns: 3fr 3fr 3fr 3fr 3fr 3fr 3fr ;
-  grid-gap: 20px;
+  grid-gap: 2rem;
   font-size: 2rem;
   font-family: ${fonts.contentFont};
   padding: 1.5rem 1rem;
   width: 180rem;
   @media(min-width: 2000px) {
-    width: 200rem;
+    width: 220rem;
   }
   @media(max-width: 1200px) {
     width: 160rem;
@@ -89,7 +89,7 @@ const MainTableHeader = styled.div`
   border-bottom: 2px black solid;
   width: 180rem;
   @media(min-width: 2000px) {
-    width: 200rem;
+    width: 220rem;
   }
   @media(max-width: 1200px) {
     width: 160rem;
@@ -195,8 +195,9 @@ const FarmingTable = ({ state,setState }) => {
             <div>{parseFloat(summary.earnedRewards).toFixed(10)}</div>
             <div>{parseFloat(summary.stakedBalance).toFixed(10)}</div>
             <div>{summary.percentOfPool}</div>
-            <div>{summary.usdValueOf}</div>
             <div>{parseFloat(summary.unstakedBalance).toFixed(10)}</div>
+            <div>{summary.usdValueOf}</div>
+            
           </MainTableRow>
         ))}
          
