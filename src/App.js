@@ -228,7 +228,6 @@ const Panel = styled.div`
   margin-top: -1.5rem;
   background-color: ${(props) => props.theme.style.panelBackground};
   z-index: 1;
-  box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
   
 

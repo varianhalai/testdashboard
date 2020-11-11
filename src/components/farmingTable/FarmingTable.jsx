@@ -15,71 +15,89 @@ const TableContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%:
+  width: 99%:
   padding-bottom: 3rem;
+  border: ${(props) => props.theme.style.mainBorder};
+  box-shadow: ${(props) => props.theme.style.panelBoxShadow};
+  color: ${(props) => props.theme.style.primaryFontColor};
+  border-radius: .5rem;
+  
+
   
 
 
 
-  div[role="table"] {
-    background-color: ${(props) => props.theme.table.tableBackground};
-    padding: .35rem;
-    
-    
-    
-  }
-
-  .rdt_TableHeadRow {
-    background: ${(props) => props.theme.table.tableHeadBackground};
-    border: ${(props) => props.theme.style.mainBorder};
-    box-shadow: ${(props) => props.theme.style.panelBoxShadow};
-    border-top-right-radius: 0.5rem;
-    border-top-left-radius: 0.5rem;
-  }
-
-  .rdt_TableBody {
-    background: #1d1d1d;
-    border-left: ${(props) => props.theme.style.mainBorder};
-    border-right: ${(props) => props.theme.style.mainBorder};
-    border-bottom: ${(props) => props.theme.style.mainBorder};
-    box-shadow: ${(props) => props.theme.style.panelBoxShadow};
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-left-radius: .5rem;
-    border-bottom-right-radius: .5rem;
-    
-    
-    
-    
-    
-  }
-
-  .rdt_TableRow {
-    background-color: ${(props) => props.theme.table.tableRowBackground};
-    font-family: ${fonts.contentFont};
-    color: ${(props) => props.theme.style.primaryFontColor};
-    font-size: 1.7rem;
-    
-   
-   
-  }
-
-  div[role="columnheader"] {
-    color: ${(props) => props.theme.style.primaryFontColor};
-    background-color: ${(props) => props.theme.table.tableHeadBackground};
-    font-family: ${fonts.headerFont};
-    font-size: 2rem;
-    letter-spacing: -1.5px;
-    
   
-    &:hover,
-    &:visited,
-    &:active,
-    &:focus {
-      color: ${(props) => props.theme.style.primaryFontColor};
-    }
-  }
 `;
+
+
+
+const MainTableInner = styled.div`
+  width: 100%;
+  margin: 0 auto;
+  overflow-x: scroll;
+  scrollbar-color: ${(props) => props.theme.style.blueBackground} ${(props) => props.theme.style.lightBackground} ;
+  scrollbar-width: thin;
+  ::-webkit-scrollbar {
+    width: 100%;
+    height: .8rem;
+    margin-top: -1.8rem
+    
+  }
+  ::-webkit-scrollbar-track:no-button { 
+    width: 100%;
+    border-radius: .5rem;
+    background-color: ${(props) => props.theme.style.lightBackground};
+  }
+  ::-webkit-scrollbar-button {
+    color: ${(props) => props.theme.style.primaryFontColor};
+    
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: black;
+    background-color: ${(props) => props.theme.style.blueBackground};
+ }
+`;
+const MainTableRow = styled.div`
+  display: grid;
+  grid-template-columns: 3fr 3fr 3fr 3fr 3fr 3fr 3fr ;
+  grid-gap: 20px;
+  font-size: 2rem;
+  font-family: ${fonts.contentFont};
+  padding: 1.5rem 1rem;
+  width: 180rem;
+  div {
+    margin: 0 1rem;
+    min-width: 10rem;
+  }
+  border-bottom: 1px solid black;
+`;
+const MainTableHeader = styled.div`
+  display: grid;
+  grid-template-columns: 3fr 3fr 3fr 3fr 3fr 3fr 3fr ;
+  grid-gap: 20px;
+  font-size: 2rem;
+  font-family: ${fonts.headerFont};
+  padding: 1.5rem 1rem;
+  border-bottom: 2px black solid;
+  width: 180rem;
+  p {
+    margin: 0 1rem;
+    min-width: 10rem;
+  }
+
+`;
+// const StyledTableHeader = styled(TableHeader)`
+//   display: grid;
+//   padding: 24px 15px;
+//   border-bottom: 1px solid #e5e7eb;
+//   font-size: 13px;
+//   text-align: left;
+// `;
+
+
+
 
 const columns = [
   {
@@ -144,21 +162,33 @@ const FarmingTable = ({ state,setState }) => {
  }
 
 
+
+
   return (
       <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
         
         {state.display ? 
         <TableContainer>
           {state.summaries.length === 0 ? <NotStaking state={state} />:
-          <DataTable
-          noHeader={true}
-          noDivider={true}
-          columns={columns}
-          noDataComponent={false}
-          data={state.summaries.map(utils.prettyPosition)}
-          onRowClicked={getRewards}
-          
-        />  }
+          <MainTableInner>
+          <MainTableHeader>{columns.map(col => {
+            return (
+              <p>{col.name}</p>
+            )
+          })}</MainTableHeader>
+          {state.summaries.map(utils.prettyPosition).map((summary, index) => (
+          <MainTableRow key={summary.address}>
+            <div>{summary.name}</div>
+            <div>{String(summary.isActive)}</div>
+            <div>{parseFloat(summary.earnedRewards).toFixed(10)}</div>
+            <div>{parseFloat(summary.stakedBalance).toFixed(10)}</div>
+            <div>{summary.percentOfPool}</div>
+            <div>{summary.usdValueOf}</div>
+            <div>{parseFloat(summary.unstakedBalance).toFixed(10)}</div>
+          </MainTableRow>
+        ))}
+         
+        </MainTableInner> }
         </TableContainer> 
         : <FarmTableSkeleton state={state} />}
           
