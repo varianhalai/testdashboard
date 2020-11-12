@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 import harvest from "../../lib/index.js";
-const { ethers } = harvest;
+const { utils,ethers } = harvest;
 
 const Panel = styled.div`
   display: flex;
@@ -77,7 +77,8 @@ const ButtonContainer = styled.div`
   }
 `;
 
-const Harvest = ({ state,setState }) => {
+const Harvest = ({ state,setState,openModal }) => {
+ let toBeHarvested = [];
   const harvest = async () => {
     const minHarvest = ethers.utils.parseUnits(
       state.minimumHarvestAmount.toString(),
@@ -88,15 +89,40 @@ const Harvest = ({ state,setState }) => {
     });
 
     for (let i = 0; i < activePools.length; i++) {
-      const earned = await activePools[i].earnedRewards(state.address);
+      const earned = await activePools[i].earnedRewards(state.address)
+      .then(res => {
+        if(state.minimumHarvestAmount * 1000000000000 > parseFloat((res.toString() / 1000000).toFixed(10))) {
+          console.log(activePools[i].lptoken.name)
+          // state.minimumHarvestAmount * 1000000000000 > parseFloat((res.toString() / 1000000).toFixed(10)), 
+          activePools.shift()
+        }
+        
+      })
+      .catch(err => {
+        console.log(err)
+      })
+      
+        
 
-      if (earned.gt(minHarvest)) {
-        await activePools[i]
-          .getReward()
-          .catch((e) => console.log("Rejected Transaction"));
-      }
+      // if (earned.gt(minHarvest)) {
+      //   await activePools[i]
+      //     .getReward()
+      //     .catch((e) => console.log("Rejected Transaction"));
+      // }
     }
   };
+
+  const getRewards= () => {
+    let result = state.summaries.map(utils.prettyPosition)
+    let min = 10;
+    for(let i = 0; i < result.length; i++) {
+         if (result[i].earnedRewards > 0 && result[i].earnedRewards < min ) {
+           min = result[i].earnedRewards
+         }
+    }
+    console.log(min)
+    setState({...state,minimumHarvestAmount: min})
+ }
 
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
@@ -124,13 +150,19 @@ const Harvest = ({ state,setState }) => {
       
 
       <ButtonContainer>
-        <button
+        {state.minimumHarvestAmount=== 0 ? <button
+          className="button"
+          disabled={!state.provider}
+          onClick={getRewards}
+        >
+          get min
+        </button> : <button
           className="button"
           disabled={!state.provider || state.minimumHarvestAmount === 0}
           onClick={harvest}
         >
           harvest all
-        </button>
+        </button>}
 
        
       </ButtonContainer>

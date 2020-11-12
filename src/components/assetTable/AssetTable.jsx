@@ -10,7 +10,7 @@ const TableContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${(props) => props.theme.style.lightBackground};
+  
   
   
   
@@ -18,9 +18,9 @@ const TableContainer = styled.div`
   
 
   div[role="table"] {
-    background-color: ${(props) => props.theme.style.lightBackground};
+    background-color: ${(props) => props.theme.style.panelBackground};
 
-    padding-right: .5rem;
+    padding-right: .35rem;
     
     
     

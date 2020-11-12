@@ -209,7 +209,7 @@ const Brand = styled.div`
   }
 
   span {
-    color: ${(props) => props.theme.style.primaryFontColor};
+    color: ${(props) => props.theme.style.brandTextColor};
     font-family: ${fonts.contentFont};
     font-size: 2.5rem;
   }
@@ -755,11 +755,7 @@ function App() {
                   <Col >
                     <Wallet
                       state={state}
-                      openModal={openModal}
-                      disconnect={disconnect}
-                      setConnection={setConnection}
-                      setAddress={setAddress}
-                      refresh={refresh}
+                     
                     />
                   </Col>
                 </Row> : null}

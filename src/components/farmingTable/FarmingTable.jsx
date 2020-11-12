@@ -181,15 +181,10 @@ const columns = [
 
 const FarmingTable = ({ state,setState }) => {
 
-  const getRewards= () => {
-    let result = state.summaries.map(utils.prettyPosition)
-    let min = 10;
-    for(let i = 0; i < result.length; i++) {
-         if (result[i].earnedRewards > 0 && result[i].earnedRewards < min ) {
-           min = result[i].earnedRewards
-         }
-    }
-    setState({...state,minimumHarvestAmount: min})
+  const getThisReward= (reward) => {
+      setState({...state,minimumHarvestAmount: reward})
+      console.log(state.minimumHarvestAmount)
+    
  }
 
 
@@ -212,7 +207,7 @@ const FarmingTable = ({ state,setState }) => {
           <MainTableRow key={summary.address}>
             <div>{summary.name}</div>
             <div className='active'>{String(summary.isActive)}</div>
-            <div className='rewards' onClick={getRewards}>{parseFloat(summary.earnedRewards).toFixed(10)}</div>
+            <div className='rewards' onClick={() =>getThisReward(summary.earnedRewards)}>{parseFloat(summary.earnedRewards).toFixed(10)}</div>
             <div>{parseFloat(summary.stakedBalance).toFixed(10)}</div>
             <div className='pool'>{summary.percentOfPool}</div>
             <div className='unstaked'>{parseFloat(summary.unstakedBalance).toFixed(10)}</div>

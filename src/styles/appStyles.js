@@ -25,7 +25,7 @@ export const darkThemeColors = {
   purple: "#6D6875",
   lighterPurple: '#B5838D',
   pinkish: '#E5989B',
-  lightPinkish: '#FFB4A2'
+  peach: '#FFB4A2'
 };
 
 export const darkTheme = {
@@ -39,9 +39,9 @@ export const darkTheme = {
     panelTabBackground: `${darkThemeColors.blue}`,
     panelTabBoxShadow: `0.35rem 0.35rem 0px ${darkThemeColors.lightGrey}`,
     panelTabLinkColor: `${darkThemeColors.lightGrey}`,
-    wikiTabBackground: `${darkThemeColors.lightPinkish}`,
-    lightBackground: `${darkThemeColors.pinkish}`,
-    blueBackground: `${darkThemeColors.lightPinkish}`,
+    wikiTabBackground: `${darkThemeColors.peach}`,
+    lightBackground: `${darkThemeColors.peach}`,
+    blueBackground: `${darkThemeColors.peach}`,
     highlight: `${darkThemeColors.orange}`,
     bodyBackground: `${darkThemeColors.purple}`,
     primaryFontColor: "#333",
@@ -49,7 +49,8 @@ export const darkTheme = {
     linkColor: `${darkThemeColors.blue}`,
     headerColor: `${darkThemeColors.darkBlue}`,
     alertColor: `${darkThemeColors.blue}`,
-    themeSwitchBackground: `${darkThemeColors.blueBackground}`
+    themeSwitchBackground: `${darkThemeColors.blueBackground}`,
+    brandTextColor:  `${darkThemeColors.peach}`
   },
 
   table: {
@@ -89,7 +90,8 @@ export const lightTheme = {
     linkColor: `${lightThemeColors.black}`,
     headerColor: `${lightThemeColors.black}`,
     alertColor: `${darkThemeColors.blue}`,
-    themeSwitchBackground: `${lightThemeColors.orange}`
+    themeSwitchBackground: `${lightThemeColors.orange}`,
+    brandTextColor:  `${lightThemeColors.black}`
   },
 
   table: {
