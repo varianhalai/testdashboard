@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 import harvest from "../../lib/index.js";
-const { ethers } = harvest;
+const { utils,ethers } = harvest;
 
 const Panel = styled.div`
   display: flex;
@@ -78,25 +78,41 @@ const ButtonContainer = styled.div`
 `;
 
 const Harvest = ({ state,setState }) => {
+ 
   const harvest = async () => {
-    const minHarvest = ethers.utils.parseUnits(
-      state.minimumHarvestAmount.toString(),
-      18,
-    );
+    
     const activePools = state.manager.pools.filter((pool) => {
       return pool.isActive();
     });
 
     for (let i = 0; i < activePools.length; i++) {
-      const earned = await activePools[i].earnedRewards(state.address);
-
-      if (earned.gt(minHarvest)) {
-        await activePools[i]
-          .getReward()
+      const earned = await activePools[i].earnedRewards(state.address)
+      .then(res => {
+        
+        if(state.minimumHarvestAmount * 1000000000000 <= parseFloat((res.toString() / 1000000).toFixed(10))) {
+          //The original code here would harvest all farms regardless of the amount specified.
+          //Now it checks if the rewards are equal to or above specfied amount before harvesting
+          activePools[i].getReward()
           .catch((e) => console.log("Rejected Transaction"));
-      }
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
     }
   };
+
+  const getMinRewards= () => {
+    let result = state.summaries.map(utils.prettyPosition)
+    let min = 10;
+    for(let i = 0; i < result.length; i++) {
+         if (result[i].earnedRewards > 0 && result[i].earnedRewards < min ) {
+           min = result[i].earnedRewards
+         }
+    }
+    console.log(min)
+    setState({...state,minimumHarvestAmount: min})
+ }
 
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
@@ -124,13 +140,19 @@ const Harvest = ({ state,setState }) => {
       
 
       <ButtonContainer>
-        <button
+        {state.minimumHarvestAmount=== 0 ? <button
+          className="button"
+          disabled={!state.provider}
+          onClick={getMinRewards}
+        >
+          get min
+        </button> : <button
           className="button"
           disabled={!state.provider || state.minimumHarvestAmount === 0}
           onClick={harvest}
         >
           harvest all
-        </button>
+        </button>}
 
        
       </ButtonContainer>
