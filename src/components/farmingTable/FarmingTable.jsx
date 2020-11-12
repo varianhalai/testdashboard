@@ -198,9 +198,9 @@ const FarmingTable = ({ state,setState }) => {
         <TableContainer>
           {state.summaries.length === 0 ? <NotStaking state={state} />:
           <MainTableInner>
-          <MainTableHeader>{columns.map(col => {
+          <MainTableHeader>{columns.map((col,i) => {
             return (
-              <p>{col.name}</p>
+              <p key={i}>{col.name}</p>
             )
           })}</MainTableHeader>
           {state.summaries.map(utils.prettyPosition).map((summary, index) => (

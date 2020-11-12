@@ -77,13 +77,10 @@ const ButtonContainer = styled.div`
   }
 `;
 
-const Harvest = ({ state,setState,openModal }) => {
- let toBeHarvested = [];
+const Harvest = ({ state,setState }) => {
+ 
   const harvest = async () => {
-    const minHarvest = ethers.utils.parseUnits(
-      state.minimumHarvestAmount.toString(),
-      18,
-    );
+    
     const activePools = state.manager.pools.filter((pool) => {
       return pool.isActive();
     });
@@ -91,28 +88,21 @@ const Harvest = ({ state,setState,openModal }) => {
     for (let i = 0; i < activePools.length; i++) {
       const earned = await activePools[i].earnedRewards(state.address)
       .then(res => {
-        if(state.minimumHarvestAmount * 1000000000000 > parseFloat((res.toString() / 1000000).toFixed(10))) {
-          console.log(activePools[i].lptoken.name)
-          // state.minimumHarvestAmount * 1000000000000 > parseFloat((res.toString() / 1000000).toFixed(10)), 
-          activePools.shift()
-        }
         
+        if(state.minimumHarvestAmount * 1000000000000 <= parseFloat((res.toString() / 1000000).toFixed(10))) {
+          //The original code here would harvest all farms regardless of the amount specified.
+          //Now it checks if the rewards are equal to or above specfied amount before harvesting
+          activePools[i].getReward()
+          .catch((e) => console.log("Rejected Transaction"));
+        }
       })
       .catch(err => {
         console.log(err)
       })
-      
-        
-
-      // if (earned.gt(minHarvest)) {
-      //   await activePools[i]
-      //     .getReward()
-      //     .catch((e) => console.log("Rejected Transaction"));
-      // }
     }
   };
 
-  const getRewards= () => {
+  const getMinRewards= () => {
     let result = state.summaries.map(utils.prettyPosition)
     let min = 10;
     for(let i = 0; i < result.length; i++) {
@@ -153,7 +143,7 @@ const Harvest = ({ state,setState,openModal }) => {
         {state.minimumHarvestAmount=== 0 ? <button
           className="button"
           disabled={!state.provider}
-          onClick={getRewards}
+          onClick={getMinRewards}
         >
           get min
         </button> : <button
