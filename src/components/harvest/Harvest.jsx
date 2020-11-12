@@ -140,19 +140,13 @@ const Harvest = ({ state,setState }) => {
       
 
       <ButtonContainer>
-        {state.minimumHarvestAmount=== 0 ? <button
-          className="button"
-          disabled={!state.provider}
-          onClick={getMinRewards}
-        >
-          get min
-        </button> : <button
+         <button
           className="button"
           disabled={!state.provider || state.minimumHarvestAmount === 0}
           onClick={harvest}
         >
           harvest all
-        </button>}
+        </button>
 
        
       </ButtonContainer>
