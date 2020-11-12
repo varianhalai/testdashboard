@@ -61,7 +61,7 @@ const Panel = styled.div`
     ::-webkit-scrollbar-thumb {
       border-radius: 10px;
       background-color: black;
-      background-color: ${(props) => props.theme.style.blueBackground};
+      background-color: ${(props) => props.theme.style.scrollBarColor};
    }
 
     .token-container {

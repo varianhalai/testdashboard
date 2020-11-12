@@ -50,7 +50,8 @@ export const darkTheme = {
     headerColor: `${darkThemeColors.darkBlue}`,
     alertColor: `${darkThemeColors.blue}`,
     themeSwitchBackground: `${darkThemeColors.blueBackground}`,
-    brandTextColor:  `${darkThemeColors.peach}`
+    brandTextColor:  `${darkThemeColors.peach}`,
+    scrollBarColor: `${darkThemeColors.lighterPurple}`
   },
 
   table: {
@@ -91,7 +92,8 @@ export const lightTheme = {
     headerColor: `${lightThemeColors.black}`,
     alertColor: `${darkThemeColors.blue}`,
     themeSwitchBackground: `${lightThemeColors.orange}`,
-    brandTextColor:  `${lightThemeColors.black}`
+    brandTextColor:  `${lightThemeColors.black}`,
+    scrollBarColor: `${lightThemeColors.blue}`
   },
 
   table: {
