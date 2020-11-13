@@ -21,6 +21,7 @@ const TableContainer = styled.div`
     background-color: ${(props) => props.theme.style.panelBackground};
 
     padding-right: .35rem;
+    padding-bottom: .35rem;
     
     
     

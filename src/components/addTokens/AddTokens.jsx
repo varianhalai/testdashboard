@@ -39,7 +39,7 @@ const Panel = styled.div`
 
   .inner {
     overflow-x: scroll;
-    height: 15rem;
+    height: 16rem;
     scrollbar-color: ${(props) => props.theme.style.blueBackground} ${(props) => props.theme.style.lightBackground} ;
     scrollbar-width: thin;
 
@@ -74,7 +74,7 @@ const Panel = styled.div`
         margin-bottom: 2rem;
       }
       
-      @media(max-width: 760px) {
+      @media(max-width: 1025px) {
         width: 90rem;
         
         
@@ -82,8 +82,8 @@ const Panel = styled.div`
       
       
     }
-    @media(max-width: 760px) {
-      height: 20rem;
+    @media(max-width: 1105px) {
+      height: 18rem;
       
       
     }
@@ -103,14 +103,12 @@ const Panel = styled.div`
   
 
   
-  @media(max-width: 1002px) {
+  
+  @media(max-width: 1105px) {
     margin-bottom: 1.5rem;
-    height: 20rem;
+    height: 32rem;
   }
-  @media(max-width: 760px) {
-    margin-bottom: 1.5rem;
-    height: 40rem;
-  }
+ 
   
 `;
 

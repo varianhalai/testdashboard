@@ -28,11 +28,11 @@ const Panel = styled.div`
   }
 
   input[type="number"] {
-    margin: 0 1rem;
+    margin: 0 .7rem 0 .4rem;
   }
 
   button {
-    margin-right: 0.5rem;
+    margin-right: 0.15rem;
   }
 
   .panel-text {

@@ -14,20 +14,39 @@ const WalletConnection = styled.div`
   top: -.6rem;
   font-size: 2rem;
   @media(max-width: 585px) {
+    width: 100%;
+    font-size: 1.9rem;
+    
+  }
+  @media(max-width: 559px) {
     font-size: 1.8rem;
+    
+  }
+ 
+  @media(max-width: 529px) {
+    font-size: 1.7rem;
     width: 100%;
   }
-  @media(max-width: 560px) {
-    font-size: 1.7rem;
+  @media(max-width: 500px) {
+    font-size: 1.6rem;
   }
-  @media(max-width: 530px) {
+  @media(max-width: 480px) {
+    font-size: 1.5rem;
+  }
+  @media(max-width: 453px) {
     font-size: 1.4rem;
   }
-  @media(max-width: 430px) {
+  @media(max-width: 433px) {
+    font-size: 1.3rem;
+  }
+  @media(max-width: 400px) {
     font-size: 1.2rem;
   }
-  @media(max-width: 390px) {
+  @media(max-width: 375px) {
     font-size: 1.1rem;
+  }
+  @media(max-width: 350px) {
+    font-size: 1rem;
   }
   @media(max-width: 320px) {
     font-size: .9rem;
@@ -71,6 +90,8 @@ const WalletTab = styled.div`
   position: relative;
   top: .6rem;
 `;
+
+
 
 const Wallet = ({
   state,

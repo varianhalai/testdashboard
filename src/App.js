@@ -138,7 +138,7 @@ const GlobalStyle = createGlobalStyle`
     border: 0.2rem solid #363636;
     font-size: 1.4rem;
     color: ${(props) => props.theme.style.primaryFontColor};
-    width: 8rem;
+    width: 6rem;
     text-align: center;
     border-radius: 0.5rem;
     padding: 0.3rem 0.7rem;
@@ -195,9 +195,10 @@ const GlobalStyle = createGlobalStyle`
 const Brand = styled.div`
 
   padding-right: 1rem;
+  padding-top: 2rem;
   display: flex;
   align-items: flex-start;
-  margin-bottom: 2rem;
+  margin-bottom: 4rem;
   height: 2.5rem;
   
 
@@ -328,12 +329,15 @@ const PanelTab = styled.div`
     
    
   }
-  @media(max-width: 600px) {
+  @media(max-width: 605px) {
     font-size: 1.9rem;
     padding: 0.75rem 1rem 2.2rem 1rem;
     position: relative;
     top: .1rem;
     
+  }
+  @media(max-width: 550px) {
+    margin-right: .5rem;
   }
   @media(max-width: 380px) {
     font-size: 1.5rem;
@@ -345,9 +349,10 @@ const PanelTab = styled.div`
       top: .4rem;
     }
   }
-  @media(max-width: 320px) {
-    margin-right: .25rem;
+  @media(max-width: 333px) {
+    margin-right: .3rem;
   }
+  
 
   &.wiki-tab {
     position: relative;
@@ -366,12 +371,19 @@ const PanelTab = styled.div`
       position: relative;
       top: .1rem;
     }
+    @media(max-width: 575px) {
+      
+      margin-left: .5rem;
+     
+      
+    }
    
     @media(max-width: 500px) {
-      top: 1.2rem;
+      top: 1.3rem;
       margin-left: .5rem;
       a {
         font-size: 1.5rem;
+        top: -.1rem;;
       }
       
     }
@@ -381,6 +393,9 @@ const PanelTab = styled.div`
       }
       
     };
+    @media(max-width: 333px) {
+      margin-right: .3rem;
+    }
   }
     &.switch-panel {
       margin-right: 1.2rem;
@@ -416,7 +431,7 @@ const PanelTab = styled.div`
 
       @media(max-width: 500px) {
         top: 1.4rem;
-        margin-left: .5rem;
+        margin-left: 1rem;
         p {
           font-size: 1.5rem;
         }
@@ -427,6 +442,9 @@ const PanelTab = styled.div`
           font-size: 1.4rem;
         }
         
+      }
+      @media(max-width: 333px) {
+        margin-left: .3rem;
       }
   
 `;
@@ -449,9 +467,10 @@ const PanelTabContainerRight = styled.div`
 const Container = styled.div`
   width: 85%;
   margin: 0 auto;
-  @media(max-width: 360px) {
+  @media(max-width: 1140px) {
     width: 95%;
   }
+  
  
   
 `;

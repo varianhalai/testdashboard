@@ -6,7 +6,7 @@ import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 
 
 import FarmTableSkeleton from './FarmTableSkeleton';
-import NotStaking from './NotStaking';
+
 
 
 const { utils } = harvest;
@@ -22,6 +22,88 @@ const TableContainer = styled.div`
   color: ${(props) => props.theme.style.primaryFontColor};
   background-color: ${(props) => props.theme.style.lightBackground};
   border-radius: .5rem;
+
+  div[role="table"] {
+    width: 100%;
+    background-color: ${(props) => props.theme.style.lightBackground};
+    padding: .35rem;
+    overflow-y: scroll;
+    ::-webkit-scrollbar {
+      width: .1rem;
+    }
+}
+
+.rdt_TableHeadRow {
+  background-color: ${(props) => props.theme.style.lightBackground};
+  border: ${(props) => props.theme.style.mainBorder};
+  box-sizing: border-box;
+ 
+  border-top-right-radius: 0.5rem;
+  border-top-left-radius: 0.5rem;
+}
+
+.rdt_TableBody {
+  background-color: ${(props) => props.theme.style.lightBackground};
+  border-left: ${(props) => props.theme.style.mainBorder};
+  border-right: ${(props) => props.theme.style.mainBorder};
+  border-bottom: ${(props) => props.theme.style.mainBorder};
+  box-sizing: border-box;
+  
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: .5rem;
+  border-bottom-right-radius: .5rem;
+  
+  
+}
+
+.rdt_TableRow {
+  background-color: ${(props) => props.theme.style.lightBackground};
+  font-family: ${fonts.contentFont};
+  color: ${(props) => props.theme.style.primaryFontColor};
+  font-size: 1.5rem;
+  
+  @media(max-width: 1090px) {
+    font-size: 1.2rem;
+    
+  }
+  @media(max-width: 760px) {
+    font-size: 1.5rem;
+    
+  }
+  @media(max-width: 330px) {
+    font-size: .9rem;
+  }
+}
+
+div[role="columnheader"] {
+  color: ${(props) => props.theme.style.primaryFontColor};
+  background-color: ${(props) => props.theme.style.lightBackground};
+  font-family: ${fonts.headerFont};
+  font-size: 1.7rem;
+  letter-spacing: -1.5px;
+  @media(max-width: 1400px) {
+    font-size: 1.6rem;
+    
+  }
+  @media(max-width: 1090px) {
+    font-size: 1.4rem;
+    
+  }
+  media(max-width: 760px) {
+    font-size: 1.7rem;
+    
+  }
+  
+  
+
+  &:hover,
+  &:visited,
+  &:active,
+  &:focus {
+    color: ${(props) => props.theme.style.primaryFontColor};
+  }
+}
   
 
   
@@ -37,7 +119,7 @@ const MainTableInner = styled.div`
   width: 100%;
   margin: 0 auto;
   overflow-x: scroll;
-  scrollbar-color: ${(props) => props.theme.style.blueBackground} ${(props) => props.theme.style.lightBackground} ;
+  scrollbar-color:  ${(props) => props.theme.style.lightBackground} ;
   scrollbar-width: thin;
   ::-webkit-scrollbar {
     width: 100%;
@@ -71,8 +153,14 @@ const MainTableRow = styled.div`
   @media(max-width: 1100px) {
     width: 120%;
   }
+  @media(max-width: 800px) {
+    width: 150%;
+  }
   @media(max-width: 700px) {
-    width: 300%;
+    width: 200%;
+  }
+  @media(max-width:510px) {
+    width: 350%;
   }
   
   
@@ -108,8 +196,14 @@ const MainTableHeader = styled.div`
   @media(max-width: 1100px) {
     width: 120%;
   }
+  @media(max-width: 800px) {
+    width: 150%;
+  }
   @media(max-width: 700px) {
-    width: 300%;
+    width: 200%;
+  }
+  @media(max-width:510px) {
+    width: 350%;
   }
  
   
@@ -175,6 +269,22 @@ const columns = [
   },
 ];
 
+const noAssetColumns = [
+  {
+    name: "You currently are not staking any assets",
+    // selector: (data) => data.asset.name,
+    selector: "asset",
+    center: true
+  },
+]
+const noAssetData = [
+  {
+    id:0,
+    asset: 'Stake assets to get started',
+    center: true
+  },
+]
+
 
 
 
@@ -196,7 +306,13 @@ const FarmingTable = ({ state,setState }) => {
         
         {state.display ? 
         <TableContainer>
-          {state.summaries.length === 0 ? <NotStaking state={state} />:
+          {state.summaries.length === 0 ? <DataTable
+          noHeader={true}
+          noDivider={true}
+          columns={noAssetColumns}
+          noDataComponent={false}
+          data={noAssetData}
+           />:
           <MainTableInner>
           <MainTableHeader>{columns.map((col,i) => {
             return (
@@ -226,3 +342,4 @@ const FarmingTable = ({ state,setState }) => {
 };
 
 export default FarmingTable;
+
