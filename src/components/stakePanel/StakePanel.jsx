@@ -88,7 +88,11 @@ const ButtonContainer = styled.div`
 
 const StakePanel = ({ state, openModal }) => {
   const [noFarm,setNoFarm] =useState(true)
-  const [modal,setModal] = useState(false)
+  const [modal,setModal] = useState({
+    open: false,
+    message: '',
+    noFarm: true
+  })
   const [stakeAmount, setStakeAmount] = useState(0);
   const pool = state.manager.pools.find((pool) => {
     return pool.address === "0x25550Cccbd68533Fa04bFD3e3AC4D09f9e00Fc50";
@@ -99,7 +103,7 @@ const StakePanel = ({ state, openModal }) => {
 
   const checkForFarm = (amount) => {
     if(amount <= 0) {
-      setModal(true)
+      setModal({...modal,open: true,message: "You don't have any farm to stake!"})
     }else {
       setStakeAmount(ethers.utils.formatEther(amount))
     }
@@ -109,29 +113,71 @@ const StakePanel = ({ state, openModal }) => {
     setModal(false);
   };
 
+  // const stake = async () => {
+  //   const allowance = await pool.lptoken.allowance(state.address, pool.address);
+  //   const amount =
+  //   stakeAmount > 0
+  //     ? ethers.utils.parseUnits(stakeAmount.toString(), 18)
+  //     : await pool.unstakedBalance(state.address);
+    
+  //     if(amount === 0) {
+  //       (setModal({...modal,open: true,
+  //                     message: "Please enter an amount to stake!",
+  //                     noFarm: false}))
+  //     }else {
+        
+  //       if (allowance.lt(amount)) {
+  //         await pool.approve(state.address, ethers.constants.MaxUint256)
+  //         .catch(err => { console.log(err)});
+  //         await pool.stake(amount).catch(err => { console.log(err)});;
+  //       } else {
+  //         await pool.stake(amount).catch((e) => {
+  //           if (e.code !== 4001 || e.code !== -32603) {
+  //             openModal(
+  //               `You do not have enough to stake ${ethers.utils.formatEther(
+  //                 stakeAmount,
+  //               )} FARM`,
+  //               "error",
+  //             );
+  //           }
+  //         });
+  //       }
+  //       setStakeAmount(0)
+  //     }
+         
+         
+  // };
   const stake = async () => {
-    const allowance = await pool.lptoken.allowance(state.address, pool.address);
-    const amount =
-      stakeAmount > 0
-        ? ethers.utils.parseUnits(stakeAmount.toString(), 18)
-        : await pool.unstakedBalance(state.address);
-
-    if (allowance.lt(amount)) {
-      await pool.approve(state.address, ethers.constants.MaxUint256);
-      await pool.stake(amount);
-    } else {
-      await pool.stake(amount).catch((e) => {
-        if (e.code !== 4001 || e.code !== -32603) {
-          openModal(
-            `You do not have enough to stake ${ethers.utils.formatEther(
-              amount,
-            )} FARM`,
-            "error",
-          );
-        }
-      });
+    if(stakeAmount === 0) {
+      (setModal({...modal,open: true,
+        message: "Please enter an amount to stake!",
+        noFarm: false}))
+    }else {
+      const allowance = await pool.lptoken.allowance(state.address, pool.address);
+      const amount =
+        stakeAmount > 0
+          ? ethers.utils.parseUnits(stakeAmount.toString(), 18)
+          : await pool.unstakedBalance(state.address);
+  
+      if (allowance.lt(amount)) {
+        await pool.lptoken.approve(state.address, ethers.constants.MaxUint256);
+        await pool.stake(amount);
+      } else {
+        await pool.stake(amount).catch((e) => {
+          if (e.code !== 4001 || e.code !== -32603) {
+            openModal(
+              `You do not have enough to stake ${ethers.utils.formatEther(
+                amount,
+              )} FARM`,
+              "error",
+            );
+          }
+        });
+      }
     }
+   
   };
+  
   const setMax = async () => {
     const amount =
       stakeAmount > 0

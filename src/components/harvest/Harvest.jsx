@@ -81,9 +81,7 @@ const Harvest = ({ state,setState }) => {
  
   const harvest = async () => {
     
-    const activePools = state.manager.pools.filter((pool) => {
-      return pool.isActive();
-    });
+    const activePools = state.manager.pools
 
     for (let i = 0; i < activePools.length; i++) {
       const earned = await activePools[i].earnedRewards(state.address)
@@ -100,6 +98,7 @@ const Harvest = ({ state,setState }) => {
         console.log(err)
       })
     }
+    setState({...state,minimumHarvestAmount: 0})
   };
 
   const getMinRewards= () => {
