@@ -18,37 +18,37 @@ const WalletConnection = styled.div`
     font-size: 1.9rem;
     
   }
-  @media(max-width: 559px) {
+  @media(max-width: 560px) {
     font-size: 1.8rem;
     
   }
  
-  @media(max-width: 529px) {
+  @media(max-width: 535px) {
     font-size: 1.7rem;
     width: 100%;
   }
-  @media(max-width: 500px) {
+  @media(max-width: 510px) {
     font-size: 1.6rem;
   }
   @media(max-width: 480px) {
     font-size: 1.5rem;
   }
-  @media(max-width: 453px) {
+  @media(max-width: 460px) {
     font-size: 1.4rem;
   }
   @media(max-width: 433px) {
     font-size: 1.3rem;
   }
-  @media(max-width: 400px) {
+  @media(max-width: 405px) {
     font-size: 1.2rem;
   }
-  @media(max-width: 375px) {
+  @media(max-width: 385px) {
     font-size: 1.1rem;
   }
-  @media(max-width: 350px) {
+  @media(max-width: 355px) {
     font-size: 1rem;
   }
-  @media(max-width: 320px) {
+  @media(max-width: 325px) {
     font-size: .9rem;
   }
  
