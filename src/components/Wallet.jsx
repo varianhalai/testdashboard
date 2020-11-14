@@ -13,7 +13,7 @@ const WalletConnection = styled.div`
   position: relative;
   top: -.6rem;
   font-size: 2rem;
-  @media(max-width: 600px) {
+  @media(max-width: 610px) {
     width: 100%;
     font-size: 1.8rem;
     
