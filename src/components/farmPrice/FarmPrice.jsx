@@ -10,9 +10,9 @@ const BluePanel = styled.div`
   background-color: ${(props) => props.theme.style.blueBackground};
   color: ${(props) => props.theme.style.primaryFontColor};
   font-family: ${fonts.headerFont};
-  padding: 2.5rem .7rem 3.5rem .7rem;
+  padding: 2.5rem .7rem 3.3rem .7rem;
   margin-right: .5rem;
-  margin-top: 1.8rem;
+  margin-top: 2.6rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: .5rem;
   box-sizing: border-box;
@@ -27,7 +27,8 @@ const BluePanel = styled.div`
 
   h1 {
     font-size: 2.4rem;
-    margin-bottom: 0.5rem;
+    text-align: center;
+    margin-right: 1rem;
   }
 
   span {
@@ -35,7 +36,7 @@ const BluePanel = styled.div`
   }
 
   @media(max-width: 1107px) {
-    padding: 3.65rem .7rem 7.2rem 1.5rem;
+    padding: 3.65rem .7rem 6.9rem 1.5rem;
     margin-right: 0px;
     h1 {
       font-size:2.2rem;

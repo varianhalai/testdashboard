@@ -25,9 +25,12 @@ const TableContainer = styled.div`
 
   div[role="table"] {
     width: 100%;
-    background-color: ${(props) => props.theme.style.lightBackground};
+    height: 100%
+    background-color: ${(props) => props.theme.style.lightBackground}
     padding: .35rem;
-    overflow-y: scroll;
+    
+    scrollbar-width: thin;
+    scrollbar-color: ${(props) => props.theme.style.scrollBarColor} ${(props) => props.theme.style.lightBackground} ;
     ::-webkit-scrollbar {
       width: .1rem;
     }
@@ -35,18 +38,15 @@ const TableContainer = styled.div`
 
 .rdt_TableHeadRow {
   background-color: ${(props) => props.theme.style.lightBackground};
-  border: ${(props) => props.theme.style.mainBorder};
-  box-sizing: border-box;
  
+  box-sizing: border-box;
   border-top-right-radius: 0.5rem;
   border-top-left-radius: 0.5rem;
 }
 
 .rdt_TableBody {
   background-color: ${(props) => props.theme.style.lightBackground};
-  border-left: ${(props) => props.theme.style.mainBorder};
-  border-right: ${(props) => props.theme.style.mainBorder};
-  border-bottom: ${(props) => props.theme.style.mainBorder};
+  
   box-sizing: border-box;
   
   border-top-left-radius: 0;
@@ -119,7 +119,7 @@ const MainTableInner = styled.div`
   width: 100%;
   margin: 0 auto;
   overflow-x: scroll;
-  scrollbar-color:  ${(props) => props.theme.style.lightBackground} ;
+  scrollbar-color: ${(props) => props.theme.style.scrollBarColor} ${(props) => props.theme.style.lightBackground} ;
   scrollbar-width: thin;
   ::-webkit-scrollbar {
     width: 100%;
@@ -149,7 +149,7 @@ const MainTableRow = styled.div`
   font-family: ${fonts.contentFont};
   padding: 1.5rem 1rem;
   width: 100%;
-  border-bottom: 1px solid black;
+  border-bottom: 1.2px solid rgba(53, 53, 53, .15);
   @media(max-width: 1100px) {
     width: 120%;
   }

@@ -44,7 +44,9 @@ overflow: hidden;
         }
     }
 
-    &.stake-skeleton
+    @media(max-width: 1107px) {
+        height: 16rem;
+    }
 
 
 `;

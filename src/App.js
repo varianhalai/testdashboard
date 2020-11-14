@@ -781,7 +781,8 @@ function App() {
                 
 
                  
-                
+                {/* MOVED MAIN COMPONENTS INTO ITS OWN COMPONENT */}
+                {/* The welcome text display on intial load and when a wallet is connected the main content renders */}
                 {state.provider ? (
                   <MainContent 
                   state={state} 

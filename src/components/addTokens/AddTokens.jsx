@@ -40,7 +40,7 @@ const Panel = styled.div`
   .inner {
     overflow-x: scroll;
     height: 16rem;
-    scrollbar-color: ${(props) => props.theme.style.blueBackground} ${(props) => props.theme.style.lightBackground} ;
+    scrollbar-color: ${(props) => props.theme.style.scrollBarColor} ${(props) => props.theme.style.lightBackground} ;
     scrollbar-width: thin;
 
     ::-webkit-scrollbar {
@@ -84,9 +84,11 @@ const Panel = styled.div`
     }
     @media(max-width: 1105px) {
       height: 18rem;
-      
-      
     }
+    @media(max-width: 768px) {
+      height: 20rem;
+    }
+
     
     }
     

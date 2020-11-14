@@ -9,7 +9,7 @@ const Container = styled.div`
         display: flex;
         position: fixed;
         width: 110vw;
-        height: 100vh;
+        height: 110vh;
         background-color: #07070767;
         top: 0%;
         transform: translateY(50%);
@@ -18,6 +18,16 @@ const Container = styled.div`
         align-items: center;
         justify-content: center;
         overflow: hidden;
+        @media(max-width: 990px) {
+          
+          transform: translateX(-8%);
+          
+        }
+        @media(max-width: 600px) {
+          
+          transform: translateX(-12%);
+          
+        }
       `;
     } else {
       return css`
@@ -70,6 +80,10 @@ const Inner = styled.div`
           top: 1.5px;
       }
       
+  }
+  @media(max-width: 600px) {
+    width: 80%;
+    margin: 0 auto;
   }
 `;
 
