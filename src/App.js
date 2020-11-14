@@ -216,7 +216,7 @@ const Brand = styled.div`
   }
 
   @media(min-width: 1500px) {
-    margin: 2.5rem 0;
+    margin: 3rem 0;
   }
 `;
 
