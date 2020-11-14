@@ -37,24 +37,21 @@ const TableContainer = styled.div`
 }
 
 .rdt_TableHeadRow {
+    
+  border-bottom: ${(props) => props.theme.style.mainBorder};
+  box-shadow: ${(props) => props.theme.style.panelBoxShadow};
   background-color: ${(props) => props.theme.style.lightBackground};
- 
-  box-sizing: border-box;
   border-top-right-radius: 0.5rem;
   border-top-left-radius: 0.5rem;
 }
 
 .rdt_TableBody {
-  background-color: ${(props) => props.theme.style.lightBackground};
-  
-  box-sizing: border-box;
-  
+  box-shadow: ${(props) => props.theme.style.panelBoxShadow};
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   border-bottom-left-radius: .5rem;
   border-bottom-right-radius: .5rem;
-  
-  
+
 }
 
 .rdt_TableRow {
@@ -82,18 +79,7 @@ div[role="columnheader"] {
   font-family: ${fonts.headerFont};
   font-size: 1.7rem;
   letter-spacing: -1.5px;
-  @media(max-width: 1400px) {
-    font-size: 1.6rem;
-    
-  }
-  @media(max-width: 1090px) {
-    font-size: 1.4rem;
-    
-  }
-  media(max-width: 760px) {
-    font-size: 1.7rem;
-    
-  }
+
   
   
 

@@ -10,6 +10,7 @@ const TableContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100.5%;
   
   
   
@@ -46,9 +47,7 @@ const TableContainer = styled.div`
     border-top-right-radius: 0;
     border-bottom-left-radius: .5rem;
     border-bottom-right-radius: .5rem;
-    
-    
-    
+
   }
 
   .rdt_TableRow {
