@@ -87,7 +87,7 @@ const ButtonContainer = styled.div`
 `;
 
 const StakePanel = ({ state, openModal }) => {
-  const [noFarm,setNoFarm] =useState(true)
+  
   const [modal,setModal] = useState({
     open: false,
     message: '',
@@ -113,40 +113,7 @@ const StakePanel = ({ state, openModal }) => {
     setModal(false);
   };
 
-  // const stake = async () => {
-  //   const allowance = await pool.lptoken.allowance(state.address, pool.address);
-  //   const amount =
-  //   stakeAmount > 0
-  //     ? ethers.utils.parseUnits(stakeAmount.toString(), 18)
-  //     : await pool.unstakedBalance(state.address);
-    
-  //     if(amount === 0) {
-  //       (setModal({...modal,open: true,
-  //                     message: "Please enter an amount to stake!",
-  //                     noFarm: false}))
-  //     }else {
-        
-  //       if (allowance.lt(amount)) {
-  //         await pool.approve(state.address, ethers.constants.MaxUint256)
-  //         .catch(err => { console.log(err)});
-  //         await pool.stake(amount).catch(err => { console.log(err)});;
-  //       } else {
-  //         await pool.stake(amount).catch((e) => {
-  //           if (e.code !== 4001 || e.code !== -32603) {
-  //             openModal(
-  //               `You do not have enough to stake ${ethers.utils.formatEther(
-  //                 stakeAmount,
-  //               )} FARM`,
-  //               "error",
-  //             );
-  //           }
-  //         });
-  //       }
-  //       setStakeAmount(0)
-  //     }
-         
-         
-  // };
+
   const stake = async () => {
     if(stakeAmount === 0) {
       (setModal({...modal,open: true,

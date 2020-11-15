@@ -15,7 +15,7 @@ const TableContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 99%:
+  width: 90%:
   padding-bottom: 3rem;
   border: ${(props) => props.theme.style.mainBorder};
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
@@ -24,7 +24,7 @@ const TableContainer = styled.div`
   border-radius: .5rem;
 
   div[role="table"] {
-    width: 100%;
+    width: 99%;
     height: 100%
     background-color: ${(props) => props.theme.style.lightBackground}
     padding: .35rem;
@@ -279,8 +279,6 @@ const FarmingTable = ({ state,setState }) => {
 
   const getThisReward= (reward) => {
       setState({...state,minimumHarvestAmount: reward})
-      console.log(state.minimumHarvestAmount)
-    
  }
 
 

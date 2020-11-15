@@ -11,7 +11,6 @@ const BluePanel = styled.div`
   color: ${(props) => props.theme.style.primaryFontColor};
   font-family: ${fonts.headerFont};
   padding: 2.5rem .7rem 3.3rem .7rem;
-  margin-right: .5rem;
   margin-top: 2.4rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: .5rem;

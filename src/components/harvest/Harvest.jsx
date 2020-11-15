@@ -84,7 +84,7 @@ const Harvest = ({ state,setState }) => {
     const activePools = state.manager.pools
 
     for (let i = 0; i < activePools.length; i++) {
-      const earned = await activePools[i].earnedRewards(state.address)
+       await activePools[i].earnedRewards(state.address)
       .then(res => {
         
         if(state.minimumHarvestAmount * 1000000000000 <= parseFloat((res.toString() / 1000000).toFixed(10))) {
@@ -101,17 +101,17 @@ const Harvest = ({ state,setState }) => {
     setState({...state,minimumHarvestAmount: 0})
   };
 
-  const getMinRewards= () => {
-    let result = state.summaries.map(utils.prettyPosition)
-    let min = 10;
-    for(let i = 0; i < result.length; i++) {
-         if (result[i].earnedRewards > 0 && result[i].earnedRewards < min ) {
-           min = result[i].earnedRewards
-         }
-    }
-    console.log(min)
-    setState({...state,minimumHarvestAmount: min})
- }
+//   const getMinRewards= () => {
+//     let result = state.summaries.map(utils.prettyPosition)
+//     let min = 10;
+//     for(let i = 0; i < result.length; i++) {
+//          if (result[i].earnedRewards > 0 && result[i].earnedRewards < min ) {
+//            min = result[i].earnedRewards
+//          }
+//     }
+//     console.log(min)
+//     setState({...state,minimumHarvestAmount: min})
+//  }
 
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>

@@ -535,7 +535,7 @@ function App() {
   });
 
   const getPools = async () => {
-    const poolsData = await axios.get(
+    await axios.get(
       "https://api-ui.harvest.finance/pools?key=41e90ced-d559-4433-b390-af424fdc76d6",
     ).then(res => {
       let currentAPY = res.data[0].rewardAPY;

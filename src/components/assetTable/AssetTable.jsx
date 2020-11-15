@@ -10,7 +10,7 @@ const TableContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100.5%;
+  width: 100.3%;
   
   
   

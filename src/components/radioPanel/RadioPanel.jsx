@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
-import styled, { ThemeProvider } from "styled-components";
-import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
+import styled from "styled-components";
+import { fonts } from "../../styles/appStyles";
 import AudioSpectrum from 'react-audio-spectrum';
 import sample from '../../assets/audio/HarvestRadio.mp3';
 

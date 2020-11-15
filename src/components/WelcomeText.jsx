@@ -109,7 +109,6 @@ const WelcomeText =
             );
           } else {
             window.ethereum.enable().then((res) => {
-              console.log(res)
               setProvider(provider);
             })
             .catch(err => {

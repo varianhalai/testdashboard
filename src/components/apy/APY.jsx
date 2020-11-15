@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
-import axios from 'axios';
+
 import APYSkeleton from "./APYSkeleton";
 
 const BluePanel = styled.div`
@@ -10,7 +10,6 @@ const BluePanel = styled.div`
   color: ${(props) => props.theme.style.primaryFontColor};
   font-family: ${fonts.headerFont};
   padding: 2.5rem .7rem 2rem .7rem;
-  margin-right: .5rem;
   margin-top: .1rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: .5rem;
