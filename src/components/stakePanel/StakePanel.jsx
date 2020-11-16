@@ -142,6 +142,7 @@ const StakePanel = ({ state, openModal }) => {
         });
       }
     }
+    setStakeAmount(stakeAmount => 0);
    
   };
   
