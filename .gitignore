@@ -24,3 +24,5 @@ yarn-error.log*
 
 scripts/*.json
 *.csv
+node_modules
+dist
