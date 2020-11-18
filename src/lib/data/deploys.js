@@ -360,6 +360,7 @@ const assets = [
     name: 'CUSDC',
     decimals: 18,
     address: '0x39AA39c021dfbaE8faC545936693aC917d5E7563',
+  },
   {
     name: '3CRV',
     decimals: 18,

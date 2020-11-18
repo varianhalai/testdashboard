@@ -144,12 +144,12 @@ const tokens = [
   },
   {
     name: "YCRV",
-    url: "https://varianhalai.github.io/add-ycrv/",
+    url: "https://harvestfi.github.io/add-ycrv/",
     image: yearn,
   },
   {
     name: "3CRV",
-    url: "https://varianhalai.github.io/add-3crv/",
+    url: "https://harvestfi.github.io/add-3crv/",
     image: crv3,
   },
   
@@ -167,27 +167,27 @@ const tokens2 = [
   },
   {
     name: "SUSHI:WBTC-TBTC",
-    url: "https://varianhalai.github.io/add-sushi/",
+    url: "https://harvestfi.github.io/add-sushi/",
     image: sushi,
   },
   {
     name: "UNI:ETH-WBTC",
-    url: "https://varianhalai.github.io/add-eth-wbtc/",
+    url: "https://harvestfi.github.io/add-eth-wbtc/",
     image: wbtc,
   },
   {
     name: "UNI:ETH-USDT",
-    url: "https://varianhalai.github.io/add-eth-usdt/",
+    url: "https://harvestfi.github.io/add-eth-usdt/",
     image: usdt,
   },
   {
     name: "UNI:ETH-USDCT",
-    url: "https://varianhalai.github.io/add-eth-usdc/",
+    url: "https://harvestfi.github.io/add-eth-usdc/",
     image: usdc,
   },
   {
     name: "UNI:ETH-DAI",
-    url: "https://varianhalai.github.io/add-eth-dai/",
+    url: "https://harvestfi.github.io/add-eth-dai/",
     image: ethDai,
   },
   
