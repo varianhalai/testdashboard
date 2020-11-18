@@ -1,5 +1,3 @@
-// This file is a mess
-
 const assets = [
   {
     name: 'BAL_95_USDC_5_FARM',
@@ -362,6 +360,15 @@ const assets = [
     name: 'CUSDC',
     decimals: 18,
     address: '0x39AA39c021dfbaE8faC545936693aC917d5E7563',
+  {
+    name: '3CRV',
+    decimals: 18,
+    address: '0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490',
+  },
+  {
+    name: 'YCRV',
+    decimals: 18,
+    address: '0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8',
   },
 ];
 
@@ -446,6 +453,10 @@ assets.push({
   curveInfo: {
     poolAddress: '0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51',
     assets: [
+      //assetByName('DAI'),
+      //assetByName('USDC'),
+      //assetByName('USDT'),
+      //assetByName('TUSD'),
     ],
   },
   address: '0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8',
@@ -1695,8 +1706,6 @@ const weekTwelvePools= [
     rewardAsset: assetByName('FARM'),
   },
 ];
-
-
 
 const periods = [weekOnePools, weekTwoPools, weekThreePools, weekFourPools, weekFivePools, weekSixPools, weekSevenPools, weekEightPools, weekTenPools, weekElevenPools, weekTwelvePools];
 
