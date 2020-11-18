@@ -280,6 +280,30 @@ const assets = [
     address: '0x2Dbc7dD86C6cd87b525BD54Ea73EBeeBbc307F68',
   },
   {
+    name: 'WETH_DAI_SLP',
+    type: 'uniswap',
+    decimals: 18,
+    address: '0xC3D03e4F041Fd4cD388c549Ee2A29a9E5075882f',
+  },
+  {
+    name: 'WETH_USDT_SLP',
+    type: 'uniswap',
+    decimals: 18,
+    address: '0x06da0fd433C1A5d7a4faa01111c044910A184553',
+  },
+  {
+    name: 'WETH_USDC_SLP',
+    type: 'uniswap',
+    decimals: 18,
+    address: '0x397FF1542f962076d0BFE58eA045FfA2d347ACa0',
+  },
+  {
+    name: 'WETH_WBTC_SLP',
+    type: 'uniswap',
+    decimals: 18,
+    address: '0xCEfF51756c56CeFFCA006cD410B03FFC46dd3a58',
+  },
+  {
     name: 'TBTC',
     decimals: 18,
     address: '0x8dAEBADE922dF735c38C80C7eBD708Af50815fAa',
@@ -606,6 +630,34 @@ assets.push({
   underlyingAsset: assetByName('WBTC_TBTC_SLP'),
   decimals: 18,
   address: '0xF553E1f826f42716cDFe02bde5ee76b2a52fc7EB',
+});
+assets.push({
+  name: 'FSLP_WETH_DAI',
+  type: 'ftoken',
+  underlyingAsset: assetByName('WETH_DAI_SLP'),
+  decimals: 18,
+  address: '0x203E97aa6eB65A1A02d9E80083414058303f241E',
+});
+assets.push({
+  name: 'FSLP_WETH_USDT',
+  type: 'ftoken',
+  underlyingAsset: assetByName('WETH_USDT_SLP'),
+  decimals: 18,
+  address: '0x64035b583c8c694627A199243E863Bb33be60745',
+});
+assets.push({
+  name: 'FSLP_WETH_USDC',
+  type: 'ftoken',
+  underlyingAsset: assetByName('WETH_USDC_SLP'),
+  decimals: 18,
+  address: '0x01bd09A1124960d9bE04b638b142Df9DF942b04a',
+});
+assets.push({
+  name: 'FSLP_WETH_WBTC',
+  type: 'ftoken',
+  underlyingAsset: assetByName('WETH_WBTC_SLP'),
+  decimals: 18,
+  address: '0x5C0A3F55AAC52AA320Ff5F280E77517cbAF85524',
 });
 assets.push({
   name: 'FDAIv1',
@@ -1550,6 +1602,26 @@ const weekTwelvePools= [
   {
     asset: assetByName('FSLP_WBTC_TBTC'),
     address: '0x9523FdC055F503F73FF40D7F66850F409D80EF34',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FSLP_WETH_DAI'),
+    address: '0x76Aef359a33C02338902aCA543f37de4b01BA1FA',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FSLP_WETH_USDT'),
+    address: '0xA56522BCA0A09f57B85C52c0Cc8Ba1B5eDbc64ef',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FSLP_WETH_USDC'),
+    address: '0x6B4e1E0656Dd38F36c318b077134487B9b0cf7a6',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('FSLP_WETH_WBTC'),
+    address: '0xE2D9FAe95f1e68afca7907dFb36143781f917194',
     rewardAsset: assetByName('FARM'),
   },
   {
