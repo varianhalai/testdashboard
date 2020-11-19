@@ -1592,26 +1592,6 @@ const weekTwelvePools= [
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FWETH_USDT_LP'),
-    address: '0x75071F2653fBC902EBaff908d4c68712a5d1C960',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('FWETH_USDC_LP'),
-    address: '0x156733b89Ac5C704F3217FEe2949A9D4A73764b5',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('FWETH_DAI_LP'),
-    address: '0x7aeb36e22e60397098C2a5C51f0A5fB06e7b859c',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('FWETH_WBTC_LP'),
-    address: '0xF1181A71CC331958AE2cA2aAD0784Acfc436CB93',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
     asset: assetByName('FSLP_WBTC_TBTC'),
     address: '0x9523FdC055F503F73FF40D7F66850F409D80EF34',
     rewardAsset: assetByName('FARM'),
