@@ -14,11 +14,7 @@ import AddTokens from "../components/addTokens/AddTokens";
 import Loadable from 'react-loadable';
 
 const Main = styled.div`
-    .farm-column {
-        ::-webkit-scrollbar {
-            height: 20rem;
-          }
-    }
+    
 
 `
 
@@ -35,7 +31,7 @@ const MainContent = ({state, setState,openModal}) => {
       })
     return (
         <Main className='main-content'>
-            <Row className='farm-column' >
+            <Row>
                 <Col  >
                 <FarmingTable state={state} setState={setState} />
                 </Col>

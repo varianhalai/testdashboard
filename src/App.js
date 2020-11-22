@@ -585,6 +585,7 @@ function App() {
   useEffect(() => {
     if(state.usdValue) {
       setState({...state,display: true})
+      console.log(state.summaries)
     }
   },[state.usdValue])
 

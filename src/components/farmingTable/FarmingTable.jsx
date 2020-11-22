@@ -22,6 +22,12 @@ const TableContainer = styled.div`
   color: ${(props) => props.theme.style.primaryFontColor};
   background-color: ${(props) => props.theme.style.lightBackground};
   border-radius: .5rem;
+  border-top-left-radius: 0rem;
+  position: relative;
+  z-index: 50;
+ 
+  
+
 
   div[role="table"] {
     width: 99%;
@@ -130,73 +136,110 @@ const MainTableInner = styled.div`
 `;
 const MainTableRow = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr ;
+  grid-template-columns: 1.1fr .5fr 1fr .75fr .75fr .75fr .5fr 1fr;
   font-size: 1.7rem;
   font-family: ${fonts.contentFont};
   padding: 1.5rem 1rem;
   width: 100%;
   border-bottom: 1.2px solid rgba(53, 53, 53, .15);
-  @media(max-width: 1100px) {
+  @media(max-width: 1920px) {
+    width: 105%;
+  }
+  @media(max-width: 1800px) {
     width: 120%;
   }
+  @media(max-width: 1100px) {
+    width: 160%;
+  }
   @media(max-width: 800px) {
-    width: 150%;
+    width: 175%;
   }
-  @media(max-width: 700px) {
-    width: 200%;
+  @media(max-width: 710px) {
+    width: 250%;
   }
-  @media(max-width:510px) {
+  @media(max-width:515px) {
     width: 350%;
   }
   
   
   div {
+    text-align: center;
+    width: 100%;
     
-    min-width: 5rem;
+   
+  }
+  .name {
+    
   }
   .active {
-    margin-left: 2rem;
+    margin-left: -1.5rem;
   }
-  .rewards {
+  .earned-rewards {
     cursor: pointer;
+   
+    
+  }
+  .staked {
+    
+    
   }
   .pool {
-    margin-left: 2rem;
+    
   }
   .unstaked {
-    margin-left: 1rem;
+    @media(max-width: 1280px) {
+      margin-left: 1.5rem;
+    }
   }
   .value {
-    margin-left: 2rem;
+    margin-left: 1rem;
+    @media(max-width: 1280px) {
+      margin-left: 1.5rem;
+    }
+    
+  }
+  .rewards-to-date {
+    
   }
 `;
 const MainTableHeader = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr ;
+  grid-template-columns: 1.1fr .5fr 1fr .75fr .75fr .75fr .5fr 1fr;
   grid-gap: 20px;
   font-size: 2rem;
   font-family: ${fonts.headerFont};
   padding: 1.5rem 1rem;
   border-bottom: 2px black solid;
   width: 100%;
-  @media(max-width: 1100px) {
+  @media(max-width: 1920px) {
+    width: 105%;
+  }
+  @media(max-width: 1800px) {
     width: 120%;
   }
+  @media(max-width: 1100px) {
+    width: 160%;
+  }
   @media(max-width: 800px) {
-    width: 150%;
+    width: 175%;
   }
-  @media(max-width: 700px) {
-    width: 200%;
+  @media(max-width: 710px) {
+    width: 250%;
   }
-  @media(max-width:510px) {
+  @media(max-width:515px) {
     width: 350%;
   }
  
   
   p {
+   text-align: center;
+    width: 100%;
    
-    min-width: 5rem;
+    &:nth-child(8) {
+      
+    }
   }
+  
 
 `;
 // const StyledTableHeader = styled(TableHeader)`
@@ -207,13 +250,84 @@ const MainTableHeader = styled.div`
 //   text-align: left;
 // `;
 
+const FarmingTableHeader = styled.h1`
+font-size: 2.2rem;
+text-align: center;
+font-family: ${fonts.headerFont};
+border-radius: .5rem;
+border: ${(props) => props.theme.style.mainBorder};
+box-shadow: ${(props) => props.theme.style.panelBoxShadow};
+color: ${(props) => props.theme.style.primaryFontColor};
+background-color: ${(props) => props.theme.style.lightBackground};
+width: 25%;
+margin: 1rem auto;
+padding: 5px;
+`;
 
+const PanelTabContainerLeft = styled.div`
+  display: flex;
+  justify-content: flex-start;
+`;
 
+const PanelTab = styled.div`
+  margin-right: 0.75rem;
+  border-radius: 1.2rem;
+  border-top: ${(props) => props.theme.style.mainBorder};
+  border-left: ${(props) => props.theme.style.mainBorder};
+  border-right: ${(props) => props.theme.style.mainBorder};
+  padding: 0.75rem 2rem 2rem 2rem;
+  background-color: ${(props) => props.theme.style.highlight};
+  box-shadow: ${(props) => props.theme.style.panelTabBoxShadow};
+  position: relative;
+  top: 1.2rem;
+  color: ${(props) => props.theme.style.buttonFontColor};
+
+  
+  
+
+  p {
+    color: ${(props) => props.theme.style.panelTabLinkColor};
+    text-decoration: none;
+    font-family: ${fonts.contentFont};
+    font-size: 2rem;
+    position: relative;
+    top: .1rem;
+    @media(max-width: 500px) {
+      font-size: 1.5rem;
+      top: .3rem;
+    }
+    
+   
+  }
+  @media(max-width: 605px) {
+    font-size: 1.9rem;
+    padding: 0.75rem 1rem 2.2rem 1rem;
+    position: relative;
+    top: .1rem;
+    
+  }
+  @media(max-width: 550px) {
+    margin-right: .5rem;
+  }
+  @media(max-width: 380px) {
+    font-size: 1.5rem;
+    padding: 0.75rem .75rem 2rem .75rem;
+    position: relative;
+    margin-right: .5rem;
+    top: .5rem;
+    p {
+      top: .4rem;
+    }
+  }
+  @media(max-width: 333px) {
+    margin-right: .3rem;
+  }
+`;
 
 const columns = [
   {
-    name: "Pool",
-    selector: "name",
+    name: "Profit Sharing Pool",
+    
   },
   {
     name: "Earning",
@@ -222,7 +336,7 @@ const columns = [
     
   },
   {
-    name: "Rewards",
+    name: "Earned Rewards",
     selector: "earnedRewards",
     compact: true,
     
@@ -252,6 +366,10 @@ const columns = [
     selector: "usdValueOf",
     sortable: true,
     compact: true
+  },
+  {
+    name: "Rewards to date",
+    
   },
 ];
 
@@ -287,9 +405,16 @@ const FarmingTable = ({ state,setState }) => {
 
   return (
       <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-        
+        {state.display ? <PanelTabContainerLeft> 
+          <PanelTab>
+            <p>
+              your staked assets
+            </p>
+          </PanelTab> 
+          </PanelTabContainerLeft> : null}
         {state.display ? 
         <TableContainer>
+          
           {state.summaries.length === 0 ? <DataTable
           noHeader={true}
           noDivider={true}
@@ -300,18 +425,19 @@ const FarmingTable = ({ state,setState }) => {
           <MainTableInner>
           <MainTableHeader>{columns.map((col,i) => {
             return (
-              <p key={i}>{col.name}</p>
+              <p className={col.name} key={i}>{col.name}</p>
             )
           })}</MainTableHeader>
           {state.summaries.map(utils.prettyPosition).map((summary, index) => (
           <MainTableRow key={summary.address}>
-            <div>{summary.name}</div>
+            <div className='name'>{summary.name}</div>
             <div className='active'>{String(summary.isActive)}</div>
-            <div className='rewards' onClick={() =>getThisReward(summary.earnedRewards)}>{parseFloat(summary.earnedRewards).toFixed(10)}</div>
-            <div>{parseFloat(summary.stakedBalance).toFixed(10)}</div>
+            <div className='earned-rewards' onClick={() =>getThisReward(summary.earnedRewards)}>{parseFloat(summary.earnedRewards).toFixed(10)}</div>
+            <div className='staked'>{parseFloat(summary.stakedBalance).toFixed(10)}</div>
             <div className='pool'>{summary.percentOfPool}</div>
             <div className='unstaked'>{parseFloat(summary.unstakedBalance).toFixed(10)}</div>
             <div className='value'>{summary.usdValueOf}</div>
+            <div className='rewards-to-date'>{summary.historicalRewards}</div>
             
           </MainTableRow>
         ))}

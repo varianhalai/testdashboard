@@ -22,13 +22,15 @@ export function prettyPosition(sum) {
     summary: {
       pool: {asset: {decimals}},
       address, isActive, stakedBalance, unstakedBalance, earnedRewards,
-      percentageOwnership, usdValueOf,
+      percentageOwnership, usdValueOf, historicalRewards
     },
   } = sum;
 
   // const bnValueOf = ethers.BigNumber.from(usdValueOf);
   // const prettyUsdValue = `$${ethers.utils.formatUnits(bnValueOf, 2)}`;
   const prettyUsdValue = prettyMoney(usdValueOf);
+
+  const truncatedRewards = historicalRewards.div((10 ** 12))
 
   return {
     name,
@@ -39,6 +41,7 @@ export function prettyPosition(sum) {
     earnedRewards: ethers.utils.formatUnits(earnedRewards, 18),
     percentOfPool: percentageOwnership,
     usdValueOf: prettyUsdValue,
+    historicalRewards: ethers.utils.formatUnits(truncatedRewards, 6),
   };
 }
 

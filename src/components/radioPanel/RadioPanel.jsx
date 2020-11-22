@@ -28,20 +28,29 @@ width: 30rem;
     padding-bottom: .5rem;
     display: flex;
     align-items: center;
-    justify-content: center;;
+    justify-content: center;
     
     #audio-canvas {
-        margin-top: -4rem;
-        margin-left: -8rem;
+        margin-top: -4.5rem;
+        
         
     }
 
     .player-controls {
-        margin-left: 1rem;
-        margin-top: -1.2rem;
+        
+        margin-top: -3.2rem;
+        
         .play-pause {
+            cursor: pointer;
             margin-top: .5rem;
+            border-radius: .5rem;
+            height: 3.5rem;
+            width: 3.5rem;
+            padding: 1%;
             background-color: ${(props) => props.theme.style.highlight};
+            .fas {
+                font-size: 2rem;
+            }
         }
     }
 }
@@ -79,12 +88,12 @@ const RadioPanel = () => {
                 <AudioSpectrum
                 id="audio-canvas"
                 height={50}
-                width={100}
+                width={250}
                 audioId={'audio-element'}
                 capColor={'red'}
                 capHeight={2}
-                meterWidth={8}
-                meterCount={8}
+                meterWidth={15}
+                meterCount={12}
                 meterColor={[
                     {stop: 0, color: '#f00'},
                     {stop: 0.5, color: '#0CD7FD'},
