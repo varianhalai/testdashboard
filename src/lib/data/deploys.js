@@ -567,7 +567,7 @@ assets.push({
   address: '0xfBe122D0ba3c75e1F7C80bd27613c9f35B81FEeC',
 });
 assets.push({
-  name: 'FCRVRENWBTC',
+  name: 'fCRV-RENWBTC',
   type: 'ftoken',
   underlyingAsset: assetByName('CRVRENWBTC'),
   decimals: 18,
@@ -757,7 +757,7 @@ const weekOnePools = [
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FUSDT'),
+    asset: assetByName('fUSDT'),
     address: '0x5bd997039FFF16F653EF15D1428F2C791519f58d',
     rewardAsset: assetByName('FARM'),
   },
@@ -860,7 +860,7 @@ const weekTwoPools = [
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FUSDT'),
+    asset: assetByName('fUSDT'),
     address: '0x5bd997039FFF16F653EF15D1428F2C791519f58d',
     rewardAsset: assetByName('FARM'),
   },
@@ -920,12 +920,12 @@ const weekTwoPools = [
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FRENBTC'),
+    asset: assetByName('fRENBTC'),
     address: '0xCFE1103863F9e7Cf3452Ca8932Eef44d314bf9C5',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FCRVRENWBTC'),
+    asset: assetByName('fCRV-RENWBTC'),
     address: '0x5365A2C47b90EE8C9317faC20edC3ce7037384FB',
     rewardAsset: assetByName('FARM'),
   },
@@ -953,7 +953,7 @@ const weekThreePools = [
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FUSDT'),
+    asset: assetByName('fUSDT'),
     address: '0x5bd997039FFF16F653EF15D1428F2C791519f58d',
     rewardAsset: assetByName('FARM'),
   },
@@ -963,12 +963,12 @@ const weekThreePools = [
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FRENBTC'),
+    asset: assetByName('fRENBTC'),
     address: '0xCFE1103863F9e7Cf3452Ca8932Eef44d314bf9C5',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FCRVRENWBTC'),
+    asset: assetByName('fCRV-RENWBTC'),
     address: '0x5365A2C47b90EE8C9317faC20edC3ce7037384FB',
     rewardAsset: assetByName('FARM'),
   },
@@ -1067,7 +1067,7 @@ const weekFourPools = [
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FUSDT'),
+    asset: assetByName('fUSDT'),
     address: '0x5bd997039FFF16F653EF15D1428F2C791519f58d',
     rewardAsset: assetByName('FARM'),
   },
@@ -1077,12 +1077,12 @@ const weekFourPools = [
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FRENBTC'),
+    asset: assetByName('fRENBTC'),
     address: '0xCFE1103863F9e7Cf3452Ca8932Eef44d314bf9C5',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FCRVRENWBTC'),
+    asset: assetByName('fCRV-RENWBTC'),
     address: '0x5365A2C47b90EE8C9317faC20edC3ce7037384FB',
     rewardAsset: assetByName('FARM'),
   },
@@ -1137,7 +1137,7 @@ const weekFivePools = [
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FUSDT'),
+    asset: assetByName('fUSDT'),
     address: '0x5bd997039FFF16F653EF15D1428F2C791519f58d',
     rewardAsset: assetByName('FARM'),
   },
@@ -1147,12 +1147,12 @@ const weekFivePools = [
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FRENBTC'),
+    asset: assetByName('fRENBTC'),
     address: '0xCFE1103863F9e7Cf3452Ca8932Eef44d314bf9C5',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FCRVRENWBTC'),
+    asset: assetByName('fCRV-RENWBTC'),
     address: '0x5365A2C47b90EE8C9317faC20edC3ce7037384FB',
     rewardAsset: assetByName('FARM'),
   },
@@ -1207,7 +1207,7 @@ const weekSixPools = [
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FUSDT'),
+    asset: assetByName('fUSDT'),
     address: '0x5bd997039FFF16F653EF15D1428F2C791519f58d',
     rewardAsset: assetByName('FARM'),
   },
@@ -1222,12 +1222,12 @@ const weekSixPools = [
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FRENBTC'),
+    asset: assetByName('fRENBTC'),
     address: '0xCFE1103863F9e7Cf3452Ca8932Eef44d314bf9C5',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FCRVRENWBTC'),
+    asset: assetByName('fCRV-RENWBTC'),
     address: '0x5365A2C47b90EE8C9317faC20edC3ce7037384FB',
     rewardAsset: assetByName('FARM'),
   },
@@ -1282,7 +1282,7 @@ const weekSevenPools = [
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FUSDT'),
+    asset: assetByName('fUSDT'),
     address: '0x5bd997039FFF16F653EF15D1428F2C791519f58d',
     rewardAsset: assetByName('FARM'),
   },
@@ -1297,12 +1297,12 @@ const weekSevenPools = [
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FRENBTC'),
+    asset: assetByName('fRENBTC'),
     address: '0xCFE1103863F9e7Cf3452Ca8932Eef44d314bf9C5',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FCRVRENWBTC'),
+    asset: assetByName('fCRV-RENWBTC'),
     address: '0x5365A2C47b90EE8C9317faC20edC3ce7037384FB',
     rewardAsset: assetByName('FARM'),
   },
@@ -1347,7 +1347,7 @@ const weekEightPools = [
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FWETHv1'),
+    asset: assetByName('fWETH'),
     address: '0x3DA9D911301f8144bdF5c3c67886e5373DCdff8e',
     rewardAsset: assetByName('FARM'),
   },
