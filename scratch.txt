@@ -3,5 +3,7 @@
 -MetaMask connects from mobile
 
 11/13 can connect and see FARM balance with argent wallet, but unable to stake.
--
+
+
+11/24 - When I try to add fWETH instead of FWETHv1 in week eight pools the app crashes and i get an error from metamask asking me to migrate my assets using the website. 
 
