@@ -15,7 +15,7 @@ axios.get(
   console.log(res.data)
   res.data.map(item => {
     
-    allPools.push([item.collateralTokenSymbols[0] , item.lpTokenData.price])
+    allPools.push([item.tokenForLogo , item.lpTokenData.price])
     
   })
 })
@@ -146,7 +146,7 @@ export class Token extends ERC20Extended {
     return amount.mul(value).div(unit);
 
 
-    if (amount.isZero()) {}
+    
     
   }
 
