@@ -9,7 +9,7 @@ import FarmTableSkeleton from './FarmTableSkeleton';
 
 
 
-const { utils } = harvest;
+const { utils,ethers } = harvest;
 
 const TableContainer = styled.div`
   display: flex;
@@ -176,6 +176,15 @@ const MainTableRow = styled.div`
   }
   .earned-rewards {
     cursor: pointer;
+    transition: scale 200ms ease;
+    border-radius: .5rem;
+
+    &:hover {
+      width: 35%;
+      margin: 0 auto;
+      transform: scale(1.1);
+      
+    }
    
     
   }
@@ -259,6 +268,7 @@ border: ${(props) => props.theme.style.mainBorder};
 box-shadow: ${(props) => props.theme.style.panelBoxShadow};
 color: ${(props) => props.theme.style.primaryFontColor};
 background-color: ${(props) => props.theme.style.lightBackground};
+color: ${(props) => props.theme.style.lightBackground};
 width: 25%;
 margin: 1rem auto;
 padding: 5px;
@@ -396,6 +406,7 @@ const noAssetData = [
 const FarmingTable = ({ state,setState }) => {
 
   const getThisReward= (reward) => {
+      console.log(reward)
       setState({...state,minimumHarvestAmount: reward})
  }
 

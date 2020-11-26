@@ -15,13 +15,17 @@ axios.get(
   console.log(res.data)
   res.data.map(item => {
     
-    allPools.push([item.tokenForLogo , item.lpTokenData.price])
+    if(item.tokenForLogo) {
+      allPools.push(item)
+    }
     
   })
 })
 .catch(err => {
   console.log(err)
 })
+
+
 
 export class UnderlyingBalances {
   constructor() {
@@ -138,7 +142,6 @@ export class Token extends ERC20Extended {
   async usdValueOf(amount) {
     if (amount.isZero()) return ethers.BigNumber.from(0);
     console.log(allPools)
-    console.log(this.asset.name)
     const gecko = Gecko.coingecko();
     const value = await gecko.getPrice(this.address);
     const unit = ethers.BigNumber.from(10).pow(this.tokenDecimals);

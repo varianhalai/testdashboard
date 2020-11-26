@@ -79,39 +79,44 @@ const ButtonContainer = styled.div`
 
 const Harvest = ({ state,setState }) => {
  
-  const harvest = async () => {
+  // const harvest = async () => {
     
-    const activePools = state.manager.pools
+  //   const activePools = state.manager.pools
+  //   console.log(state.manager.pools)
 
-    for (let i = 0; i < activePools.length; i++) {
-       await activePools[i].earnedRewards(state.address)
-      .then(res => {
+  //   for (let i = 0; i < activePools.length; i++) {
+  //      await activePools[i].earnedRewards(state.address)
+  //     .then(res => {
         
-        if(state.minimumHarvestAmount * 1000000000000 <= parseFloat((res.toString() / 1000000).toFixed(10))) {
-          //The original code here would harvest all farms regardless of the amount specified.
-          //Now it checks if the rewards are equal to or above specfied amount before harvesting
-          activePools[i].getReward()
-          .catch((e) => console.log("Rejected Transaction"));
-        }
-      })
-      .catch(err => {
-        console.log(err)
-      })
-    }
-    setState({...state,minimumHarvestAmount: 0})
-  };
+  //       if(state.minimumHarvestAmount * 1000000000000 <= parseFloat((res.toString() / 1000000).toFixed(10))) {
+  //         //The original code here would harvest all farms regardless of the amount specified.
+  //         //Now it checks if the rewards are equal to or above specfied amount before harvesting
+  //         activePools[i].getReward()
+  //         .catch((e) => console.log("Rejected Transaction"));
+  //       }
+  //     })
+  //     .catch(err => {
+  //       console.log(err)
+  //     })
+  //   }
+  //   setState({...state,minimumHarvestAmount: 0})
+  // };
 
-//   const getMinRewards= () => {
-//     let result = state.summaries.map(utils.prettyPosition)
-//     let min = 10;
-//     for(let i = 0; i < result.length; i++) {
-//          if (result[i].earnedRewards > 0 && result[i].earnedRewards < min ) {
-//            min = result[i].earnedRewards
-//          }
-//     }
-//     console.log(min)
-//     setState({...state,minimumHarvestAmount: min})
-//  }
+  const harvest  = async () => {
+    console.log("harvesting");
+    
+    
+    await state.manager.getRewards(ethers.utils.parseUnits((state.minimumHarvestAmount), 18))
+          .then(res => {
+            console.log(res)
+          })
+          .catch(err => {
+            console.log(err)
+          });
+          setState({...state,minimumHarvestAmount: 0})
+  }
+
+
 
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
