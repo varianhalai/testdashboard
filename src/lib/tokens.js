@@ -8,18 +8,26 @@ import axios from 'axios';
  * UnderlyingBalances
  */
 
-let allPools = [];
+
+let tokenPrices = {}
 axios.get(
   "https://api-ui.harvest.finance/pools?key=41e90ced-d559-4433-b390-af424fdc76d6",
 ).then(res => {
-  console.log(res.data)
+ 
   res.data.map(item => {
     
     if(item.tokenForLogo) {
-      allPools.push(item)
+      if(item.tokenForLogo === "RENBTC") {
+       let divided = item.lpTokenData.price / 10000000000
+     
+        tokenPrices[`${item.tokenForLogo}`] = `${divided}`
+      }
+      tokenPrices[`${item.tokenForLogo}`] = `${item.lpTokenData.price}`
     }
     
   })
+
+  tokenPrices["FARM"] = `${res.data[0].lpTokenData.price.toString()}`
 })
 .catch(err => {
   console.log(err)
@@ -141,10 +149,11 @@ export class Token extends ERC20Extended {
    */
   async usdValueOf(amount) {
     if (amount.isZero()) return ethers.BigNumber.from(0);
-    console.log(allPools)
+    
     const gecko = Gecko.coingecko();
     const value = await gecko.getPrice(this.address);
     const unit = ethers.BigNumber.from(10).pow(this.tokenDecimals);
+
     
     return amount.mul(value).div(unit);
 
