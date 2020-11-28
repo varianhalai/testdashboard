@@ -130,7 +130,7 @@ const MainTableInner = styled.div`
 `;
 const MainTableRow = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr ;
+  grid-template-columns: 1fr 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr;
   font-size: 1.7rem;
   font-family: ${fonts.contentFont};
   padding: 1.5rem 1rem;
@@ -172,7 +172,7 @@ const MainTableRow = styled.div`
 `;
 const MainTableHeader = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr ;
+  grid-template-columns: 1fr 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 20px;
   font-size: 2rem;
   font-family: ${fonts.headerFont};
@@ -216,36 +216,34 @@ const columns = [
     selector: "name",
   },
   {
-    name: "Earning",
+    name: "Earns?",
     selector: (data) => data.isActive.toString(),
-    compact: true
-    
+    compact: true,
   },
   {
-    name: "Rewards",
+    name: "Claimable",
     selector: "earnedRewards",
     compact: true,
-    
-    
+  },
+  {
+    name: "To-Date",
+    selector: "",
+    compact: true,
   },
   {
     name: "Staked",
     selector: "stakedBalance",
-    compact: true
-    
-    
+    compact: true,
   },
   {
-    name: "% of Pool",
+    name: "Pool%",
     selector: "percentOfPool",
     compact: true,
-    
   },
   {
     name: "Unstaked",
     selector: "unstakedBalance",
     compact: true,
-    
   },
   {
     name: "Value",
@@ -307,7 +305,8 @@ const FarmingTable = ({ state,setState }) => {
           <MainTableRow key={summary.address}>
             <div>{summary.name}</div>
             <div className='active'>{String(summary.isActive)}</div>
-            <div className='rewards' onClick={() =>getThisReward(summary.earnedRewards)}>{parseFloat(summary.earnedRewards).toFixed(10)}</div>
+            <div className='rewards' onClick={() =>getThisReward(summary.earnedRewards)}>{parseFloat(summary.earnedRewards).toFixed(8)}</div>
+            <div className='rewardsToDate'>{parseFloat(summary.historicalRewards).toFixed(8)}</div>
             <div>{parseFloat(summary.stakedBalance).toFixed(10)}</div>
             <div className='pool'>{summary.percentOfPool}</div>
             <div className='unstaked'>{parseFloat(summary.unstakedBalance).toFixed(10)}</div>
