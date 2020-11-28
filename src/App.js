@@ -8,6 +8,7 @@ import Loadable from 'react-loadable';
 import { darkTheme, lightTheme, fonts } from "./styles/appStyles.js";
 import axios from 'axios';
 import ReactModal from 'react-modal-resizable-draggable';
+import {AnimatePresence,motion } from "framer-motion";
 
 //context
 import HarvestContext from './Context/HarvestContext';
@@ -296,6 +297,36 @@ const Panel = styled.div`
     cursor:grab;
   }
 
+
+  .token-added-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: max-content;
+    margin: 0 auto;
+    background-color: ${(props) => props.theme.style.lightBackground};
+    color: ${(props) => props.theme.style.primaryFontColor};
+    font-family: ${fonts.contentFont};
+    font-size: 2rem;
+    padding: 1rem 2rem;
+    border-radius: .5rem;
+    border: ${(props) => props.theme.style.mainBorder};
+    box-shadow: ${(props) => props.theme.style.panelBoxShadow};
+    margin-top: -7rem;
+    position: absolute;
+    left: 40%;
+    right: 40%;
+    @media(max-width: 768px) {
+      left: 30%;
+      right: 30%;
+    }
+
+    p {
+      text-align: center;
+    }
+
+  }
+
   
 
   
@@ -521,6 +552,8 @@ const ErrorModal = Loadable({
 
 function App() {
   
+
+  const [tokenAddedMessage,setTokenAddedMessage] = useState('')
   const [state, setState] = useState({
     provider: undefined,
     signer: undefined,
@@ -691,7 +724,7 @@ function App() {
  
 
   return (
-    <HarvestContext.Provider value={{state}}>
+    <HarvestContext.Provider value={{state,tokenAddedMessage,setTokenAddedMessage}}>
       <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
         <GlobalStyle />
           <Container>
@@ -785,6 +818,21 @@ function App() {
                       />
                     </Col>
                   </Row> : null}
+
+                  {tokenAddedMessage ? 
+                  <motion.div
+                  key={tokenAddedMessage}
+                  initial={{ x:0,y: -100, opacity: 0 }}
+                  animate={{ x:0,y:0, opacity: 1 }}
+                  exit={{x:0,y: -100, opacity: 1 }}>
+                    <div className='token-added-message'>
+                      <p >{tokenAddedMessage}</p>
+                    </div>
+                  </motion.div>
+                   
+                  
+                  : null}
+                  
                   
 
                   

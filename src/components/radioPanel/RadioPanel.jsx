@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { fonts } from "../../styles/appStyles";
 import AudioSpectrum from 'react-audio-spectrum';
 import sample from '../../assets/audio/HarvestRadio.mp3';
+import { motion, AnimatePresence } from "framer-motion";
 
 
 const RadioPlayer = styled.div`
@@ -80,37 +81,49 @@ const RadioPanel = () => {
 
     
     return (
-
-        
-        <RadioPlayer>
-            <div className="player-inner">
-                <audio id='audio-element' loop  autoPlay src={sample} ></audio>
-                <AudioSpectrum
-                id="audio-canvas"
-                height={50}
-                width={250}
-                audioId={'audio-element'}
-                capColor={'red'}
-                capHeight={2}
-                meterWidth={15}
-                meterCount={12}
-                meterColor={[
-                    {stop: 0, color: '#f00'},
-                    {stop: 0.5, color: '#0CD7FD'},
-                    {stop: 1, color: 'red'}
-                    ]}
-                    gap={6}
-                    />
-                <div className="player-controls">
-                    {playing ? <button className='play-pause' onClick={togglePlaying}><i className="fas fa-pause"></i></button> 
-                    : <button className='play-pause' onClick={togglePlaying}><i className="fas fa-play"></i></button>}
-                </div>
+        <AnimatePresence exitBeforeEnter>
+            
+                <motion.div
+                key="radio"
+                initial={{ y: -100, opacity: 0 }}
+                animate={{ y:0, opacity: 1 }}
+                exit={{y: 100, opacity: 1 }}
+                >
+                    <RadioPlayer>
+                    <div className="player-inner">
+                    <audio id='audio-element' loop  autoPlay src={sample} ></audio>
+                    <AudioSpectrum
+                    id="audio-canvas"
+                    height={50}
+                    width={250}
+                    audioId={'audio-element'}
+                    capColor={'red'}
+                    capHeight={2}
+                    meterWidth={15}
+                    meterCount={12}
+                    meterColor={[
+                        {stop: 0, color: '#f00'},
+                        {stop: 0.5, color: '#0CD7FD'},
+                        {stop: 1, color: 'red'}
+                        ]}
+                        gap={6}
+                        />
+                    <div className="player-controls">
+                        {playing ? <button className='play-pause' onClick={togglePlaying}><i className="fas fa-pause"></i></button> 
+                        : <button className='play-pause' onClick={togglePlaying}><i className="fas fa-play"></i></button>}
+                    </div>
+                    
                 
-               
-            </div>
+                </div>
+                </RadioPlayer>
+                </motion.div>
             
             
-        </RadioPlayer>
+            
+        
+        </AnimatePresence>
+        
+        
     );
 }
 
