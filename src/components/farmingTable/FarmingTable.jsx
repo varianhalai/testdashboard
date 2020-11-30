@@ -326,36 +326,34 @@ const columns = [
     
   },
   {
-    name: "Earning",
+    name: "Earns?",
     selector: (data) => data.isActive.toString(),
-    compact: true
-    
+    compact: true,
   },
   {
     name: "Earned Rewards",
     selector: "earnedRewards",
     compact: true,
-    
-    
+  },
+  {
+    name: "To-Date",
+    selector: "",
+    compact: true,
   },
   {
     name: "Staked",
     selector: "stakedBalance",
-    compact: true
-    
-    
+    compact: true,
   },
   {
-    name: "% of Pool",
+    name: "Pool%",
     selector: "percentOfPool",
     compact: true,
-    
   },
   {
     name: "Unstaked",
     selector: "unstakedBalance",
     compact: true,
-    
   },
   {
     name: "Value",
