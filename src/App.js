@@ -7,8 +7,7 @@ import harvest from "./lib/index.js";
 import Loadable from 'react-loadable';
 import { darkTheme, lightTheme, fonts } from "./styles/appStyles.js";
 import axios from 'axios';
-import ReactModal from 'react-modal-resizable-draggable';
-import {AnimatePresence,motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 //context
 import HarvestContext from './Context/HarvestContext';
@@ -18,13 +17,280 @@ import logo from "./assets/gif_tractor.gif";
 
 
 // components
+import PanelTabs from './components/PanelTabs';
 import Wallet from "./components/Wallet.jsx";
 import MainContent from './components/MainContent';
-import RadioPanel from './components/radioPanel/RadioPanel';
+import Radio from './components/radioPanel/Radio';
 
 import WelcomeText from './components/WelcomeText';
 
 const { ethers } = harvest;
+
+
+
+
+
+
+const ErrorModal = Loadable({
+  loader: () => import('./components/ErrorModal'),
+  loading() {
+    return null
+  }
+})
+
+function App() {
+  
+
+  const [tokenAddedMessage,setTokenAddedMessage] = useState('')
+  const [state, setState] = useState({
+    provider: undefined,
+    signer: undefined,
+    manager: undefined,
+    address: "",
+    summaries: [],
+    underlyings: [],
+    usdValue: 0,
+    error: { message: null, type: null, display: false },
+    theme: window.localStorage.getItem("HarvestFinance:Theme") || "light",
+    display: false,
+    minimumHarvestAmount: 0,
+    apy: 0,
+    farmPrice: 0,
+    pools:[]
+  });
+   //Radio Modal
+   const[radio,setRadio] =useState(false)
+
+   const toggleRadio = () => {
+     setRadio(!radio)
+   }
+  
+
+  const getPools = async () => {
+   axios.get(
+      "https://api-ui.harvest.finance/pools?key=41e90ced-d559-4433-b390-af424fdc76d6",
+    ).then(res => {
+      let currentAPY = res.data[0].rewardAPY;
+      let currentPrice = res.data[0].lpTokenData.price;
+      
+      setState({...state,apy: currentAPY, farmPrice: currentPrice,pools: res})
+      
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  };
+  
+ 
+
+
+  useEffect(() => {
+  
+    const timer = setTimeout(() => {
+      state.manager && refresh();
+    }, 60000);
+    return () => clearTimeout(timer);
+  });
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      state.manager && getPools();
+    }, 60000);
+    return () => clearTimeout(timer);
+  });
+  useEffect(() => {
+    getPools()
+  },[])
+
+
+
+  useEffect(() => {
+    if (state.address !== "") {
+      refresh();
+    }
+   
+  }, [state.address]);
+  useEffect(() => {
+    
+    if(state.usdValue) {
+      setState({...state,display: true})
+     
+    }
+  },[state.usdValue])
+
+  const disconnect = () => {
+    setState({
+      provider: undefined,
+      signer: undefined,
+      manager: undefined,
+      address: "",
+      summaries: [],
+      underlyings: [],
+      usdValue: 0,
+      apy: 0,
+      error: { message: null, type: null, display: false },
+      theme: window.localStorage.getItem("HarvestFinance:Theme") || "light",
+      
+      
+    });
+  };
+
+  const closeErrorModal = () => {
+    setState({
+      ...state,
+      error: { message: null, type: null, display: false },
+    });
+  };
+
+  const openModal = (message, type) => {
+    setState({
+      ...state,
+      error: { message: message, type: type, display: true },
+    });
+  };
+
+  const setConnection = (provider, signer, manager) => {
+    setState({
+      ...state,
+      provider: provider,
+      signer: signer,
+      manager: manager,
+    });
+  };
+
+  const setAddress = (address) => {
+    setState((state) => ({ ...state, address: address }));
+  };
+
+  const refresh = () => {
+    state.manager
+      .aggregateUnderlyings(state.address)
+      .then((underlying) => {
+        return underlying.toList().filter((u) => !u.balance.isZero());
+      })
+      .then((underlyings) => {
+        setState({ ...state, underlyings: underlyings });
+      }).catch(err => {
+        console.log(err)
+      });
+
+    state.manager
+      .summary(state.address)
+      .then((summaries) =>
+        summaries.filter(
+          (p) =>
+            !p.summary.earnedRewards.isZero() ||
+            !p.summary.stakedBalance.isZero() ||
+            (p.summary.isActive && !p.summary.unstakedBalance.isZero()),
+        ),
+      )
+      .then((summaries) => {
+        let total = ethers.BigNumber.from(0);
+        summaries.forEach((pos) => {
+          total = total.add(pos.summary.usdValueOf);
+        });
+        setState((state) => ({
+          ...state,
+          summaries: summaries,
+          usdValue: total,
+        }));
+        
+        return summaries;
+      }).catch(err => {
+        refresh()
+        
+      });
+  };
+
+  
+ 
+
+  return (
+    <HarvestContext.Provider value={{state,setState,tokenAddedMessage,setTokenAddedMessage,toggleRadio}}>
+      <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
+        <GlobalStyle />
+          <Container>
+            <Row>
+              <Col col>
+                <Brand>
+                  <img src={logo} alt="harvest finance logo" />{" "}
+                  <span>harvest.dashboard</span>
+                </Brand>
+              </Col>
+            </Row>
+
+            <Row>
+              <Col>
+                
+                <PanelTabs />
+                <Panel>
+
+                  {/* RADIO MODAL */}
+                  <Radio radio={radio} toggleRadio={toggleRadio} />
+                  {/* RADIO MODAL */}
+
+                  {state.address? <Row>
+                    
+                    <Col >
+                      <Wallet
+                        state={state}
+                      
+                      />
+                    </Col>
+                  </Row> : null}
+
+                  {tokenAddedMessage ? 
+                  <motion.div
+                  key={tokenAddedMessage}
+                  initial={{ x:0,y: -100, opacity: 0 }}
+                  animate={{ x:0,y:0, opacity: 1 }}
+                  exit={{x:0,y: -100, opacity: 1 }}>
+                    <div className='token-added-message'>
+                      <p >{tokenAddedMessage}</p>
+                    </div>
+                  </motion.div>
+                   
+                  
+                  : null}
+                  
+                  
+
+                  
+                  {/* MOVED MAIN COMPONENTS INTO ITS OWN COMPONENT */}
+                  {/* The welcome text display on intial load and when a wallet is connected the main content renders */}
+                  {state.provider ? (
+                    <MainContent 
+                    state={state} 
+                    setState={setState}
+                    openModal={openModal}/>
+                  ) :
+                  <Row >
+                    <Col >
+                      <WelcomeText 
+                        state={state}
+                        openModal={openModal}
+                        disconnect={disconnect}
+                        setConnection={setConnection}
+                        setAddress={setAddress}
+                        refresh={refresh}
+                      />
+                    </Col>
+                    
+                    </Row>} 
+                </Panel>
+              </Col>
+            </Row>
+          </Container>
+          <ErrorModal state={state} onClose={() => closeErrorModal()} />
+      </ThemeProvider>
+    </HarvestContext.Provider>
+    
+  );
+}
+
+export default App;
+
+
 const GlobalStyle = createGlobalStyle`
   ${reset}
  
@@ -296,6 +562,16 @@ const Panel = styled.div`
     left: 0;
     cursor:grab;
   }
+  .draggable-radio {
+    opacity: .5:
+    transition: all 300ms ease;
+    transform: translateY(-100%;)
+  }
+  .hidden {
+    transform: translateY(100%;)
+    opacity: .3;
+    transition: all 500ms ease;
+  }
 
 
   .token-added-message {
@@ -333,170 +609,7 @@ const Panel = styled.div`
   
 `;
 
-const PanelTab = styled.div`
-  margin-right: 0.75rem;
-  border-radius: 1.2rem;
-  border-top: ${(props) => props.theme.style.mainBorder};
-  border-left: ${(props) => props.theme.style.mainBorder};
-  border-right: ${(props) => props.theme.style.mainBorder};
-  padding: 0.75rem 2rem 2.25rem 2rem;
-  background-color: ${(props) => props.theme.style.highlight};
-  box-shadow: ${(props) => props.theme.style.panelTabBoxShadow};
-  
-  cursor: pointer;
-  color: ${(props) => props.theme.style.buttonFontColor};
 
-  
-  
-
-  a {
-    color: ${(props) => props.theme.style.panelTabLinkColor};
-    text-decoration: none;
-    font-family: ${fonts.contentFont};
-    font-size: 2.4rem;
-    position: relative;
-    top: .1rem;
-    @media(max-width: 500px) {
-      font-size: 1.5rem;
-      top: .3rem;
-    }
-    
-   
-  }
-  @media(max-width: 605px) {
-    font-size: 1.9rem;
-    padding: 0.75rem 1rem 2.2rem 1rem;
-    position: relative;
-    top: .1rem;
-    
-  }
-  @media(max-width: 550px) {
-    margin-right: .5rem;
-  }
-  @media(max-width: 380px) {
-    font-size: 1.5rem;
-    padding: 0.75rem .75rem 2rem .75rem;
-    position: relative;
-    margin-right: .5rem;
-    top: .5rem;
-    a {
-      top: .4rem;
-    }
-  }
-  @media(max-width: 333px) {
-    margin-right: .3rem;
-  }
-  
-
-  &.wiki-tab {
-    position: relative;
-    background-color: ${(props) => props.theme.style.wikiTabBackground};
-    top: 0.4rem;
-    margin-left: 2.5rem;
-    
-
-    &:hover {
-      top: 0rem;
-    }
-
-    a {
-      color: ${(props) => props.theme.style.primaryFontColor};
-      font-size: 1.9rem;
-      position: relative;
-      top: .1rem;
-    }
-    @media(max-width: 575px) {
-      
-      margin-left: .5rem;
-     
-      
-    }
-   
-    @media(max-width: 500px) {
-      top: 1.3rem;
-      margin-left: .5rem;
-      a {
-        font-size: 1.5rem;
-        top: -.1rem;;
-      }
-      
-    }
-    @media(max-width: 380px) {
-      a {
-        font-size: 1.4rem;
-      }
-      
-    };
-    @media(max-width: 333px) {
-      margin-right: .3rem;
-    }
-  }
-    &.switch-panel {
-      margin-right: 1.2rem;
-      position: relative;
-      top: .6rem;
-      padding: 0.4rem .5rem 1rem .5rem;
-
-      @media(max-width: 500px) {
-        top: 1.2rem;
-        margin-left: 1rem;
-        padding: 0.4rem .5rem 3rem .5rem;
-      }
-      @media(max-width: 380px) {
-        top: 1.4rem;
-      }
-      @media(max-width: 380px) {
-        top: 1.4rem;
-        margin-left: .5rem;
-      }
-      
-    }
-
-    &.radio-tab {
-      position: relative;
-      font-size: 1.9rem;
-      top: .6rem;
-      margin-left: 2.5rem;
-      font-family: ${fonts.contentFont};
-      &:hover {
-        top: 0rem;
-      }
-
-
-      @media(max-width: 500px) {
-        top: 1.4rem;
-        margin-left: 1rem;
-        p {
-          font-size: 1.5rem;
-        }
-        
-      }
-      @media(max-width: 380px) {
-        p {
-          font-size: 1.4rem;
-        }
-        
-      }
-      @media(max-width: 333px) {
-        margin-left: .3rem;
-      }
-  
-`;
-
-const PanelTabContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const PanelTabContainerLeft = styled.div`
-  display: flex;
-  justify-content: flex-start;
-`;
-
-const PanelTabContainerRight = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;
 
 const Container = styled.div`
   width: 85%;
@@ -540,332 +653,3 @@ const CloseIcon = styled.span`
     }
   }
 `;
-
-
-
-const ErrorModal = Loadable({
-  loader: () => import('./components/ErrorModal'),
-  loading() {
-    return null
-  }
-})
-
-function App() {
-  
-
-  const [tokenAddedMessage,setTokenAddedMessage] = useState('')
-  const [state, setState] = useState({
-    provider: undefined,
-    signer: undefined,
-    manager: undefined,
-    address: "",
-    summaries: [],
-    underlyings: [],
-    usdValue: 0,
-    error: { message: null, type: null, display: false },
-    theme: window.localStorage.getItem("HarvestFinance:Theme") || "light",
-    display: false,
-    minimumHarvestAmount: 0,
-    apy: 0,
-    farmPrice: 0,
-    pools:[]
-  });
-
-  const getPools = async () => {
-   const harvestPools = await axios.get(
-      "https://api-ui.harvest.finance/pools?key=41e90ced-d559-4433-b390-af424fdc76d6",
-    ).then(res => {
-      let currentAPY = res.data[0].rewardAPY;
-      let currentPrice = res.data[0].lpTokenData.price;
-      
-      setState({...state,apy: currentAPY, farmPrice: currentPrice,pools: res})
-      
-    })
-    .catch(err => {
-      console.log(err)
-    })
-    // setState({...state,pools: harvestPools})
-    
-  };
-  
- 
-
-
-  useEffect(() => {
-  
-    const timer = setTimeout(() => {
-      state.manager && refresh();
-    }, 60000);
-    return () => clearTimeout(timer);
-  });
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      state.manager && getPools();
-    }, 60000);
-    return () => clearTimeout(timer);
-  });
-  useEffect(() => {
-    getPools()
-    console.log(state.pools)
-  },[])
-
-
-
-  useEffect(() => {
-    if (state.address !== "") {
-      refresh();
-      console.log(state.summaries)
-    }
-   
-  }, [state.address]);
-  useEffect(() => {
-    
-    if(state.usdValue) {
-      setState({...state,display: true})
-     
-    }
-  },[state.usdValue])
-
-  const disconnect = () => {
-    setState({
-      provider: undefined,
-      signer: undefined,
-      manager: undefined,
-      address: "",
-      summaries: [],
-      underlyings: [],
-      usdValue: 0,
-      apy: 0,
-      error: { message: null, type: null, display: false },
-      theme: window.localStorage.getItem("HarvestFinance:Theme") || "light",
-      
-      
-    });
-  };
-
-  const closeErrorModal = () => {
-    setState({
-      ...state,
-      error: { message: null, type: null, display: false },
-    });
-  };
-
-  const openModal = (message, type) => {
-    setState({
-      ...state,
-      error: { message: message, type: type, display: true },
-    });
-  };
-
-  const setConnection = (provider, signer, manager) => {
-    setState({
-      ...state,
-      provider: provider,
-      signer: signer,
-      manager: manager,
-    });
-  };
-
-  const setAddress = (address) => {
-    setState((state) => ({ ...state, address: address }));
-  };
-
-  const refresh = () => {
-    state.manager
-      .aggregateUnderlyings(state.address)
-      .then((underlying) => {
-        return underlying.toList().filter((u) => !u.balance.isZero());
-      })
-      .then((underlyings) => {
-        setState({ ...state, underlyings: underlyings });
-      }).catch(err => {
-        console.log(err)
-      });
-
-    state.manager
-      .summary(state.address)
-      .then((summaries) =>
-        summaries.filter(
-          (p) =>
-            !p.summary.earnedRewards.isZero() ||
-            !p.summary.stakedBalance.isZero() ||
-            (p.summary.isActive && !p.summary.unstakedBalance.isZero()),
-        ),
-      )
-      .then((summaries) => {
-        let total = ethers.BigNumber.from(0);
-        summaries.forEach((pos) => {
-          total = total.add(pos.summary.usdValueOf);
-        });
-        setState((state) => ({
-          ...state,
-          summaries: summaries,
-          usdValue: total,
-        }));
-        
-        return summaries;
-      }).catch(err => {
-        refresh()
-        
-      });
-  };
-
-  const toggleTheme = (theme) => {
-    setState({ ...state, theme: theme });
-    window.localStorage.setItem("HarvestFinance:Theme", theme);
-  };
-  //Radio Modal
-  const[radio,setRadio] =useState(false)
-
-  const toggleRadio = () => {
-    setRadio(!radio)
-  }
- 
-
-  return (
-    <HarvestContext.Provider value={{state,tokenAddedMessage,setTokenAddedMessage}}>
-      <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-        <GlobalStyle />
-          <Container>
-            <Row>
-              <Col col>
-                <Brand>
-                  <img src={logo} alt="harvest finance logo" />{" "}
-                  <span>harvest.dashboard</span>
-                </Brand>
-              </Col>
-            </Row>
-
-            <Row>
-              <Col>
-                <PanelTabContainer>
-                  <PanelTabContainerLeft>
-                    <PanelTab>
-                      <a
-                        href="https://harvest.finance"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        harvest.finance
-                      </a>
-                    </PanelTab>
-                    <PanelTab className="wiki-tab">
-                      <a
-                        href="https://farm.chainwiki.dev/en/home"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        wiki
-                      </a>
-                    </PanelTab>
-
-                    <PanelTab 
-                    className="radio-tab"
-                    onClick={toggleRadio}
-                    >
-                      
-                      <p>radio</p>
-                    </PanelTab>
-                  </PanelTabContainerLeft>
-
-                  <PanelTabContainerRight>
-                    <PanelTab className='switch-panel'>
-                      <label className="switch">
-                        <input
-                          type="checkbox"
-                          checked={state.theme === "dark" ? true : false}
-                          onChange={() =>
-                            toggleTheme(state.theme === "dark" ? "light" : "dark")
-                          }
-                        />
-                        <span className="slider round"></span>
-                      </label>
-                    </PanelTab>
-                    
-                  </PanelTabContainerRight>
-                </PanelTabContainer>
-
-                <Panel>
-
-                {/* RADIO MODAL */}
-                <ReactModal
-                  isOpen={radio}
-                  onRequestClose={toggleRadio}
-                  className={"my-modal-custom-class"}
-                  initWidth={325} 
-                  initHeight={100}
-                  top={0}
-                  left={0}
-                  disableResize={true}
-                  >
-                  <RadioTitle>
-                    <h4>harvest radio</h4>
-                    <CloseIcon onClick={toggleRadio} ><i className="fas fa-times-circle "></i></CloseIcon>
-                  </RadioTitle>
-                  <RadioPanel toggleRadio={toggleRadio} />
-                </ReactModal>
-
-                {/* RADIO MODAL */}
-
-
-                  {state.address? <Row>
-                    
-                    <Col >
-                      <Wallet
-                        state={state}
-                      
-                      />
-                    </Col>
-                  </Row> : null}
-
-                  {tokenAddedMessage ? 
-                  <motion.div
-                  key={tokenAddedMessage}
-                  initial={{ x:0,y: -100, opacity: 0 }}
-                  animate={{ x:0,y:0, opacity: 1 }}
-                  exit={{x:0,y: -100, opacity: 1 }}>
-                    <div className='token-added-message'>
-                      <p >{tokenAddedMessage}</p>
-                    </div>
-                  </motion.div>
-                   
-                  
-                  : null}
-                  
-                  
-
-                  
-                  {/* MOVED MAIN COMPONENTS INTO ITS OWN COMPONENT */}
-                  {/* The welcome text display on intial load and when a wallet is connected the main content renders */}
-                  {state.provider ? (
-                    <MainContent 
-                    state={state} 
-                    setState={setState}
-                    openModal={openModal}/>
-                  ) :
-                  <Row >
-                    <Col >
-                      <WelcomeText 
-                        state={state}
-                        openModal={openModal}
-                        disconnect={disconnect}
-                        setConnection={setConnection}
-                        setAddress={setAddress}
-                        refresh={refresh}
-                      />
-                    </Col>
-                    
-                    </Row>} 
-                </Panel>
-              </Col>
-            </Row>
-          </Container>
-          <ErrorModal state={state} onClose={() => closeErrorModal()} />
-      </ThemeProvider>
-    </HarvestContext.Provider>
-    
-  );
-}
-
-export default App;

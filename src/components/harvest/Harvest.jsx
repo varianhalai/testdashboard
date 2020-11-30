@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 import harvest from "../../lib/index.js";
-const { utils,ethers } = harvest;
+const { ethers } = harvest;
 
 const Panel = styled.div`
   display: flex;
@@ -79,28 +79,6 @@ const ButtonContainer = styled.div`
 
 const Harvest = ({ state,setState }) => {
  
-  // const harvest = async () => {
-    
-  //   const activePools = state.manager.pools
-  //   console.log(state.manager.pools)
-
-  //   for (let i = 0; i < activePools.length; i++) {
-  //      await activePools[i].earnedRewards(state.address)
-  //     .then(res => {
-        
-  //       if(state.minimumHarvestAmount * 1000000000000 <= parseFloat((res.toString() / 1000000).toFixed(10))) {
-  //         //The original code here would harvest all farms regardless of the amount specified.
-  //         //Now it checks if the rewards are equal to or above specfied amount before harvesting
-  //         activePools[i].getReward()
-  //         .catch((e) => console.log("Rejected Transaction"));
-  //       }
-  //     })
-  //     .catch(err => {
-  //       console.log(err)
-  //     })
-  //   }
-  //   setState({...state,minimumHarvestAmount: 0})
-  // };
 
   const harvest  = async () => {
     console.log("harvesting");
@@ -136,7 +114,7 @@ const Harvest = ({ state,setState }) => {
         </p>
         {state.minimumHarvestAmount === 0 ? "" :  <button
           className="button clear"
-          onClick={(event) => setState({...state,minimumHarvestAmount :0})}
+          onClick={() => setState({...state,minimumHarvestAmount :0})}
         >
           clear
         </button>}
