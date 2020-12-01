@@ -167,8 +167,7 @@ const tokens = [
   },
   {
     name: "3CRV",
-    symbol: "3CRV",
-    url: "https://varianhalai.github.io/add-3crv/",
+    url: "https://harvestfi.github.io/add-3crv/",
     image: crv3,
     address: '0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490',
     decimals: 18,
@@ -195,8 +194,6 @@ const tokens2 = [
   },
   {
     name: "SUSHI:WBTC-TBTC",
-    symbol: 'SLP',
-    url: "https://varianhalai.github.io/add-sushi/",
     image: sushi,
     address: '0x2dbc7dd86c6cd87b525bd54ea73ebeebbc307f68',
     decimals: 18,
@@ -204,7 +201,6 @@ const tokens2 = [
   },
   {
     name: "UNI:ETH-WBTC",
-    symbol: 'UNI-V2',
     image: wbtc,
     address: '0x2dbc7dd86c6cd87b525bd54ea73ebeebbc307f68',
     decimals: 18,

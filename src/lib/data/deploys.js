@@ -1,9 +1,184 @@
 const assets = [
   {
-    name: 'BAL_95_USDC_5_FARM',
-    type: 'balancer',
+    name: 'aBUSD',
     decimals: 18,
-    address: '0x0395e4a17ff11d36dac9959f2d7c8eca10fe89c9',
+    address: '0x6Ee0f7BB50a54AB5253dA0667B0Dc2ee526C30a8',
+  },
+  {
+    name: 'AMPL',
+    decimals: 9,
+    address: '0xD46bA6D942050d489DBd938a2C909A5d5039A161',
+  },
+  {
+    name: 'BASED',
+    decimals: 18,
+    address: '0x68A118Ef45063051Eac49c7e647CE5Ace48a68a5',
+  },
+  {
+    name: 'BUSD',
+    decimals: 18,
+    address: '0x4Fabb145d64652a948d72533023f6E7A623C7C53',
+  },
+  {
+    name: 'cDAI',
+    decimals: 18,
+    address: '0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643',
+  },
+  {
+    name: 'cUSDC',
+    decimals: 18,
+    address: '0x39AA39c021dfbaE8faC545936693aC917d5E7563',
+  },
+  {
+    name: 'CRV',
+    decimals: 18,
+    address: '0xD533a949740bb3306d119CC777fa900bA034cd52',
+  },
+  {
+    name: 'CRV-YPOOL',
+    decimals: 18,
+    address: '0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8',
+  },
+  {
+    name: 'CRV-BUSD',
+    decimals: 18,
+    address: '0x3B3Ac5386837Dc563660FB6a0937DFAa5924333B',
+  },
+  {
+    name: 'CRV-COMPOUND',
+    decimals: 18,
+    address: '0x845838DF265Dcd2c412A1Dc9e959c7d08537f8a2',
+  },
+  {
+    name: 'DAI',
+    decimals: 18,
+    address: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+  },
+  {
+    name: 'FARM',
+    decimals: 18,
+    address: '0xa0246c9032bC3A600820415aE600c6388619A14D',
+  },
+  {
+    name: 'LINK',
+    decimals: 18,
+    address: '0x514910771AF9Ca656af840dff83E8264EcF986CA',
+  },
+  {
+    name: 'OGN',
+    decimals: 18,
+    address: '0x8207c1FfC5B6804F6024322CcF34F29c3541Ae26',
+  },
+  {
+    name: 'PASTA',
+    decimals: 18,
+    address: '0xE54f9E6Ab80ebc28515aF8b8233c1aeE6506a15E',
+  },
+  {
+    name: 'PYLON',
+    decimals: 18,
+    address: '0xD7B7d3C0bdA57723Fb54ab95Fd8F9EA033AF37f2',
+  },
+  {
+    name: 'RENBTC',
+    decimals: 8,
+    address: '0xEB4C2781e4ebA804CE9a9803C67d0893436bB27D',
+  },
+  {
+    name: 'SBTC',
+    decimals: 18,
+    address: '0xfE18be6b3Bd88A2D2A7f928d00292E7a9963CfC6',
+  },
+  {
+    name: 'SUSD',
+    decimals: 18,
+    address: '0x57Ab1ec28D129707052df4dF418D58a2D46d5f51',
+  },
+  {
+    name: 'SUSHI',
+    decimals: 18,
+    address: '0x6B3595068778DD592e39A122f4f5a5cF09C90fE2',
+  },
+  {
+    name: 'SWRV',
+    decimals: 18,
+    address: '0xB8BAa0e4287890a5F79863aB62b7F175ceCbD433',
+  },
+  {
+    name: 'TBTC',
+    decimals: 18,
+    address: '0x8dAEBADE922dF735c38C80C7eBD708Af50815fAa',
+  },
+  {
+    name: 'TUSD',
+    decimals: 18,
+    address: '0x0000000000085d4780B73119b644AE5ecd22b376',
+  },
+  {
+    name: 'USDC',
+    decimals: 6,
+    address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+  },
+  {
+    name: 'USDT',
+    decimals: 6,
+    address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
+  },
+  {
+    name: 'WBTC',
+    decimals: 8,
+    address: '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599',
+  },
+  {
+    name: 'WETH',
+    decimals: 18,
+    address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+  },
+  {
+    name: 'yBUSD',
+    decimals: 18,
+    address: '0x04bC0Ab673d88aE9dbC9DA2380cB6B79C4BCa9aE',
+  },
+  {
+    name: 'yDAI',
+    decimals: 18,
+    address: '0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01',
+  },
+  {
+    name: 'yTUSD',
+    decimals: 18,
+    address: '0x73a052500105205d34Daf004eAb301916DA8190f',
+  },
+  {
+    name: 'yUSDC',
+    decimals: 18,
+    address: '0xd6aD7a6750A7593E092a9B218d66C0A814a3436e',
+  },
+  {
+    name: 'yUSDT',
+    decimals: 18,
+    address: '0x83f798e925BcD4017Eb265844FDDAbb448f1707D',
+  },
+  {
+    name: 'YFI',
+    decimals: 18,
+    address: '0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e',
+  },
+  {
+    name: 'YFII',
+    decimals: 18,
+    address: '0xa1d0E215a23d7030842FC67cE582a6aFa3CCaB83',
+  },
+  {
+    name: 'YFV',
+    decimals: 18,
+    address: '0x45f24BaEef268BB6d63AEe5129015d69702BCDfa',
+  },
+  {
+    name: 'AMPL_ETH_LP',
+    type: 'uniswap',
+    decimals: 18,
+    address: '0xc5be99A02C6857f9Eac67BbCE58DF5572498F40c',
   },
   {
     name: 'FARM_USDC_LP',
@@ -12,91 +187,70 @@ const assets = [
     address: '0x514906FC121c7878424a5C928cad1852CC545892',
   },
   {
-    name: 'YFV',
-    decimals: 18,
-    address: '0x45f24baeef268bb6d63aee5129015d69702bcdfa',
-  },
-  {
-    name: 'YFII',
-    decimals: 18,
-    address: '0xa1d0E215a23d7030842FC67cE582a6aFa3CCaB83',
-  },
-  {
-    name: 'WETH',
-    decimals: 18,
-    address: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
-  },
-  {
-    name: 'LINK',
-    decimals: 18,
-    address: '0x514910771af9ca656af840dff83e8264ecf986ca',
-  },
-  {
-    name: 'YFI',
-    decimals: 18,
-    address: '0x0bc529c00c6401aef6d220be8c6ea1667f6ad93e',
-  },
-  {
-    name: 'SUSHI',
-    decimals: 18,
-    address: '0x6b3595068778dd592e39a122f4f5a5cf09c90fe2',
-  },
-  {
-    name: 'OGN',
-    decimals: 18,
-    address: '0x8207c1ffc5b6804f6024322ccf34f29c3541ae26',
-  },
-  {
     name: 'BASED_SUSD_LP',
     type: 'uniswap',
     decimals: 18,
-    address: '0xaad22f5543fcdaa694b68f94be177b561836ae57',
+    address: '0xaAD22f5543FCDaA694B68f94Be177B561836AE57',
   },
   {
     name: 'PASTA_ETH_LP',
     type: 'uniswap',
     decimals: 18,
-    address: '0xe92346d9369fe03b735ed9bdeb6bdc2591b8227e',
+    address: '0xE92346d9369Fe03b735Ed9bDeB6bdC2591b8227E',
   },
   {
-    name: 'FARM',
+    name: 'WETH_DAI_LP',
+    type: 'uniswap',
     decimals: 18,
-    address: '0xa0246c9032bc3a600820415ae600c6388619a14d',
+    address: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11',
   },
   {
-    name: 'USDC',
-    decimals: 6,
-    address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-  },
-  {
-    name: 'USDT',
-    decimals: 6,
-    address: '0xdac17f958d2ee523a2206206994597c13d831ec7',
-  },
-  {
-    name: 'TUSD',
+    name: 'WETH_USDC_LP',
+    type: 'uniswap',
     decimals: 18,
-    address: '0x0000000000085d4780B73119b644AE5ecd22b376',
+    address: '0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc',
   },
   {
-    name: 'DAI',
+    name: 'WETH_USDT_LP',
+    type: 'uniswap',
     decimals: 18,
-    address: '0x6b175474e89094c44da98b954eedeac495271d0f',
+    address: '0x0d4a11d5EEaaC28EC3F61d100daF4d40471f1852',
   },
   {
-    name: 'SUSD',
+    name: 'WETH_WBTC_LP',
+    type: 'uniswap',
     decimals: 18,
-    address: '0x57ab1ec28d129707052df4df418d58a2d46d5f51',
+    address: '0xBb2b8038a1640196FbE3e38816F3e67Cba72D940',
   },
   {
-    name: 'BASED',
+    name: 'WETH_DAI_SLP',
+    type: 'uniswap',
     decimals: 18,
-    address: '0x68A118Ef45063051Eac49c7e647CE5Ace48a68a5',
+    address: '0xC3D03e4F041Fd4cD388c549Ee2A29a9E5075882f',
   },
   {
-    name: 'PASTA',
+    name: 'WBTC_TBTC_SLP',
+    type: 'uniswap',
     decimals: 18,
-    address: '0xE54f9E6Ab80ebc28515aF8b8233c1aeE6506a15E',
+    address: '0x2Dbc7dD86C6cd87b525BD54Ea73EBeeBbc307F68',
+  },
+  {
+    name: 'WETH_USDC_SLP',
+    type: 'uniswap',
+    decimals: 18,
+    address: '0x397FF1542f962076d0BFE58eA045FfA2d347ACa0',
+  },
+  {
+    name: 'WETH_USDT_SLP',
+    type: 'uniswap',
+    decimals: 18,
+    address: '0x06da0fd433C1A5d7a4faa01111c044910A184553',
+  },
+  {
+    name: 'WETH_WBTC_SLP',
+    type: 'uniswap',
+    decimals: 18,
+    address: '0xCEfF51756c56CeFFCA006cD410B03FFC46dd3a58',
   },
   {
     name: 'BAL_80_USDC_20_FARM',
@@ -159,218 +313,59 @@ const assets = [
     address: '0xdFb341093ea062a74Bd19a222c74Abdcb97C067b',
   },
   {
-    name: 'FUSDC_USDC_LP',
-    type: 'uniswap',
+    name: 'BAL_95_USDC_5_FARM',
+    type: 'balancer',
     decimals: 18,
-    address: '0x4161fa43eaa1ac3882aeed12c5fc05249e533e67',
-  },
-  {
-    name: 'FUSDT_USDT_LP',
-    type: 'uniswap',
-    decimals: 18,
-    address: '0x713f62ccf8545ff1df19e5d7ab94887cfaf95677',
-  },
-  {
-    name: 'FDAI_DAI_LP',
-    type: 'uniswap',
-    decimals: 18,
-    address: '0x007e383bf3c3ffa12a5de06a53bab103335eff28',
-  },
-  {
-    name: 'AMPL_ETH_LP',
-    type: 'uniswap',
-    decimals: 18,
-    address: '0xc5be99A02C6857f9Eac67BbCE58DF5572498F40c',
-  },
-  {
-    name: 'SWRV',
-    decimals: 18,
-    address: '0xB8BAa0e4287890a5F79863aB62b7F175ceCbD433',
-  },
-  {
-    name: 'CRV',
-    decimals: 18,
-    address: '0xD533a949740bb3306d119CC777fa900bA034cd52',
-  },
-  {
-    name: 'PYLON',
-    decimals: 18,
-    address: '0xD7B7d3C0bdA57723Fb54ab95Fd8F9EA033AF37f2',
-  },
-  {
-    name: 'AMPL',
-    decimals: 9,
-    address: '0xD46bA6D942050d489DBd938a2C909A5d5039A161',
-  },
-  {
-    name: 'WBTC',
-    decimals: 8,
-    address: '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599',
-  },
-  {
-    name: 'RENBTC',
-    decimals: 8,
-    address: '0xEB4C2781e4ebA804CE9a9803C67d0893436bB27D',
-  },
-  {
-    name: 'WETH',
-    decimals: 18,
-    address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
-  },
-  {
-    name: 'FWETH_WETH_LP',
-    type: 'uniswap',
-    decimals: 18,
-    address: '0x24b34098F6950a5d5B6BbE1358AD79B609B924fB',
-  },
-  {
-    name: 'FWBTC_WBTC_LP',
-    type: 'uniswap',
-    decimals: 18,
-    address: '0xaebfea924de4080c14df5c432cece261934457e0',
-  },
-  {
-    name: 'FRENBTC_WBTC_LP',
-    type: 'uniswap',
-    decimals: 18,
-    address: '0x007f74c5c82d68a138cc3bc623e51270279fa525',
-  },
-  {
-    name: 'FCRVRENWBTC_WBTC_LP',
-    type: 'uniswap',
-    decimals: 18,
-    address: '0xb6a6a3d8ef31d9faeb1ab1487ace79fe1f5df1bb',
+    address: '0x0395e4A17fF11D36DaC9959f2D7c8Eca10Fe89c9',
   },
   {
     name: 'CRPT_80_FARM_20_WETH',
     type: 'balancer',
     decimals: 18,
-    address: '0x655ad905dec61e4fb7d4840a1f450685801511b2'
+    address: '0x655AD905dEc61E4Fb7d4840a1F450685801511b2'
   },
   {
-    name: 'WETH_USDT_LP',
+    name: 'fUSDC_USDC_LP',
     type: 'uniswap',
     decimals: 18,
-    address: '0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852',
+    address: '0x4161Fa43eaA1Ac3882aeeD12C5FC05249e533e67',
   },
   {
-    name: 'WETH_USDC_LP',
+    name: 'fUSDT_USDT_LP',
     type: 'uniswap',
     decimals: 18,
-    address: '0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc',
+    address: '0x713f62ccf8545Ff1Df19E5d7Ab94887cFaf95677',
   },
   {
-    name: 'WETH_DAI_LP',
+    name: 'fDAI_DAI_LP',
     type: 'uniswap',
     decimals: 18,
-    address: '0xa478c2975ab1ea89e8196811f51a7b7ade33eb11',
+    address: '0x007E383BF3c3Ffa12A5De06a53BAb103335eFF28',
   },
   {
-    name: 'WETH_WBTC_LP',
+    name: 'fWETH_WETH_LP',
     type: 'uniswap',
     decimals: 18,
-    address: '0xbb2b8038a1640196fbe3e38816f3e67cba72d940',
+    address: '0x24b34098F6950a5d5B6BbE1358AD79B609B924fB',
   },
   {
-    name: 'WBTC_TBTC_SLP',
+    name: 'fWBTC_WBTC_LP',
     type: 'uniswap',
     decimals: 18,
-    address: '0x2Dbc7dD86C6cd87b525BD54Ea73EBeeBbc307F68',
+    address: '0xaebfeA924DE4080C14DF5C432cECe261934457E0',
   },
   {
-    name: 'WETH_DAI_SLP',
+    name: 'fRENBTC_WBTC_LP',
     type: 'uniswap',
     decimals: 18,
-    address: '0xC3D03e4F041Fd4cD388c549Ee2A29a9E5075882f',
+    address: '0x007F74c5C82d68A138Cc3Bc623E51270279fa525',
   },
   {
-    name: 'WETH_USDT_SLP',
+    name: 'fCRV-RENWBTC_WBTC_LP',
     type: 'uniswap',
     decimals: 18,
-    address: '0x06da0fd433C1A5d7a4faa01111c044910A184553',
-  },
-  {
-    name: 'WETH_USDC_SLP',
-    type: 'uniswap',
-    decimals: 18,
-    address: '0x397FF1542f962076d0BFE58eA045FfA2d347ACa0',
-  },
-  {
-    name: 'WETH_WBTC_SLP',
-    type: 'uniswap',
-    decimals: 18,
-    address: '0xCEfF51756c56CeFFCA006cD410B03FFC46dd3a58',
-  },
-  {
-    name: 'TBTC',
-    decimals: 18,
-    address: '0x8dAEBADE922dF735c38C80C7eBD708Af50815fAa',
-  },
-  {
-    name: 'SBTC',
-    decimals: 18,
-    address: '0xfE18be6b3Bd88A2D2A7f928d00292E7a9963CfC6',
-  },
-  {
-    name: 'yDAI',
-    decimals: 18,
-    address: '0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01',
-  },
-  {
-    name: 'yTUSD',
-    decimals: 18,
-    address: '0x73a052500105205d34Daf004eAb301916DA8190f',
-  },
-  {
-    name: 'yUSDC',
-    decimals: 18,
-    address: '0xd6aD7a6750A7593E092a9B218d66C0A814a3436e',
-  },
-  {
-    name: 'yUSDT',
-    decimals: 18,
-    address: '0x83f798e925BcD4017Eb265844FDDAbb448f1707D',
-  },
-  {
-    name: 'USDN',
-    decimals: 18,
-    address: '0x674C6Ad92Fd080e4004b2312b45f796a192D27a0',
-  },
-  {
-    name: 'BUSD',
-    decimals: 18,
-    address: '0x4Fabb145d64652a948d72533023f6E7A623C7C53',
-  },
-  {
-    name: 'aBUSD',
-    decimals: 18,
-    address: '0x6Ee0f7BB50a54AB5253dA0667B0Dc2ee526C30a8',
-  },
-  {
-    name: 'yBUSD',
-    decimals: 18,
-    address: '0x04bC0Ab673d88aE9dbC9DA2380cB6B79C4BCa9aE',
-  },
-  {
-    name: 'CDAI',
-    decimals: 18,
-    address: '0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643',
-  },
-  {
-    name: 'CUSDC',
-    decimals: 18,
-    address: '0x39AA39c021dfbaE8faC545936693aC917d5E7563',
-  },
-  {
-    name: '3CRV',
-    decimals: 18,
-    address: '0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490',
-  },
-  {
-    name: 'YCRV',
-    decimals: 18,
-    address: '0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8',
-  },
+    address: '0xb6A6a3D8EF31D9FAeb1AB1487aCe79Fe1f5df1BB',
+  }
 ];
 
 /**
@@ -394,7 +389,7 @@ function assetByAddress(address) {
 // TODO: refactor and improve
 // RATIONALE: want to use assetByName, so need to initialize it first
 assets.push({
-  name: 'CRVRENWBTC',
+  name: 'CRV-RENWBTC',
   decimals: 18,
   type: 'curve',
   curveInfo: {
@@ -407,7 +402,7 @@ assets.push({
   address: '0x49849C98ae39Fff122806C06791Fa73784FB3675',
 });
 assets.push({
-  name: 'CRVRENWSBTC',
+  name: 'CRV-RENWSBTC',
   decimals: 18,
   type: 'curve',
   curveInfo: {
@@ -421,20 +416,20 @@ assets.push({
   address: '0x075b1bb99792c9E1041bA13afEf80C91a1e70fB3',
 });
 assets.push({
-  name: 'CRVTBTC',
+  name: 'CRV-TBTC',
   decimals: 18,
   type: 'curve',
   curveInfo: {
     poolAddress: '0xC25099792E9349C7DD09759744ea681C7de2cb66',
     assets: [
       assetByName('TBTC'),
-      assetByName('CRVRENWSBTC'),
+      assetByName('CRV-RENWSBTC'),
     ],
   },
   address: '0x64eda51d3Ad40D56b9dFc5554E06F94e1Dd786Fd',
 });
 assets.push({
-  name: '3CRV',
+  name: 'CRV-3POOL',
   decimals: 18,
   type: 'curve',
   curveInfo: {
@@ -447,229 +442,173 @@ assets.push({
   },
   address: '0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490',
 });
+//assets.push({
+//  name: 'CRV-YPOOL',
+//  decimals: 18,
+//  type: 'curve',
+//  curveInfo: {
+//    poolAddress: '0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51',
+//    assets: [
+//      assetByName('DAI'),
+//      assetByName('USDC'),
+//      assetByName('USDT'),
+//      assetByName('TUSD'),
+//    ],
+//  },
+//  address: '0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8',
+//});
 assets.push({
-  name: 'YCRV',
-  decimals: 18,
-  type: 'curve',
-  curveInfo: {
-    poolAddress: '0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51',
-    assets: [
-      //assetByName('DAI'),
-      //assetByName('USDC'),
-      //assetByName('USDT'),
-      //assetByName('TUSD'),
-    ],
-  },
-  address: '0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8',
-});
-assets.push({
-  name: 'USDN3CRV',
+  name: 'CRV-USDN',
   decimals: 18,
   type: 'curve',
   curveInfo: {
     poolAddress: '0x0f9cb53Ebe405d49A0bbdBD291A65Ff571bC83e1',
     assets: [
       //assetByName('USDN'),
-      //assetByName('3CRV'),
+      //assetByName('CRV-3POOL'),
     ],
   },
   address: '0x4f3E8F405CF5aFC05D68142F3783bDfE13811522',
 });
-assets.push({
-  name: 'BUSDCRV',
-  decimals: 18,
-  type: 'curve',
-  curveInfo: {
-    poolAddress: '0x79a8C46DeA5aDa233ABaFFD40F3A0A2B1e5A4F27',
-    assets: [
+//assets.push({
+//  name: 'CRV-BUSD',
+//  decimals: 18,
+//  type: 'curve',
+//  curveInfo: {
+//    poolAddress: '0x79a8C46DeA5aDa233ABaFFD40F3A0A2B1e5A4F27',
+//    assets: [
       //assetByName('yBUSD'),
       //assetByName('yDAI'),
       //assetByName('yUSDC'),
       //assetByName('yUSDT'),
-    ],
-  },
-  address: '0x3B3Ac5386837Dc563660FB6a0937DFAa5924333B',
-});
+//    ],
+//  },
+//  address: '0x3B3Ac5386837Dc563660FB6a0937DFAa5924333B',
+//});
+//assets.push({
+//  name: 'CRV-COMPOUND',
+//  decimals: 18,
+//  type: 'curve',
+//  curveInfo: {
+//    poolAddress: '0xA2B47E3D5c44877cca798226B7B8118F9BFb7A56',
+//    assets: [
+//      assetByName('cDAI'),
+//      assetByName('cUSDC'),
+//    ],
+//  },
+//  address: '0x845838DF265Dcd2c412A1Dc9e959c7d08537f8a2',
+//});
 assets.push({
-  name: 'CCRV',
-  decimals: 18,
-  type: 'curve',
-  curveInfo: {
-    poolAddress: '0xA2B47E3D5c44877cca798226B7B8118F9BFb7A56',
-    assets: [
-      assetByName('CDAI'),
-      assetByName('CUSDC'),
-    ],
-  },
-  address: '0x845838DF265Dcd2c412A1Dc9e959c7d08537f8a2',
-});
-assets.push({
-  name: 'fCRV-TBTC',
-  type: 'ftoken',
-  underlyingAsset: assetByName('CRVTBTC'),
-  decimals: 18,
-  address: '0x640704D106E79e105FDA424f05467F005418F1B5',
-});
-assets.push({
-  name: 'f3CRV',
-  type: 'ftoken',
-  underlyingAsset: assetByName('3CRV'),
-  decimals: 18,
-  address: '0x71B9eC42bB3CB40F017D8AD8011BE8e384a95fa5',
-});
-assets.push({
-  name: 'fYCRV',
-  type: 'ftoken',
-  underlyingAsset: assetByName('YCRV'),
-  decimals: 18,
-  address: '0x0FE4283e0216F94f5f9750a7a11AC54D3c9C38F3',
-});
-assets.push({
-  name: 'fDAI',
-  type: 'ftoken',
-  underlyingAsset: assetByName('DAI'),
-  decimals: 18,
-  address: '0xe85c8581e60d7cd32bbfd86303d2a4fa6a951dac',
-});
-assets.push({
-  name: 'fUSDC',
-  type: 'ftoken',
-  underlyingAsset: assetByName('USDC'),
-  decimals: 6,
-  address: '0xc3f7ffb5d5869b3ade9448d094d81b0521e8326f',
-});
-assets.push({
-  name: 'FUSDT',
-  type: 'ftoken',
-  underlyingAsset: assetByName('USDT'),
-  decimals: 6,
-  address: '0xc7ee21406bb581e741fbb8b21f213188433d9f2f',
-});
-assets.push({
-  name: 'fTUSD',
-  type: 'ftoken',
-  underlyingAsset: assetByName('TUSD'),
-  decimals: 18,
-  address: '0x7674622c63Bee7F46E86a4A5A18976693D54441b',
-});
-assets.push({
-  name: 'fWBTC',
-  type: 'ftoken',
-  underlyingAsset: assetByName('WBTC'),
-  decimals: 8,
-  address: '0xc07EB91961662D275E2D285BdC21885A4Db136B0',
-});
-assets.push({
-  name: 'FRENBTC',
-  type: 'ftoken',
-  underlyingAsset: assetByName('RENBTC'),
-  decimals: 8,
-  address: '0xfBe122D0ba3c75e1F7C80bd27613c9f35B81FEeC',
-});
-assets.push({
-  name: 'fCRV-RENWBTC',
-  type: 'ftoken',
-  underlyingAsset: assetByName('CRVRENWBTC'),
-  decimals: 18,
-  address: '0x192E9d29D43db385063799BC239E772c3b6888F3',
-});
-assets.push({
-  name: 'fWETH',
-  type: 'ftoken',
-  underlyingAsset: assetByName('WETH'),
-  decimals: 18,
-  address: '0x8e298734681adbfc41ee5d17ff8b0d6d803e7098',
-});
-assets.push({
-  name: 'FWETH_USDT_LP_v0',
+  name: 'fWETH_USDT_LP_v0',
   type: 'ftoken',
   underlyingAsset: assetByName('WETH_USDT_LP'),
   decimals: 18,
   address: '0xb19ebfb37a936cce783142955d39ca70aa29d43c',
 });
 assets.push({
-  name: 'FWETH_USDC_LP_v0',
+  name: 'fWETH_USDC_LP_v0',
   type: 'ftoken',
   underlyingAsset: assetByName('WETH_USDC_LP'),
   decimals: 18,
   address: '0x63671425ef4d25ec2b12c7d05de855c143f16e3b',
 });
 assets.push({
-  name: 'FWETH_DAI_LP_v0',
+  name: 'fWETH_DAI_LP_v0',
   type: 'ftoken',
   underlyingAsset: assetByName('WETH_DAI_LP'),
   decimals: 18,
   address: '0x1a9f22b4c385f78650e7874d64e442839dc32327',
 });
 assets.push({
-  name: 'FWETH_WBTC_LP_v0',
+  name: 'fWETH_WBTC_LP_v0',
   type: 'ftoken',
   underlyingAsset: assetByName('WETH_WBTC_LP'),
   decimals: 18,
   address: '0xb1feb6ab4ef7d0f41363da33868e85eb0f3a57ee',
 });
 assets.push({
-  name: 'fUNISWAP_LP',
+  name: 'fWETH_USDT_LP',
   type: 'ftoken',
   underlyingAsset: assetByName('WETH_USDT_LP'),
   decimals: 18,
   address: '0x7DDc3ffF0612E75Ea5ddC0d6Bd4e268f70362Cff',
 });
 assets.push({
-  name: 'fUNISWAP_LP',
+  name: 'fWETH_USDC_LP',
   type: 'ftoken',
   underlyingAsset: assetByName('WETH_USDC_LP'),
   decimals: 18,
   address: '0xA79a083FDD87F73c2f983c5551EC974685D6bb36',
 });
 assets.push({
-  name: 'fUNISWAP_LP',
+  name: 'fWETH_DAI_LP',
   type: 'ftoken',
   underlyingAsset: assetByName('WETH_DAI_LP'),
   decimals: 18,
   address: '0x307E2752e8b8a9C29005001Be66B1c012CA9CDB7',
 });
 assets.push({
-  name: 'fUNISWAP_LP',
+  name: 'fWETH_WBTC_LP',
   type: 'ftoken',
   underlyingAsset: assetByName('WETH_WBTC_LP'),
   decimals: 18,
   address: '0x01112a60f427205dcA6E229425306923c3Cc2073',
 });
 assets.push({
-  name: 'fSUSHI-WBTC-TBTC',
+  name: 'fSLP_WBTC_TBTC',
   type: 'ftoken',
   underlyingAsset: assetByName('WBTC_TBTC_SLP'),
   decimals: 18,
   address: '0xF553E1f826f42716cDFe02bde5ee76b2a52fc7EB',
 });
 assets.push({
-  name: 'fSUSHI-ETH-DAI',
+  name: 'fSLP_WETH_DAI',
   type: 'ftoken',
   underlyingAsset: assetByName('WETH_DAI_SLP'),
   decimals: 18,
   address: '0x203E97aa6eB65A1A02d9E80083414058303f241E',
 });
 assets.push({
-  name: 'fSUSHI-ETH-USDT',
+  name: 'fSLP_WETH_USDT',
   type: 'ftoken',
   underlyingAsset: assetByName('WETH_USDT_SLP'),
   decimals: 18,
   address: '0x64035b583c8c694627A199243E863Bb33be60745',
 });
 assets.push({
-  name: 'fSUSHI-ETH-USDC',
+  name: 'fSLP_WETH_USDC',
   type: 'ftoken',
   underlyingAsset: assetByName('WETH_USDC_SLP'),
   decimals: 18,
   address: '0x01bd09A1124960d9bE04b638b142Df9DF942b04a',
 });
 assets.push({
-  name: 'fSUSHI-ETH-WBTC',
+  name: 'fSLP_WETH_WBTC',
   type: 'ftoken',
   underlyingAsset: assetByName('WETH_WBTC_SLP'),
   decimals: 18,
   address: '0x5C0A3F55AAC52AA320Ff5F280E77517cbAF85524',
+});
+assets.push({
+  name: 'fWETH_v0',
+  type: 'ftoken',
+  underlyingAsset: assetByName('WETH'),
+  decimals: 18,
+  address: '0x8e298734681adbfc41ee5d17ff8b0d6d803e7098',
+});
+assets.push({
+  name: 'fWETH',
+  type: 'ftoken',
+  underlyingAsset: assetByName('WETH'),
+  decimals: 18,
+  address: '0xFE09e53A81Fe2808bc493ea64319109B5bAa573e',
+});
+assets.push({
+  name: 'fDAI_v0',
+  type: 'ftoken',
+  underlyingAsset: assetByName('DAI'),
+  decimals: 18,
+  address: '0xe85c8581e60d7cd32bbfd86303d2a4fa6a951dac',
 });
 assets.push({
   name: 'fDAI',
@@ -679,11 +618,25 @@ assets.push({
   address: '0xab7fa2b2985bccfc13c6d86b1d5a17486ab1e04c',
 });
 assets.push({
+  name: 'fUSDC_v0',
+  type: 'ftoken',
+  underlyingAsset: assetByName('USDC'),
+  decimals: 6,
+  address: '0xc3f7ffb5d5869b3ade9448d094d81b0521e8326f',
+});
+assets.push({
   name: 'fUSDC',
   type: 'ftoken',
   underlyingAsset: assetByName('USDC'),
   decimals: 6,
   address: '0xf0358e8c3CD5Fa238a29301d0bEa3D63A17bEdBE',
+});
+assets.push({
+  name: 'fUSDT_v0',
+  type: 'ftoken',
+  underlyingAsset: assetByName('USDT'),
+  decimals: 6,
+  address: '0xc7ee21406bb581e741fbb8b21f213188433d9f2f',
 });
 assets.push({
   name: 'fUSDT',
@@ -693,11 +646,32 @@ assets.push({
   address: '0x053c80eA73Dc6941F518a68E2FC52Ac45BDE7c9C',
 });
 assets.push({
+  name: 'fTUSD',
+  type: 'ftoken',
+  underlyingAsset: assetByName('TUSD'),
+  decimals: 18,
+  address: '0x7674622c63Bee7F46E86a4A5A18976693D54441b',
+});
+assets.push({
+  name: 'fWBTC_v0',
+  type: 'ftoken',
+  underlyingAsset: assetByName('WBTC'),
+  decimals: 8,
+  address: '0xc07EB91961662D275E2D285BdC21885A4Db136B0',
+});
+assets.push({
   name: 'fWBTC',
   type: 'ftoken',
   underlyingAsset: assetByName('WBTC'),
   decimals: 8,
   address: '0x5d9d25c7C457dD82fc8668FFC6B9746b674d4EcB',
+});
+assets.push({
+  name: 'fRENBTC_v0',
+  type: 'ftoken',
+  underlyingAsset: assetByName('RENBTC'),
+  decimals: 8,
+  address: '0xfBe122D0ba3c75e1F7C80bd27613c9f35B81FEeC',
 });
 assets.push({
   name: 'fRENBTC',
@@ -707,18 +681,60 @@ assets.push({
   address: '0xC391d1b08c1403313B0c28D47202DFDA015633C4',
 });
 assets.push({
+  name: 'fCRV-RENWBTC_v0',
+  type: 'ftoken',
+  underlyingAsset: assetByName('CRV-RENWBTC'),
+  decimals: 18,
+  address: '0x192E9d29D43db385063799BC239E772c3b6888F3',
+});
+assets.push({
   name: 'fCRV-RENWBTC',
   type: 'ftoken',
-  underlyingAsset: assetByName('CRVRENWBTC'),
+  underlyingAsset: assetByName('CRV-RENWBTC'),
   decimals: 18,
   address: '0x9aA8F427A17d6B0d91B6262989EdC7D45d6aEdf8',
 });
 assets.push({
-  name: 'FWETHv1',
+  name: 'fCRV-TBTC',
   type: 'ftoken',
-  underlyingAsset: assetByName('WETH'),
+  underlyingAsset: assetByName('CRV-TBTC'),
   decimals: 18,
-  address: '0xFE09e53A81Fe2808bc493ea64319109B5bAa573e',
+  address: '0x640704D106E79e105FDA424f05467F005418F1B5',
+});
+assets.push({
+  name: 'fCRV-3POOL',
+  type: 'ftoken',
+  underlyingAsset: assetByName('CRV-3POOL'),
+  decimals: 18,
+  address: '0x71B9eC42bB3CB40F017D8AD8011BE8e384a95fa5',
+});
+assets.push({
+  name: 'fCRV-YPOOL',
+  type: 'ftoken',
+  underlyingAsset: assetByName('CRV-YPOOL'),
+  decimals: 18,
+  address: '0x0FE4283e0216F94f5f9750a7a11AC54D3c9C38F3',
+});
+assets.push({
+  name: 'fCRV-USDN',
+  type: 'ftoken',
+  underlyingAsset: assetByName('CRV-USDN'),
+  decimals: 18,
+  address: '0x683E683fBE6Cf9b635539712c999f3B3EdCB8664',
+});
+assets.push({
+  name: 'fCRV-BUSD',
+  type: 'ftoken',
+  underlyingAsset: assetByName('CRV-BUSD'),
+  decimals: 18,
+  address: '0x4b1cBD6F6D8676AcE5E412C78B7a59b4A1bbb68a',
+});
+assets.push({
+  name: 'fCRV-COMPOUND',
+  type: 'ftoken',
+  underlyingAsset: assetByName('CRV-COMPOUND'),
+  decimals: 18,
+  address: '0x998cEb152A42a3EaC1f555B1E911642BeBf00faD',
 });
 assets.push({
   name: 'fCRV-USDN',
@@ -745,19 +761,32 @@ assets.push({
 
 
 
+// name overrides asset.name for display
 const weekOnePools = [
   {
-    asset: assetByName('fDAI'),
+    name: 'Profit Sharing v1',
+    asset: assetByName('FARM'),
+    address: '0xae024F29C26D6f71Ec71658B1980189956B0546D',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    name: 'FARM:USDC Uniswap',
+    asset: assetByName('FARM_USDC_LP'),
+    address: '0x99b0d6641A63Ce173E6EB063b3d3AED9A35Cf9bf',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fDAI_v0'),
     address: '0xF9E5f9024c2f3f2908A1d0e7272861a767C9484b',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('fUSDC'),
+    asset: assetByName('fUSDC_v0'),
     address: '0xE1f9A3EE001a2EcC906E8de637DBf20BB2d44633',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('fUSDT'),
+    asset: assetByName('fUSDT_v0'),
     address: '0x5bd997039FFF16F653EF15D1428F2C791519f58d',
     rewardAsset: assetByName('FARM'),
   },
@@ -767,13 +796,13 @@ const weekOnePools = [
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FARM_USDC_LP'),
-    address: '0x99b0d6641A63Ce173E6EB063b3d3AED9A35Cf9bf',
+    asset: assetByName('WETH'),
+    address: '0xE604Fd5b1317BABd0cF2c72F7F5f2AD8c00Adbe1',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('YFV'),
-    address: '0x3631A32c959C5c52BC90AB5b7D212a8D00321918',
+    asset: assetByName('YFI'),
+    address: '0x84646F736795a8bC22Ab34E05c8982CD058328C7',
     rewardAsset: assetByName('FARM'),
   },
   {
@@ -782,18 +811,13 @@ const weekOnePools = [
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('WETH'),
-    address: '0xE604Fd5b1317BABd0cF2c72F7F5f2AD8c00Adbe1',
+    asset: assetByName('YFV'),
+    address: '0x3631A32c959C5c52BC90AB5b7D212a8D00321918',
     rewardAsset: assetByName('FARM'),
   },
   {
     asset: assetByName('LINK'),
     address: '0xa112c2354d27c2Fb3370cc5d027B28987117a268',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('YFI'),
-    address: '0x84646F736795a8bC22Ab34E05c8982CD058328C7',
     rewardAsset: assetByName('FARM'),
   },
   {
@@ -815,58 +839,70 @@ const weekOnePools = [
     asset: assetByName('PASTA_ETH_LP'),
     address: '0xC6f39CFf6797baC5e29275177b6E8e315cF87D95',
     rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('FARM'),
-    address: '0xae024F29C26D6f71Ec71658B1980189956B0546D',
-    rewardAsset: assetByName('FARM'),
-  },
+  }
 ];
 
 const weekTwoPools = [
   {
-    asset: assetByName('BAL_80_USDC_20_FARM'),
-    address: '0x346523a81f16030110e6c858ee0e11f156840bd1',
+    name: 'Profit Sharing v2',
+    asset: assetByName('FARM'),
+    address: '0x59258F4e15A5fC74A7284055A8094F58108dbD4f',
     rewardAsset: assetByName('FARM'),
   },
   {
+    name: 'FARM:USDC Uniswap',
     asset: assetByName('FARM_USDC_LP'),
     address: '0x99b0d6641A63Ce173E6EB063b3d3AED9A35Cf9bf',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FUSDC_USDC_LP'),
-    address: '0x43286F57cf5981a5db56828dF91a46CfAb983E58',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('FUSDT_USDT_LP'),
-    address: '0x316De40F36da4C54AFf11C1D83081555Cca41270',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('FDAI_DAI_LP'),
-    address: '0xB492fAEdA6c9FFb9B9854a58F28d5333Ff7a11bc',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fDAI'),
+    asset: assetByName('fDAI_v0'),
     address: '0xF9E5f9024c2f3f2908A1d0e7272861a767C9484b',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('fUSDC'),
+    asset: assetByName('fUSDC_v0'),
     address: '0xE1f9A3EE001a2EcC906E8de637DBf20BB2d44633',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('fUSDT'),
+    asset: assetByName('fUSDT_v0'),
     address: '0x5bd997039FFF16F653EF15D1428F2C791519f58d',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FARM'),
-    address: '0x59258F4e15A5fC74A7284055A8094F58108dbD4f',
+    asset: assetByName('fWBTC_v0'),
+    address: '0x6291eCe696CB6682a9bb1d42fca4160771b1D7CC',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fRENBTC_v0'),
+    address: '0xCFE1103863F9e7Cf3452Ca8932Eef44d314bf9C5',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fCRV-RENWBTC_v0'),
+    address: '0x5365A2C47b90EE8C9317faC20edC3ce7037384FB',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fUSDC_USDC_LP'),
+    address: '0x43286F57cf5981a5db56828dF91a46CfAb983E58',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fUSDT_USDT_LP'),
+    address: '0x316De40F36da4C54AFf11C1D83081555Cca41270',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fDAI_DAI_LP'),
+    address: '0xB492fAEdA6c9FFb9B9854a58F28d5333Ff7a11bc',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('BAL_80_USDC_20_FARM'),
+    address: '0x346523a81f16030110e6C858Ee0E11F156840BD1',
     rewardAsset: assetByName('FARM'),
   },
   {
@@ -914,102 +950,88 @@ const weekTwoPools = [
     address: '0x7AF4458D3aBD61C3fd187Bb9f1Bbf917Cd4be9B8',
     rewardAsset: assetByName('FARM'),
   },
-  {
-    asset: assetByName('fWBTC'),
-    address: '0x6291eCe696CB6682a9bb1d42fca4160771b1D7CC',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fRENBTC'),
-    address: '0xCFE1103863F9e7Cf3452Ca8932Eef44d314bf9C5',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fCRV-RENWBTC'),
-    address: '0x5365A2C47b90EE8C9317faC20edC3ce7037384FB',
-    rewardAsset: assetByName('FARM'),
-  },
 ];
 
 const weekThreePools = [
   {
+    name: 'Profit Sharing v2',
     asset: assetByName('FARM'),
     address: '0x59258F4e15A5fC74A7284055A8094F58108dbD4f',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('fWETH'),
-    address: '0xe11c81b924bb91b44bae19793539054b48158a9d',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fDAI'),
-    address: '0xF9E5f9024c2f3f2908A1d0e7272861a767C9484b',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fUSDC'),
-    address: '0xE1f9A3EE001a2EcC906E8de637DBf20BB2d44633',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fUSDT'),
-    address: '0x5bd997039FFF16F653EF15D1428F2C791519f58d',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fWBTC'),
-    address: '0x6291eCe696CB6682a9bb1d42fca4160771b1D7CC',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fRENBTC'),
-    address: '0xCFE1103863F9e7Cf3452Ca8932Eef44d314bf9C5',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fCRV-RENWBTC'),
-    address: '0x5365A2C47b90EE8C9317faC20edC3ce7037384FB',
-    rewardAsset: assetByName('FARM'),
-  },
-
-  {
+    name: 'FARM:USDC Uniswap',
     asset: assetByName('FARM_USDC_LP'),
     address: '0x99b0d6641A63Ce173E6EB063b3d3AED9A35Cf9bf',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FWETH_WETH_LP'),
+    asset: assetByName('fWETH_v0'),
+    address: '0xe11c81b924bb91b44bae19793539054b48158a9d',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fDAI_v0'),
+    address: '0xF9E5f9024c2f3f2908A1d0e7272861a767C9484b',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fUSDC_v0'),
+    address: '0xE1f9A3EE001a2EcC906E8de637DBf20BB2d44633',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fUSDT_v0'),
+    address: '0x5bd997039FFF16F653EF15D1428F2C791519f58d',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fWBTC_v0'),
+    address: '0x6291eCe696CB6682a9bb1d42fca4160771b1D7CC',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fRENBTC_v0'),
+    address: '0xCFE1103863F9e7Cf3452Ca8932Eef44d314bf9C5',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fCRV-RENWBTC_v0'),
+    address: '0x5365A2C47b90EE8C9317faC20edC3ce7037384FB',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fWETH_WETH_LP'),
     address: '0x82bdac405762482f9411a7d970841ce55f64e04b',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FUSDC_USDC_LP'),
+    asset: assetByName('fUSDC_USDC_LP'),
     address: '0x43286F57cf5981a5db56828dF91a46CfAb983E58',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FDAI_DAI_LP'),
+    asset: assetByName('fDAI_DAI_LP'),
     address: '0xB492fAEdA6c9FFb9B9854a58F28d5333Ff7a11bc',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FUSDT_USDT_LP'),
+    asset: assetByName('fUSDT_USDT_LP'),
     address: '0x316De40F36da4C54AFf11C1D83081555Cca41270',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FWBTC_WBTC_LP'),
+    asset: assetByName('fWBTC_WBTC_LP'),
     address: '0xbb846ad2552c0669062c9eadfa63148bcba3e2b0',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FRENBTC_WBTC_LP'),
+    asset: assetByName('fRENBTC_WBTC_LP'),
     address: '0x298a92daf7c71ced261c79300a620e8bee54daa6',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FCRVRENWBTC_WBTC_LP'),
+    asset: assetByName('fCRV-RENWBTC_WBTC_LP'),
     address: '0x489c78aa0969118439176c14af22b3b56bd1d46e',
     rewardAsset: assetByName('FARM'),
   },
@@ -1017,273 +1039,238 @@ const weekThreePools = [
 
 const weekFourPools = [
   {
+    name: 'Profit Sharing v2',
     asset: assetByName('FARM'),
     address: '0x59258F4e15A5fC74A7284055A8094F58108dbD4f',
     rewardAsset: assetByName('FARM'),
   },
   {
+    name: 'FARM:USDC Uniswap',
     asset: assetByName('FARM_USDC_LP'),
     address: '0x99b0d6641A63Ce173E6EB063b3d3AED9A35Cf9bf',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fWETH_v0'),
+    address: '0xe11c81b924bb91b44bae19793539054b48158a9d',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fDAI_v0'),
+    address: '0xF9E5f9024c2f3f2908A1d0e7272861a767C9484b',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fUSDC_v0'),
+    address: '0xE1f9A3EE001a2EcC906E8de637DBf20BB2d44633',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fUSDT_v0'),
+    address: '0x5bd997039FFF16F653EF15D1428F2C791519f58d',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fWBTC_v0'),
+    address: '0x6291eCe696CB6682a9bb1d42fca4160771b1D7CC',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fRENBTC_v0'),
+    address: '0xCFE1103863F9e7Cf3452Ca8932Eef44d314bf9C5',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fCRV-RENWBTC_v0'),
+    address: '0x5365A2C47b90EE8C9317faC20edC3ce7037384FB',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fWETH_USDT_LP_v0'),
+    address: '0x9494a3026f28d0b189252428cebbfa52e69608c4',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fWETH_USDC_LP_v0'),
+    address: '0xc24da7a6b5adc8771588d58b6109ef52c95a311e',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fWETH_DAI_LP_v0'),
+    address: '0xdc27244311c56ed038e7acf104245ec6a040d07f',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fWETH_WBTC_LP_v0'),
+    address: '0x3bdc3e2572a5540bb1eb1e55bb8749d33fd1a105',
     rewardAsset: assetByName('FARM'),
   },
   {
     asset: assetByName('CRPT_80_FARM_20_WETH'),
     address: '0x8bcbf139b8d7b26f37d89f2c8aa9de810b5a3814',
     rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('FWETH_USDT_LP_v0'),
-    address: '0x9494a3026f28d0b189252428cebbfa52e69608c4',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('FWETH_USDC_LP_v0'),
-    address: '0xc24da7a6b5adc8771588d58b6109ef52c95a311e',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('FWETH_DAI_LP_v0'),
-    address: '0xdc27244311c56ed038e7acf104245ec6a040d07f',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('FWETH_WBTC_LP_v0'),
-    address: '0x3bdc3e2572a5540bb1eb1e55bb8749d33fd1a105',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fWETH'),
-    address: '0xe11c81b924bb91b44bae19793539054b48158a9d',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fDAI'),
-    address: '0xF9E5f9024c2f3f2908A1d0e7272861a767C9484b',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fUSDC'),
-    address: '0xE1f9A3EE001a2EcC906E8de637DBf20BB2d44633',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fUSDT'),
-    address: '0x5bd997039FFF16F653EF15D1428F2C791519f58d',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fWBTC'),
-    address: '0x6291eCe696CB6682a9bb1d42fca4160771b1D7CC',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fRENBTC'),
-    address: '0xCFE1103863F9e7Cf3452Ca8932Eef44d314bf9C5',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fCRV-RENWBTC'),
-    address: '0x5365A2C47b90EE8C9317faC20edC3ce7037384FB',
-    rewardAsset: assetByName('FARM'),
-  },
+  }
 ];
 
 const weekFivePools = [
   {
-    name: 'FARM',
+    name: 'FARM Profit Sharing',
     asset: assetByName('FARM'),
     address: '0x25550Cccbd68533Fa04bFD3e3AC4D09f9e00Fc50',
     rewardAsset: assetByName('FARM'),
     type: 'autocompounding',
   },
   {
+    name: 'FARM:USDC Uniswap',
     asset: assetByName('FARM_USDC_LP'),
     address: '0x99b0d6641A63Ce173E6EB063b3d3AED9A35Cf9bf',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FWETH_USDT_LP_v0'),
-    address: '0x9494a3026f28d0b189252428cebbfa52e69608c4',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('FWETH_USDC_LP_v0'),
-    address: '0xc24da7a6b5adc8771588d58b6109ef52c95a311e',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('FWETH_DAI_LP_v0'),
-    address: '0xdc27244311c56ed038e7acf104245ec6a040d07f',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('FWETH_WBTC_LP_v0'),
-    address: '0x3bdc3e2572a5540bb1eb1e55bb8749d33fd1a105',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fWETH'),
+    asset: assetByName('fWETH_v0'),
     address: '0xe11c81b924bb91b44bae19793539054b48158a9d',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('fDAI'),
+    asset: assetByName('fDAI_v0'),
     address: '0xF9E5f9024c2f3f2908A1d0e7272861a767C9484b',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('fUSDC'),
+    asset: assetByName('fUSDC_v0'),
     address: '0xE1f9A3EE001a2EcC906E8de637DBf20BB2d44633',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('fUSDT'),
+    asset: assetByName('fUSDT_v0'),
     address: '0x5bd997039FFF16F653EF15D1428F2C791519f58d',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('fWBTC'),
+    asset: assetByName('fWBTC_v0'),
     address: '0x6291eCe696CB6682a9bb1d42fca4160771b1D7CC',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('fRENBTC'),
+    asset: assetByName('fRENBTC_v0'),
     address: '0xCFE1103863F9e7Cf3452Ca8932Eef44d314bf9C5',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('fCRV-RENWBTC'),
+    asset: assetByName('fCRV-RENWBTC_v0'),
     address: '0x5365A2C47b90EE8C9317faC20edC3ce7037384FB',
     rewardAsset: assetByName('FARM'),
   },
+  {
+    asset: assetByName('fWETH_USDT_LP_v0'),
+    address: '0x9494a3026f28d0b189252428cebbfa52e69608c4',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fWETH_USDC_LP_v0'),
+    address: '0xc24da7a6b5adc8771588d58b6109ef52c95a311e',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fWETH_DAI_LP_v0'),
+    address: '0xdc27244311c56ed038e7acf104245ec6a040d07f',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fWETH_WBTC_LP_v0'),
+    address: '0x3bdc3e2572a5540bb1eb1e55bb8749d33fd1a105',
+    rewardAsset: assetByName('FARM'),
+  }
 ];
 
 const weekSixPools = [
   {
-    name: 'FARM',
+    name: 'FARM Profit Sharing',
     asset: assetByName('FARM'),
     address: '0x25550Cccbd68533Fa04bFD3e3AC4D09f9e00Fc50',
     rewardAsset: assetByName('FARM'),
     type: 'autocompounding',
   },
   {
+    name: 'FARM:USDC Uniswap',
     asset: assetByName('FARM_USDC_LP'),
     address: '0x99b0d6641A63Ce173E6EB063b3d3AED9A35Cf9bf',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FWETH_USDT_LP_v0'),
+    asset: assetByName('fTUSD'),
+    address: '0xeC56a21CF0D7FeB93C25587C12bFfe094aa0eCdA',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fWETH_v0'),
+    address: '0xe11c81b924bb91b44bae19793539054b48158a9d',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fDAI_v0'),
+    address: '0xF9E5f9024c2f3f2908A1d0e7272861a767C9484b',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fUSDC_v0'),
+    address: '0xE1f9A3EE001a2EcC906E8de637DBf20BB2d44633',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fUSDT_v0'),
+    address: '0x5bd997039FFF16F653EF15D1428F2C791519f58d',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fWBTC_v0'),
+    address: '0x6291eCe696CB6682a9bb1d42fca4160771b1D7CC',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fRENBTC_v0'),
+    address: '0xCFE1103863F9e7Cf3452Ca8932Eef44d314bf9C5',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fCRV-RENWBTC_v0'),
+    address: '0x5365A2C47b90EE8C9317faC20edC3ce7037384FB',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fWETH_USDT_LP_v0'),
     address: '0x9494a3026f28d0b189252428cebbfa52e69608c4',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FWETH_USDC_LP_v0'),
+    asset: assetByName('fWETH_USDC_LP_v0'),
     address: '0xc24da7a6b5adc8771588d58b6109ef52c95a311e',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FWETH_DAI_LP_v0'),
+    asset: assetByName('fWETH_DAI_LP_v0'),
     address: '0xdc27244311c56ed038e7acf104245ec6a040d07f',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('FWETH_WBTC_LP_v0'),
+    asset: assetByName('fWETH_WBTC_LP_v0'),
     address: '0x3bdc3e2572a5540bb1eb1e55bb8749d33fd1a105',
     rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fWETH'),
-    address: '0xe11c81b924bb91b44bae19793539054b48158a9d',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fDAI'),
-    address: '0xF9E5f9024c2f3f2908A1d0e7272861a767C9484b',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fUSDC'),
-    address: '0xE1f9A3EE001a2EcC906E8de637DBf20BB2d44633',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fUSDT'),
-    address: '0x5bd997039FFF16F653EF15D1428F2C791519f58d',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fTUSD'),
-    address: '0xeC56a21CF0D7FeB93C25587C12bFfe094aa0eCdA',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fWBTC'),
-    address: '0x6291eCe696CB6682a9bb1d42fca4160771b1D7CC',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fRENBTC'),
-    address: '0xCFE1103863F9e7Cf3452Ca8932Eef44d314bf9C5',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fCRV-RENWBTC'),
-    address: '0x5365A2C47b90EE8C9317faC20edC3ce7037384FB',
-    rewardAsset: assetByName('FARM'),
-  },
+  }
 ];
 
 const weekSevenPools = [
   {
-    name: 'FARM',
+    name: 'FARM Profit Sharing',
     asset: assetByName('FARM'),
     address: '0x25550Cccbd68533Fa04bFD3e3AC4D09f9e00Fc50',
     rewardAsset: assetByName('FARM'),
     type: 'autocompounding',
   },
   {
+    name: 'FARM:USDC Uniswap',
     asset: assetByName('FARM_USDC_LP'),
     address: '0x99b0d6641A63Ce173E6EB063b3d3AED9A35Cf9bf',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fUNISWAP_LP'),
-    address: '0x75071F2653fBC902EBaff908d4c68712a5d1C960',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fUNISWAP_LP'),
-    address: '0x156733b89Ac5C704F3217FEe2949A9D4A73764b5',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fUNISWAP_LP'),
-    address: '0x7aeb36e22e60397098C2a5C51f0A5fB06e7b859c',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fUNISWAP_LP'),
-    address: '0xF1181A71CC331958AE2cA2aAD0784Acfc436CB93',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fWETH'),
-    address: '0xe11c81b924bb91b44bae19793539054b48158a9d',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fDAI'),
-    address: '0xF9E5f9024c2f3f2908A1d0e7272861a767C9484b',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fUSDC'),
-    address: '0xE1f9A3EE001a2EcC906E8de637DBf20BB2d44633',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fUSDT'),
-    address: '0x5bd997039FFF16F653EF15D1428F2C791519f58d',
     rewardAsset: assetByName('FARM'),
   },
   {
@@ -1292,63 +1279,94 @@ const weekSevenPools = [
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('fWBTC'),
+    name: 'fUNI-ETH:USDT',
+    asset: assetByName('fWETH_USDT_LP'),
+    address: '0x75071F2653fBC902EBaff908d4c68712a5d1C960',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    name: 'fUNI-ETH:USDC',
+    asset: assetByName('fWETH_USDC_LP'),
+    address: '0x156733b89Ac5C704F3217FEe2949A9D4A73764b5',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    name: 'fUNI-ETH:DAI',
+    asset: assetByName('fWETH_DAI_LP'),
+    address: '0x7aeb36e22e60397098C2a5C51f0A5fB06e7b859c',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    name: 'fUNI-ETH:WBTC',
+    asset: assetByName('fWETH_WBTC_LP'),
+    address: '0xF1181A71CC331958AE2cA2aAD0784Acfc436CB93',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    name: 'fSUSHI-WBTC:TBTC',
+    asset: assetByName('fSLP_WBTC_TBTC'),
+    address: '0x9523FdC055F503F73FF40D7F66850F409D80EF34',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fWETH_v0'),
+    address: '0xe11c81b924bb91b44bae19793539054b48158a9d',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fDAI_v0'),
+    address: '0xF9E5f9024c2f3f2908A1d0e7272861a767C9484b',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fUSDC_v0'),
+    address: '0xE1f9A3EE001a2EcC906E8de637DBf20BB2d44633',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fUSDT_v0'),
+    address: '0x5bd997039FFF16F653EF15D1428F2C791519f58d',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fWBTC_v0'),
     address: '0x6291eCe696CB6682a9bb1d42fca4160771b1D7CC',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('fRENBTC'),
+    asset: assetByName('fRENBTC_v0'),
     address: '0xCFE1103863F9e7Cf3452Ca8932Eef44d314bf9C5',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('fCRV-RENWBTC'),
+    asset: assetByName('fCRV-RENWBTC_v0'),
     address: '0x5365A2C47b90EE8C9317faC20edC3ce7037384FB',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fSUSHI-WBTC-TBTC'),
-    address: '0x9523FdC055F503F73FF40D7F66850F409D80EF34',
     rewardAsset: assetByName('FARM'),
   },
 ];
 
 const weekEightPools = [
   {
-    name: 'FARM',
+    name: 'FARM Profit Sharing',
     asset: assetByName('FARM'),
     address: '0x25550Cccbd68533Fa04bFD3e3AC4D09f9e00Fc50',
     rewardAsset: assetByName('FARM'),
     type: 'autocompounding',
   },
   {
+    name: 'FARM:USDC Uniswap',
     asset: assetByName('FARM_USDC_LP'),
     address: '0x99b0d6641A63Ce173E6EB063b3d3AED9A35Cf9bf',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('fUNISWAP_LP'),
-    address: '0x75071F2653fBC902EBaff908d4c68712a5d1C960',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fUNISWAP_LP'),
-    address: '0x156733b89Ac5C704F3217FEe2949A9D4A73764b5',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fUNISWAP_LP'),
-    address: '0x7aeb36e22e60397098C2a5C51f0A5fB06e7b859c',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fUNISWAP_LP'),
-    address: '0xF1181A71CC331958AE2cA2aAD0784Acfc436CB93',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
     asset: assetByName('fWETH'),
     address: '0x3DA9D911301f8144bdF5c3c67886e5373DCdff8e',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fTUSD'),
+    address: '0xeC56a21CF0D7FeB93C25587C12bFfe094aa0eCdA',
     rewardAsset: assetByName('FARM'),
   },
   {
@@ -1387,7 +1405,32 @@ const weekEightPools = [
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('fSUSHI-WBTC-TBTC'),
+    name: 'fUNI-ETH:USDT',
+    asset: assetByName('fWETH_USDT_LP'),
+    address: '0x75071F2653fBC902EBaff908d4c68712a5d1C960',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    name: 'fUNI-ETH:USDC',
+    asset: assetByName('fWETH_USDC_LP'),
+    address: '0x156733b89Ac5C704F3217FEe2949A9D4A73764b5',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    name: 'fUNI-ETH:DAI',
+    asset: assetByName('fWETH_DAI_LP'),
+    address: '0x7aeb36e22e60397098C2a5C51f0A5fB06e7b859c',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    name: 'fUNI-ETH:WBTC',
+    asset: assetByName('fWETH_WBTC_LP'),
+    address: '0xF1181A71CC331958AE2cA2aAD0784Acfc436CB93',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    name: 'fSUSHI-WBTC:TBTC',
+    asset: assetByName('fSLP_WBTC_TBTC'),
     address: '0x9523FdC055F503F73FF40D7F66850F409D80EF34',
     rewardAsset: assetByName('FARM'),
   },
@@ -1395,40 +1438,26 @@ const weekEightPools = [
 
 const weekTenPools = [
   {
-    name: 'FARM',
+    name: 'FARM Profit Sharing',
     asset: assetByName('FARM'),
     address: '0x25550Cccbd68533Fa04bFD3e3AC4D09f9e00Fc50',
     rewardAsset: assetByName('FARM'),
     type: 'autocompounding',
   },
   {
+    name: 'FARM:USDC Uniswap',
     asset: assetByName('FARM_USDC_LP'),
     address: '0x99b0d6641A63Ce173E6EB063b3d3AED9A35Cf9bf',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('fUNISWAP_LP'),
-    address: '0x75071F2653fBC902EBaff908d4c68712a5d1C960',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fUNISWAP_LP'),
-    address: '0x156733b89Ac5C704F3217FEe2949A9D4A73764b5',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fUNISWAP_LP'),
-    address: '0x7aeb36e22e60397098C2a5C51f0A5fB06e7b859c',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fUNISWAP_LP'),
-    address: '0xF1181A71CC331958AE2cA2aAD0784Acfc436CB93',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
     asset: assetByName('fWETH'),
     address: '0x3DA9D911301f8144bdF5c3c67886e5373DCdff8e',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fTUSD'),
+    address: '0xeC56a21CF0D7FeB93C25587C12bFfe094aa0eCdA',
     rewardAsset: assetByName('FARM'),
   },
   {
@@ -1467,17 +1496,42 @@ const weekTenPools = [
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('fSUSHI-WBTC-TBTC'),
+    name: 'fUNI-ETH:USDT',
+    asset: assetByName('fWETH_USDT_LP'),
+    address: '0x75071F2653fBC902EBaff908d4c68712a5d1C960',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    name: 'fUNI-ETH:USDC',
+    asset: assetByName('fWETH_USDC_LP'),
+    address: '0x156733b89Ac5C704F3217FEe2949A9D4A73764b5',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    name: 'fUNI-ETH:DAI',
+    asset: assetByName('fWETH_DAI_LP'),
+    address: '0x7aeb36e22e60397098C2a5C51f0A5fB06e7b859c',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    name: 'fUNI-ETH:WBTC',
+    asset: assetByName('fWETH_WBTC_LP'),
+    address: '0xF1181A71CC331958AE2cA2aAD0784Acfc436CB93',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    name: 'fSUSHI-WBTC:TBTC',
+    asset: assetByName('fSLP_WBTC_TBTC'),
     address: '0x9523FdC055F503F73FF40D7F66850F409D80EF34',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('f3CRV'),
+    asset: assetByName('fCRV-3POOL'),
     address: '0x27F12d1a08454402175b9F0b53769783578Be7d9',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('fYCRV'),
+    asset: assetByName('fCRV-YPOOL'),
     address: '0x6D1b6Ea108AA03c6993d8010690264BA96D349A8',
     rewardAsset: assetByName('FARM'),
   },
@@ -1485,45 +1539,26 @@ const weekTenPools = [
 
 const weekElevenPools = [
   {
-    name: 'FARM',
+    name: 'FARM Profit Sharing',
     asset: assetByName('FARM'),
     address: '0x25550Cccbd68533Fa04bFD3e3AC4D09f9e00Fc50',
     rewardAsset: assetByName('FARM'),
     type: 'autocompounding',
   },
   {
+    name: 'FARM:USDC Uniswap',
     asset: assetByName('FARM_USDC_LP'),
     address: '0x99b0d6641A63Ce173E6EB063b3d3AED9A35Cf9bf',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('fUNISWAP_LP'),
-    address: '0x75071F2653fBC902EBaff908d4c68712a5d1C960',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fUNISWAP_LP'),
-    address: '0x156733b89Ac5C704F3217FEe2949A9D4A73764b5',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fUNISWAP_LP'),
-    address: '0x7aeb36e22e60397098C2a5C51f0A5fB06e7b859c',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fUNISWAP_LP'),
-    address: '0xF1181A71CC331958AE2cA2aAD0784Acfc436CB93',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fSUSHI-WBTC-TBTC'),
-    address: '0x9523FdC055F503F73FF40D7F66850F409D80EF34',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
     asset: assetByName('fWETH'),
     address: '0x3DA9D911301f8144bdF5c3c67886e5373DCdff8e',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fTUSD'),
+    address: '0xeC56a21CF0D7FeB93C25587C12bFfe094aa0eCdA',
     rewardAsset: assetByName('FARM'),
   },
   {
@@ -1562,12 +1597,42 @@ const weekElevenPools = [
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('f3CRV'),
+    name: 'fUNI-ETH:USDT',
+    asset: assetByName('fWETH_USDT_LP'),
+    address: '0x75071F2653fBC902EBaff908d4c68712a5d1C960',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    name: 'fUNI-ETH:USDC',
+    asset: assetByName('fWETH_USDC_LP'),
+    address: '0x156733b89Ac5C704F3217FEe2949A9D4A73764b5',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    name: 'fUNI-ETH:DAI',
+    asset: assetByName('fWETH_DAI_LP'),
+    address: '0x7aeb36e22e60397098C2a5C51f0A5fB06e7b859c',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    name: 'fUNI-ETH:WBTC',
+    asset: assetByName('fWETH_WBTC_LP'),
+    address: '0xF1181A71CC331958AE2cA2aAD0784Acfc436CB93',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    name: 'fSUSHI-WBTC:TBTC',
+    asset: assetByName('fSLP_WBTC_TBTC'),
+    address: '0x9523FdC055F503F73FF40D7F66850F409D80EF34',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fCRV-3POOL'),
     address: '0x27F12d1a08454402175b9F0b53769783578Be7d9',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('fYCRV'),
+    asset: assetByName('fCRV-YPOOL'),
     address: '0x6D1b6Ea108AA03c6993d8010690264BA96D349A8',
     rewardAsset: assetByName('FARM'),
   },
@@ -1580,45 +1645,26 @@ const weekElevenPools = [
 
 const weekTwelvePools= [
   {
-    name: 'FARM',
+    name: 'FARM Profit Sharing',
     asset: assetByName('FARM'),
     address: '0x25550Cccbd68533Fa04bFD3e3AC4D09f9e00Fc50',
     rewardAsset: assetByName('FARM'),
     type: 'autocompounding',
   },
   {
+    name: 'FARM:USDC Uniswap',
     asset: assetByName('FARM_USDC_LP'),
     address: '0x99b0d6641A63Ce173E6EB063b3d3AED9A35Cf9bf',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('fSUSHI-WBTC-TBTC'),
-    address: '0x9523FdC055F503F73FF40D7F66850F409D80EF34',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fSUSHI-ETH-DAI'),
-    address: '0x76Aef359a33C02338902aCA543f37de4b01BA1FA',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fSUSHI-ETH-USDT'),
-    address: '0xA56522BCA0A09f57B85C52c0Cc8Ba1B5eDbc64ef',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fSUSHI-ETH-USDC'),
-    address: '0x6B4e1E0656Dd38F36c318b077134487B9b0cf7a6',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
-    asset: assetByName('fSUSHI-ETH-WBTC'),
-    address: '0xE2D9FAe95f1e68afca7907dFb36143781f917194',
-    rewardAsset: assetByName('FARM'),
-  },
-  {
     asset: assetByName('fWETH'),
     address: '0x3DA9D911301f8144bdF5c3c67886e5373DCdff8e',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    asset: assetByName('fTUSD'),
+    address: '0xeC56a21CF0D7FeB93C25587C12bFfe094aa0eCdA',
     rewardAsset: assetByName('FARM'),
   },
   {
@@ -1657,18 +1703,42 @@ const weekTwelvePools= [
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('f3CRV'),
+    asset: assetByName('fCRV-3POOL'),
     address: '0x27F12d1a08454402175b9F0b53769783578Be7d9',
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('fYCRV'),
+    asset: assetByName('fCRV-YPOOL'),
     address: '0x6D1b6Ea108AA03c6993d8010690264BA96D349A8',
     rewardAsset: assetByName('FARM'),
   },
   {
     asset: assetByName('fCRV-TBTC'),
     address: '0x017eC1772A45d2cf68c429A820eF374f0662C57c',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    name: 'fSUSHI-ETH:DAI',
+    asset: assetByName('fSLP_WETH_DAI'),
+    address: '0x76Aef359a33C02338902aCA543f37de4b01BA1FA',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    name: 'fSUSHI-ETH:USDT',
+    asset: assetByName('fSLP_WETH_USDT'),
+    address: '0xA56522BCA0A09f57B85C52c0Cc8Ba1B5eDbc64ef',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    name: 'fSUSHI-ETH:USDC',
+    asset: assetByName('fSLP_WETH_USDC'),
+    address: '0x6B4e1E0656Dd38F36c318b077134487B9b0cf7a6',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    name: 'fSUSHI-ETH:WBTC',
+    asset: assetByName('fSLP_WETH_WBTC'),
+    address: '0xE2D9FAe95f1e68afca7907dFb36143781f917194',
     rewardAsset: assetByName('FARM'),
   },
   {
@@ -1682,7 +1752,7 @@ const weekTwelvePools= [
     rewardAsset: assetByName('FARM'),
   },
   {
-    asset: assetByName('fCCRV'),
+    asset: assetByName('fCRV-COMPOUND'),
     address: '0xC0f51a979e762202e9BeF0f62b07F600d0697DE1',
     rewardAsset: assetByName('FARM'),
   },

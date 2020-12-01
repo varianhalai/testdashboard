@@ -127,7 +127,7 @@ const StakePanel = ({ state, openModal }) => {
           : await pool.unstakedBalance(state.address);
   
       if (allowance.lt(amount)) {
-        await pool.lptoken.approve(state.address, ethers.constants.MaxUint256);
+        await pool.lptoken.approve(pool.address, ethers.constants.MaxUint256);
         await pool.stake(amount);
       } else {
         await pool.stake(amount).catch((e) => {
