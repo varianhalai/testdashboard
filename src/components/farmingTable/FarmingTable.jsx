@@ -27,8 +27,6 @@ const TableContainer = styled.div`
   z-index: 50;
  
   
-
-
   div[role="table"] {
     width: 99%;
     height: 100%
@@ -41,7 +39,6 @@ const TableContainer = styled.div`
       width: .1rem;
     }
 }
-
 .rdt_TableHeadRow {
     
   border-bottom: ${(props) => props.theme.style.mainBorder};
@@ -50,16 +47,13 @@ const TableContainer = styled.div`
   border-top-right-radius: 0.5rem;
   border-top-left-radius: 0.5rem;
 }
-
 .rdt_TableBody {
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   border-bottom-left-radius: .5rem;
   border-bottom-right-radius: .5rem;
-
 }
-
 .rdt_TableRow {
   background-color: ${(props) => props.theme.style.lightBackground};
   font-family: ${fonts.contentFont};
@@ -78,17 +72,14 @@ const TableContainer = styled.div`
     font-size: .9rem;
   }
 }
-
 div[role="columnheader"] {
   color: ${(props) => props.theme.style.primaryFontColor};
   background-color: ${(props) => props.theme.style.lightBackground};
   font-family: ${fonts.headerFont};
   font-size: 1.7rem;
   letter-spacing: -1.5px;
-
   
   
-
   &:hover,
   &:visited,
   &:active,
@@ -97,11 +88,7 @@ div[role="columnheader"] {
   }
 }
   
-
   
-
-
-
   
 `;
 
@@ -178,7 +165,6 @@ const MainTableRow = styled.div`
     cursor: pointer;
     transition: scale 200ms ease;
     border-radius: .5rem;
-
     &:hover {
       width: 35%;
       margin: 0 auto;
@@ -249,7 +235,6 @@ const MainTableHeader = styled.div`
     }
   }
   
-
 `;
 // const StyledTableHeader = styled(TableHeader)`
 //   display: grid;
@@ -291,10 +276,8 @@ const PanelTab = styled.div`
   position: relative;
   top: 1.2rem;
   color: ${(props) => props.theme.style.buttonFontColor};
-
   
   
-
   p {
     color: ${(props) => props.theme.style.panelTabLinkColor};
     text-decoration: none;
@@ -340,34 +323,36 @@ const columns = [
     
   },
   {
-    name: "Earns?",
+    name: "Earning",
     selector: (data) => data.isActive.toString(),
-    compact: true,
+    compact: true
+    
   },
   {
     name: "Earned Rewards",
     selector: "earnedRewards",
     compact: true,
-  },
-  {
-    name: "To-Date",
-    selector: "",
-    compact: true,
+    
+    
   },
   {
     name: "Staked",
     selector: "stakedBalance",
-    compact: true,
+    compact: true
+    
+    
   },
   {
-    name: "Pool%",
+    name: "% of Pool",
     selector: "percentOfPool",
     compact: true,
+    
   },
   {
     name: "Unstaked",
     selector: "unstakedBalance",
     compact: true,
+    
   },
   {
     name: "Value",
@@ -461,4 +446,3 @@ const FarmingTable = ({ state,setState }) => {
 };
 
 export default FarmingTable;
-
