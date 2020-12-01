@@ -8,7 +8,7 @@ import Loadable from 'react-loadable';
 import { darkTheme, lightTheme, fonts } from "./styles/appStyles.js";
 import axios from 'axios';
 import ReactModal from 'react-modal-resizable-draggable';
-import {AnimatePresence,motion } from "framer-motion";
+import {motion} from "framer-motion";
 
 //context
 import HarvestContext from './Context/HarvestContext';
@@ -572,7 +572,7 @@ function App() {
   });
 
   const getPools = async () => {
-   const harvestPools = await axios.get(
+   axios.get(
       "https://api-ui.harvest.finance/pools?key=41e90ced-d559-4433-b390-af424fdc76d6",
     ).then(res => {
       let currentAPY = res.data[0].rewardAPY;

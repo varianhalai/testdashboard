@@ -3,35 +3,14 @@ import {ERC20_ABI, UNISWAP_PAIR_ABI, BALANCER_ABI, CURVE_ABI, FTOKEN_ABI} from '
 import ethers from 'ethers';
 import data from './data/deploys.js';
 import Gecko from './gecko.js';
-import axios from 'axios';
+
 /**
  * UnderlyingBalances
  */
 
 
-let tokenPrices = {}
-axios.get(
-  "https://api-ui.harvest.finance/pools?key=41e90ced-d559-4433-b390-af424fdc76d6",
-).then(res => {
- 
-  res.data.map(item => {
-    
-    if(item.tokenForLogo) {
-      if(item.tokenForLogo === "RENBTC") {
-       let divided = item.lpTokenData.price / 10000000000
-     
-        tokenPrices[`${item.tokenForLogo}`] = `${divided}`
-      }
-      tokenPrices[`${item.tokenForLogo}`] = `${item.lpTokenData.price}`
-    }
-    
-  })
 
-  tokenPrices["FARM"] = `${res.data[0].lpTokenData.price.toString()}`
-})
-.catch(err => {
-  console.log(err)
-})
+
 
 
 

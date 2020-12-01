@@ -212,14 +212,7 @@ export class PoolManager {
    * @param {string} address user address
    * @return {Array} rewards
    */
-  historicalRewards(address) {
-    return PoolManager._mapToPools(
-        this.pools,
-        ['historicalRewards'],
-        [address],
-        'historicalRewards',
-    );
-  }
+ 
 
   /**
    * @param {string} address user address

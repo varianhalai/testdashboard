@@ -156,11 +156,7 @@ const StakePanel = ({ state, openModal }) => {
         
 
   }
-  const unstake = async () => {
-    await pool.exit().catch((e) => {
-      console.log("insufficientBalance", e);
-    });
-  };
+ 
 
   const exitInactivePools = () => {
     state.manager.exitInactive();
