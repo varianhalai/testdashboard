@@ -72,7 +72,7 @@ const WelcomeTextPanel = styled.div`
     width: 25%;
     margin: 1rem auto;
     line-height: 1.8rem;
-    font-size: 1.35rem;
+    font-size: 1.1rem;
   }
   @media(max-width: 1100px) {
     .foot-note {
