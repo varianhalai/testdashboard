@@ -156,7 +156,11 @@ const StakePanel = ({ state, openModal }) => {
         
 
   }
-  
+  const unstake = async () => {
+    await pool.exit().catch((e) => {
+      console.log("insufficientBalance", e);
+    });
+  };
 
   const exitInactivePools = () => {
     state.manager.exitInactive();
@@ -208,6 +212,13 @@ const StakePanel = ({ state, openModal }) => {
           <button className="button" disabled={!state.provider} onClick={stake}>
             stake
           </button>
+          {/* <button
+            className="button"
+            disabled={!state.provider}
+            onClick={unstake}
+          >
+            unstake
+          </button> */}
           
           {inactivePools.length > 0 && (
             <button

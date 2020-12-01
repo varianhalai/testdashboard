@@ -25,6 +25,7 @@ const Panel = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  
   background-color: ${(props) => props.theme.style.lightBackground};
   color: ${(props) => props.theme.style.primaryFontColor};
   font-size: 1.7rem;
@@ -101,6 +102,11 @@ const Panel = styled.div`
     position: relative;
   }
 
+  
+  
+
+  
+  
   @media(max-width: 1105px) {
     margin-bottom: 1.5rem;
     height: 32rem;
@@ -242,14 +248,10 @@ const StyledToken = styled.div`
   align-items: center;
   position: relative;
   width: 20%;
-  cursor: pointer;
   
 
   &:hover {
-    top: .25rem;
-    transform: scale(1.05);
-    
-   
+    top: .2rem;
   }
   
 
