@@ -25,7 +25,6 @@ const Panel = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  
   background-color: ${(props) => props.theme.style.lightBackground};
   color: ${(props) => props.theme.style.primaryFontColor};
   font-size: 1.7rem;
@@ -102,11 +101,6 @@ const Panel = styled.div`
     position: relative;
   }
 
-  
-  
-
-  
-  
   @media(max-width: 1105px) {
     margin-bottom: 1.5rem;
     height: 32rem;
@@ -173,8 +167,7 @@ const tokens = [
   },
   {
     name: "3CRV",
-    symbol: "3CRV",
-    url: "https://varianhalai.github.io/add-3crv/",
+    url: "https://harvestfi.github.io/add-3crv/",
     image: crv3,
     address: '0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490',
     decimals: 18,
@@ -201,8 +194,6 @@ const tokens2 = [
   },
   {
     name: "SUSHI:WBTC-TBTC",
-    symbol: 'SLP',
-    url: "https://varianhalai.github.io/add-sushi/",
     image: sushi,
     address: '0x2dbc7dd86c6cd87b525bd54ea73ebeebbc307f68',
     decimals: 18,
@@ -210,7 +201,6 @@ const tokens2 = [
   },
   {
     name: "UNI:ETH-WBTC",
-    symbol: 'UNI-V2',
     image: wbtc,
     address: '0x2dbc7dd86c6cd87b525bd54ea73ebeebbc307f68',
     decimals: 18,
@@ -252,10 +242,14 @@ const StyledToken = styled.div`
   align-items: center;
   position: relative;
   width: 20%;
+  cursor: pointer;
   
 
   &:hover {
-    top: .2rem;
+    top: .25rem;
+    transform: scale(1.05);
+    
+   
   }
   
 

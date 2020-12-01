@@ -127,7 +127,7 @@ const StakePanel = ({ state, openModal }) => {
           : await pool.unstakedBalance(state.address);
   
       if (allowance.lt(amount)) {
-        await pool.lptoken.approve(state.address, ethers.constants.MaxUint256);
+        await pool.lptoken.approve(pool.address, ethers.constants.MaxUint256);
         await pool.stake(amount);
       } else {
         await pool.stake(amount).catch((e) => {
@@ -156,11 +156,7 @@ const StakePanel = ({ state, openModal }) => {
         
 
   }
-  const unstake = async () => {
-    await pool.exit().catch((e) => {
-      console.log("insufficientBalance", e);
-    });
-  };
+  
 
   const exitInactivePools = () => {
     state.manager.exitInactive();
@@ -212,13 +208,6 @@ const StakePanel = ({ state, openModal }) => {
           <button className="button" disabled={!state.provider} onClick={stake}>
             stake
           </button>
-          {/* <button
-            className="button"
-            disabled={!state.provider}
-            onClick={unstake}
-          >
-            unstake
-          </button> */}
           
           {inactivePools.length > 0 && (
             <button

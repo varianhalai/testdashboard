@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React from "react";
 import DataTable from "react-data-table-component";
 import styled, { ThemeProvider } from "styled-components";
 import harvest from "../../lib/index";
@@ -9,7 +9,7 @@ import FarmTableSkeleton from './FarmTableSkeleton';
 
 
 
-const { utils,ethers } = harvest;
+const { utils } = harvest;
 
 const TableContainer = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ const TableContainer = styled.div`
   border-radius: .5rem;
   border-top-left-radius: 0rem;
   position: relative;
-  z-index: 50;
+  
  
   
 
@@ -259,20 +259,6 @@ const MainTableHeader = styled.div`
 //   text-align: left;
 // `;
 
-const FarmingTableHeader = styled.h1`
-font-size: 2.2rem;
-text-align: center;
-font-family: ${fonts.headerFont};
-border-radius: .5rem;
-border: ${(props) => props.theme.style.mainBorder};
-box-shadow: ${(props) => props.theme.style.panelBoxShadow};
-color: ${(props) => props.theme.style.primaryFontColor};
-background-color: ${(props) => props.theme.style.lightBackground};
-color: ${(props) => props.theme.style.lightBackground};
-width: 25%;
-margin: 1rem auto;
-padding: 5px;
-`;
 
 const PanelTabContainerLeft = styled.div`
   display: flex;
@@ -340,36 +326,34 @@ const columns = [
     
   },
   {
-    name: "Earning",
+    name: "Earns?",
     selector: (data) => data.isActive.toString(),
-    compact: true
-    
+    compact: true,
   },
   {
     name: "Earned Rewards",
     selector: "earnedRewards",
     compact: true,
-    
-    
+  },
+  {
+    name: "To-Date",
+    selector: "",
+    compact: true,
   },
   {
     name: "Staked",
     selector: "stakedBalance",
-    compact: true
-    
-    
+    compact: true,
   },
   {
-    name: "% of Pool",
+    name: "Pool%",
     selector: "percentOfPool",
     compact: true,
-    
   },
   {
     name: "Unstaked",
     selector: "unstakedBalance",
     compact: true,
-    
   },
   {
     name: "Value",

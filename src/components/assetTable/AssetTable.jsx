@@ -12,7 +12,7 @@ const TableContainer = styled.div`
   align-items: center;
   width: 100.3%;
   position: relative;
-  z-index: 50;
+  
   
   
   

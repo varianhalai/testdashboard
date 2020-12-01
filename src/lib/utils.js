@@ -30,7 +30,8 @@ export function prettyPosition(sum) {
   // const prettyUsdValue = `$${ethers.utils.formatUnits(bnValueOf, 2)}`;
   const prettyUsdValue = prettyMoney(usdValueOf);
 
-  const truncatedRewards = historicalRewards.div((10 ** 12))
+  const truncatedClaimable = earnedRewards.div((10 ** 10));
+  const truncatedRewards = historicalRewards.div((10 ** 10));
 
   return {
     name,
@@ -38,10 +39,11 @@ export function prettyPosition(sum) {
     address: address,
     stakedBalance: ethers.utils.formatUnits(stakedBalance, decimals),
     unstakedBalance: ethers.utils.formatUnits(unstakedBalance, decimals),
-    earnedRewards: ethers.utils.formatUnits(earnedRewards, 18),
+    earnedRewards: ethers.utils.formatUnits(truncatedClaimable, 8),
+    //earnedRewards: ethers.utils.formatUnits(earnedRewards, 8),
     percentOfPool: percentageOwnership,
     usdValueOf: prettyUsdValue,
-    historicalRewards: ethers.utils.formatUnits(truncatedRewards, 6),
+    historicalRewards: ethers.utils.formatUnits(truncatedRewards, 8),
   };
 }
 
