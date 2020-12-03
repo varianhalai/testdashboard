@@ -2,12 +2,11 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "homepage": "https://harvestfi.github.io/dashboard",
+  "homepage": "https://varianhalai.github.io/testdashboard",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "@types/react-transition-group": "^4.4.0",
     "@walletconnect/web3-provider": "^1.3.1",
     "axios": "^0.20.0",
     "browserify": "^16.5.2",
@@ -20,13 +19,12 @@
     "react-dom": "^16.13.1",
     "react-loadable": "^5.5.0",
     "react-modal-resizable-draggable": "^0.1.4",
-    "react-multi-carousel": "^2.5.5",
     "react-scripts": "3.4.3",
     "react-web3": "^1.2.0",
-    "source-map-explorer": "^2.5.0",
     "styled-bootstrap-grid": "^3.1.0",
     "styled-components": "^5.2.0",
     "styled-reset": "^4.2.3",
+    "web3": "^1.3.0",
     "web3modal": "^1.9.1"
   },
   "scripts": {
@@ -54,18 +52,9 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.12.3",
-    "@babel/preset-env": "^7.12.1",
-    "@babel/preset-react": "^7.12.5",
-    "babel-loader": "^8.1.0",
-    "file-loader": "^6.2.0",
+   
     "gh-pages": "^3.1.0",
-    "prettier": "^2.1.2",
-    "terser": "^5.3.8",
-    "terser-webpack-plugin": "^5.0.3",
-    "webpack": "^5.4.0",
-    "webpack-cli": "^4.2.0",
-    "webpack-dev-server": "^3.11.0",
-    "webpack-split-chunks": "^0.2.1"
+    "prettier": "^2.1.2"
+   
   }
 }

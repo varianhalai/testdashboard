@@ -21,7 +21,7 @@ import logo from "./assets/gif_tractor.gif";
 import Wallet from "./components/Wallet.jsx";
 import MainContent from './components/MainContent';
 import RadioPanel from './components/radioPanel/RadioPanel';
-
+import CheckBalance from './components/checkBalance/CheckBalance';
 import WelcomeText from './components/WelcomeText';
 
 const { ethers } = harvest;
@@ -848,6 +848,7 @@ function App() {
                     <Col >
                       <WelcomeText 
                         state={state}
+                        setState={setState}
                         openModal={openModal}
                         disconnect={disconnect}
                         setConnection={setConnection}
@@ -859,6 +860,12 @@ function App() {
                     </Row>} 
                 </Panel>
               </Col>
+            </Row>
+            <Row>
+              <Col>
+              <CheckBalance state={state}/>
+              </Col>
+              
             </Row>
           </Container>
           <ErrorModal state={state} onClose={() => closeErrorModal()} />

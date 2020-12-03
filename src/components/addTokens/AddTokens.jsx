@@ -2,7 +2,7 @@ import React,{useEffect,useContext} from "react";
 import HarvestContext from '../../Context/HarvestContext';
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
-import "react-multi-carousel/lib/styles.css";
+
 
 // images
 import logo from "../../assets/logo.png";
@@ -132,7 +132,7 @@ const tokens = [
     symbol: "fUSDC",
     url: "https://harvestfi.github.io/add-fusdc/",
     image: usdcIcon,
-    address: '0xf0358e8c3CD5Fa238a29301d0bEa3D63A17bEdBE',
+    address: '0xc3f7ffb5d5869b3ade9448d094d81b0521e8326f',
     decimals: 18,
     tokenImage: 'https://s2.coinmarketcap.com/static/img/coins/200x200/3408.png'
   },

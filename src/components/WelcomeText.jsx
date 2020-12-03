@@ -3,9 +3,11 @@ import styled from 'styled-components';
 import { fonts } from "../styles/appStyles";
 import harvest from "../lib/index";
 import Web3Modal from "web3modal";
+import web3 from '../lib/web3';
 import WalletConnectProvider from "@walletconnect/web3-provider";
+import {PoolManager} from '../lib/manager';
 
-const { ethers } = harvest;
+const { ethers,utils } = harvest;
 
 const web3Modal = new Web3Modal({
   network: "mainnet",  // optional
@@ -100,6 +102,8 @@ const WelcomeText =
         state,
     }) => {
 
+      
+
     const connectMetamask = () => {
       web3Modal.connect().then((provider) => {
           if (!provider) {
@@ -151,15 +155,24 @@ const WelcomeText =
           })
           
       };
+
+     
     return (
         <WelcomeTextPanel>
                     
             <h1>Harvest Finance Dashboard</h1>
             <h4>Connect a wallet to get started</h4>
-            <button 
-            className='button'
-            onClick={() => connectMetamask(state.provider)}
-            >Connect Wallet</button>
+            <div className="welcome-buttons">
+              <button 
+              className='button'
+              onClick={() => connectMetamask(state.provider)}
+              >Connect Wallet</button>
+              <button 
+              className='button'
+              
+              >Check an Account</button>
+            </div>
+            
             <h6 className='foot-note'>You will need a web3 wallet such as metamask to access this application.</h6>
             
         </WelcomeTextPanel>
