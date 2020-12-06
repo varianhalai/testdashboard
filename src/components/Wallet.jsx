@@ -94,7 +94,9 @@ const WalletTab = styled.div`
 
 
 const Wallet = ({
-  state,
+  theme,
+  address,
+  provider
 }) => {
   
   const renderConnectStatus = (provider, address) => {
@@ -117,11 +119,11 @@ const Wallet = ({
   
 
   return (
-    <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
+    <ThemeProvider theme={theme === "dark" ? darkTheme : lightTheme}>
       <WalletContainer>
         <WalletTab>wallet</WalletTab>
         <WalletConnection>
-          {renderConnectStatus(state.provider, state.address)}
+          {renderConnectStatus(provider, address)}
         </WalletConnection>
       </WalletContainer>
     </ThemeProvider>

@@ -1,4 +1,5 @@
-import React from 'react';
+import React,{useContext} from 'react';
+import HarvestContext from '../Context/HarvestContext';
 import styled from 'styled-components';
 import { fonts } from "../styles/appStyles";
 import harvest from "../lib/index";
@@ -102,9 +103,12 @@ const WelcomeText =
         state,
     }) => {
 
+    const {setIsConnecting} = useContext(HarvestContext)
+
       
 
     const connectMetamask = () => {
+      setIsConnecting(true)
       web3Modal.connect().then((provider) => {
           if (!provider) {
             openModal(
@@ -137,7 +141,7 @@ const WelcomeText =
         const manager = harvest.manager.PoolManager.allPastPools(
           signer ? signer : provider,
         );
-    
+          console.log(signer)
         setConnection(provider, signer, manager);
     
         window.ethereum.on("accountsChanged", () => {
@@ -167,10 +171,6 @@ const WelcomeText =
               className='button'
               onClick={() => connectMetamask(state.provider)}
               >Connect Wallet</button>
-              <button 
-              className='button'
-              
-              >Check an Account</button>
             </div>
             
             <h6 className='foot-note'>You will need a web3 wallet such as metamask to access this application.</h6>

@@ -554,6 +554,14 @@ function App() {
   
 
   const [tokenAddedMessage,setTokenAddedMessage] = useState('')
+
+  //READ ONLY 
+  
+  const [isCheckingReadOnly, setIsCheckingReadOnly] = useState(false);
+  const [isConnecting, setIsConnecting] =  useState(false);
+
+  //READ ONLY 
+
   const [state, setState] = useState({
     provider: undefined,
     signer: undefined,
@@ -568,7 +576,6 @@ function App() {
     minimumHarvestAmount: 0,
     apy: 0,
     farmPrice: 0,
-    pools:[]
   });
 
   const getPools = async () => {
@@ -605,10 +612,11 @@ function App() {
     }, 60000);
     return () => clearTimeout(timer);
   });
+
   useEffect(() => {
     getPools()
-    console.log(state.pools)
   },[])
+
 
 
 
@@ -724,7 +732,12 @@ function App() {
  
 
   return (
-    <HarvestContext.Provider value={{state,tokenAddedMessage,setTokenAddedMessage}}>
+    <HarvestContext.Provider value={{state,
+                                    setState,
+                                    refresh,
+                                    tokenAddedMessage,
+                                    setTokenAddedMessage,
+                                    setIsConnecting}}>
       <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
         <GlobalStyle />
           <Container>
@@ -813,7 +826,9 @@ function App() {
                     
                     <Col >
                       <Wallet
-                        state={state}
+                        theme={state.theme}
+                        address={state.address}
+                        provider={state.provider}
                       
                       />
                     </Col>
@@ -861,13 +876,17 @@ function App() {
                 </Panel>
               </Col>
             </Row>
-            <Row>
-              <Col>
-              <CheckBalance state={state}/>
+            {isConnecting ? "" : <Row>
+              <Col style={{marginTop:"3rem",marginBottom:"3rem"}}>
+                  <Panel>
+                  <CheckBalance state={state}/>
+                  </Panel>
               </Col>
-              
-            </Row>
+            </Row>}
+            
           </Container>
+          
+          
           <ErrorModal state={state} onClose={() => closeErrorModal()} />
       </ThemeProvider>
     </HarvestContext.Provider>

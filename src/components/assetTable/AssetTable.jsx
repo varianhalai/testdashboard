@@ -1,4 +1,5 @@
-import React from "react";
+import React,{useContext} from "react";
+import HarvestContext from '../../Context/HarvestContext';
 import DataTable from "react-data-table-component";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
@@ -182,7 +183,8 @@ const columns = [
 
 
 
-const AssetTable = ({ state }) => {
+const AssetTable = () => {
+  const {state,setState} = useContext(HarvestContext);
   
   
   return (

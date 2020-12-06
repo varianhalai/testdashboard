@@ -1,4 +1,5 @@
-import React,{useEffect} from "react";
+import React,{useContext} from "react";
+import HarvestContext from '../../Context/HarvestContext';
 import DataTable from "react-data-table-component";
 import styled, { ThemeProvider } from "styled-components";
 import harvest from "../../lib/index";
@@ -386,12 +387,14 @@ const noAssetData = [
 
 
 
-const FarmingTable = ({ state,setState }) => {
+const FarmingTable = () => {
 
   const getThisReward= (reward) => {
       console.log(reward)
       setState({...state,minimumHarvestAmount: reward})
  }
+
+ const {state,setState} = useContext(HarvestContext)
 
 
 
