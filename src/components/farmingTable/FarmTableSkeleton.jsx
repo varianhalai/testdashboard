@@ -99,9 +99,7 @@ const FarmTableSkeleton = ({state}) => {
           </PanelTab> 
           </PanelTabContainerLeft>
             <SkeletonPanel>
-                {/* <div className="skeleton-header">
-
-                </div> */}
+                
                 
             </SkeletonPanel>
         </ThemeProvider>
