@@ -65,6 +65,11 @@ const assets = [
     address: '0xa0246c9032bC3A600820415aE600c6388619A14D',
   },
   {
+    name: 'GRAIN',
+    decimals: 18,
+    address: '0x6589fe1271A0F29346796C6bAf0cdF619e25e58e',
+  },
+  {
     name: 'HBTC',
     decimals: 18,
     address: '0x0316EB71485b0Ab14103307bf65a021042c6d380',
@@ -386,7 +391,13 @@ const assets = [
     type: 'uniswap',
     decimals: 18,
     address: '0xb6A6a3D8EF31D9FAeb1AB1487aCe79Fe1f5df1BB',
-  }
+  },
+  {
+    name: 'GRAIN_FARM_LP',
+    type: 'uniswap',
+    decimals: 18,
+    address: '0xB9Fa44B0911F6D777faAb2Fa9d8Ef103f25Ddf49',
+  },
 ];
 
 /**
@@ -2052,6 +2063,12 @@ const weekFifteenPools= [
     address: '0xAd91695b4BeC2798829ac7a4797E226C78f22Abd',
     rewardAsset: assetByName('FARM'),
   },
+//  {
+//    name: 'GRAIN:FARM Uniswap',
+//    asset: assetByName('GRAIN_FARM_LP'),
+//    address: '',
+//    rewardAsset: assetByName('FARM'),
+//  },
 ];
 
 
