@@ -363,8 +363,8 @@ const PanelTab = styled.div`
     
    
   }
-  @media(max-width: 605px) {
-    font-size: 1.9rem;
+  @media(max-width: 700px) {
+    font-size: 1.6rem;
     padding: 0.75rem 1rem 2.2rem 1rem;
     position: relative;
     top: .1rem;
@@ -374,17 +374,17 @@ const PanelTab = styled.div`
     margin-right: .5rem;
   }
   @media(max-width: 380px) {
-    font-size: 1.5rem;
-    padding: 0.75rem .75rem 2rem .75rem;
+    font-size: 1.2rem;
+    padding: 0.75rem .5rem 2rem .5rem;
     position: relative;
-    margin-right: .5rem;
+    margin-right: .0rem;
     top: .5rem;
     a {
       top: .4rem;
     }
   }
   @media(max-width: 333px) {
-    margin-right: .3rem;
+    
   }
   
 
@@ -422,6 +422,52 @@ const PanelTab = styled.div`
       
     }
     @media(max-width: 380px) {
+      margin-left: 0;
+      a {
+        font-size: 1.4rem;
+      }
+      
+    };
+    @media(max-width: 333px) {
+      margin-right: .3rem;
+    }
+  }
+
+  &.analytics-tab {
+    position: relative;
+    background-color: ${(props) => props.theme.style.wikiTabBackground};
+    top: 0.5rem;
+    margin-left: 2.5rem;
+    
+
+    &:hover {
+      top: 0rem;
+    }
+
+    a {
+      color: ${(props) => props.theme.style.primaryFontColor};
+      font-size: 1.9rem;
+      position: relative;
+      top: .1rem;
+    }
+    @media(max-width: 675px) {
+      
+      margin-left: .5rem;
+     
+      
+    }
+   
+    @media(max-width: 500px) {
+      top: 1.3rem;
+      margin-left: .5rem;
+      a {
+        font-size: 1.5rem;
+        top: -.1rem;;
+      }
+      
+    }
+    @media(max-width: 380px) {
+      margin-left: 0;
       a {
         font-size: 1.4rem;
       }
@@ -462,6 +508,13 @@ const PanelTab = styled.div`
         top: 0rem;
       }
 
+      @media(max-width: 700px) {
+        margin-left: .5rem;
+        p {
+          font-size: 1.9rem;
+        }
+        
+      }
 
       @media(max-width: 500px) {
         top: 1.4rem;
@@ -472,6 +525,7 @@ const PanelTab = styled.div`
         
       }
       @media(max-width: 380px) {
+        margin-left: 0;
         p {
           font-size: 1.4rem;
         }
@@ -770,6 +824,16 @@ function App() {
                         rel="noopener noreferrer"
                       >
                         wiki
+                      </a>
+                    </PanelTab>
+
+                    <PanelTab className="analytics-tab">
+                      <a
+                        href="https://farmdashboard.xyz/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        analytics
                       </a>
                     </PanelTab>
 
