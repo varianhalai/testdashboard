@@ -2,7 +2,7 @@ import React,{useEffect,useContext} from "react";
 import HarvestContext from '../../Context/HarvestContext';
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
-import "react-multi-carousel/lib/styles.css";
+
 
 // images
 import logo from "../../assets/logo.png";
