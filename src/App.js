@@ -17,10 +17,11 @@ import logo from "./assets/gif_tractor.gif";
 
 
 // components
-import Wallet from "./components/Wallet.jsx";
+import Wallet from "./components/Wallet";
+import Radio from './components/radio/Radio';
 import MainContent from './components/MainContent';
-import RadioPanel from './components/radioPanel/RadioPanel';
-import CheckBalance from './components/checkBalance/CheckBalance';
+import Radio from './components/radio/Radio';
+
 import WelcomeText from './components/WelcomeText';
 import ErrorModal from './components/ErrorModal';
 
@@ -541,37 +542,7 @@ const Container = styled.div`
   
 `;
 
-const RadioTitle=styled.div`
-display: flex;
-align-items: center;
-justify-content: center;
-text-align: center;
-font-family: ${fonts.headerFont};
-font-size: 1.7rem;
-position: relative:
-z-index: 400;
-pointer-events: auto;
-h4 {
-  margin-top: .2rem;
-}
-`;
 
-const CloseIcon = styled.span`
-  position: absolute;
-  right: 1.3rem;
-  top: .2rem;
-  font-size: 1.7rem;
-  cursor: pointer;
-  color: ${(props) => props.theme.style.buttonFontColor};
-
-  .fas {
-    position: relative;
-    z-index: 500;
-    &:hover {
-      top: 1.5px;
-    }
-  }
-`;
 
 
 
@@ -774,7 +745,11 @@ function App() {
                                     unstakedFarm,
                                     setUnstakedFarm,
                                     setIsConnecting,
-                                    openModal}}>
+                                    openModal,
+                                    tokenAddedMessage,
+                                    setTokenAddedMessage,
+                                    radio,
+                                    toggleRadio}}>
       <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
         <GlobalStyle />
           <Container>
@@ -848,27 +823,8 @@ function App() {
 
                 <Panel>
 
-                {/* RADIO MODAL */}
-                <ReactModal
-                  isOpen={radio}
-                  onRequestClose={toggleRadio}
-                  className={"my-modal-custom-class"}
-                  initWidth={325} 
-                  initHeight={100}
-                  top={0}
-                  left={0}
-                  disableResize={true}
-                  >
-                  <RadioTitle>
-                    <h4>harvest radio</h4>
-                    <CloseIcon onClick={toggleRadio} ><i className="fas fa-times-circle "></i></CloseIcon>
-                  </RadioTitle>
-                  <RadioPanel toggleRadio={toggleRadio} />
-                </ReactModal>
-
-                {/* RADIO MODAL */}
-
-
+                <Radio />
+            
                   {state.address? <Row>
                     
                     <Col >
@@ -891,13 +847,8 @@ function App() {
                       <p >{tokenAddedMessage}</p>
                     </div>
                   </motion.div>
-                   
-                  
                   : null}
-                  
-                  
-
-                  
+ 
                   {/* MOVED MAIN COMPONENTS INTO ITS OWN COMPONENT */}
                   {/* The welcome text display on intial load and when a wallet is connected the main content renders */}
                   {state.provider ? (
