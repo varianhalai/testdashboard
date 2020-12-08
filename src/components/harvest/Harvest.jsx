@@ -3,7 +3,6 @@ import HarvestContext from '../../Context/HarvestContext';
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 import harvest from "../../lib/index.js";
-import web3 from '../../lib/web3';
 const { utils,ethers } = harvest;
 
 
@@ -163,12 +162,12 @@ const Harvest = () => {
    
   };
 
-  const getTotalFarmEarned = () => {
+  const getFarmToStake = () => {
     
       state.summaries.map(utils.prettyPosition).map((summary, index) => {
         if(summary.name === "FARM Profit Sharing") {
           console.log(summary)
-          setUnstakedFarm(parseFloat(summary.unstakedBalance))
+          setUnstakedFarm(summary.unstakedBalance)
         }
       })
      
@@ -180,8 +179,8 @@ const Harvest = () => {
     harvest();
     console.log(unstakedFarm)
     const timer = setTimeout(() => {
-      getTotalFarmEarned()
-    }, 90000);
+      getFarmToStake()
+    }, 60000);
     return () => clearTimeout(timer);
     
   }

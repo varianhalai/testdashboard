@@ -124,30 +124,30 @@ const MainTableInner = styled.div`
 `;
 const MainTableRow = styled.div`
   display: grid;
-  grid-template-columns: .75fr .5fr 1fr .75fr .75fr .75fr .5fr ;
+  grid-template-columns: .75fr .5fr .75fr .75fr .75fr .75fr .5fr ;
   font-size: 1.7rem;
   font-family: ${fonts.contentFont};
   padding: 1.5rem 1rem;
   width: 100%;
   border-bottom: 1.2px solid rgba(53, 53, 53, .15);
   @media(max-width: 1920px) {
-    width: 105%;
+    width: 100%;
   }
-  @media(max-width: 1800px) {
-    width: 120%;
+  @media(max-width: 1280px) {
+    width: 110%;
   }
-  @media(max-width: 1100px) {
-    width: 160%;
-  }
-  @media(max-width: 800px) {
-    width: 175%;
-  }
-  @media(max-width: 710px) {
-    width: 250%;
-  }
-  @media(max-width:515px) {
-    width: 350%;
-  }
+  // @media(max-width: 1100px) {
+  //   width: 160%;
+  // }
+  // @media(max-width: 800px) {
+  //   width: 175%;
+  // }
+  // @media(max-width: 710px) {
+  //   width: 250%;
+  // }
+  // @media(max-width:515px) {
+  //   width: 350%;
+  // }
   
   
   div {
@@ -201,31 +201,34 @@ const MainTableRow = styled.div`
 `;
 const MainTableHeader = styled.div`
   display: grid;
-  grid-template-columns: .75fr .5fr 1fr .75fr .75fr .75fr .5fr ;
+  grid-template-columns: .75fr .5fr .75fr .75fr .75fr .75fr .5fr ;
   grid-gap: 20px;
   font-size: 2rem;
   font-family: ${fonts.headerFont};
   padding: 1.5rem 1rem;
   border-bottom: 2px black solid;
   width: 100%;
-  @media(max-width: 1920px) {
-    width: 105%;
+  @media(max-width: 1280px) {
+    width: 110%;
   }
-  @media(max-width: 1800px) {
-    width: 120%;
-  }
-  @media(max-width: 1100px) {
-    width: 160%;
-  }
-  @media(max-width: 800px) {
-    width: 175%;
-  }
-  @media(max-width: 710px) {
-    width: 250%;
-  }
-  @media(max-width:515px) {
-    width: 350%;
-  }
+  // @media(max-width: 1920px) {
+  //   width: 100%;
+  // }
+  // @media(max-width: 1800px) {
+  //   width: 120%;
+  // }
+  // @media(max-width: 1100px) {
+  //   width: 160%;
+  // }
+  // @media(max-width: 800px) {
+  //   width: 175%;
+  // }
+  // @media(max-width: 710px) {
+  //   width: 250%;
+  // }
+  // @media(max-width:515px) {
+  //   width: 350%;
+  // }
  
   
   p {
@@ -369,7 +372,7 @@ const FarmingTable = () => {
     state.summaries.map(utils.prettyPosition).map((summary, index) => {
       if(summary.name === "FARM Profit Sharing") {
         console.log(summary)
-        setUnstakedFarm(parseFloat(summary.unstakedBalance))
+        setUnstakedFarm(summary.unstakedBalance.toString())
       }
       (
         setState({...state,totalFarmEarned : state.totalFarmEarned += parseFloat(summary.historicalRewards)})

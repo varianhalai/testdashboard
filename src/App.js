@@ -20,8 +20,6 @@ import logo from "./assets/gif_tractor.gif";
 import Wallet from "./components/Wallet";
 import Radio from './components/radio/Radio';
 import MainContent from './components/MainContent';
-import Radio from './components/radio/Radio';
-
 import WelcomeText from './components/WelcomeText';
 import ErrorModal from './components/ErrorModal';
 
@@ -874,13 +872,7 @@ function App() {
                 </Panel>
               </Col>
             </Row>
-            {isConnecting ? "" : <Row>
-              <Col style={{marginTop:"3rem",marginBottom:"3rem"}}>
-                  <Panel>
-                  <CheckBalance state={state}/>
-                  </Panel>
-              </Col>
-            </Row>}
+            
             
           </Container>
           
