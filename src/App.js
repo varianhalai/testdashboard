@@ -4,7 +4,6 @@ import { Row, Col } from "styled-bootstrap-grid";
 import { createGlobalStyle } from "styled-components";
 import { reset } from "styled-reset";
 import harvest from "./lib/index.js";
-import Loadable from 'react-loadable';
 import { darkTheme, lightTheme, fonts } from "./styles/appStyles.js";
 import axios from 'axios';
 import ReactModal from 'react-modal-resizable-draggable';
@@ -23,6 +22,7 @@ import MainContent from './components/MainContent';
 import RadioPanel from './components/radioPanel/RadioPanel';
 import CheckBalance from './components/checkBalance/CheckBalance';
 import WelcomeText from './components/WelcomeText';
+import ErrorModal from './components/ErrorModal';
 
 const { ethers } = harvest;
 const GlobalStyle = createGlobalStyle`
@@ -597,12 +597,7 @@ const CloseIcon = styled.span`
 
 
 
-const ErrorModal = Loadable({
-  loader: () => import('./components/ErrorModal'),
-  loading() {
-    return null
-  }
-})
+
 
 function App() {
   
@@ -630,6 +625,7 @@ function App() {
     minimumHarvestAmount: 0,
     apy: 0,
     farmPrice: 0,
+    totalFarmEarned: 0
   });
 
   const getPools = async () => {

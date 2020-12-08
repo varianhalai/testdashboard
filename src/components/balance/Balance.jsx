@@ -10,7 +10,6 @@ const BluePanel = styled.div`
   background-color: ${(props) => props.theme.style.blueBackground};
   color: ${(props) => props.theme.style.primaryFontColor};
   font-family: ${fonts.headerFont};
-  ;
   margin-top: .1rem;
   padding: 3.4rem .2rem 3.59rem .7rem;
   border: ${(props) => props.theme.style.mainBorder};
@@ -36,6 +35,7 @@ const BluePanel = styled.div`
   @media(max-width: 1107px) {
     padding: 3.65rem .7rem 4rem 1.5rem;
     margin-right: 0px;
+    margin-top: 2rem;
     h1 {
       font-size:2.2rem;
     }

@@ -53,9 +53,11 @@ const ButtonContainer = styled.div`
   justify-content: center;
   margin-top: 1.5rem;
 
- 
+    .harvest and stake {
+      
+    }
   button {
-    width: 14.5rem;
+    width: max-content;
     font-size: 2rem;
     font-family: ${fonts.headerFont};
     position: relative;
@@ -78,29 +80,6 @@ const ButtonContainer = styled.div`
 `;
 
 const Harvest = ({ state,setState }) => {
- 
-  // const harvest = async () => {
-    
-  //   const activePools = state.manager.pools
-  //   console.log(state.manager.pools)
-
-  //   for (let i = 0; i < activePools.length; i++) {
-  //      await activePools[i].earnedRewards(state.address)
-  //     .then(res => {
-        
-  //       if(state.minimumHarvestAmount * 1000000000000 <= parseFloat((res.toString() / 1000000).toFixed(10))) {
-  //         //The original code here would harvest all farms regardless of the amount specified.
-  //         //Now it checks if the rewards are equal to or above specfied amount before harvesting
-  //         activePools[i].getReward()
-  //         .catch((e) => console.log("Rejected Transaction"));
-  //       }
-  //     })
-  //     .catch(err => {
-  //       console.log(err)
-  //     })
-  //   }
-  //   setState({...state,minimumHarvestAmount: 0})
-  // };
 
   const harvest  = async () => {
     console.log("harvesting");
@@ -150,6 +129,14 @@ const Harvest = ({ state,setState }) => {
           onClick={harvest}
         >
           harvest all
+        </button>
+
+        <button
+          className="button harvest-and-stake"
+          disabled={!state.provider || state.minimumHarvestAmount === 0}
+          onClick={harvest}
+        >
+          harvest all and stake
         </button>
 
        

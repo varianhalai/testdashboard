@@ -1,4 +1,4 @@
-import React,{useContext} from "react";
+import React,{useEffect,useContext} from "react";
 import HarvestContext from '../../Context/HarvestContext';
 import DataTable from "react-data-table-component";
 import styled, { ThemeProvider } from "styled-components";
@@ -124,7 +124,7 @@ const MainTableInner = styled.div`
 `;
 const MainTableRow = styled.div`
   display: grid;
-  grid-template-columns: 1.1fr .5fr 1fr .75fr .75fr .75fr .5fr 1fr;
+  grid-template-columns: .75fr .5fr 1fr .75fr .75fr .75fr .5fr ;
   font-size: 1.7rem;
   font-family: ${fonts.contentFont};
   padding: 1.5rem 1rem;
@@ -160,12 +160,13 @@ const MainTableRow = styled.div`
     
   }
   .active {
-    margin-left: -1.5rem;
+    
   }
   .earned-rewards {
     cursor: pointer;
     transition: scale 200ms ease;
     border-radius: .5rem;
+    margin-right: 2rem;
     &:hover {
       width: 35%;
       margin: 0 auto;
@@ -200,7 +201,7 @@ const MainTableRow = styled.div`
 `;
 const MainTableHeader = styled.div`
   display: grid;
-  grid-template-columns: 1.1fr .5fr 1fr .75fr .75fr .75fr .5fr 1fr;
+  grid-template-columns: .75fr .5fr 1fr .75fr .75fr .75fr .5fr ;
   grid-gap: 20px;
   font-size: 2rem;
   font-family: ${fonts.headerFont};
@@ -321,49 +322,24 @@ const PanelTab = styled.div`
 const columns = [
   {
     name: "Profit Sharing Pool",
-    
   },
   {
-    name: "Earning",
-    selector: (data) => data.isActive.toString(),
-    compact: true
-    
+    name: "Earns",
   },
   {
-    name: "Earned Rewards",
-    selector: "earnedRewards",
-    compact: true,
-    
-    
+    name: "Claimable",
   },
   {
     name: "Staked",
-    selector: "stakedBalance",
-    compact: true
-    
-    
   },
   {
     name: "% of Pool",
-    selector: "percentOfPool",
-    compact: true,
-    
   },
   {
     name: "Unstaked",
-    selector: "unstakedBalance",
-    compact: true,
-    
   },
   {
     name: "Value",
-    selector: "usdValueOf",
-    sortable: true,
-    compact: true
-  },
-  {
-    name: "Rewards to date",
-    
   },
 ];
 
@@ -388,18 +364,35 @@ const noAssetData = [
 
 
 const FarmingTable = () => {
-
+  const {state,setState} = useContext(HarvestContext)
   const getThisReward= (reward) => {
-      console.log(reward)
+      
       setState({...state,minimumHarvestAmount: reward})
  }
 
- const {state,setState} = useContext(HarvestContext)
+ 
+
+ const getTotalFarmEarned = () => {
+  let total = 0;
+   if(state.summaries.length !== 0) {
+    state.summaries.map(utils.prettyPosition).map((summary, index) => (
+      setState({...state,totalFarmEarned : state.totalFarmEarned += parseFloat(summary.historicalRewards)})
+    ))
+   }
+ }
+
+
+ useEffect(() => {
+   if(state.totalFarmEarned === 0) {
+    getTotalFarmEarned()
+   }
+  
+  console.log(state)
+ },[state.summaries])
 
 
 
-
-
+ 
   return (
       <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
         {state.display ? <PanelTabContainerLeft> 
@@ -429,16 +422,18 @@ const FarmingTable = () => {
           <MainTableRow key={summary.address}>
             <div className='name'>{summary.name}</div>
             <div className='active'>{String(summary.isActive)}</div>
-            <div className='earned-rewards' onClick={() =>getThisReward(summary.earnedRewards)}>{parseFloat(summary.earnedRewards).toFixed(10)}</div>
-            <div className='staked'>{parseFloat(summary.stakedBalance).toFixed(10)}</div>
+            <div className='earned-rewards' onClick={() =>getThisReward(summary.earnedRewards)}>{parseFloat(summary.earnedRewards).toFixed(6)}</div>
+            <div className='staked'>{parseFloat(summary.stakedBalance).toFixed(6)}</div>
             <div className='pool'>{summary.percentOfPool}</div>
-            <div className='unstaked'>{parseFloat(summary.unstakedBalance).toFixed(10)}</div>
+            <div className='unstaked'>{parseFloat(summary.unstakedBalance).toFixed(6)}</div>
             <div className='value'>{summary.usdValueOf}</div>
-            <div className='rewards-to-date'>{summary.historicalRewards}</div>
+            
+            
+           
             
           </MainTableRow>
         ))}
-         
+          
         </MainTableInner> }
         </TableContainer> 
         : <FarmTableSkeleton state={state} />}

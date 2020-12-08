@@ -2,16 +2,16 @@ import React from 'react';
 import { Row, Col } from "styled-bootstrap-grid";
 import styled from 'styled-components'
 
-import FarmTableSkeleton from "../components/farmingTable/FarmTableSkeleton.jsx";
+import FarmingTable from '../components/farmingTable/FarmingTable';
 import AssetTable from "../components/assetTable/AssetTable.jsx";
 import Harvest from "../components/harvest/Harvest.jsx";
+import TotalFarmEarned from '../components/totalFarmEarned/TotalFarmEarned';
 import StakePanel from "../components/stakePanel/StakePanel.jsx";
 import Balance from "../components/balance/Balance.jsx";
 import APY from "../components/apy/APY.jsx";
 import FarmPrice from '../components/farmPrice/FarmPrice';
 import AddTokens from "../components/addTokens/AddTokens";
 
-import Loadable from 'react-loadable';
 
 const Main = styled.div`
     
@@ -23,12 +23,7 @@ const Main = styled.div`
 
 const MainContent = ({state, setState,openModal}) => {
 
-    const FarmingTable = Loadable({
-        loader: () => import('./farmingTable/FarmingTable'),
-        loading() {
-          return <FarmTableSkeleton state={state}/>
-        }
-      })
+    
     return (
         <Main className='main-content'>
             <Row>
@@ -43,7 +38,11 @@ const MainContent = ({state, setState,openModal}) => {
                 <Harvest state={state} setState={setState} openModal={openModal} />
                 </Col>
                 <Col lg="4">
-                <StakePanel state={state} openModal={openModal} />
+                <APY apy={state.apy}
+                    display={state.display}
+                    theme={state.theme} 
+                    />
+                
                 </Col>
                 <Col lg="2">
                 <Balance state={state}/>  
@@ -59,10 +58,7 @@ const MainContent = ({state, setState,openModal}) => {
                 <AddTokens state={state} />
                 </Col>
                 <Col lg="2">
-                <APY apy={state.apy}
-                    display={state.display}
-                    theme={state.theme} 
-                    />
+                <TotalFarmEarned />
                 <FarmPrice  
                     price={state.farmPrice}
                     display={state.display}
