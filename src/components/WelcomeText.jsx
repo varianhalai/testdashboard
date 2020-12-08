@@ -141,7 +141,7 @@ const WelcomeText =
         const manager = harvest.manager.PoolManager.allPastPools(
           signer ? signer : provider,
         );
-          console.log(signer)
+          
         setConnection(provider, signer, manager);
     
         window.ethereum.on("accountsChanged", () => {

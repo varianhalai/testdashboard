@@ -34,10 +34,10 @@ const MainContent = ({state, setState,openModal}) => {
 
             <Row style={{marginTop:"15px"}}>
                 {/* Git hub pages would not recognize the margin from the bootstrap grid */}
-                <Col lg="6">
+                <Col lg="8">
                 <Harvest state={state} setState={setState} openModal={openModal} />
                 </Col>
-                <Col lg="4">
+                <Col lg="2">
                 <APY apy={state.apy}
                     display={state.display}
                     theme={state.theme} 

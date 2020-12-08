@@ -136,29 +136,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
 
-  input[type="number"] {
-    -moz-appearance: textfield;
-    background-color: ${(props) => props.theme.style.lightBackground};
-    border: 0.2rem solid #363636;
-    font-size: 1.4rem;
-    color: ${(props) => props.theme.style.primaryFontColor};
-    width: 6rem;
-    text-align: center;
-    border-radius: 0.5rem;
-    padding: 0.3rem 0.7rem;
-    @media(max-width: 1400px) {
-      width: 6rem;
-    }
-    @media(max-width: 1280px) {
-      width: 5rem;
-    }
-  }
-
-  input[type="number"]::-webkit-inner-spin-button,
-  input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    appearance: none;
-  }
+  
 
   .button {
     background: ${(props) => props.theme.style.highlight};
@@ -611,6 +589,10 @@ function App() {
 
   //READ ONLY 
 
+  //UNSTAKED FARM
+  const [unstakedFarm, setUnstakedFarm] =useState(0);
+  //UNSTAKED FARM
+
   const [state, setState] = useState({
     provider: undefined,
     signer: undefined,
@@ -673,7 +655,7 @@ function App() {
   useEffect(() => {
     if (state.address !== "") {
       refresh();
-      console.log(state.summaries)
+      
     }
    
   }, [state.address]);
@@ -769,6 +751,8 @@ function App() {
       });
   };
 
+  
+
   const toggleTheme = (theme) => {
     setState({ ...state, theme: theme });
     window.localStorage.setItem("HarvestFinance:Theme", theme);
@@ -787,7 +771,10 @@ function App() {
                                     refresh,
                                     tokenAddedMessage,
                                     setTokenAddedMessage,
-                                    setIsConnecting}}>
+                                    unstakedFarm,
+                                    setUnstakedFarm,
+                                    setIsConnecting,
+                                    openModal}}>
       <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
         <GlobalStyle />
           <Container>

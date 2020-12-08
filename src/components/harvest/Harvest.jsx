@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
+import HarvestContext from '../../Context/HarvestContext';
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 import harvest from "../../lib/index.js";
+import web3 from '../../lib/web3';
 const { utils,ethers } = harvest;
+
 
 const Panel = styled.div`
   display: flex;
@@ -16,8 +19,30 @@ const Panel = styled.div`
   box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
   
+ 
   input[type="number"] {
+    -moz-appearance: textfield;
+    background-color: ${(props) => props.theme.style.lightBackground};
+    border: 0.2rem solid #363636;
+    font-size: 1.4rem;
     margin: 0 1rem;
+    color: ${(props) => props.theme.style.primaryFontColor};
+    width: 12rem;
+    text-align: center;
+    border-radius: 0.5rem;
+    padding: 0.3rem 0.7rem;
+    @media(max-width: 1400px) {
+      width: 6rem;
+    }
+    @media(max-width: 1280px) {
+      width: 5rem;
+    }
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
   }
 
   @media only screen and (max-width: 990px) {
@@ -48,24 +73,28 @@ const Panel = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-  width: 100%;
+  width: 80%;
+  margin: 1.5rem auto 0 auto;
   display: flex;
+  align-items: center;
   justify-content: center;
-  margin-top: 1.5rem;
+ 
 
-    .harvest and stake {
-      
-    }
+    
   button {
+    margin-left: 6rem;
     width: max-content;
     font-size: 2rem;
     font-family: ${fonts.headerFont};
     position: relative;
     margin-top: 4px;
-    margin-right: .5rem;
+    
     
     &:hover {
       top: 1.5px;
+    }
+    &.harvest-and-stake {
+      margin-left: 5%;
     }
 
     .button.clear {
@@ -79,20 +108,82 @@ const ButtonContainer = styled.div`
   }
 `;
 
-const Harvest = ({ state,setState }) => {
+const Harvest = () => {
+  const { state,setState,unstakedFarm,setUnstakedFarm,openModal } = useContext(HarvestContext)
 
+  const [modal,setModal] = useState({
+    open: false,
+    message: '',
+    noFarm: true
+  })
   const harvest  = async () => {
     console.log("harvesting");
     
-    
     await state.manager.getRewards(ethers.utils.parseUnits((state.minimumHarvestAmount), 18))
-          .then(res => {
-            console.log(res)
-          })
           .catch(err => {
             console.log(err)
-          });
+          })
           setState({...state,minimumHarvestAmount: 0})
+  }
+
+  const pool = state.manager.pools.find((pool) => {
+    return pool.address === "0x25550Cccbd68533Fa04bFD3e3AC4D09f9e00Fc50";
+  });
+ 
+
+  const stake = async (toStake) => {
+    if(toStake === 0) {
+      (setModal({...modal,open: true,
+        message: "Please enter an amount to stake!",
+        noFarm: false}))
+    }else {
+      const allowance = await pool.lptoken.allowance(state.address, pool.address);
+      const amount =
+        toStake > 0
+          ? ethers.utils.parseUnits(toStake.toString(), 18)
+          : await pool.unstakedBalance(state.address);
+  
+      if (allowance.lt(amount)) {
+        await pool.lptoken.approve(pool.address, ethers.constants.MaxUint256);
+        await pool.stake(amount);
+      } else {
+        await pool.stake(amount).catch((e) => {
+          if (e.code !== 4001 || e.code !== -32603) {
+            openModal(
+              `You do not have enough to stake ${ethers.utils.formatEther(
+                amount,
+              )} FARM`,
+              "error",
+            );
+          }
+        });
+      }
+    }
+    
+   
+  };
+
+  const getTotalFarmEarned = () => {
+    
+      state.summaries.map(utils.prettyPosition).map((summary, index) => {
+        if(summary.name === "FARM Profit Sharing") {
+          console.log(summary)
+          setUnstakedFarm(parseFloat(summary.unstakedBalance))
+        }
+      })
+     
+     console.log(unstakedFarm)
+     stake(unstakedFarm)
+   }
+  
+  const harvestAllAndStake = () => {
+    harvest();
+    console.log(unstakedFarm)
+    const timer = setTimeout(() => {
+      getTotalFarmEarned()
+    }, 90000);
+    return () => clearTimeout(timer);
+    
   }
 
 
@@ -133,10 +224,10 @@ const Harvest = ({ state,setState }) => {
 
         <button
           className="button harvest-and-stake"
-          disabled={!state.provider || state.minimumHarvestAmount === 0}
-          onClick={harvest}
+          
+          onClick={harvestAllAndStake}
         >
-          harvest all and stake
+          harvest all and stake in FARM pool
         </button>
 
        

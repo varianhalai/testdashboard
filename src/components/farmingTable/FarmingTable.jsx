@@ -238,13 +238,7 @@ const MainTableHeader = styled.div`
   }
   
 `;
-// const StyledTableHeader = styled(TableHeader)`
-//   display: grid;
-//   padding: 24px 15px;
-//   border-bottom: 1px solid #e5e7eb;
-//   font-size: 13px;
-//   text-align: left;
-// `;
+
 
 const FarmingTableHeader = styled.h1`
 font-size: 2.2rem;
@@ -346,16 +340,12 @@ const columns = [
 const noAssetColumns = [
   {
     name: "You currently are not staking any assets",
-    // selector: (data) => data.asset.name,
-    selector: "asset",
-    center: true
   },
 ]
 const noAssetData = [
   {
-    id:0,
     asset: 'Stake assets to get started',
-    center: true
+    
   },
 ]
 
@@ -364,20 +354,27 @@ const noAssetData = [
 
 
 const FarmingTable = () => {
-  const {state,setState} = useContext(HarvestContext)
+  const {state,setState,setUnstakedFarm} = useContext(HarvestContext)
   const getThisReward= (reward) => {
       
       setState({...state,minimumHarvestAmount: reward})
  }
+ 
 
  
 
  const getTotalFarmEarned = () => {
   let total = 0;
    if(state.summaries.length !== 0) {
-    state.summaries.map(utils.prettyPosition).map((summary, index) => (
-      setState({...state,totalFarmEarned : state.totalFarmEarned += parseFloat(summary.historicalRewards)})
-    ))
+    state.summaries.map(utils.prettyPosition).map((summary, index) => {
+      if(summary.name === "FARM Profit Sharing") {
+        console.log(summary)
+        setUnstakedFarm(parseFloat(summary.unstakedBalance))
+      }
+      (
+        setState({...state,totalFarmEarned : state.totalFarmEarned += parseFloat(summary.historicalRewards)})
+      )
+    })
    }
  }
 
@@ -387,7 +384,6 @@ const FarmingTable = () => {
     getTotalFarmEarned()
    }
   
-  console.log(state)
  },[state.summaries])
 
 
