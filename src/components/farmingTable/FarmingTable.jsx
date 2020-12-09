@@ -236,28 +236,8 @@ const MainTableHeader = styled.div`
   }
   
 `;
-// const StyledTableHeader = styled(TableHeader)`
-//   display: grid;
-//   padding: 24px 15px;
-//   border-bottom: 1px solid #e5e7eb;
-//   font-size: 13px;
-//   text-align: left;
-// `;
 
-const FarmingTableHeader = styled.h1`
-font-size: 2.2rem;
-text-align: center;
-font-family: ${fonts.headerFont};
-border-radius: .5rem;
-border: ${(props) => props.theme.style.mainBorder};
-box-shadow: ${(props) => props.theme.style.panelBoxShadow};
-color: ${(props) => props.theme.style.primaryFontColor};
-background-color: ${(props) => props.theme.style.lightBackground};
-color: ${(props) => props.theme.style.lightBackground};
-width: 25%;
-margin: 1rem auto;
-padding: 5px;
-`;
+
 
 const PanelTabContainerLeft = styled.div`
   display: flex;
