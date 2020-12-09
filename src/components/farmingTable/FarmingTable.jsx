@@ -199,13 +199,6 @@ const MainTableHeader = styled.div`
   }
 
 `;
-// const StyledTableHeader = styled(TableHeader)`
-//   display: grid;
-//   padding: 24px 15px;
-//   border-bottom: 1px solid #e5e7eb;
-//   font-size: 13px;
-//   text-align: left;
-// `;
 
 
 
