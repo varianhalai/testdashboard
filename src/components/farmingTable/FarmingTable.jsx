@@ -243,20 +243,6 @@ const MainTableHeader = styled.div`
 `;
 
 
-const FarmingTableHeader = styled.h1`
-font-size: 2.2rem;
-text-align: center;
-font-family: ${fonts.headerFont};
-border-radius: .5rem;
-border: ${(props) => props.theme.style.mainBorder};
-box-shadow: ${(props) => props.theme.style.panelBoxShadow};
-color: ${(props) => props.theme.style.primaryFontColor};
-background-color: ${(props) => props.theme.style.lightBackground};
-color: ${(props) => props.theme.style.lightBackground};
-width: 25%;
-margin: 1rem auto;
-padding: 5px;
-`;
 
 const PanelTabContainerLeft = styled.div`
   display: flex;

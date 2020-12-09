@@ -10,7 +10,6 @@ flex-direction: column;
 align-items: center;
 width: 100%;
 height: 20rem;
-
 background-color: ${(props) => props.theme.style.panelBackground};
 border: ${(props) => props.theme.style.mainBorder};
 box-shadow: ${(props) => props.theme.style.panelBoxShadow};
@@ -18,16 +17,12 @@ border-radius: .5rem;
 overflow: hidden;
 position: relative;
 z-index: 300;
-
-
     .skeleton-header {
         margin: 0;
         height: 6rem;
         width: 100%;
         border-bottom: 2px solid black;
-
     }
-
     &::before {
         content: '';
         position: relative;
@@ -38,7 +33,6 @@ z-index: 300;
         background: linear-gradient(to right, transparent 10%, ${(props) => props.theme.style.blueBackground} 50%, transparent 100%);
         animation: load 1.8s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
     }
-
     @keyframes load {
         from {
             left: -100%;
@@ -47,10 +41,7 @@ z-index: 300;
             left: 100%;
         }
     }
-
     &.stake-skeleton
-
-
 `;
 
 
@@ -74,6 +65,9 @@ const PanelTab = styled.div`
   top: 1.2rem;
   color: ${(props) => props.theme.style.buttonFontColor};
 `;
+
+
+
 
 const AssetTableSkeleton = ({state}) => {
     return (
