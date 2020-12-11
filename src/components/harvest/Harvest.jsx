@@ -121,16 +121,19 @@ const Harvest = () => {
   
   const harvest  = async () => {
     console.log("harvesting");
-    
-    
     await state.manager.getRewards(ethers.utils.parseUnits((state.minimumHarvestAmount), 18))
-          .then(vals => {
-            console.log(vals[0])
-          })
+          .then(async vals => {
+            console.log(vals)
+            let i = 0;
+            while(i < vals.length) {
+              console.log(await vals[i].getReward.wait())
+              i++;
+            }
+            console.log('all harvested')//replace with state change after i play cyberpunk
+          }) 
           .catch(err => {
             console.log(err)
           })
-          
           setState({...state,minimumHarvestAmount: 0})
   }
 

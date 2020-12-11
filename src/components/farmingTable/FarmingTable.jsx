@@ -357,7 +357,6 @@ const FarmingTable = () => {
    if(state.summaries.length !== 0) {
     state.summaries.map(utils.prettyPosition).map((summary, index) => {
       if(summary.name === "FARM Profit Sharing") {
-        console.log(summary)
         setUnstakedFarm(summary.unstakedBalance.toString())
       }
       (
