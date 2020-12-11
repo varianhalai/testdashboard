@@ -744,8 +744,6 @@ function App() {
                                     setUnstakedFarm,
                                     setIsConnecting,
                                     openModal,
-                                    tokenAddedMessage,
-                                    setTokenAddedMessage,
                                     radio,
                                     toggleRadio}}>
       <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>

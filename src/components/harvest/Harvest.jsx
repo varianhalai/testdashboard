@@ -3,6 +3,7 @@ import HarvestContext from '../../Context/HarvestContext';
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 import harvest from "../../lib/index.js";
+import Web3 from 'web3';
 const { utils,ethers } = harvest;
 
 
@@ -115,13 +116,21 @@ const Harvest = () => {
     message: '',
     noFarm: true
   })
+
+  
+  
   const harvest  = async () => {
     console.log("harvesting");
     
+    
     await state.manager.getRewards(ethers.utils.parseUnits((state.minimumHarvestAmount), 18))
+          .then(vals => {
+            console.log(vals[0])
+          })
           .catch(err => {
             console.log(err)
           })
+          
           setState({...state,minimumHarvestAmount: 0})
   }
 
@@ -168,11 +177,12 @@ const Harvest = () => {
         if(summary.name === "FARM Profit Sharing") {
           console.log(summary)
           setUnstakedFarm(summary.unstakedBalance)
+          stake(unstakedFarm)
         }
       })
      
      console.log(unstakedFarm)
-     stake(unstakedFarm)
+     
    }
   
   const harvestAllAndStake = () => {

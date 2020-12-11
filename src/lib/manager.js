@@ -242,12 +242,15 @@ export class PoolManager {
     const lowerBound = min ? min : ethers.constants.WeiPerEther;
 
     const promises = this.pools.map(async (pool) => {
-      const earned = await pool.earned(address);
-      if (earned.gt(lowerBound)) {
-        return {
-          name: pool.name,
-          getReward: await pool.getReward(overrides),
-        };
+      if (pool.name !== "FARM Profit Sharing") {
+        const earned = await pool.earned(address);
+     
+        if (earned.gt(lowerBound)) {
+          return {
+            name: pool.name,
+            getReward: await pool.getReward(overrides),
+          };
+        }
       }
     });
 
