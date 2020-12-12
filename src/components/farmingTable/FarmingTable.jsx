@@ -345,7 +345,7 @@ const noAssetData = [
 const FarmingTable = () => {
   const {state,setState,setUnstakedFarm} = useContext(HarvestContext)
   const getThisReward= (reward) => {
-      
+      console.log(reward)
       setState({...state,minimumHarvestAmount: reward})
  }
  
@@ -406,7 +406,7 @@ const FarmingTable = () => {
           <MainTableRow key={summary.address}>
             <div className='name'>{summary.name}</div>
             <div className='active'>{String(summary.isActive)}</div>
-            <div className='earned-rewards' onClick={() =>getThisReward(summary.earnedRewards)}>{parseFloat(summary.earnedRewards).toFixed(6)}</div>
+            <div className='earned-rewards' onClick={() =>getThisReward(summary.earnedRewards)}>{Math.floor(parseFloat(summary.earnedRewards)).toFixed(6)}</div>
             <div className='staked'>{parseFloat(summary.stakedBalance).toFixed(6)}</div>
             <div className='pool'>{summary.percentOfPool}</div>
             <div className='unstaked'>{parseFloat(summary.unstakedBalance).toFixed(6)}</div>

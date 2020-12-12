@@ -200,6 +200,7 @@ const tokens2 = [
   },
   {
     name: "SUSHI:WBTC-TBTC",
+    symbol: "SLP",
     image: sushi,
     address: '0x2dbc7dd86c6cd87b525bd54ea73ebeebbc307f68',
     decimals: 18,
@@ -207,8 +208,9 @@ const tokens2 = [
   },
   {
     name: "UNI:ETH-WBTC",
+    symbol: 'UNI-V2',
     image: wbtc,
-    address: '0x2dbc7dd86c6cd87b525bd54ea73ebeebbc307f68',
+    address: '0xbb2b8038a1640196fbe3e38816f3e67cba72d940',
     decimals: 18,
     tokenImage: "https://s3.us-east-2.amazonaws.com/nomics-api/static/images/currencies/WBTC.png"
   },
@@ -310,7 +312,6 @@ const AddTokens = (props) => {
       },
       id: Math.round(Math.random() * 100000),
     }, (err, result) => {
-      console.log('provider returned', err, result)
       if(err) {
         setTokenAddedMessage(`An error has occurred, ${t.name} could not be added.`)
       }else {

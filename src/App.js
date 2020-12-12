@@ -6,8 +6,7 @@ import { reset } from "styled-reset";
 import harvest from "./lib/index.js";
 import { darkTheme, lightTheme, fonts } from "./styles/appStyles.js";
 import axios from 'axios';
-import ReactModal from 'react-modal-resizable-draggable';
-import {motion} from "framer-motion";
+
 
 //context
 import HarvestContext from './Context/HarvestContext';
@@ -22,6 +21,9 @@ import Radio from './components/radio/Radio';
 import MainContent from './components/MainContent';
 import WelcomeText from './components/WelcomeText';
 import ErrorModal from './components/ErrorModal';
+import TokenMessage from './components/statusMessages/TokenMessage';
+import HarvestingMessage from './components/statusMessages/HarvestingMessage';
+import HarvestAndStakeMessage from './components/statusMessages/HarvestAndStakeMessage';
 
 const { ethers } = harvest;
 const GlobalStyle = createGlobalStyle`
@@ -141,11 +143,9 @@ const GlobalStyle = createGlobalStyle`
     background: ${(props) => props.theme.style.highlight};
     border: ${(props) => props.theme.style.smallBorder};
     box-shadow: ${(props) => props.theme.style.buttonBoxShadow};
-    box-sizing: border-box;
     border-radius: 0.8rem;
     padding: 0.5rem 1rem;
     cursor: pointer;
-    font-family: TechnaSans;
     color: ${(props) => props.theme.style.buttonFontColor};
     font-size: 1.2rem;
 
@@ -291,8 +291,8 @@ const Panel = styled.div`
     box-shadow: ${(props) => props.theme.style.panelBoxShadow};
     margin-top: -7rem;
     position: absolute;
-    left: 40%;
-    right: 40%;
+    left: 0%;
+    right: 0%;
     @media(max-width: 768px) {
       left: 30%;
       right: 30%;
@@ -548,14 +548,18 @@ const Container = styled.div`
 
 function App() {
   
-
-  const [tokenAddedMessage,setTokenAddedMessage] = useState('')
+  //STATUS MESSAGES
+  const [tokenAddedMessage,setTokenAddedMessage] = useState('');
+  const [harvestingMessage,setHarvestingMessage] = useState('');
+  const [harvestAndStakeMessage, setHarvestAndStakeMessage] = useState({
+    first: "",
+    second: ""
+  });
+  //STATUS MESSAGES
 
   //READ ONLY 
-  
   const [isCheckingReadOnly, setIsCheckingReadOnly] = useState(false);
   const [isConnecting, setIsConnecting] =  useState(false);
-
   //READ ONLY 
 
   //UNSTAKED FARM
@@ -573,7 +577,7 @@ function App() {
     error: { message: null, type: null, display: false },
     theme: window.localStorage.getItem("HarvestFinance:Theme") || "light",
     display: false,
-    minimumHarvestAmount: 0,
+    minimumHarvestAmount: "0",
     apy: 0,
     farmPrice: 0,
     totalFarmEarned: 0
@@ -738,14 +742,18 @@ function App() {
     <HarvestContext.Provider value={{state,
                                     setState,
                                     refresh,
-                                    tokenAddedMessage,
-                                    setTokenAddedMessage,
                                     unstakedFarm,
                                     setUnstakedFarm,
                                     setIsConnecting,
                                     openModal,
                                     radio,
-                                    toggleRadio}}>
+                                    toggleRadio,
+                                    tokenAddedMessage,
+                                    setTokenAddedMessage,
+                                    harvestingMessage,
+                                    setHarvestingMessage,
+                                    harvestAndStakeMessage, 
+                                    setHarvestAndStakeMessage}}>
       <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
         <GlobalStyle />
           <Container>
@@ -833,17 +841,9 @@ function App() {
                     </Col>
                   </Row> : null}
 
-                  {tokenAddedMessage ? 
-                  <motion.div
-                  key={tokenAddedMessage}
-                  initial={{ x:0,y: -100, opacity: 0 }}
-                  animate={{ x:0,y:0, opacity: 1 }}
-                  exit={{x:0,y: -100, opacity: 1 }}>
-                    <div className='token-added-message'>
-                      <p >{tokenAddedMessage}</p>
-                    </div>
-                  </motion.div>
-                  : null}
+                  <TokenMessage />
+                  <HarvestingMessage />
+                  <HarvestAndStakeMessage />
  
                   {/* MOVED MAIN COMPONENTS INTO ITS OWN COMPONENT */}
                   {/* The welcome text display on intial load and when a wallet is connected the main content renders */}
