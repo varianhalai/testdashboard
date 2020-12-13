@@ -398,6 +398,12 @@ const assets = [
     decimals: 18,
     address: '0xB9Fa44B0911F6D777faAb2Fa9d8Ef103f25Ddf49',
   },
+  {
+    name: 'FARM_WETH_LP',
+    type: 'uniswap',
+    decimals: 18,
+    address: '0x56feAccb7f750B997B36A68625C7C596F0B41A58',
+  },
 ];
 
 /**
@@ -2063,12 +2069,18 @@ const weekFifteenPools= [
     address: '0xAd91695b4BeC2798829ac7a4797E226C78f22Abd',
     rewardAsset: assetByName('FARM'),
   },
-//  {
-//    name: 'GRAIN:FARM Uniswap',
-//    asset: assetByName('GRAIN_FARM_LP'),
-//    address: '',
-//    rewardAsset: assetByName('FARM'),
-//  },
+  {
+    name: 'GRAIN:FARM Uniswap',
+    asset: assetByName('GRAIN_FARM_LP'),
+    address: '0xe58f0d2956628921cdEd2eA6B195Fc821c3a2b16',
+    rewardAsset: assetByName('FARM'),
+  },
+  {
+    name: 'FARM:ETH Uniswap',
+    asset: assetByName('FARM_WETH_LP'),
+    address: '0x6555c79a8829b793F332f1535B0eFB1fE4C11958',
+    rewardAsset: assetByName('FARM'),
+  },
 ];
 
 
