@@ -29,11 +29,8 @@ const Harvest = () => {
       await state.manager
       .getRewards(ethers.utils.parseUnits((state.minimumHarvestAmount), 18))
       .then(async vals => {
-        
-        console.log(vals)
         let i = 0;
         while(i < vals.length) {
-          
           await vals[i].getReward.wait()
           i++;
         }
@@ -119,7 +116,6 @@ else {
     setHarvestAndStakeMessage({...harvestAndStakeMessage,first: "Harvesting your rewards and staking.",second: "This could take a while"})
      await state.manager.getRewards(ethers.utils.parseUnits((state.minimumHarvestAmount), 18))
           .then(async vals => {
-            console.log(vals)
             let i = 0;
             while(i < vals.length) {
               await vals[i].getReward.wait()
