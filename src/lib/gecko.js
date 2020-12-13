@@ -69,6 +69,14 @@ class GeckoApi {
       Object.entries(response.data).forEach(([address, {usd}]) => {
         result[address.toLowerCase()] = this.memoize(address, usd, time + 5 * 60 * 1000);
       });
+
+      // account for unknown addresses that return nothing
+      const unknown = addresses
+        .filter((address) => !(result[address.toLowerCase()]))
+        .map((address) => address.toLowerCase());
+      unknown.forEach((address) => {
+        result[address] = this.memoize(address, '0x0', time + 5 * 60 * 1000);
+      });
     }
 
     return result;
