@@ -3,45 +3,54 @@ import HarvestContext from '../../Context/HarvestContext';
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 import harvest from "../../lib/index.js";
-import HarvestAndStakeMessage from "../statusMessages/HarvestAndStakeMessage";
 const { utils,ethers } = harvest;
 
 
 
 
 const Harvest = () => {
-  const { state,setState,unstakedFarm,setUnstakedFarm,openModal,setHarvestingMessage, harvestAndStakeMessage, setHarvestAndStakeMessage } = useContext(HarvestContext)
+  const { state,setState,unstakedFarm,setUnstakedFarm,setHarvestingMessage, harvestAndStakeMessage, setHarvestAndStakeMessage } = useContext(HarvestContext)
 
-  const [modal,setModal] = useState({
-    open: false,
-    message: '',
-    noFarm: true
-  })
+ 
 
   const [isHarvesting,setHarvesting]=useState(false);
 
   
   
   const harvest  = async () => {
-    console.log("harvesting");
+    
     setHarvesting(true)
-    setHarvestingMessage("Harvesting your rewards.")
-    await state.manager.getRewards(ethers.utils.parseUnits((state.minimumHarvestAmount), 18))
-          .then(async vals => {
-            console.log(vals)
-            let i = 0;
-            while(i < vals.length) {
-              await vals[i].getReward.wait()
-              i++;
-            }
-            
-          }) 
-          .catch(err => {
-            console.log(err)
-          })
-          setState({...state,minimumHarvestAmount: "0"})
-          setHarvestingMessage("")
-          setHarvesting(false)
+    setState({...state,minimumHarvestAmount: "0"})
+    
+      console.log("harvesting");
+    
+      
+      setHarvestingMessage("Harvesting your rewards.")
+      await state.manager
+      .getRewards(ethers.utils.parseUnits((state.minimumHarvestAmount), 18))
+      .then(async vals => {
+        
+        console.log(vals)
+        let i = 0;
+        while(i < vals.length) {
+          
+          await vals[i].getReward.wait()
+          i++;
+        }
+        
+        
+      }) 
+      .catch(err => {
+        
+        if(err.code === 4001) {
+          console.log("Transaction rejected.")
+        }
+      })
+  
+      setHarvestingMessage("")
+      setHarvesting(false)
+          
+          
   }
 
   const pool = state.manager.pools.find((pool) => {
@@ -65,12 +74,9 @@ const Harvest = () => {
 else {
         await pool.stake(amount).catch((e) => {
           if (e.code !== 4001 || e.code !== -32603) {
-            openModal(
-              `You do not have enough to stake ${ethers.utils.formatEther(
-                amount,
-              )} FARM`,
-              "error",
-            );
+            console.log(`You do not have enough to stake ${ethers.utils.formatEther(
+              amount,
+            )} FARM`);
           }
         });
       }
