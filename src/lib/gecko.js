@@ -61,13 +61,15 @@ class GeckoApi {
       .filter((address) => !(result[address.toLowerCase()]))
       .map((address) => address.toLowerCase())
       .join(',');
-    const url = `${this.url}?contract_addresses=${s}&vs_currencies=USD`;
 
-    const response = await axios.get(url);
+    if (s) {
+      const url = `${this.url}?contract_addresses=${s}&vs_currencies=USD`;
+      const response = await axios.get(url);
 
-    Object.entries(response.data).forEach(([address, {usd}]) => {
-      result[address.toLowerCase()] = this.memoize(address, usd, time + 5 * 60 * 1000);
-    });
+      Object.entries(response.data).forEach(([address, {usd}]) => {
+        result[address.toLowerCase()] = this.memoize(address, usd, time + 5 * 60 * 1000);
+      });
+    }
 
     return result;
   }
