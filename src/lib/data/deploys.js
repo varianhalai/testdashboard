@@ -50,6 +50,11 @@ const assets = [
     address: '0x845838DF265Dcd2c412A1Dc9e959c7d08537f8a2',
   },
   {
+    name: 'CRV-USDN',
+    decimals: 18,
+    address: '0x4f3E8F405CF5aFC05D68142F3783bDfE13811522',
+  },
+  {
     name: 'DAI',
     decimals: 18,
     address: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
@@ -521,19 +526,20 @@ assets.push({
 //  },
 //  address: '0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8',
 //});
-assets.push({
-  name: 'CRV-USDN',
-  decimals: 18,
-  type: 'curve',
-  curveInfo: {
-    poolAddress: '0x0f9cb53Ebe405d49A0bbdBD291A65Ff571bC83e1',
-    assets: [
-      //assetByName('USDN'),
-      //assetByName('CRV-3POOL'),
-    ],
-  },
-  address: '0x4f3E8F405CF5aFC05D68142F3783bDfE13811522',
-});
+// disabled as Curve pool until underlying are available in Coingecko
+//assets.push({
+//  name: 'CRV-USDN',
+//  decimals: 18,
+//  type: 'curve',
+//  curveInfo: {
+//    poolAddress: '0x0f9cb53Ebe405d49A0bbdBD291A65Ff571bC83e1',
+//    assets: [
+//      assetByName('USDN'),
+//      assetByName('CRV-3POOL'),
+//    ],
+//  },
+//  address: '0x4f3E8F405CF5aFC05D68142F3783bDfE13811522',
+//});
 //assets.push({
 //  name: 'CRV-BUSD',
 //  decimals: 18,
