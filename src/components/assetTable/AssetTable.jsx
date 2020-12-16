@@ -1,8 +1,8 @@
-import React,{useContext} from "react";
-import HarvestContext from '../../Context/HarvestContext';
+import React, { useContext } from "react";
+import HarvestContext from "../../Context/HarvestContext";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
-import AssetTableSkeleton from './AssetTableSkeleton'
+import AssetTableSkeleton from "./AssetTableSkeleton";
 import harvest from "../../lib/index.js";
 const { ethers } = harvest;
 
@@ -20,16 +20,8 @@ const TableContainer = styled.div`
   border-top-left-radius: 0rem;
   position: relative;
   z-index: 50;
-  
-  
-  
-  
- 
-  
-  
+
 `;
-
-
 
 const PanelTabContainerLeft = styled.div`
   display: flex;
@@ -48,167 +40,159 @@ const PanelTab = styled.div`
   position: relative;
   top: 1.2rem;
   color: ${(props) => props.theme.style.buttonFontColor};
-  
-  
+
   p {
     color: ${(props) => props.theme.style.panelTabLinkColor};
     text-decoration: none;
     font-family: ${fonts.contentFont};
     font-size: 2rem;
     position: relative;
-    top: .1rem;
-    @media(max-width: 500px) {
+    top: 0.1rem;
+    @media (max-width: 500px) {
       font-size: 1.5rem;
-      top: .3rem;
+      top: 0.3rem;
     }
-    
-   
   }
-  @media(max-width: 605px) {
+  @media (max-width: 605px) {
     font-size: 1.9rem;
     padding: 0.75rem 1rem 2.2rem 1rem;
     position: relative;
-    top: .1rem;
-    
+    top: 0.1rem;
   }
-  @media(max-width: 550px) {
-    margin-right: .5rem;
+  @media (max-width: 550px) {
+    margin-right: 0.5rem;
   }
-  @media(max-width: 380px) {
+  @media (max-width: 380px) {
     font-size: 1.5rem;
-    padding: 0.75rem .75rem 2rem .75rem;
+    padding: 0.75rem 0.75rem 2rem 0.75rem;
     position: relative;
-    margin-right: .5rem;
-    top: .5rem;
+    margin-right: 0.5rem;
+    top: 0.5rem;
     p {
-      top: .4rem;
+      top: 0.4rem;
     }
   }
-  @media(max-width: 333px) {
-    margin-right: .3rem;
+  @media (max-width: 333px) {
+    margin-right: 0.3rem;
   }
 `;
-
-
 
 const columns = [
   {
     name: "Asset",
-   
-    
-    
   },
   {
     name: "Underlying Balance",
-    
   },
 ];
 
-
-
 const AssetTable = () => {
-  const {state,setState} = useContext(HarvestContext);
-  
-  
+  const { state, setState } = useContext(HarvestContext);
+
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-      {state.display ? <PanelTabContainerLeft> 
+      {state.display ? (
+        <PanelTabContainerLeft>
           <PanelTab>
-            <p>
-              your underlying assets
-            </p>
-          </PanelTab> 
-          </PanelTabContainerLeft> : null}
-     
+            <p>your underlying assets</p>
+          </PanelTab>
+        </PanelTabContainerLeft>
+      ) : null}
 
-        {state.display ? <TableContainer>
-          {state.underlyings.length ? 
-          <MainTableInner>
-          <MainTableHeader>{columns.map((col,i) => {
-            return (
-              <p className={col.name} key={i}>{col.name}</p>
-            )
-          })}</MainTableHeader>
-          {state.underlyings.map((underlying,i) => {
-           
-            let sum = ethers.utils.formatUnits(underlying.balance, underlying.asset.decimals)
-              return (
-                <MainTableRow key={i}>
-                <div className='name'>{underlying.asset.name}</div>
-                <div className='active'>{parseFloat(sum).toFixed(6)}</div>
-                
-                
-              </MainTableRow>
-              )
-          })  }
-        </MainTableInner> 
-          : 
-          <NoAssetTable>
-          <div className='header'><p>You Currently have no assets</p></div>
-          <div className='content'>
-                <div className='name'> <p>Add assets to get started</p> </div>
+      {state.display ? (
+        <TableContainer>
+          {state.underlyings.length ? (
+            <MainTableInner>
+              <MainTableHeader>
+                {columns.map((col, i) => {
+                  return (
+                    <p className={col.name} key={i}>
+                      {col.name}
+                    </p>
+                  );
+                })}
+              </MainTableHeader>
+              {state.underlyings.map((underlying, i) => {
+                let sum = ethers.utils.formatUnits(
+                  underlying.balance,
+                  underlying.asset.decimals,
+                );
+                return (
+                  <MainTableRow key={i}>
+                    <div className="name">{underlying.asset.name}</div>
+                    <div className="active">{parseFloat(sum).toFixed(6)}</div>
+                  </MainTableRow>
+                );
+              })}
+            </MainTableInner>
+          ) : (
+            <NoAssetTable>
+              <div className="header">
+                <p>You Currently have no assets</p>
               </div>
-        </NoAssetTable> }
-        </TableContainer> : <AssetTableSkeleton state={state} />}
-      
+              <div className="content">
+                <div className="name">
+                  {" "}
+                  <p>Add assets to get started</p>{" "}
+                </div>
+              </div>
+            </NoAssetTable>
+          )}
+        </TableContainer>
+      ) : (
+        <AssetTableSkeleton state={state} />
+      )}
     </ThemeProvider>
   );
 };
 
 export default AssetTable;
 
-
 const MainTableInner = styled.div`
   width: 100%;
   margin: 0 auto;
   overflow-x: scroll;
   text-align: center;
-  scrollbar-color: ${(props) => props.theme.style.scrollBarColor} ${(props) => props.theme.style.lightBackground} ;
+  scrollbar-color: ${(props) => props.theme.style.scrollBarColor}
+    ${(props) => props.theme.style.lightBackground};
   scrollbar-width: thin;
   ::-webkit-scrollbar {
     width: 100%;
-    height: .8rem;
-    margin-top: -1.8rem
-    
+    height: 0.8rem;
+    margin-top: -1.8rem;
   }
-  ::-webkit-scrollbar-track:no-button { 
+  ::-webkit-scrollbar-track:no-button {
     width: 100%;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
     background-color: ${(props) => props.theme.style.lightBackground};
   }
   ::-webkit-scrollbar-button {
     color: ${(props) => props.theme.style.primaryFontColor};
-    
   }
   ::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: black;
     background-color: ${(props) => props.theme.style.scrollBarColor};
- }
+  }
 `;
 const MainTableRow = styled.div`
   display: grid;
-  grid-template-columns:  .5fr .5fr ;
+  grid-template-columns: 0.5fr 0.5fr;
   justify-items: center;
   font-size: 1.7rem;
   font-family: ${fonts.contentFont};
   padding: 1.5rem 1rem;
   width: 100%;
-  border-bottom: 1.2px solid rgba(53, 53, 53, .15);
-  
-  
-  
+  border-bottom: 1.2px solid rgba(53, 53, 53, 0.15);
+
   div {
     text-align: center;
     width: 100%;
-    
-   
   }
-  
 `;
 const MainTableHeader = styled.div`
   display: grid;
-  grid-template-columns: .5fr .5fr ;
+  grid-template-columns: 0.5fr 0.5fr;
   justify-items: center;
   grid-gap: 20px;
   font-size: 2rem;
@@ -216,14 +200,11 @@ const MainTableHeader = styled.div`
   padding: 1.5rem 1rem;
   border-bottom: 2px black solid;
   width: 100%;
-  
- 
-  
+
   p {
-   text-align: center;
+    text-align: center;
     width: 100%;
   }
-  
 `;
 
 const NoAssetTable = styled.div`
@@ -248,7 +229,7 @@ const NoAssetTable = styled.div`
     font-family: ${fonts.contentFont};
     padding: 1.5rem 1rem;
     width: 100%;
-    border-bottom: 1.2px solid rgba(53, 53, 53, .15);
+    border-bottom: 1.2px solid rgba(53, 53, 53, 0.15);
     p {
       text-align: center;
     }
