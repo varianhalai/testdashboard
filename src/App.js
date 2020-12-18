@@ -14,10 +14,9 @@ import ReactModal from "react-modal-resizable-draggable";
 import logo from "./assets/gif_tractor.gif";
 
 // components
-import Wallet from "./components/Wallet.jsx";
+import Wallet from "./components/Wallet";
+import Radio from "./components/radio/Radio";
 import MainContent from "./components/MainContent";
-import RadioPanel from "./components/radioPanel/RadioPanel";
-
 import WelcomeText from "./components/WelcomeText";
 
 const { ethers } = harvest;
@@ -291,6 +290,35 @@ const Panel = styled.div`
     cursor:grab;
   }
 
+
+  .token-added-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: max-content;
+    background-color: ${(props) => props.theme.style.lightBackground};
+    color: ${(props) => props.theme.style.primaryFontColor};
+    font-family: ${fonts.contentFont};
+    font-size: 2rem;
+    padding: 1rem 2rem;
+    border-radius: .5rem;
+    border: ${(props) => props.theme.style.mainBorder};
+    box-shadow: ${(props) => props.theme.style.panelBoxShadow};
+    margin: -5rem auto 0 auto;
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    @media(max-width: 768px) {
+      left: 30%;
+      right: 30%;
+    }
+
+    p {
+      text-align: center;
+    }
+
+  }
+
   
 
   
@@ -327,8 +355,8 @@ const PanelTab = styled.div`
     
    
   }
-  @media(max-width: 605px) {
-    font-size: 1.9rem;
+  @media(max-width: 700px) {
+    font-size: 1.6rem;
     padding: 0.75rem 1rem 2.2rem 1rem;
     position: relative;
     top: .1rem;
@@ -338,17 +366,17 @@ const PanelTab = styled.div`
     margin-right: .5rem;
   }
   @media(max-width: 380px) {
-    font-size: 1.5rem;
-    padding: 0.75rem .75rem 2rem .75rem;
+    font-size: 1.2rem;
+    padding: 0.75rem .5rem 2rem .5rem;
     position: relative;
-    margin-right: .5rem;
+    margin-right: .0rem;
     top: .5rem;
     a {
       top: .4rem;
     }
   }
   @media(max-width: 333px) {
-    margin-right: .3rem;
+    
   }
   
 
@@ -386,6 +414,52 @@ const PanelTab = styled.div`
       
     }
     @media(max-width: 380px) {
+      margin-left: 0;
+      a {
+        font-size: 1.4rem;
+      }
+      
+    };
+    @media(max-width: 333px) {
+      margin-right: .3rem;
+    }
+  }
+
+  &.analytics-tab {
+    position: relative;
+    background-color: ${(props) => props.theme.style.wikiTabBackground};
+    top: 0.5rem;
+    margin-left: 2.5rem;
+    
+
+    &:hover {
+      top: 0rem;
+    }
+
+    a {
+      color: ${(props) => props.theme.style.primaryFontColor};
+      font-size: 1.9rem;
+      position: relative;
+      top: .1rem;
+    }
+    @media(max-width: 675px) {
+      
+      margin-left: .5rem;
+     
+      
+    }
+   
+    @media(max-width: 500px) {
+      top: 1.3rem;
+      margin-left: .5rem;
+      a {
+        font-size: 1.5rem;
+        top: -.1rem;;
+      }
+      
+    }
+    @media(max-width: 380px) {
+      margin-left: 0;
       a {
         font-size: 1.4rem;
       }
@@ -426,6 +500,13 @@ const PanelTab = styled.div`
         top: 0rem;
       }
 
+      @media(max-width: 700px) {
+        margin-left: .5rem;
+        p {
+          font-size: 1.9rem;
+        }
+        
+      }
 
       @media(max-width: 500px) {
         top: 1.4rem;
@@ -436,6 +517,7 @@ const PanelTab = styled.div`
         
       }
       @media(max-width: 380px) {
+        margin-left: 0;
         p {
           font-size: 1.4rem;
         }
@@ -470,38 +552,6 @@ const Container = styled.div`
   }
 `;
 
-const RadioTitle = styled.div`
-display: flex;
-align-items: center;
-justify-content: center;
-text-align: center;
-font-family: ${fonts.headerFont};
-font-size: 1.7rem;
-position: relative:
-z-index: 400;
-pointer-events: auto;
-h4 {
-  margin-top: .2rem;
-}
-`;
-
-const CloseIcon = styled.span`
-  position: absolute;
-  right: 1.3rem;
-  top: 0.2rem;
-  font-size: 1.7rem;
-  cursor: pointer;
-  color: ${(props) => props.theme.style.buttonFontColor};
-
-  .fas {
-    position: relative;
-    z-index: 500;
-    &:hover {
-      top: 1.5px;
-    }
-  }
-`;
-
 const ErrorModal = Loadable({
   loader: () => import("./components/ErrorModal"),
   loading() {
@@ -510,6 +560,7 @@ const ErrorModal = Loadable({
 });
 
 function App() {
+  const [tokenAddedMessage, setTokenAddedMessage] = useState("");
   const [state, setState] = useState({
     provider: undefined,
     signer: undefined,
@@ -665,7 +716,15 @@ function App() {
   };
 
   return (
-    <HarvestContext.Provider value={{ state }}>
+    <HarvestContext.Provider
+      value={{
+        state,
+        radio,
+        toggleRadio,
+        tokenAddedMessage,
+        setTokenAddedMessage,
+      }}
+    >
       <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
         <GlobalStyle />
         <Container>
@@ -701,6 +760,16 @@ function App() {
                     </a>
                   </PanelTab>
 
+                  <PanelTab className="analytics-tab">
+                    <a
+                      href="https://farmdashboard.xyz/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      analytics
+                    </a>
+                  </PanelTab>
+
                   <PanelTab className="radio-tab" onClick={toggleRadio}>
                     <p>radio</p>
                   </PanelTab>
@@ -723,27 +792,7 @@ function App() {
               </PanelTabContainer>
 
               <Panel>
-                {/* RADIO MODAL */}
-                <ReactModal
-                  isOpen={radio}
-                  onRequestClose={toggleRadio}
-                  className={"my-modal-custom-class"}
-                  initWidth={325}
-                  initHeight={100}
-                  top={0}
-                  left={0}
-                  disableResize={true}
-                >
-                  <RadioTitle>
-                    <h4>harvest radio</h4>
-                    <CloseIcon onClick={toggleRadio}>
-                      <i className="fas fa-times-circle "></i>
-                    </CloseIcon>
-                  </RadioTitle>
-                  <RadioPanel toggleRadio={toggleRadio} />
-                </ReactModal>
-
-                {/* RADIO MODAL */}
+                <Radio />
 
                 {state.address ? (
                   <Row>
