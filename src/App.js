@@ -8,6 +8,8 @@ import harvest from "./lib/index.js";
 import Loadable from "react-loadable";
 import { darkTheme, lightTheme, fonts } from "./styles/appStyles.js";
 import axios from "axios";
+import ReactModal from "react-modal-resizable-draggable";
+import { motion } from "framer-motion";
 
 // images
 import logo from "./assets/gif_tractor.gif";
@@ -289,6 +291,35 @@ const Panel = styled.div`
     cursor:grab;
   }
 
+
+  .token-added-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: max-content;
+    background-color: ${(props) => props.theme.style.lightBackground};
+    color: ${(props) => props.theme.style.primaryFontColor};
+    font-family: ${fonts.contentFont};
+    font-size: 2rem;
+    padding: 1rem 2rem;
+    border-radius: .5rem;
+    border: ${(props) => props.theme.style.mainBorder};
+    box-shadow: ${(props) => props.theme.style.panelBoxShadow};
+    margin: -5rem auto 0 auto;
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    @media(max-width: 768px) {
+      left: 30%;
+      right: 30%;
+    }
+
+    p {
+      text-align: center;
+    }
+
+  }
+
   
 
   
@@ -476,6 +507,7 @@ const ErrorModal = Loadable({
 });
 
 function App() {
+  const [tokenAddedMessage, setTokenAddedMessage] = useState("");
   const [state, setState] = useState({
     provider: undefined,
     signer: undefined,
@@ -631,7 +663,9 @@ function App() {
   };
 
   return (
-    <HarvestContext.Provider value={{ state, radio, toggleRadio }}>
+    <HarvestContext.Provider
+      value={{ state, radio, toggleRadio, tokenAddedMessage, setTokenAddedMessage }}
+    >
       <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
         <GlobalStyle />
         <Container>
