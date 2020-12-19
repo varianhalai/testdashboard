@@ -8,8 +8,6 @@ import harvest from "./lib/index.js";
 import Loadable from "react-loadable";
 import { darkTheme, lightTheme, fonts } from "./styles/appStyles.js";
 import axios from "axios";
-import ReactModal from "react-modal-resizable-draggable";
-import { motion } from "framer-motion";
 
 // images
 import logo from "./assets/gif_tractor.gif";
@@ -718,7 +716,14 @@ function App() {
 
   return (
     <HarvestContext.Provider
-      value={{ state, radio, toggleRadio, tokenAddedMessage, setTokenAddedMessage }}
+      value={{
+        state,
+        setState,
+        radio,
+        toggleRadio,
+        tokenAddedMessage,
+        setTokenAddedMessage,
+      }}
     >
       <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
         <GlobalStyle />
@@ -755,23 +760,20 @@ function App() {
                     </a>
                   </PanelTab>
 
+                  <PanelTab className="analytics-tab">
+                    <a
+                      href="https://farmdashboard.xyz/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      analytics
+                    </a>
+                  </PanelTab>
 
-
-
-                <PanelTab className="analytics-tab">
-                  <a
-                    href="https://farmdashboard.xyz/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    analytics
-                  </a>
-                </PanelTab>
-
-                <PanelTab className="radio-tab" onClick={toggleRadio}>
-                  <p>radio</p>
-                </PanelTab>
-              </PanelTabContainerLeft>
+                  <PanelTab className="radio-tab" onClick={toggleRadio}>
+                    <p>radio</p>
+                  </PanelTab>
+                </PanelTabContainerLeft>
 
                 <PanelTabContainerRight>
                   <PanelTab className="switch-panel">
@@ -792,13 +794,13 @@ function App() {
               <Panel>
                 <Radio />
 
-              {state.address ? (
-                <Row>
-                  <Col>
-                    <Wallet state={state} />
-                  </Col>
-                </Row>
-              ) : null}
+                {state.address ? (
+                  <Row>
+                    <Col>
+                      <Wallet state={state} />
+                    </Col>
+                  </Row>
+                ) : null}
 
                 {/* MOVED MAIN COMPONENTS INTO ITS OWN COMPONENT */}
                 {/* The welcome text display on intial load and when a wallet is connected the main content renders */}

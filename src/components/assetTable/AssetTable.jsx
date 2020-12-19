@@ -14,11 +14,9 @@ const TableContainer = styled.div`
 
   div[role="table"] {
     background-color: ${(props) => props.theme.style.panelBackground};
-
     padding-right: 0.35rem;
     padding-bottom: 0.35rem;
   }
-
   .rdt_TableHeadRow {
     border: ${(props) => props.theme.style.mainBorder};
     box-shadow: ${(props) => props.theme.style.panelBoxShadow};
@@ -26,7 +24,6 @@ const TableContainer = styled.div`
     border-top-right-radius: 0.5rem;
     border-top-left-radius: 0.5rem;
   }
-
   .rdt_TableBody {
     border-left: ${(props) => props.theme.style.mainBorder};
     border-right: ${(props) => props.theme.style.mainBorder};
@@ -37,7 +34,6 @@ const TableContainer = styled.div`
     border-bottom-left-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
   }
-
   .rdt_TableRow {
     font-family: ${fonts.contentFont};
     color: ${(props) => props.theme.style.primaryFontColor};
@@ -45,7 +41,6 @@ const TableContainer = styled.div`
     padding: 1rem;
     font-size: 1.7rem;
   }
-
   div[role="columnheader"] {
     color: ${(props) => props.theme.style.primaryFontColor};
     font-family: ${fonts.headerFont};
