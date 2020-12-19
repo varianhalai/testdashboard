@@ -22,10 +22,6 @@ const TableContainer = styled.div`
   border-top-left-radius: 0rem;
   position: relative;
   z-index: 50;
- 
-  
- 
-  
 `;
 
 const MainTableInner = styled.div`
@@ -56,7 +52,7 @@ const MainTableInner = styled.div`
 `;
 const MainTableRow = styled.div`
   display: grid;
-  grid-template-columns: 0.75fr 0.5fr 0.75fr 0.75fr 0.75fr 0.75fr 0.5fr;
+  grid-template-columns: 0.75fr 0.5fr 0.75fr 0.75fr 0.5fr 0.75fr 0.5fr;
   font-size: 1.7rem;
   font-family: ${fonts.contentFont};
   padding: 1.5rem 1rem;
@@ -120,7 +116,7 @@ const MainTableRow = styled.div`
 `;
 const MainTableHeader = styled.div`
   display: grid;
-  grid-template-columns: 0.75fr 0.5fr 0.75fr 0.75fr 0.75fr 0.75fr 0.5fr;
+  grid-template-columns: 0.75fr 0.5fr 0.75fr 0.75fr 0.5fr 0.75fr 0.5fr;
   grid-gap: 20px;
   font-size: 2rem;
   font-family: ${fonts.headerFont};
@@ -229,25 +225,25 @@ const PanelTab = styled.div`
 
 const columns = [
   {
-    name: "Profit Sharing Pool",
+    name: "Reward Pool",
   },
   {
-    name: "Earns",
+    name: "Earning",
   },
   {
-    name: "FARM Claimable",
+    name: "FARM to Claim",
   },
   {
-    name: "Staked",
+    name: "Asset Staked",
   },
   {
     name: "% of Pool",
   },
   {
-    name: "Unstaked",
+    name: "Value",
   },
   {
-    name: "Value",
+    name: "Unstaked",
   },
 ];
 
@@ -331,10 +327,10 @@ const FarmingTable = () => {
                       {parseFloat(summary.stakedBalance).toFixed(6)}
                     </div>
                     <div className="pool">{summary.percentOfPool}</div>
+                    <div className="value">{summary.usdValueOf}</div>
                     <div className="unstaked">
                       {parseFloat(summary.unstakedBalance).toFixed(6)}
                     </div>
-                    <div className="value">{summary.usdValueOf}</div>
                   </MainTableRow>
                 ))}
             </MainTableInner>
