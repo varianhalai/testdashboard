@@ -20,16 +20,13 @@ const BluePanel = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-
   h1 {
     font-size: 2.4rem;
     margin-bottom: 0.5rem;
   }
-
   span {
     font-size: 1.3rem;
   }
-
   @media (max-width: 1107px) {
     padding: 3.65rem 0.7rem 4rem 1.5rem;
     margin-right: 0px;
