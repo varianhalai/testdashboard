@@ -52,7 +52,7 @@ const MainTableInner = styled.div`
 `;
 const MainTableRow = styled.div`
   display: grid;
-  grid-template-columns: 0.75fr 0.5fr 0.75fr 0.75fr 0.5fr 0.75fr 0.5fr;
+  grid-template-columns: 0.75fr 0.5fr 0.75fr 0.75fr 0.75fr 0.75fr 0.5fr;
   font-size: 1.7rem;
   font-family: ${fonts.contentFont};
   padding: 1.5rem 1rem;
@@ -116,7 +116,7 @@ const MainTableRow = styled.div`
 `;
 const MainTableHeader = styled.div`
   display: grid;
-  grid-template-columns: 0.75fr 0.5fr 0.75fr 0.75fr 0.5fr 0.75fr 0.5fr;
+  grid-template-columns: 0.75fr 0.5fr 0.75fr 0.75fr 0.75fr 0.75fr 0.5fr;
   grid-gap: 20px;
   font-size: 2rem;
   font-family: ${fonts.headerFont};
@@ -152,21 +152,6 @@ const MainTableHeader = styled.div`
     &:nth-child(8) {
     }
   }
-`;
-
-const FarmingTableHeader = styled.h1`
-  font-size: 2.2rem;
-  text-align: center;
-  font-family: ${fonts.headerFont};
-  border-radius: 0.5rem;
-  border: ${(props) => props.theme.style.mainBorder};
-  box-shadow: ${(props) => props.theme.style.panelBoxShadow};
-  color: ${(props) => props.theme.style.primaryFontColor};
-  background-color: ${(props) => props.theme.style.lightBackground};
-  color: ${(props) => props.theme.style.lightBackground};
-  width: 25%;
-  margin: 1rem auto;
-  padding: 5px;
 `;
 
 const PanelTabContainerLeft = styled.div`
@@ -225,31 +210,32 @@ const PanelTab = styled.div`
 
 const columns = [
   {
-    name: "Reward Pool",
+    name: "Profit Sharing Pool",
   },
   {
-    name: "Earning",
+    name: "Earns",
   },
   {
-    name: "FARM to Claim",
+    name: "Claimable",
   },
   {
-    name: "Asset Staked",
+    name: "Staked",
   },
   {
     name: "% of Pool",
   },
   {
-    name: "Value",
+    name: "Unstaked",
   },
   {
-    name: "Unstaked",
+    name: "Value",
   },
 ];
 
 const FarmingTable = () => {
-  const { state, setState, setUnstakedFarm } = useContext(HarvestContext);
+  const { state, setState } = useContext(HarvestContext);
   const getThisReward = (reward) => {
+    console.log(reward);
     setState({ ...state, minimumHarvestAmount: reward });
   };
 
@@ -257,15 +243,10 @@ const FarmingTable = () => {
     let total = 0;
     if (state.summaries.length !== 0) {
       state.summaries.map(utils.prettyPosition).map((summary, index) => {
-        if (summary.name === "FARM Profit Sharing") {
-          console.log(summary);
-          setUnstakedFarm(summary.unstakedBalance.toString());
-        }
+        total += parseFloat(summary.historicalRewards);
         setState({
           ...state,
-          totalFarmEarned: (state.totalFarmEarned += parseFloat(
-            summary.historicalRewards,
-          )),
+          totalFarmEarned: (state.totalFarmEarned = total),
         });
       });
     }
@@ -276,6 +257,12 @@ const FarmingTable = () => {
       getTotalFarmEarned();
     }
   }, [state.summaries]);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      getTotalFarmEarned();
+    }, 60000);
+    return () => clearTimeout(timer);
+  });
 
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
@@ -321,16 +308,16 @@ const FarmingTable = () => {
                       className="earned-rewards"
                       onClick={() => getThisReward(summary.earnedRewards)}
                     >
-                      {parseFloat(summary.earnedRewards).toFixed(6)}
+                      {Math.floor(parseFloat(summary.earnedRewards)).toFixed(6)}
                     </div>
                     <div className="staked">
                       {parseFloat(summary.stakedBalance).toFixed(6)}
                     </div>
                     <div className="pool">{summary.percentOfPool}</div>
-                    <div className="value">{summary.usdValueOf}</div>
                     <div className="unstaked">
                       {parseFloat(summary.unstakedBalance).toFixed(6)}
                     </div>
+                    <div className="value">{summary.usdValueOf}</div>
                   </MainTableRow>
                 ))}
             </MainTableInner>
